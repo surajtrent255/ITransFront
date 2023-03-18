@@ -1,0 +1,82 @@
+<div id="pageWrapper" class="pageWrapper bodydiv">
+  <div class="loginBodyWrapper border-rad">
+    <div class="fleft logoLoginWrapper">
+      <div class="loginLogoWrapper">
+        <img src="../../../../assets/images/login-logo.png " alt="Pricer" />
+      </div>
+      <div class="loginBox border-rad">
+        <form
+          id="authenticate"
+          [formGroup]="loginForm"
+          (ngSubmit)="loginUser()"
+        >
+          <div>
+            <table class="loginBoxTable">
+              <tr>
+                <td class="labelColumn">Username:</td>
+                <td class="inputColumn">
+                  <input
+                    type="text"
+                    name="username"
+                    class="inputText mandatory"
+                    formControlName="email"
+                  />
+                  <span
+                    *ngIf="email && email.invalid && email.touched"
+                    class="validationMsg"
+                    ><br />Please enter valid username.</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="labelColumn">Password:</td>
+                <td class="inputColumn">
+                  <input
+                    type="password"
+                    name="password"
+                    formControlName="password"
+                    class="inputText mandatory pwdField"
+                  />
+                  <span
+                    class="validationMsg"
+                    *ngIf="password && password.invalid && password.touched"
+                    ><br />Please enter valid password.</span
+                  >
+                </td>
+              </tr>
+
+              <tr>
+                <td class="labelColumn">
+                  <tr>
+                    <td class="labelColumn"></td>
+                  </tr>
+                </td>
+
+                <td class="inputColumn">
+                  <input
+                    type="submit"
+                    class="submit_btn border-rad"
+                    [disabled]="loginForm.invalid"
+                    value="Log In"
+                  />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </form>
+        <div style="display: flex">
+          <a
+            href="/register"
+            class="submit_btn border-rad register-button"
+            value="Register"
+            >Register</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="cboth"></div>
+    <div class="footerWrapper">
+      <div class="copyrightDiv">&copy; 2023 iShani Technology.</div>
+    </div>
+  </div>
+</div>
