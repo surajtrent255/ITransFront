@@ -1,0 +1,290 @@
+<div class="contentRecordsTableContainer">
+  <div class="recordTableWrapper pane-1" id="pricingTypesTable">
+    <div class="recordCategory">
+      <h2 class="fleft" id="totalPricingTypes">Pricing Types - showing</h2>
+      <div class="fright minimizeLinkDiv">
+        <a href="" class="minimizeLink">&nbsp;</a>
+      </div>
+      <div class="cboth"></div>
+    </div>
+    <div class="searchCreateTableDiv">
+      <div class="searchCreateDiv">
+        <div class="fright" class="createPricingDiv">
+          <a href="" id="createNewPricingTypeLink" class="">
+            <img src="../../../assets/resources/images/pricing-type-bg.png" />
+            <span>Create Pricing Type</span>
+          </a>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fright configNavTableWrapper">
+            <div class="fleft configTableDiv">
+              <a href="" class="configTableLink" id="pricingTypeFilter">
+                <img
+                  src="../../../assets/resources/images/config-bg.png"
+                  title="Configure Table"
+                />
+                <span>Configure Table</span>
+                <img src="../../../assets/resources/images/th-sort-down.png" />
+              </a>
+              <div class="configTableDropdown" id="pricingTypeFilters">
+                <ul class="configOptionList" id="pricingTypeConfigList">
+                  <li class="recordsPerPage">
+                    <a href="">Records Per Page</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="fleft tableNavDiv" id="pricingTypesTablePagination">
+              <a href="" class="first first-page">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+
+              <a href="" class="next">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
+            </div>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="pricingTypesRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="first-child sortable keyPricingType"
+                  sortCol="unid"
+                  sortDir="asc"
+                >
+                  Unique Key
+                </th>
+                <th
+                  class="sortable namePricingType"
+                  sortCol="description"
+                  sortDir="asc"
+                >
+                  Description
+                </th>
+                <th
+                  data-sorter="false"
+                  class="sortable"
+                  sortCol="operation"
+                  sortDir="asc"
+                >
+                  Operation Id
+                </th>
+                <th
+                  data-sorter="false"
+                  class="sortable"
+                  sortCol="target"
+                  sortDir="asc"
+                >
+                  Target
+                </th>
+                <th
+                  data-sorter="false"
+                  class="sortable"
+                  sortCol="optionalArgs"
+                  sortDir="asc"
+                >
+                  Optional Arguments
+                </th>
+                <th class="last-child" data-sorter="false"></th>
+              </tr>
+            </thead>
+            <tbody id="pricingTypeTable">
+              <tr id="pritype_${pricingType.unid}">
+                <td class="first-child priTypeUnid">pricingType.unid</td>
+                <td class="pricing-type pricingTypeDescription">
+                  pricingType.description
+                </td>
+                <td>pricingType.operation</td>
+                <td class="pricing-target">pricingType.targetText</td>
+                <td>pricingType.optionalArgs</td>
+                <td class="last-child">
+                  <a href="" class="editRowLink pricingType">
+                    <img src="../../../assets/resources/images/editRow.png" />
+                  </a>
+                  <a href="" class="deleteRowLink deletePricingType">
+                    <img src="../../../assets/resources/images/deleteRow.png" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="recordTableWrapper pane-1" id="pricingSeqTable">
+    <div class="recordCategory">
+      <h2 class="fleft" id="totalPricingSequences">
+        Pricing Sequences - showing
+      </h2>
+      <div class="fright minimizeLinkDiv">
+        <a href="" class="minimizeLink">&nbsp;</a>
+      </div>
+      <div class="cboth"></div>
+    </div>
+    <div class="searchCreateTableDiv">
+      <div class="searchCreateDiv">
+        <div class="fright" class="createPricingDiv">
+          <a href="" id="createNewPricingSeq" class="createPricingSeq">
+            <img src="../../../assets/resources/images/pricing-type-bg.png" />
+            <span>Create Pricing Sequence</span>
+          </a>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fright configNavTableWrapper">
+            <div class="fleft configTableDiv">
+              <a href="" class="configTableLink" id="customerFilter">
+                <img
+                  src="../../../assets/resources/images/config-bg.png"
+                  title="Configure Table"
+                />
+                <span>Configure Table</span>
+                <img src="../../../assets/resources/images/th-sort-down.png" />
+              </a>
+              <div class="configTableDropdown" id="pricingSeqTableFilters">
+                <ul class="configOptionList" id="pricingSeqConfigList">
+                  <li class="recordsPerPage">
+                    <a href="">Records Per Page</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="fleft tableNavDiv" id="pricingSeqTablePagination">
+              <a href="" class="first first-page">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+
+              <a href="" class="next">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
+            </div>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="pricingSeqRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="first-child sortable pricingSeqIDCol"
+                  sortCol="unid"
+                  sortDir="desc"
+                >
+                  Unique ID
+                </th>
+                <th
+                  class="sortable nameSequence"
+                  sortCol="description"
+                  sortDir="asc"
+                >
+                  Sequence Name
+                </th>
+                <th class="last-child" data-sorter="false"></th>
+              </tr>
+            </thead>
+            <tbody id="pricingSequenceTable">
+              <tr class="expandableRow" id="pritype_${pricingSequence.unid}">
+                <td class="first-child">
+                  <a href="" class="expandRowLink"
+                    ><img src="../../../assets/resources/images/expand-row.png"
+                  /></a>
+                  <a href="" class="collapseRowLink hidden"
+                    ><img
+                      src="../../../assets/resources/images/collapse-row.png"
+                  /></a>
+                  <span id="sequenceUnid">pricingSequence.unid</span>
+                </td>
+                <td class="pricing-seq-desc">pricingSequence.description</td>
+                <td class="last-child">
+                  <a
+                    href="#"
+                    class="savePricingLink"
+                    id="editPricingSequence"
+                    hidden
+                    ><img src="../../../assets/resources/images/saveLink.png"
+                  /></a>
+                  <a href="" class="closeEditRowLink hidden"
+                    ><img
+                      src="../../../assets/resources/images/delete-edit-row.png"
+                  /></a>
+                  <a href="" class="editPricingSeqPricingTypeRow">
+                    <img src="../../../assets/resources/images/editRow.png" />
+                  </a>
+                  <a href="" class="deleteRowLink deletePricingSequence">
+                    <img src="../../../assets/resources/images/deleteRow.png" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="" style="display: none" id="pricingTypeDetails">
+  <div id="val_pritype_${pricingType.unid}">
+    <span class="priTypeUnid">pricingType.unid</span>
+    <span class="priTypeDescription">pricingType.description</span>
+    <span class="priTypeOperationId">pricingType.operationId</span>
+    <span class="priTypeTarget">pricingType.target</span>
+    <span class="priTypeOptionalArgs">pricingType.optionalArgs</span>
+  </div>
+</div>
+
+<div class="pricingTypePaginationData" style="display: none">
+  <span class="startIndex">1</span>
+  <span class="endIndex">pricinngTypeListSize</span>
+  <span class="sortCol">unid</span>
+  <span class="sortDir">asc</span>
+</div>
+<div class="pricingSeqPaginationData" style="display: none">
+  <span class="startIndex">1</span>
+  <span class="endIndex">pricingSequenceListSize</span>
+  <span class="sortCol">unid</span>
+  <span class="sortDir">asc</span>
+</div>
+
+<div id="pricingTypeDropdownDivPricingType" style="display: none">
+  <select id="pricingTypeDropDown">
+    <option value="data">data</option>
+  </select>
+</div>

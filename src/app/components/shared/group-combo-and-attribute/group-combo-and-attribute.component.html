@@ -1,0 +1,444 @@
+<div class="contentRecordsTableContainer">
+  <div class="recordTableWrapper pane-1" id="groupCombinationsTable">
+    <div class="recordCategory">
+      <h2 class="fleft" id="totalGroupCombinations">
+        Group Combinations - showing
+      </h2>
+      <div class="fright minimizeLinkDiv">
+        <a href="" class="minimizeLink">&nbsp;</a>
+      </div>
+      <div class="cboth"></div>
+    </div>
+    <div class="searchCreateTableDiv">
+      <div class="searchCreateDiv">
+        <div class="fright" class="createPricingDiv">
+          <a
+            href=""
+            id="createGroupCombinations"
+            class="createNewGroupCominations"
+          >
+            <img src="../../../assets/resources/images/create_group_comb.png" />
+            <span>Create Group Combination</span>
+          </a>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fright configNavTableWrapper">
+            <!-- Configuration Link -->
+            <div class="fleft configTableDiv">
+              <a href="" class="configTableLink" id="groupComboFilter">
+                <img
+                  src="../../../assets/resources/images/config-bg.png"
+                  title="Configure Table"
+                />
+                <span>Configure Table</span>
+                <img src="../../../assets/resources/images/th-sort-down.png" />
+              </a>
+              <div class="configTableDropdown" id="groupComboTableFilters">
+                <ul class="configOptionList" id="groupComboConfigList">
+                  <li class="recordsPerPage">
+                    <a href="">Records Per Page</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Done -->
+            <div class="fleft tableNavDiv" id="pricingTypesTablePagination">
+              <a href="" class="first first-page">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+
+              <a href="" class="next">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
+            </div>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="pricingTypesRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="first-child keyCustomer sortable"
+                  sortCol="unid"
+                  sortDir="desc"
+                >
+                  Unique Key
+                </th>
+                <th
+                  class="nameCustomer sortable"
+                  sortCol="description"
+                  sortDir="asc"
+                >
+                  Description
+                </th>
+                <th
+                  data-sorter="false"
+                  class="sortable"
+                  sortCol="type"
+                  sortDir="asc"
+                >
+                  Type
+                </th>
+                <th
+                  data-sorter="false"
+                  class="sortable"
+                  sortCol="sequence"
+                  sortDir="asc"
+                >
+                  Priority
+                </th>
+                <th
+                  data-sorter="false"
+                  class="sortable"
+                  sortCol="comboGroupIds"
+                  sortDir="asc"
+                >
+                  Group IDs
+                </th>
+                <th class="last-child" data-sorter="false"></th>
+              </tr>
+            </thead>
+            <tbody id="groupComboTable">
+              <tr>
+                <td class="first-child groupComboUnid">groupCombo.unid</td>
+                <td class="groupComboDescription">groupCombo.description</td>
+                <td class="groupComboType">groupCombo.type</td>
+                <td class="groupComboSequence">groupCombo.sequence</td>
+                <td class="groupComboIds">groupCombo.comboGroupIds</td>
+                <td class="groupComboCommentText" style="display: none">
+                  groupCombo.commentText
+                </td>
+                <td class="last-child">
+                  <a href="" class="editRowLink editGroupCombo">
+                    <img src="../../../assets/resources/images/editRow.png" />
+                  </a>
+                  <a href="" class="deleteRowLink deleteGroupCombo">
+                    <img src="../../../assets/resources/images/deleteRow.png" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="coloumnTwoTablesWrap">
+    <!--  in div class -->
+    <div
+      class="recordTableWrapper coloumnTwoTables fleft pane-1"
+      style="width: 100%; overflow: hidden"
+      id="ProductAttributesTable"
+    >
+      <!-- <div style="display: grid"> -->
+      <div class="recordCategory">
+        <h2 class="fleft" id="totalProductAttributes">
+          Product Attributes - showing
+        </h2>
+        <div class="fright minimizeLinkDiv">
+          <a href="" class="minimizeLink">&nbsp;</a>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="searchCreateTableDiv" style="background-color: whitesmoke">
+        <div class="searchCreateDiv">
+          <div class="fright" class="createPricingDiv">
+            <a
+              href=""
+              id="createProductAttribute"
+              class="createProductAttribute"
+            >
+              <img
+                src="../../../assets/resources/images/create_pricing_seq.png"
+              />
+              <span>Create Product Attribute</span>
+            </a>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="tableWrapper">
+          <div class="tablesettingDiv">
+            <div class="fright configNavTableWrapper">
+              <!-- Configuration Link -->
+              <div class="fleft configTableDiv">
+                <a href="" class="configTableLink" id="prodAttrFilter">
+                  <img
+                    src="../../../assets/resources/images/config-bg.png"
+                    title="Configure Table"
+                  />
+                  <span>Configure Table</span>
+                  <img
+                    src="../../../assets/resources/images/th-sort-down.png"
+                  />
+                </a>
+                <div class="configTableDropdown" id="prodAttrTableFilters">
+                  <ul class="configOptionList" id="prodAttrConfigList">
+                    <li class="recordsPerPage">
+                      <a href="">Records Per Page</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Done -->
+              <div class="fleft tableNavDiv" id="pricingSeqTablePagination">
+                <a href="" class="first first-page">
+                  <img src="../../../assets/resources/images/first-page.png" />
+                </a>
+                <a href="" class="prev">
+                  <img src="../../../assets/resources/images/prev-page.png" />
+                </a>
+                <span class="showingText">Page</span>
+                <span class="pagedisplay"><span class="pageNum">1</span> </span>
+
+                <a href="" class="next">
+                  <img src="../../../assets/resources/images/next-page.png" />
+                </a>
+                <a href="" class="last last-page">
+                  <img src="../../../assets/resources/images/last-page.png" />
+                </a>
+              </div>
+            </div>
+            <div class="cboth"></div>
+          </div>
+          <div class="recordsTableDiv">
+            <table
+              cellspacing="0"
+              cellpadding="0"
+              class="recordsTable"
+              id="pricingSeqRecordsTable"
+            >
+              <thead>
+                <tr>
+                  <th
+                    class="first-child col_unid sortable"
+                    sortCol="unid"
+                    sortDir="desc"
+                  >
+                    UNID
+                  </th>
+                  <th
+                    class="col_name sortable"
+                    sortCol="description"
+                    sortDir="asc"
+                  >
+                    Name
+                  </th>
+                  <th
+                    class="col_Coloumn_name sortable"
+                    sortCol="columnName"
+                    sortDir="asc"
+                  >
+                    Column Name
+                  </th>
+                  <th
+                    class="col_type sortable"
+                    sortCol="columnType"
+                    sortDir="asc"
+                  >
+                    Type
+                  </th>
+                  <th class="last-child" data-sorter="false"></th>
+                </tr>
+              </thead>
+              <tbody id="productAttributeDisplay">
+                <tr>
+                  <td class="first-child pro-add-unid">prodAttribute.unid</td>
+                  <td class="productAttributeName">
+                    prodAttribute.description
+                  </td>
+                  <td>prodAttribute.columnName</td>
+                  <td>prodAttribute.columnType</td>
+                  <td class="last-child">
+                    <a href="" class="deleteRowLink deleteProductAttribute">
+                      <img
+                        src="../../../assets/resources/images/deleteRow.png"
+                      />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ProductAttributesTable -->
+    <div
+      class="recordTableWrapper coloumnTwoTables fright pane-1"
+      style="width: 100%; overflow: hidden; background-color: whitesmoke"
+      id="CustomersAttributesTable"
+    >
+      <div class="recordCategory">
+        <h2 class="fleft" id="totalCustomerAttributes">
+          Customer Attributes - showing
+        </h2>
+        <div class="fright minimizeLinkDiv">
+          <a href="" class="minimizeLink">&nbsp;</a>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="searchCreateTableDiv">
+        <div class="searchCreateDiv">
+          <div class="fright" class="createPricingDiv">
+            <a
+              href=""
+              id="createCustomerAttribute"
+              class="createCustomerAttribute"
+            >
+              <img
+                src="../../../assets/resources/images/create_customer_attr.png"
+              />
+              <span>Create Customer Attribute</span>
+            </a>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="tableWrapper">
+          <div class="tablesettingDiv">
+            <div class="fright configNavTableWrapper">
+              <!-- Configuration Link -->
+              <div class="fleft configTableDiv">
+                <a href="" class="configTableLink" id="custAttrFilter">
+                  <img
+                    src="../../../assets/resources/images/config-bg.png"
+                    title="Configure Table"
+                  />
+                  <span>Configure Table</span>
+                  <img
+                    src="../../../assets/resources/images/th-sort-down.png"
+                  />
+                </a>
+                <div class="configTableDropdown" id="custAttrTableFilters">
+                  <ul class="configOptionList" id="custAttrConfigList">
+                    <li class="recordsPerPage">
+                      <a href="">Records Per Page</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Done -->
+              <div class="fleft tableNavDiv" id="pricingSeqTablePagination">
+                <a href="" class="first first-page">
+                  <img src="../../../assets/resources/images/first-page.png" />
+                </a>
+                <a href="" class="prev">
+                  <img src="../../../assets/resources/images/prev-page.png" />
+                </a>
+                <span class="showingText">Page</span>
+                <span class="pagedisplay"><span class="pageNum">1</span> </span>
+
+                <a href="" class="next">
+                  <img src="../../../assets/resources/images/next-page.png" />
+                </a>
+                <a href="" class="last last-page">
+                  <img src="../../../assets/resources/images/last-page.png" />
+                </a>
+              </div>
+            </div>
+            <div class="cboth"></div>
+          </div>
+          <div class="recordsTableDiv">
+            <table
+              cellspacing="0"
+              cellpadding="0"
+              class="recordsTable"
+              id="customerAttributeTable"
+            >
+              <thead>
+                <tr>
+                  <th
+                    class="first-child col_unid sortable"
+                    sortCol="unid"
+                    sortDir="desc"
+                  >
+                    UNID
+                  </th>
+                  <th
+                    class="col_name sortable"
+                    sortCol="description"
+                    sortDir="asc"
+                  >
+                    Name
+                  </th>
+                  <th
+                    class="col_Coloumn_name sortable"
+                    sortCol="columnName"
+                    sortDir="asc"
+                  >
+                    Column Name
+                  </th>
+                  <th
+                    class="col_type sortable"
+                    sortCol="columnType"
+                    sortDir="asc"
+                  >
+                    Type
+                  </th>
+                  <th class="last-child" data-sorter="false"></th>
+                </tr>
+              </thead>
+              <tbody id="customerAttributeDisplay">
+                <tr>
+                  <td class="first-child cust-add-unid">custAttribute.unid</td>
+                  <td class="customerAttributeName">
+                    custAttribute.description
+                  </td>
+                  <td>custAttribute.columnName</td>
+                  <td>custAttribute.columnType</td>
+                  <td class="last-child">
+                    <a href="" class="deleteRowLink deleteCustomerAttribute">
+                      <img
+                        src="../../../assets/resources/images/deleteRow.png"
+                      />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- CustomersAttributesTable -->
+</div>
+<!-- coloumnTwoTablesWrap -->
+<!-- </div> -->
+
+<div class="cboth"></div>
+
+<div class="groupComboPaginationData" style="display: none">
+  <span class="startIndex">1</span>
+  <span class="endIndex">groupComboListSize</span>
+  <span class="sortCol">unid</span>
+  <span class="sortDir">asc</span>
+</div>
+<div class="productAttrPaginationData" style="display: none">
+  <span class="startIndex">1</span>
+  <span class="endIndex">productAttributeListSize</span>
+  <span class="sortCol">unid</span>
+  <span class="sortDir">asc</span>
+</div>
+<div class="customerAttrPaginationData" style="display: none">
+  <span class="startIndex">1</span>
+  <span class="endIndex">customerAttributeListSize</span>
+  <span class="sortCol">unid</span>
+  <span class="sortDir">asc</span>
+</div>

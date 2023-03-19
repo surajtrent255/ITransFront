@@ -1,0 +1,240 @@
+<div class="contentRecordsTableContainer">
+  <div class="testingHeader">
+    <div class="fleft">
+      <span>Choose Quote: </span>
+      <select class="inputText selectQuote" id="quotesList">
+        <option value="testingQuote.unid">testingQuote.name</option>
+      </select>
+    </div>
+    <div class="fright">
+      <a href="" id="createNewQuoteLink" class="">
+        <img src="../../../assets/resources/images/createNewQuote.png" />
+        <span>Create New Quote</span>
+      </a>
+    </div>
+    <div class="cboth"></div>
+  </div>
+  <form id="testingQuoteForm">
+    <div class="recordTableWrapper" id="quoteFormWrapper">
+      <div class="recordCategory">
+        <h2 class="fleft"><span class="quoteName"></span></h2>
+        <div class="fright">
+          <label style="float: left">
+            <input type="checkbox" id="traceQuote" />
+            Trace
+          </label>
+          <div style="float: left; width: 85px">
+            <input
+              type="image"
+              src="../../../assets/resources/images/price-quote-btn.png"
+              id="priceQuoteBtn"
+            />
+          </div>
+          <div class="viewTraceImage">
+            <a href="#">
+              <img
+                src="../../../assets/resources/images/view-trace-btn.png"
+                id="viewTraceBtn"
+                style="margin-left: 7px"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="testingQuoteFormLineWrapper">
+        <div class="quoteFormField">
+          <table class="quoteFormFieldTable">
+            <tr>
+              <td>
+                <span class="labelSpan">Customer ID: </span>
+                <input class="inputText custId" type="text" />
+              </td>
+              <td class="last-column">
+                <span class="labelSpan">Date: </span>
+                <input class="inputText quoteDate" type="text" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="labelSpan">Description: </span>
+                <span class="quoteDesc"></span>
+              </td>
+              <td class="last-column">
+                <span class="labelSpan">Pricing Sequence: </span>
+                <select class="inputText pricingSeq">
+                  <option value="pricingSeq.unid">
+                    pricingSeq.description
+                  </option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="labelSpan">Organization Groups: </span>
+                <textarea
+                  class="jstree-drop-org qouteOrgsArea inputText mandatory"
+                  unid=""
+                ></textarea>
+                <div style="margin-left: 108px" class="validationMsg">
+                  Please enter valid Organization group.
+                </div>
+              </td>
+              <td class="last-column">
+                <span class="labelSpan">Qoute Preferences: </span>
+                <input class="inputText quotePref" type="text" />
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="lineItemWrapper">
+          <div class="lineItemsHeader">
+            <h3 class="fleft">Line Items</h3>
+            <div class="fright">
+              <a href="" id="addlineItemLink">
+                <img src="../../../assets/resources/images/addlineItem.png" />
+                <span>Add Line Item</span>
+              </a>
+              <a href="" id="chooseColumnLineItemTable">
+                <img src="../../../assets/resources/images/chooseCol-bg.png" />
+                <span>Choose Columns</span>
+              </a>
+            </div>
+            <div class="cboth"></div>
+          </div>
+          <div class="lineItemTableWrapper large-pane-1">
+            <table
+              class="lineItemTable recordsTable"
+              cellspacing="0"
+              cellpadding="0"
+              id="lineItemTable"
+            >
+              <thead>
+                <th class="first-child">Product ID</th>
+                <th>Qty</th>
+                <th>Product</th>
+                <th class="descriptionTD">Description</th>
+                <th class="operandTD">Operand</th>
+                <th class="amountTD">Amount</th>
+                <th class="resultTD">Result</th>
+                <th class="unitPriceTD">Unit Price</th>
+                <th class="totalPriceTD">Total Price</th>
+                <th class="last-child">Optional Args</th>
+              </thead>
+              <tbody class="lineItemTbody">
+                <tr class="expandableRow lineItemRow" id="">
+                  <td class="first-child">count</td>
+                  <td>
+                    <input
+                      type="text"
+                      class="inputText rangeInput"
+                      value="lineItem.quantity"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="inputText rangeInput"
+                      value="lineItem.productNumber"
+                    />
+                  </td>
+                  <td class="descriptionTD">lineItem.productDesc</td>
+                  <td class="operandTD"></td>
+                  <td class="amountTD"></td>
+                  <td class="resultTD"></td>
+                  <td class="unitPriceTD">lineItem.price</td>
+                  <td class="totalPriceTD">lineItem.price</td>
+                  <td class="last-child">
+                    <input
+                      type="text"
+                      class="inputText rangeInput"
+                      value="lineItem.optionalArgs"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quoteOperationsDivWrapper">
+      <input
+        type="button"
+        value="Save Quote"
+        class="submit_btn border-rad saveQuote"
+        isnew="false"
+      />
+      <input
+        type="button"
+        value="Delete Quote"
+        class="submit_btn border-rad deleteQuote"
+      />
+      <a
+        href=""
+        class="quoteOptionDropdownLink submit_btn border-rad"
+        id="quoteOptionDropdownLink"
+      >
+        <span>Quote Options</span>
+        <img src="../../../assets/resources/images/dropdown-white-bg.png" />
+      </a>
+      <div class="helpDropdown" id="quoteOptionsList">
+        <ul class="helpOptionsList quoteOptions">
+          <li class="">
+            <a
+              href=""
+              class="popupLink"
+              link="renameQuotePopup"
+              id="renameQuoteLink"
+              >Rename Quote</a
+            >
+          </li>
+          <li class="">
+            <a
+              href=""
+              class="popupLink"
+              link="clearHeaderInfoPopup"
+              id="clearHeaderInfoLink"
+              >Clear Header Info</a
+            >
+          </li>
+          <li class="">
+            <a
+              href=""
+              class="popupLink"
+              link="clearLineItemsPopup"
+              id="clearLineItemsLink"
+              >Clear Line Items</a
+            >
+          </li>
+          <li class="">
+            <a
+              href=""
+              class="popupLink"
+              link="clearRelatedLineItemsPopup"
+              id="clearRelatedLinesLink"
+              >Clear Related Line Items</a
+            >
+          </li>
+          <li class="">
+            <a
+              href=""
+              class="popupLink"
+              link="queryForLineItemsPopup"
+              id="queryLineItemsLink"
+              >Query For Line Items</a
+            >
+          </li>
+          <li class="">
+            <a href="" link="renameQuotePopup" id="exportToFileLink"
+              >Export To File</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="cboth"></div>
+<div class="userName" style="display: none">userName</div>

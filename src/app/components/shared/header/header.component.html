@@ -1,0 +1,1008 @@
+<div id="headerWrapper" class="headerWrapper">
+  <div class="logoutDiv">
+    <div class="fright" style="padding-right: 30px">
+      <a href="/logout">
+        <img
+          src="../../../../assets/resources/images/logout-bg.png"
+          class="logoutImage"
+        />
+        <span>logout</span>
+      </a>
+    </div>
+    <div class="cboth"></div>
+  </div>
+  <div class="headerNav">
+    <div class="fleft">
+      <img
+        src="../../../../assets/resources/images/logo.png"
+        alt="Pricer Manager"
+      />
+    </div>
+    <div class="fright mainNavWrapper">
+      <ul class="mainNavList">
+        <li>
+          <a href="" id="configurationLink">
+            <img
+              src="../../../../assets/resources/images/configuration-bg.png"
+            />
+            <span>Configuration</span>
+          </a>
+        </li>
+        <li>
+          <a href="" id="pricingPreferencesLink">
+            <img src="../../../../assets/resources/images/pricing-bg.png" />
+            <span>Pricing Preferences</span>
+          </a>
+        </li>
+        <li>
+          <a href="" id="administratorLink">
+            <img
+              src="../../../../assets/resources/images/administrator-bg.png"
+            />
+            <span>Administrator</span>
+          </a>
+        </li>
+        <li>
+          <a href="" id="reportsLink">
+            <img src="../../../../assets/resources/images/reports-bg.png" />
+            <span>Reports</span>
+          </a>
+        </li>
+        <li class="last-child">
+          <a href="" id="helpLink">
+            <img src="../../../../assets/resources/images/help-bg.png" />
+            <span>Help</span>
+          </a>
+          <div class="helpDropdown" id="helpDropDownList">
+            <ul class="helpOptionsList">
+              <li class="">
+                <a href="">SC Pricer Maintenance Help</a>
+              </li>
+              <li class="">
+                <a href="">About Price</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cboth"></div>
+  </div>
+
+  <!--Page Overlay Popup-->
+  <div class="pageOverlay"></div>
+
+  <div class="popupWrapper" id="chooseLayoutOptionsPopup" style="display: none">
+    <div class="popupHeading">
+      <h2 class="fleft">Master Data - Layout Options</h2>
+      <a href="" class="closeButton fright"
+        ><img
+          src="../../../../assets/resources/images/removetablink.png"
+          alt="close"
+      /></a>
+      <div class="cboth"></div>
+    </div>
+    <div class="popupSubHeadingDiv layoutDivSubHeading">
+      <h1 class="heading">Select a Layout</h1>
+      <div>Choose a layout for the Master Data Tab.</div>
+    </div>
+    <div class="popupContentWrapper">
+      <form id="" action="" method="">
+        <div class="chooseColoumnsWrapper">
+          <div class="fieldDiv popUpFormSectionWrapper">
+            <table
+              class="formSection masterlayoutOptionTable"
+              cellpadding="0"
+              cellspacing="0"
+            >
+              <tr>
+                <td class="col1">
+                  <label for="horizontally-stacked-option">
+                    <input
+                      type="radio"
+                      id="horizontally-stacked-option"
+                      name="chosenLayout"
+                    />
+                    Horizontally Stacked<br />
+                    <img
+                      src="../../../../assets/resources/images/horizon-stack-link.png"
+                      class="layoutImage"
+                    />
+                  </label>
+                </td>
+                <td class="col2">
+                  <label for="mixed-layout-A-option">
+                    <input
+                      type="radio"
+                      id="mixed-layout-A-option"
+                      name="chosenLayout"
+                    />
+                    Mixed Layout A<br />
+                    <img
+                      src="../../../../assets/resources/images/mixed-layout-A-link.png"
+                      class="layoutImage"
+                    />
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td class="col1">
+                  <label for="vertically-stacked-option">
+                    <input
+                      type="radio"
+                      id="vertically-stacked-option"
+                      name="chosenLayout"
+                    />
+                    Vertically Stacked<br />
+                    <img
+                      src="../../../../assets/resources/images/vertical-stack-link.png"
+                      class="layoutImage"
+                    />
+                  </label>
+                </td>
+                <td class="col2">
+                  <label for="mixed-layout-B-option">
+                    <input
+                      type="radio"
+                      id="mixed-layout-B-option"
+                      name="chosenLayout"
+                    />
+                    Mixed Layout B<br />
+                    <img
+                      src="../../../../assets/resources/images/mixed-layout-B-link.png"
+                      class="layoutImage"
+                    />
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td class="col1">
+                  <label for="tabbed-layout-option">
+                    <input
+                      type="radio"
+                      id="tabbed-layout-option"
+                      name="chosenLayout"
+                    />
+                    Tabbed layout<br />
+                    <img
+                      src="../../../../assets/resources/images/tabbed-layout-link.png"
+                      class="layoutImage"
+                    />
+                  </label>
+                </td>
+                <td class="col2"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="submitDiv tCenter">
+          <input
+            type="button"
+            value="Save"
+            class="submit_btn border-rad"
+            id="saveSelectedLayoutButton"
+          />
+          <input
+            type="button"
+            value="Cancel"
+            class="submit_btn cancel_btn border-rad"
+          />
+        </div>
+      </form>
+      <div id="selectedPane1Name" style="display: none">
+        <!-- ${UI_CONFIGURATION['LAYOUT_PANE_POSITION_1']} -->
+      </div>
+      <div id="selectedPane2Name" style="display: none">
+        <!-- ${UI_CONFIGURATION['LAYOUT_PANE_POSITION_2']} -->
+      </div>
+      <div id="selectedPane3Name" style="display: none">
+        <!-- ${UI_CONFIGURATION['LAYOUT_PANE_POSITION_3']} -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Pane Selection in Layout Popup -->
+  <div class="popupWrapper" id="paneSelectionPopup" style="">
+    <div class="layout-pane-selection">
+      <div class="popupHeading">
+        <h2 class="fleft changeable horizontalComponent">
+          Horizontally Stacked Data
+        </h2>
+        <h2 class="fleft changeable verticalComponent">
+          Vertically Stacked Data
+        </h2>
+        <h2 class="fleft changeable mixedTypeAComponent">
+          Mixed type-A Stacked Data
+        </h2>
+        <h2 class="fleft changeable mixedTypeBComponent">
+          Mixed type-B Stacked Data
+        </h2>
+        <h2 class="fleft changeable tabbedComponent">Tabbed Stacked Data</h2>
+        <a href="" class="closeButton fright"
+          ><img
+            src="../../../../assets/resources/images/removetablink.png"
+            alt="close"
+        /></a>
+        <div class="cboth"></div>
+      </div>
+      <div class="popupSubHeadingDiv layoutDivSubHeading">
+        <h1 class="heading">Select a Layout</h1>
+        <div>Choose a table for each of the panes.</div>
+      </div>
+      <div class="popupContentWrapper">
+        <form id="" action="" method="">
+          <div class="chooseColoumnsWrapper">
+            <div class="popUpFormSectionWrapper">
+              Drag and drop a table from the 'Tables' list to a pane in the
+              'Layout' area to place it within that pane. Note that only one
+              table can be added to a pane.
+            </div>
+            <div class="fieldDiv popUpFormSectionWrapper">
+              <div class="fleft paneSelectionWrapper">
+                <h4>Layout</h4>
+                <div class="paneselectionTableWrapper">
+                  <table
+                    cellpadding="5"
+                    cellspacing="10"
+                    class="paneSelectionTable changeable horizontalComponent"
+                  >
+                    <tr>
+                      <td class="selectedPane1 panes" tableId="">Pane 1</td>
+                      <td class="selectedPane2 panes" tableId="">Pane 2</td>
+                      <td class="selectedPane3 panes" tableId="">Pane 3</td>
+                    </tr>
+                  </table>
+                  <table
+                    cellpadding="5"
+                    cellspacing="10"
+                    class="paneSelectionTable changeable verticalComponent"
+                  >
+                    <tr>
+                      <td class="selectedPane1 panes" tableId="">Pane 1</td>
+                    </tr>
+                    <tr>
+                      <td class="selectedPane2 panes" tableId="">Pane 2</td>
+                    </tr>
+                    <tr>
+                      <td class="selectedPane3 panes" tableId="">Pane 3</td>
+                    </tr>
+                  </table>
+                  <table
+                    cellpadding="5"
+                    cellspacing="10"
+                    class="paneSelectionTable changeable mixedTypeAComponent"
+                  >
+                    <tr>
+                      <td colspan="2" class="selectedPane1 panes" tableId="">
+                        Pane 1
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="selectedPane2 panes" tableId="">Pane 2</td>
+                      <td class="selectedPane3 panes" tableId="">Pane 3</td>
+                    </tr>
+                  </table>
+                  <table
+                    cellpadding="5"
+                    cellspacing="10"
+                    class="paneSelectionTable changeable mixedTypeBComponent"
+                  >
+                    <tr>
+                      <td class="selectedPane1 panes" tableId="">Pane 1</td>
+                      <td class="selectedPane2 panes" tableId="">Pane 2</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" class="selectedPane3 panes" tableId="">
+                        Pane 3
+                      </td>
+                    </tr>
+                  </table>
+                  <table
+                    cellpadding="5"
+                    cellspacing="10"
+                    class="paneSelectionTable changeable tabbedComponent"
+                  >
+                    <tr>
+                      <td class="selectedPane1 panes" tableId="">Pane 1</td>
+                      <td class="selectedPane2 panes" tableId="">Pane 2</td>
+                      <td class="selectedPane3 panes" tableId="">Pane 3</td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" height="50px"></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <div class="fright paneSelectionWrapper">
+                <h4>Tables</h4>
+                <div class="tableOptionWrapper">
+                  <ul>
+                    <li class="customerTable" table="customerRecordTable">
+                      Customer
+                    </li>
+                    <li class="adjustmentTable" table="adjustmentRecordTable">
+                      Adjustment
+                    </li>
+                    <li class="productTable" table="productsRecordTable">
+                      Product
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="cboth"></div>
+              <div class="panesSelectionWarning warning-msg validationMsg">
+                Please select all panes with different tables.
+              </div>
+            </div>
+          </div>
+          <div class="submitDiv tCenter">
+            <input
+              type="button"
+              value="Save"
+              class="submit_btn border-rad"
+              id="saveSelectedPanesButton"
+            />
+            <input
+              type="button"
+              value="Cancel"
+              class="submit_btn cancel_btn border-rad"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- <script type="text/javascript">
+  $(function(){
+      $( ".tableOptionWrapper ul li" ).draggable({
+              appendTo: "body",
+              helper: "clone",
+              zIndex: 20
+          });
+      var validationError = false;
+      $('.paneSelectionTable tr td.panes').droppable({
+          accept: ".tableOptionWrapper ul li",
+          drop: function( event, ui ) {
+              // $(this).removeClass('panes');
+              var tableID = ui.draggable.attr('table');
+              $(this).parents('.paneSelectionTable').children().find('.panes').each(function(){
+                  if($(this).attr('tableId')==""){
+                      //alert($(this).text());					
+                      validationError = true;
+                      return false;
+                  }
+                  else{validationError = false;}
+              })
+               $(this).text(ui.draggable.text());
+               $(this).attr('tableId',ui.draggable.attr('table'));
+               $(this).removeClass('adjustmentRecordTable');
+               $(this).removeClass('productsRecordTable');
+               $(this).removeClass('customerRecordTable');
+               $(this).addClass(tableID);
+               if($('.paneSelectionTable:visible .panes.adjustmentRecordTable').length==1 && $('.paneSelectionTable:visible .panes.productsRecordTable').length==1 && $('.paneSelectionTable:visible .panes.customerRecordTable').length==1){
+                   validationError = false;	
+               }
+               else{
+                   validationError = true;				 	
+               }
+              if(validationError == true){
+                  $('.panesSelectionWarning').show();
+              }
+              else{
+                  $('.panesSelectionWarning').hide();	
+              }
+          }
+      })
+  
+      $('#saveSelectedPanesButton').live('click',function(){
+  
+          if(validationError==true){
+              alert('Please select the panes appropriately');
+              return false;
+          }
+          var paneFirstId = $('.paneSelectionTable:visible tr td.selectedPane1').attr('tableId');
+         // alert(paneFirstId);
+          var paneSecondId = $('.paneSelectionTable:visible tr td.selectedPane2').attr('tableId');
+          //alert(paneSecondId);
+          var paneThirdId = $('.paneSelectionTable:visible tr td.selectedPane3').attr('tableId');
+          //alert(paneThirdId);
+  
+          if($('.paneSelectionTable:visible').hasClass('tabbedComponent')){
+              $('.tabbed-layout-links li').removeClass('pane-1-link');
+              $('.tabbed-layout-links li').removeClass('pane-2-link');
+              $('.tabbed-layout-links li').removeClass('pane-3-link');
+              $('.tabbed-layout-links li.active').removeClass('active');
+              $('.tabbed-layout-links li#link-'+paneFirstId).addClass('pane-1-link');
+              $('.tabbed-layout-links li#link-'+paneSecondId).addClass('pane-2-link');
+              $('.tabbed-layout-links li#link-'+paneThirdId).addClass('pane-3-link');
+              $('.tabbed-layout-links li.pane-1-link').addClass('active');
+  
+              $('.tabbed-layout-links li.pane-1-link').after($('.tabbed-layout-links li.pane-2-link'));
+              $('.tabbed-layout-links li.pane-2-link').after($('.tabbed-layout-links li.pane-3-link'));
+          }
+          else{
+              $('.contentRecordsTableContainer.master-data-table-container .recordTableWrapper.pane-1').show();
+              $('.contentRecordsTableContainer.master-data-table-container .recordTableWrapper.pane-2').show();
+              $('.contentRecordsTableContainer.master-data-table-container .recordTableWrapper.pane-3').show();
+          }
+  
+  
+          $('.contentRecordsTableContainer .recordTableWrapper').removeClass('pane-1');
+          $('.contentRecordsTableContainer .recordTableWrapper').removeClass('pane-2');
+          $('.contentRecordsTableContainer .recordTableWrapper').removeClass('pane-3');
+  
+          $('#'+paneFirstId).addClass('pane-1');
+          $('#'+paneSecondId).addClass('pane-2');
+          $('#'+paneThirdId).addClass('pane-3');
+  
+          $('.recordTableWrapper.pane-1').after($('.recordTableWrapper.pane-2'));
+          $('.recordTableWrapper.pane-2').after($('.recordTableWrapper.pane-3'));
+  
+          $('.pageOverlay').fadeOut('fast');
+          $('.popupWrapper').fadeOut('fast');
+          addLayoutConfiguration(paneFirstId+","+paneSecondId+","+paneThirdId,"LAYOUT_PANE_POSITION_1,LAYOUT_PANE_POSITION_2,LAYOUT_PANE_POSITION_3");
+          return false;
+  
+      })
+  });	
+  </script> -->
+  </div>
+
+  <!--- Configuration Popup -->
+  <div class="popupWrapper" id="configurationSettingPopup" style="">
+    <div class="popupHeading">
+      <h2 class="fleft">Configuration</h2>
+      <a href="" class="closeButton fright"
+        ><img
+          src="../../../../assets/resources/images/removetablink.png"
+          alt="close"
+      /></a>
+      <div class="cboth"></div>
+    </div>
+    <div class="popupSubHeadingDiv configurationSubHeading">
+      <h1 class="heading">Configuration</h1>
+      <div>Configure application.</div>
+    </div>
+    <div class="popupContentWrapper configPopupWrapper">
+      <form id="" action="" method="">
+        <div class="tabListWrapper">
+          <ul class="tabList popupTablist" id="configurationTabList">
+            <li class="active">
+              <a href="" class="fleft tab-1 confTab1" tab="1">General</a>
+            </li>
+            <li>
+              <a href="" class="fleft tab-2 confTab2" tab="2">Testing</a>
+            </li>
+          </ul>
+        </div>
+        <div class="popupFormField">
+          <div id="configurationTabList-Div">
+            <div class="tabs-section tab-1">
+              <div class="fieldDiv popUpFormSectionWrapper">
+                <div class="configListItem">
+                  <label for="showTableIdTreeCheck" style="margin-right: 10px">
+                    <input type="checkbox" id="showTableIdTreeCheck" />
+                    <span class=""> Show the table Unique IDs in tree. </span>
+                  </label>
+                  <label for="showTableIdDialogCheck">
+                    <input type="checkbox" id="showTableIdDialogCheck" />
+                    <span class="">
+                      Show the table Unique IDs in Dialogs.
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div class="fieldDiv popUpFormSectionWrapper">
+                <div class="configListItem">
+                  <span>Effective Dates: </span>
+                  <input
+                    type="text"
+                    class="inputText datepickerInput"
+                    id="effDateFrom"
+                    readonly
+                  />
+                  <span class="toDateSpan">to</span>
+                  <input
+                    type="text"
+                    class="inputText datepickerInput"
+                    id="effDateTo"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div>
+                <input
+                  type="button"
+                  value="Reset to default Setings"
+                  class="submit_btn border-rad"
+                  id="resetDefaultSettings"
+                />
+              </div>
+            </div>
+            <div class="tabs-section tab-2">
+              <div class="fieldDiv popUpFormSectionWrapper">
+                <div class="configListItem">
+                  <label for="traceEngineLogonCheck">
+                    <span class="">
+                      <input
+                        type="button"
+                        value="Trace Pricer Engine during logon."
+                        class="submit_btn border-rad"
+                        id="engineTraceFile"
+                      />
+                    </span>
+                  </label>
+                </div>
+                <div class="configListItem">
+                  <label for="getProductsMasterNameCheck">
+                    <input type="checkbox" id="getProductsMasterNameCheck" />
+                    <span class=""> Get products Master Name. </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="tabs-section tab-3"></div>
+          </div>
+        </div>
+        <div class="submitDiv tCenter">
+          <input
+            type="button"
+            value="Save"
+            class="submit_btn border-rad"
+            id="configurationBtn"
+          />
+          <input
+            type="button"
+            value="Cancel"
+            class="submit_btn cancel_btn border-rad"
+          />
+        </div>
+      </form>
+    </div>
+    <div class="popupWrapper alertConfPopup" id="confirmDeleteSettings">
+      <div class="popupHeading">
+        <h2 class="fleft">Confirm</h2>
+        <a href="" class="closeButton fright"
+          ><img
+            src="../../../../assets/resources/images/removetablink.png"
+            alt="close"
+        /></a>
+        <div class="cboth"></div>
+      </div>
+      <div class="popupContentWrapper">
+        <form>
+          <div class="contentDiv">
+            <div class="contentChildTextDiv">Your Changes will be lost.</div>
+            <div class="contentChildTextDiv">
+              Click OK to continue or Cancel to discard.
+            </div>
+          </div>
+          <div class="submitDiv tCenter">
+            <input
+              type="button"
+              value="OK"
+              class="submit_btn border-rad blueGradient resetSettings"
+            />
+            <input
+              type="button"
+              value="Cancel"
+              class="submit_btn cancel_btn border-rad"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="defaultConfigurationData" style="display: none">
+      <span id="showTableIdTreeCheckDefault"
+        >CONFIGURATION['TABLE_UNIQUE_ID_IN_TREE']</span
+      >
+      <span id="showTableIdDialogCheckDefault"
+        >CONFIGURATION['TABLE_UNIQUE_ID_IN_DIALOGS']</span
+      >
+      <span id="effDateFromDefault">CONFIGURATION['EFF_DATE_FROM']</span>
+      <span id="effDateToDefault">CONFIGURATION['EFF_DATE_TO']</span>
+      <span id="getProductsMasterNameCheckDefault"
+        >CONFIGURATION['GET_PRD_MASTER_NAME']</span
+      >
+    </div>
+    <!-- <script type="text/javascript">	
+  $(function(){
+      /*---- Date Picker input ---- */		
+      
+          $('.datepickerInput').datepicker({
+                  dateFormat: "mm/dd/yy",					
+                  showOn: "button",
+                  buttonImage: "../../../../assets/resources/images/calendar-bg.png",
+                  buttonImageOnly: true
+              });
+          $('.calculatorBrowseButton').live('click',function(event){
+              event.preventDefault();
+              $('.calculatorBrowse').trigger('click');
+              return false;
+          })
+          $('.textEditorBrowseButton').live('click',function(event){
+              event.preventDefault();
+              $('.textEditorBrowse').trigger('click');
+              return false;
+          })
+  
+          $('.textEditorBrowse').live('change',function(){
+              $('.textEditorInput').val($(this).val());
+          });
+          $('.calculatorBrowse').live('change',function(){
+              $('.calculatorInput').val($(this).val());
+          })
+  
+      })	
+      
+      
+  </script> -->
+  </div>
+
+  <div class="popupWrapper" id="pricingPreferencePopup" style="display: none">
+    <div class="popupHeading">
+      <h2 class="fleft">Pricing Preferences</h2>
+      <a href="" class="closeButton fright"
+        ><img
+          src="../../../../assets/resources/images/removetablink.png"
+          alt="close"
+      /></a>
+      <div class="cboth"></div>
+    </div>
+    <div class="popupSubHeadingDiv pricingPreferenceSubHeading">
+      <h1 class="heading">Pricing Preferences</h1>
+      <div>View/add Pricing Preferences.</div>
+    </div>
+    <div class="popupContentWrapper">
+      <form id="" action="" method="">
+        <div class="setDiv">
+          <a href="" id="savePricingPreference">
+            <img src="../../../../assets/resources/images/saveLink.png" />
+            <span>Commit Changes</span>
+          </a>
+          <a href="" id="addPricingPreferenceLink">
+            <img src="../../../../assets/resources/images/addPref.png" />
+            <span>Add Preferences</span>
+          </a>
+        </div>
+        <div class="popupFormField">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable pricingPrefTable"
+            id="pricingPrefTable"
+          >
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Pref ID</th>
+                <th>Description</th>
+                <th>Value</th>
+                <th>UNID</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="pricingPrefBody">
+              <
+              <tr id="pricingPref-${preference.unid}">
+                <td>
+                  <select
+                    class="inputText popTableSelect prefTypeDropDown"
+                    id="preferenceType"
+                  >
+                    <option value="-1">Choose type</option>
+
+                    <option value="pref.prefType" selected="selected">
+                      pref.prefName
+                    </option>
+
+                    <option value="pref.prefType">pref.prefName</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    class="inputText popTableSelect prefIdDropDown"
+                    id="preferencesIdDD"
+                  >
+                    <option value="-1">Choose Pref ID</option>
+                    <!-- <c:forEach items="preferences" var="prefs">
+                                  <c:choose>
+                                      <c:when test="prefs.prefType == preference.type">
+                                          <c:forEach items="${prefs.prefList}" var="pref">
+                                              <c:choose>
+                                                  <c:when test="${pref.unid == preference.prefId}">
+                                                      <option value="${pref.name}" selected="selected">${pref.unid}</span>
+                                                  </c:when>
+                                                  <c:otherwise>
+                                                      <option value="${pref.name}">${pref.unid}</option>
+                                                  </c:otherwise>
+                                              </c:choose>
+                                          </c:forEach>
+                                      </c:when>
+                                  </c:choose>
+                              </c:forEach> -->
+                  </select>
+                </td>
+                <td>
+                  <select
+                    class="inputText popTableSelect prefNameDropDown"
+                    id="preferencesNameDD"
+                  >
+                    <option value="-1">Choose Pref</option>
+                    <!-- <c:forEach items="${preferences}" var="prefs">
+                                  <c:choose>
+                                      <c:when test="${prefs.prefType == preference.type}">
+                                          <c:forEach items="${prefs.prefList}" var="pref">
+                                              <c:choose>
+                                                  <c:when test="${pref.unid == preference.prefId}">
+                                                      <option value="${pref.unid}" selected="selected">${pref.name}</span>
+                                                  </c:when>
+                                                  <c:otherwise>
+                                                      <option value="${pref.unid}">${pref.name}</option>
+                                                  </c:otherwise>
+                                              </c:choose>
+                                          </c:forEach>
+                                      </c:when>
+                                  </c:choose>
+                              </c:forEach> -->
+                  </select>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    class="inputText popTableInputText"
+                    value="preference.prefValue"
+                  />
+                </td>
+                <td>preference.unid</td>
+                <td>
+                  <a href="#" class="deletePricingPref">
+                    <img
+                      src="../../../../assets/resources/images/deleteRow.png"
+                      alt="Delete"
+                    />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="submitDiv tCenter">
+          <input
+            type="button"
+            value="Close"
+            class="submit_btn cancel_btn border-rad"
+          />
+        </div>
+        <div style="display: none" id="pricingPrefData">
+          <!-- <c:forEach items="${preferences}" var="prefs">
+              <div id="${prefs.prefName}" unid="${prefs.prefType}">
+                  <c:forEach items="${prefs.prefList}" var="pref">
+                      <span class="prefName" unid="${pref.unid}">${pref.name}</span>
+                  </c:forEach>
+              </div>
+          </c:forEach> -->
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div
+    class="popupWrapper popupwrapperSmall"
+    id="administratorPopup"
+    style="display: none"
+  >
+    <div class="popupHeading">
+      <h2 class="fleft">Administrator</h2>
+      <a href="" class="closeButton fright"
+        ><img
+          src="../../../../assets/resources/images/removetablink.png"
+          alt="close"
+      /></a>
+      <div class="cboth"></div>
+    </div>
+    <div class="popupSubHeadingDiv administratorSubHeading">
+      <h1 class="heading">Administrator</h1>
+      <div>Adminstrator preferences</div>
+    </div>
+    <div class="popupContentWrapper">
+      <form id="" action="" method="">
+        <div class="chooseColoumnsWrapper" style="padding: 5px">
+          <div class="fieldDiv popUpFormSectionWrapper">
+            <div class="setDiv" style="margin-bottom: 20px">
+              <div class="sectionHeading">Update References</div>
+              <input
+                id="updateRefBtn"
+                type="image"
+                src="../../../../assets/resources/images/updateRefBtn.png"
+                value="Update References"
+              />
+            </div>
+            <div class="setDiv" style="margin-bottom: 10px">
+              <div class="sectionHeading">SQL tracing</div>
+              <label for="sqlTracingCheck">
+                <input type="checkbox" id="sqlTracingCheck" />
+                <span class=""> Turn on SQL tracing </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="submitDiv tCenter" style="padding-top: 0px">
+          <!-- <input type="button" value="Create" class="submit_btn border-rad" id="addCustomer"/> -->
+          <input
+            type="button"
+            value="Close"
+            class="submit_btn cancel_btn border-rad"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div
+    class="popupWrapper popupwrapperSmall"
+    id="recordsPerPagePopUp"
+    style="display: none"
+  >
+    <div class="popupHeading">
+      <h2 class="fleft">Records Per Page</h2>
+      <a href="" class="closeButton fright"
+        ><img
+          src="../../../../assets/resources/images/removetablink.png"
+          alt="close"
+      /></a>
+      <div class="cboth"></div>
+    </div>
+    <div class="popupContentWrapper">
+      <form id="recordPerPageForm">
+        <div class="chooseColoumnsWrapper create_group_wrapper_popup">
+          <div class="fieldDiv popUpFormSectionWrapper">
+            <table class="formSection" cellpadding="0" cellspacing="0">
+              <tr>
+                <td class="col1">Records:</td>
+                <td class="col2">
+                  <input
+                    type="text"
+                    id="records"
+                    class="inputText mandatory"
+                    title="Enter Text"
+                  />
+                  <span class="validationMsg"
+                    ><br />Please enter a number.</span
+                  >
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="submitDiv tCenter">
+          <input
+            type="button"
+            value="Set"
+            class="submit_btn border-rad submitBtn"
+            id="recordsPerPage"
+          />
+          <input
+            type="button"
+            value="Cancel"
+            class="submit_btn cancel_btn border-rad"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="popupWrapper" id="reportsPopup" style="display: none">
+    <div class="popupHeading">
+      <h2 class="fleft">Reports</h2>
+      <a href="" class="closeButton fright"
+        ><img
+          src="../../../../assets/resources/images/removetablink.png"
+          alt="close"
+      /></a>
+      <div class="cboth"></div>
+    </div>
+    <div class="popupSubHeadingDiv reportsSubHeading">
+      <h1 class="heading">Reports</h1>
+      <div>Create and run Queries.</div>
+    </div>
+    <div class="popupContentWrapper">
+      <form id="" action="" method="">
+        <div class="setDiv">
+          <div class="fleft">
+            <span>Choose Report Query: </span>
+            <select class="inputText querySelect">
+              <option>Query 1</option>
+              <option>Query 2</option>
+              <option>Query 3</option>
+              <option>Query 4</option>
+            </select>
+          </div>
+          <div class="fright">
+            <a href="#" class="newReportQueryLink">
+              <img
+                src="../../../../assets/resources/images/createNewQuery.png"
+                alt=""
+              />
+              <span>Create New Report Query</span>
+            </a>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="queryWrapper">
+          <div class="recordCategory">
+            <h2 class="fleft">Query A</h2>
+            <div class="cboth"></div>
+          </div>
+          <div class="popupFormField">
+            <div class="queryWrittenArea">
+              <h2 class="queryHeading">Query</h2>
+              <textarea class="queryTextarea"> </textarea>
+              <div class="fright">
+                <a href="#">
+                  <img
+                    src="../../../../assets/resources/images/execute-query.png"
+                  />
+                </a>
+              </div>
+              <div class="cboth"></div>
+            </div>
+            <div class="queryResultWrapper">
+              <table
+                cellspacing="0"
+                cellpadding="0"
+                class="recordsTable pricingPrefTable"
+              >
+                <thead>
+                  <tr>
+                    <th>tril_grid</th>
+                    <th>Modification date</th>
+                    <th>Amount</th>
+                    <th>end_date</th>
+                    <th>high_range</th>
+                    <th>low_range</th>
+                    <th>object_name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="queryOperationsWrapper">
+              <input
+                type="button"
+                class="border-rad submit_btn"
+                value="Save Query"
+              />
+              <input
+                type="button"
+                class="border-rad submit_btn"
+                value="Delete Query"
+              />
+              <input
+                type="button"
+                class="border-rad submit_btn mr0"
+                value="Export Query Result"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="submitDiv tCenter">
+          <input
+            type="button"
+            value="Close"
+            class="submit_btn cancel_btn border-rad"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

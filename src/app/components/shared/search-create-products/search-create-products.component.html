@@ -1,0 +1,446 @@
+<div class="recordCategory">
+  <h2 id="totalProducts" class="fleft">
+    Products - showing productListSize of totalProductRecords
+  </h2>
+  <div class="fright minimizeLinkDiv">
+    <a href="" class="minimizeLink">&nbsp;</a>
+  </div>
+  <div class="cboth"></div>
+</div>
+<div class="searchCreateTableDiv">
+  <div class="searchCreateDiv">
+    <div class="fleft searchDiv" id="prodSearch">
+      <input
+        class="inputText hintText"
+        type="text"
+        search="off"
+        value="Enter CustomerPartName/MasterPartName to Search"
+      />
+      <input
+        type="image"
+        src="../../../assets/resources/images/searchButton.png"
+        class="serachButton"
+        title="Search Term"
+      />
+      <a href="#" class="genLink">Clear search</a>
+    </div>
+    <div class="fright" class="createProductDiv">
+      <a href="" id="createNewProduct" class="createNewTableRecord">
+        <img src="../../../assets/resources/images/createProduct.png" />
+        <span>Create Product</span>
+      </a>
+    </div>
+    <div class="cboth"></div>
+  </div>
+  <div class="tableWrapper">
+    <div class="tablesettingDiv">
+      <div class="fleft filterListWrapper">
+        <div class="fleft">
+          <span class="italicText"></span>
+        </div>
+        <ul
+          class="fleft filtersDisplayList productsTableFiltersDisplayList"
+        ></ul>
+        <div class="cboth"></div>
+      </div>
+      <div class="fright configNavTableWrapper">
+        <div
+          class="fleft configTableDiv newFilterItem"
+          dropdownId="productsTableFilters"
+        >
+          <a href="" class="">
+            <img
+              src="../../../assets/resources/images/newfilter-bg.png"
+              alt="New Filter"
+              title="Add new filter"
+            />
+            <span id="newProductFilter" search="off">New Filter</span>
+          </a>
+        </div>
+        <div class="fleft configTableDiv">
+          <a href="" class="configTableLink">
+            <img src="../../../assets/resources/images/config-bg.png" />
+            <span>Configure Table</span>
+            <img src="../../../assets/resources/images/th-sort-down.png" />
+          </a>
+          <div class="configTableDropdown" id="productsTableFilters">
+            <ul class="configOptionList" id="productConfigList">
+              <li class="filterItem">
+                <span>Recent Filters</span>
+                <ul class="filterList" id="productFilterList">
+                  <!-- <c:if test="${not empty productFilters}"> -->
+                  <!-- <c:forEach items="${productFilters}" var="filter"> -->
+                  <li>
+                    <a
+                      href=""
+                      class="filterLink productFilterName"
+                      style="
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                      "
+                      >filter.name</a
+                    >
+                    <span class="productFilterId" style="display: none"
+                      >filter.id</span
+                    >
+                    <div
+                      class="productFilterReqData hoverData"
+                      style="display: none"
+                    >
+                      filter.reqData
+                    </div>
+                  </li>
+                  <!-- </c:forEach> -->
+                  <!-- </c:if> -->
+                  <!-- <c:if test="${not empty productFilterSeeMore}"> -->
+                  <li class="seeAllFilterLink">
+                    <a href="" class="seeMoreLink">See More</a>
+                    <ul class="allFiltersList productAllFilterList">
+                      <!-- <c:forEach items="${productFilterSeeMore}" var="filter"> -->
+                      <li>
+                        <a
+                          href=""
+                          class="filterLink productFilterName"
+                          style="
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          "
+                          >filter.name</a
+                        >
+                        <span class="productFilterId" style="display: none"
+                          >filter.id</span
+                        >
+                        <div
+                          class="productFilterReqData hoverData"
+                          style="display: none"
+                        >
+                          filter.reqData
+                        </div>
+                      </li>
+                      <!-- </c:forEach> -->
+                    </ul>
+                  </li>
+                  <!-- </c:if> -->
+                </ul>
+              </li>
+              <li class="chooseCol">
+                <a href="">Choose Columns</a>
+              </li>
+              <li class="recordsPerPage">
+                <a href="">Records Per Page</a>
+              </li>
+              <li class="exportTableLink">
+                <a href="">Export Table</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="fleft tableNavDiv" id="productsTablePagination">
+          <a href="" class="first first-page pageNumber">
+            <img src="../../../assets/resources/images/first-page.png" />
+          </a>
+          <a href="" class="prev pageNumber">
+            <img src="../../../assets/resources/images/prev-page.png" />
+          </a>
+          <span class="showingText">Page</span>
+          <span class="pagedisplay"><span class="pageNum">1</span> </span>
+          <!-- <c:choose>
+                          <c:when test="${(totalProductRecords mod 10)!=0}">
+                              <c:set var="res" value="${(totalProductRecords - (totalProductRecords mod productTableRecords))/productTableRecords + 1}"/>
+                              <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                              <span class="totalPage">${totalPage}</span>
+                          </c:when>
+                          <c:otherwise>
+                              <c:set var="res" value="${totalProductRecords/10}"/>
+                              <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                              <span class="totalPage">${totalPage}</span>
+                          </c:otherwise>
+                        </c:choose> -->
+          <a href="" class="next pageNumber">
+            <img src="../../../assets/resources/images/next-page.png" />
+          </a>
+          <a href="" class="last last-page pageNumber">
+            <img src="../../../assets/resources/images/last-page.png" />
+          </a>
+        </div>
+      </div>
+      <div class="cboth"></div>
+    </div>
+    <div class="recordsTableDiv">
+      <table
+        cellspacing="0"
+        cellpadding="0"
+        class="recordsTable"
+        id="productsRecordsTable"
+      >
+        <thead>
+          <tr>
+            <th
+              class="first-child sortable"
+              sortDir="asc"
+              sortCol="organization_id"
+              id="PROD_ORG_ID"
+            >
+              Org Id
+            </th>
+            <th
+              class="sortable"
+              sortDir="asc"
+              sortCol="organization_name"
+              id="PROD_ORG_NAME"
+            >
+              Org Name
+            </th>
+            <th
+              class="sortable"
+              sortDir="asc"
+              sortCol="customer_name"
+              id="PROD_CUSTOMER_NAME"
+            >
+              Customer Part Name
+            </th>
+            <th
+              class="sortable"
+              sortDir="asc"
+              sortCol="master_name"
+              id="PROD_MASTER_NAME"
+            >
+              Master Part Name
+            </th>
+            <th
+              class="sortable"
+              sortDir="asc"
+              sortCol="product_group_name"
+              id="PROD_GROUP_NAME"
+            >
+              Product Group
+            </th>
+            <th class="last-child"></th>
+          </tr>
+        </thead>
+        <tbody id="prodTable">
+          <tr>
+            <span class="noProdRecord">No records found</span>
+          </tr>
+          <!-- <c:forEach items="${products}" var="product">  -->
+          <tr id="prod_{product.unid}">
+            <td class="first-child org-id">product.organizationId</td>
+            <td class="product-name">product.organizationName</td>
+            <td>product.customerName</td>
+            <td>product.masterName</td>
+            <td>product.productGroupName</td>
+            <td class="last-child">
+              <a href="" class="editRowLink products">
+                <img src="../../../assets/resources/images/editRow.png" />
+              </a>
+              <a href="" class="deleteRowLink">
+                <img src="../../../assets/resources/images/deleteRow.png" />
+              </a>
+            </td>
+          </tr>
+          <!-- </c:forEach>	 -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="popupWrapper" id="createNewProductPopup" style="display: none">
+  <div class="popupHeading">
+    <h2 class="fleft">Create Product</h2>
+    <a href="" class="closeButton fright"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv createProduct">
+    <h1 class="heading">Create Product</h1>
+    <div>Create a new Product.</div>
+  </div>
+  <div class="popupContentWrapper">
+    <form id="createProduct" action="/product/add" method="POST">
+      <div class="chooseColoumnsWrapper">
+        <div class="fieldDiv popUpFormSectionWrapper">
+          <table class="formSection" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="col1">Unique ID:</td>
+              <td class="col2">6578</td>
+              <td class="col3"></td>
+            </tr>
+            <tr>
+              <td class="col1">
+                Customer Part Name:<span class="mandatorySign">*</span>
+              </td>
+              <td class="col2">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Customer part name.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+            <tr>
+              <td class="col1">
+                Master Part Name:<span class="mandatorySign">*</span>
+              </td>
+              <td class="col2">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  id="masterPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Master part name.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+            <tr class="">
+              <td class="col1">Org/Customer ID:</td>
+              <td class="col2">
+                <div class="jsTokenWrapper adjustmentTokensWrapper">
+                  <ul class="tokenList tableDataDND" id="organizationId"></ul>
+                  <div class="dragDropInfo">
+                    Drag the organization group and drop here.
+                  </div>
+                  <input
+                    type="text"
+                    class="inputText customer-id-drop tokenInputText customerGroupId mandatory jstree-drop-org"
+                    unid=""
+                    title="Enter Text"
+                    id="orgId"
+                  /><br />
+                </div>
+                <!-- <input type="text" class="inputText customer-id-drop tokenInputText customerGroupId mandatory jstree-drop-org" title="Enter Text" id="orgId"/> -->
+                <span class="validationMsg"
+                  ><br />Please enter valid Org/Customer ID.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+            <tr class="customer-name-field-row">
+              <td class="col1">Org/Customer Name:</td>
+              <td class="col2 customer-name customerNameVal dropDNDName"></td>
+              <td class="col3"></td>
+            </tr>
+            <tr>
+              <td class="col1">
+                Product Group(s):<span class="mandatorySign">*</span>
+              </td>
+              <td class="col2 posRel">
+                <div class="jsTokenWrapper productGroupsTokensWrapper">
+                  <ul class="tokenList"></ul>
+                  <div class="dragDropInfo">
+                    Drag the Product group and drop here.
+                  </div>
+                  <input
+                    type="text"
+                    class="inputText tokenInputText mandatory jstree-drop-product"
+                    title="Enter Text"
+                    unid=""
+                    id="productId"
+                  />
+                </div>
+                <span class="warning-msg italicText"
+                  >Use commas to separate multiple product groups</span
+                >
+                <span class="validationMsg"
+                  ><br />Please enter valid Product groups.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+            <tr>
+              <td class="col1">Effectively Dates:</td>
+              <td class="col2">
+                <input
+                  type="text"
+                  class="inputText datepickerInput startDate mandatory"
+                  id="proStartDate"
+                  readonly
+                  value="${CONFIGURATION['EFF_DATE_FROM']}"
+                />
+                <span class="toDateSpan">to</span>
+                <input
+                  type="text"
+                  class="inputText datepickerInput mandatory endDate"
+                  id="proEndDate"
+                  readonly
+                  value="${CONFIGURATION['EFF_DATE_TO']}"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Effective dates.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+            <tr>
+              <td class="col1">Attributes:</td>
+              <td class="col2">
+                <table class="attrTable" cellspacing="2" cellpadding="2">
+                  <thead>
+                    <tr>
+                      <th class="colAttr">Attributes</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody class="prodAttributes"></tbody>
+                </table>
+              </td>
+              <td class="col3"></td>
+            </tr>
+            <tr>
+              <td class="col1">Comments:</td>
+              <td class="col2">
+                <textarea
+                  id="proCommentText"
+                  class="textArea inputText"
+                ></textarea>
+              </td>
+              <td class="col3"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="submitDiv tCenter">
+        <input
+          type="button"
+          value="Create"
+          class="submit_btn border-rad"
+          id="addProduct"
+        />
+        <input
+          type="button"
+          value="Cancel"
+          class="submit_btn cancel_btn border-rad"
+        />
+      </div>
+    </form>
+  </div>
+  <!-- <script type="text/javascript">
+        /*---- Date Picker input ---- */
+            $('.datepickerInput').datepicker({
+                    dateFormat: "mm/dd/yy",
+                    showOn: "button",
+                    buttonImage: "../../../assets/resources/images/calendar-bg.png",
+                    buttonImageOnly: true
+                });
+            dragNDrop();
+    
+            $(function(){
+                $('#custPartName').blur(function(){
+                    $('#masterPartName').val($('#custPartName').val());
+                })
+            })
+    </script> -->
+</div>
