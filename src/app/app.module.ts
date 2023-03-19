@@ -17,6 +17,14 @@ import { LoginComponent } from './components/shared/login/login.component';
 import { DemoComponent } from './components/demo/demo/demo.component';
 import { RegisterComponent } from './components/shared/register/register.component';
 import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
+import { HeaderComponent } from './components/shared/header/header.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
+import { GroupComboAndAttributeComponent } from './components/shared/group-combo-and-attribute/group-combo-and-attribute.component';
+import { HierarchyComponent } from './components/shared/hierarchy/hierarchy.component';
+import { TestingComponent } from './components/shared/testing/testing.component';
+import { TabsComponent } from './components/shared/tabs/tabs.component';
+import { PricingTypesAndSequenceComponent } from './components/shared/pricing-types-and-sequence/pricing-types-and-sequence.component';
+import { SearchCreateProductsComponent } from './components/shared/search-create-products/search-create-products.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +33,14 @@ import { DashboardComponent } from './components/shared/dashboard/dashboard.comp
     DemoComponent,
     RegisterComponent,
     DashboardComponent,
+    HeaderComponent,
+    FooterComponent,
+    GroupComboAndAttributeComponent,
+    HierarchyComponent,
+    TestingComponent,
+    TabsComponent,
+    PricingTypesAndSequenceComponent,
+    SearchCreateProductsComponent,
   ],
   imports: [
     BrowserModule,

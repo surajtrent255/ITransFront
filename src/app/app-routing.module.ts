@@ -8,6 +8,10 @@ import { RegisterComponent } from './components/shared/register/register.compone
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
+    path: '',
+    component: LoginComponent,
+  },
+  {
     path: 'demo',
     component: DemoComponent,
   },

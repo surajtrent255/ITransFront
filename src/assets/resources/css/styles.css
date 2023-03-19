@@ -202,7 +202,8 @@ body {
   width: 1000px;
   margin: 60px auto 20px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
-  background: #f4f4f4 url(../images/loginWrapper-bg.png) no-repeat;
+  background: #f4f4f4 url("../../resources/images/loginWrapper-bg.png")
+    no-repeat;
   min-height: 440px;
 }
 .logoLoginWrapper {
@@ -257,7 +258,7 @@ a.genLink {
 .headerNav {
   padding: 4px 12px;
   /*overflow: auto;*/
-  background: #b4b5b6 url(../images/main-header.jpg) repeat-x;
+  background: #b4b5b6 url("../../resources/images/main-header.jpg") repeat-x;
   margin-top: 14px;
 }
 .mainNavWrapper {
@@ -612,7 +613,7 @@ a.genLink {
 
 /* Hierarchy section */
 .hierarchyWrapper {
-  float: right;
+  float: left;
   width: 260px;
 }
 .hierarchySettingsDiv {
@@ -675,7 +676,7 @@ a.genLink {
   left: 35%;
 }
 .popupHeading {
-  background: url(../images/popheading-bg.jpg) repeat-x;
+  background: url("../images/popheading-bg.jpg") repeat-x;
   padding: 4px 10px;
   color: #333333;
   font-size: 13px;
@@ -693,37 +694,37 @@ a.genLink {
   border-bottom: 1px solid #828282;
 }
 .popupSubHeadingDiv.createFilter {
-  background-image: url(../images/newfilter-bg.png);
+  background-image: url("../images/newfilter-bg.png");
 }
 .popupSubHeadingDiv.chooseColumns {
-  background-image: url(../images/chooseCol-bg.png);
+  background-image: url("../images/chooseCol-bg.png");
 }
 .popupSubHeadingDiv.createCustomer {
-  background-image: url(../images/createCust.png);
+  background-image: url("../images/createCust.png");
 }
 .popupSubHeadingDiv.createAdjustment {
-  background-image: url(../images/createAdjust.png);
+  background-image: url("../images/createAdjust.png");
 }
 .popupSubHeadingDiv.createProduct {
-  background-image: url(../images/createProduct.png);
+  background-image: url("../images/createProduct.png");
 }
 .popupSubHeadingDiv.layoutDivSubHeading {
-  background-image: url(../images/bg-panes.jpg);
+  background-image: url("../images/bg-panes.jpg");
 }
 .popupSubHeadingDiv.createPricingType {
-  background-image: url(../images/pricing-type-bg.png);
+  background-image: url("../images/pricing-type-bg.png");
 }
 .popupSubHeadingDiv.configurationSubHeading {
-  background-image: url(../images/configuration-bg.png);
+  background-image: url("../images/configuration-bg.png");
 }
 .popupSubHeadingDiv.pricingPreferenceSubHeading {
-  background-image: url(../images/pricing-bg.png);
+  background-image: url("../images/pricing-bg.png");
 }
 .popupSubHeadingDiv.administratorSubHeading {
-  background-image: url(../images/administrator-bg.png);
+  background-image: url("../images/administrator-bg.png");
 }
 .popupSubHeadingDiv.reportsSubHeading {
-  background-image: url(../images/reports-bg.png);
+  background-image: url("../images/reports-bg.png");
 }
 .heading {
   font-weight: bold;
@@ -813,10 +814,20 @@ input.rangeInput {
   padding: 2px 16px;
   cursor: pointer;
   color: #fff;
-  background: #276dcc url(../images/submit_btn-bg.jpg) repeat-x;
+  background: #276dcc url("../images/submit_btn-bg.jpg") repeat-x;
   border: 1px solid #276dcc;
   margin-right: 15px;
 }
+
+.register_btn {
+  padding: 2px 16px;
+  cursor: pointer;
+  color: #fff;
+  background: #276dcc url("../images/submit_btn-bg.jpg") repeat-x;
+  border: 1px solid #276dcc;
+  margin-right: 15px;
+}
+
 .tabs-section {
   display: none;
 }
@@ -944,16 +955,16 @@ table.chooseColoumnsTable td select.columnsSelect {
   padding: 5px 10px;
 }
 .configOptionList li.newFilterItem a {
-  background-image: url(../images/newfilter-bg.png);
+  background-image: url("../images/newfilter-bg.png");
 }
 .configOptionList li.chooseCol a {
-  background-image: url(../images/chooseCol-bg.png);
+  background-image: url("../images/chooseCol-bg.png");
 }
 .configOptionList li.massUpdateLink a {
-  background-image: url(../images/massUpdateLink-bg.png);
+  background-image: url("../images/massUpdateLink-bg.png");
 }
 .configOptionList li.exportTableLink a {
-  background-image: url(../images/exportTableLink-bg.png);
+  background-image: url("../images/exportTableLink-bg.png");
 }
 .filterItem {
   /*border-top: 1px solid #828282;*/
@@ -961,7 +972,7 @@ table.chooseColoumnsTable td select.columnsSelect {
   margin: 5px 0px;
 }
 .seeAllFilterLink .seeMoreLink {
-  background: url(../images/th-normal.png) no-repeat 90% center;
+  background: url("../images/th-normal.png") no-repeat 90% center;
 }
 .validationMsg {
   clear: both;
@@ -1244,7 +1255,7 @@ table.chooseColoumnsTable td select.columnsSelect {
 }
 .tabbed-layout-links-wrapper ul.tabbed-layout-links {
   height: 25px;
-  background: url(../images/tabbed-link-list-bg.jpg) repeat-x;
+  background: url("../images/tabbed-link-list-bg.jpg") repeat-x;
   border-bottom: 1px solid #afaeac;
 }
 .tabbed-layout-links li {
@@ -1269,7 +1280,7 @@ table.chooseColoumnsTable td select.columnsSelect {
 .tabbed-layout-links li.active {
   border-bottom: none;
   height: 22px;
-  background: url(../images/tabbed-link-active-bg.jpg) repeat-x;
+  background: url("../images/tabbed-link-active-bg.jpg") repeat-x;
 }
 .tabbed-layout-links-bottom {
   height: 4px;
@@ -1285,7 +1296,7 @@ table.chooseColoumnsTable td select.columnsSelect {
 }
 .maximized-link-list li {
   padding: 3px;
-  background: #ccccce url(../images/maximize-bg.jpg) repeat-x;
+  background: #ccccce url("../images/maximize-bg.jpg") repeat-x;
   float: left;
   margin: 5px;
   border: 1px solid #afaeac;

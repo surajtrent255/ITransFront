@@ -59,24 +59,146 @@
                     [disabled]="loginForm.invalid"
                     value="Log In"
                   />
+
+                  <a
+                    href="/register"
+                    class="register_btn border-rad register-button createNewTableRecord"
+                    id="createNewProduct"
+                    value="Register"
+                    >Register</a
+                  >
                 </td>
               </tr>
             </table>
           </div>
         </form>
-        <div style="display: flex">
-          <a
-            href="/register"
-            class="submit_btn border-rad register-button"
-            value="Register"
-            >Register</a
-          >
-        </div>
       </div>
     </div>
     <div class="cboth"></div>
     <div class="footerWrapper">
       <div class="copyrightDiv">&copy; 2023 iShani Technology.</div>
     </div>
+  </div>
+</div>
+
+<!-- testing  -->
+
+<div class="popupWrapper" id="createNewProductPopup" style="display: none">
+  <div class="popupHeading">
+    <h2 class="fleft">Register</h2>
+    <a href="" class="closeButton fright"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv createProduct">
+    <h1 class="heading">Register</h1>
+    <div>Create a new User.</div>
+  </div>
+  <div class="popupContentWrapper">
+    <form
+      id="createProduct"
+      [formGroup]="RegisterForm"
+      (ngSubmit)="registerUser()"
+    >
+      <div class="chooseColoumnsWrapper">
+        <div class="fieldDiv popUpFormSectionWrapper">
+          <table class="formSection" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="col1">
+                First Name:<span class="mandatorySign">*</span>
+              </td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  formControlName="firstname"
+                  id="custPartName"
+                />
+                <!-- <span class="validationMsg"
+                  ><br />Please enter valid Customer part name.</span
+                > -->
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">
+                Last Name:<span class="mandatorySign">*</span>
+              </td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  formControlName="lastname"
+                  id="custPartName"
+                />
+                <!-- <span class="validationMsg"
+                  ><br />Please enter valid Customer part name.</span
+                > -->
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Email:<span class="mandatorySign">*</span></td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  formControlName="registerEmail"
+                  id="custPartName"
+                />
+                <!-- <span class="validationMsg"
+                  ><br />Please enter valid Customer part name.</span
+                > -->
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">
+                Password:<span class="mandatorySign">*</span>
+              </td>
+
+              <td class="col3">
+                <input
+                  type="password"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  formControlName="registerPassword"
+                  id="custPartName"
+                />
+                <!-- <span class="validationMsg"
+                  ><br />Please enter valid Customer part name.</span
+                > -->
+              </td>
+              <td class="col3"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="submitDiv tCenter">
+        <input
+          type="submit"
+          value="Register"
+          class="submit_btn border-rad"
+          id="addProduct"
+        />
+        <input
+          type="button"
+          value="Cancel"
+          class="submit_btn cancel_btn border-rad"
+        />
+      </div>
+    </form>
   </div>
 </div>
