@@ -1,5 +1,5 @@
 export class Product {
-
+  id !: number;
   name !: string;
   sellingPrice !: number;
   costPrice !: number;
@@ -10,5 +10,7 @@ export class Product {
   barcode !: string;
   discount !: number;
   tax: number = 13;
+  createDate !: Date;
+  updateDate !: Date;
 
 }

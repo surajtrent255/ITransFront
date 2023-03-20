@@ -181,41 +181,81 @@
               class="first-child sortable"
               sortDir="asc"
               sortCol="organization_id"
-              id="PROD_ORG_ID"
+              id="id"
             >
-              Org Id
+              Product Id
             </th>
             <th
               class="sortable"
               sortDir="asc"
               sortCol="organization_name"
-              id="PROD_ORG_NAME"
+              id="name"
             >
-              Org Name
+              Product Name
             </th>
             <th
               class="sortable"
               sortDir="asc"
               sortCol="customer_name"
-              id="PROD_CUSTOMER_NAME"
+              id="costprice"
             >
-              Customer Part Name
+              Cost Price
             </th>
             <th
               class="sortable"
               sortDir="asc"
               sortCol="master_name"
-              id="PROD_MASTER_NAME"
+              id="sellingprice"
             >
-              Master Part Name
+              Selling Price
             </th>
             <th
               class="sortable"
               sortDir="asc"
               sortCol="product_group_name"
-              id="PROD_GROUP_NAME"
+              id="barcode"
             >
-              Product Group
+              Barcode
+            </th>
+            <th
+              class="sortable"
+              sortDir="asc"
+              sortCol="product_group_name"
+              id="discount"
+            >
+              Discount
+            </th>
+            <th
+              class="sortable"
+              sortDir="asc"
+              sortCol="product_group_name"
+              id="tax"
+            >
+              Tax
+            </th>
+            <th
+              class="sortable"
+              sortDir="asc"
+              sortCol="product_group_name"
+              id="tax"
+            >
+              user id
+            </th>
+            <th
+              class="sortable"
+              sortDir="asc"
+              sortCol="product_group_name"
+              id="tax"
+            >
+            company id
+          </th>
+            <th
+              class="sortable"
+              sortDir="asc"
+              sortCol="product_group_name"
+              id="tax"
+            >
+              seller id
             </th>
             <th class="last-child"></th>
           </tr>
@@ -225,17 +265,22 @@
             <span class="noProdRecord">No records found</span>
           </tr>
           <!-- <c:forEach items="${products}" var="product">  -->
-          <tr id="prod_{product.unid}">
-            <td class="first-child org-id">product.organizationId</td>
-            <td class="product-name">product.organizationName</td>
-            <td>product.customerName</td>
-            <td>product.masterName</td>
-            <td>product.productGroupName</td>
+          <tr *ngFor="let product of availableProducts" id="prod_{{product.id}}">
+            <td >{{product.id}}</td>
+            <td >{{product.name}}</td>
+            <td >{{product.costPrice}}</td>
+            <td >{{product.sellingPrice}}</td>
+            <td >{{product.barcode}}</td>
+            <td >{{product.discount}}</td>
+            <td >{{product.tax}}</td>
+            <td >{{product.userId}}</td>
+            <td >{{product.companyId}}</td>
+            <td >{{product.sellerId}}</td>
             <td class="last-child">
-              <a href="" class="editRowLink products">
+              <a href="" class="editRowLink editGroupCombo">
                 <img src="../../../assets/resources/images/editRow.png" />
               </a>
-              <a href="" class="deleteRowLink">
+              <a href="" class="deleteRowLink deleteGroupCombo">
                 <img src="../../../assets/resources/images/deleteRow.png" />
               </a>
             </td>
