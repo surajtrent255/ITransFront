@@ -77,7 +77,7 @@ export class LoginComponent {
         password: this.loginForm.value.password!,
       })
       .subscribe(() => {
-        this.router.navigateByUrl('dashboard');
+        this.router.navigateByUrl('company');
       });
   }
 

@@ -15,7 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/shared/login/login.component';
 import { DemoComponent } from './components/demo/demo/demo.component';
-import { RegisterComponent } from './components/shared/register/register.component';
+
 import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
@@ -25,13 +25,14 @@ import { TestingComponent } from './components/shared/testing/testing.component'
 import { TabsComponent } from './components/shared/tabs/tabs.component';
 import { PricingTypesAndSequenceComponent } from './components/shared/pricing-types-and-sequence/pricing-types-and-sequence.component';
 import { SearchCreateProductsComponent } from './components/shared/search-create-products/search-create-products.component';
+import { SelectAndCreateCompanyComponent } from './components/shared/select-and-create-company/select-and-create-company.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DemoComponent,
-    RegisterComponent,
+
     DashboardComponent,
     HeaderComponent,
     FooterComponent,
@@ -41,6 +42,7 @@ import { SearchCreateProductsComponent } from './components/shared/search-create
     TabsComponent,
     PricingTypesAndSequenceComponent,
     SearchCreateProductsComponent,
+    SelectAndCreateCompanyComponent,
   ],
   imports: [
     BrowserModule,

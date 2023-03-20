@@ -1,0 +1,252 @@
+<div id="pageWrapper" class="pageWrapper bodydiv">
+  <div class="loginBodyWrapper border-rad">
+    <div class="fleft logoLoginWrapper">
+      <div class="loginLogoWrapper">
+        <!-- <img src="../../../../assets/images/login-logo.png " alt="Pricer" /> -->
+        <h2 class="text-center">Select Your Company</h2>
+      </div>
+      <div id="pricingTypeDropdownDivPricingType">
+        <select
+          class="form-select"
+          #selected
+          (change)="SelectedData(selected.value)"
+          aria-label="Default select example"
+        >
+          <option selected>Select Your Company</option>
+          <option *ngFor="let company of company" value="{{ company.name }}">
+            {{ company.name }}
+          </option>
+          <option disabled value="3">Create if not exist</option>
+        </select>
+      </div>
+      <div class="cboth">
+        <div>
+          <table class="loginBoxTable">
+            <tr>
+              <td class="labelColumn">
+                <tr>
+                  <td class="labelColumn"></td>
+                </tr>
+              </td>
+
+              <td class="inputColumn">
+                <input
+                  type="button"
+                  (click)="proceed(selected.value)"
+                  class="submit_btn border-rad"
+                  value="Proceed"
+                />
+
+                <a
+                  class="register_btn border-rad register-button createNewTableRecord"
+                  id="createNewProduct"
+                  value=""
+                  >Create New Company</a
+                >
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="cboth"></div>
+  </div>
+</div>
+
+<div class="popupWrapper" id="createNewProductPopup" style="display: none">
+  <div class="popupHeading">
+    <h2 class="fleft">Register Company</h2>
+    <a href="" class="closeButton fright"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv createProduct">
+    <h1 class="heading">Register Company</h1>
+    <div>Create a new Company.</div>
+  </div>
+  <div class="popupContentWrapper">
+    <form
+      id="createProduct"
+      [formGroup]="CompanyRegistrationForm"
+      (ngSubmit)="registerCompany()"
+    >
+      <div class="chooseColoumnsWrapper">
+        <div class="fieldDiv popUpFormSectionWrapper">
+          <table class="formSection" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="col1">Name:<span class="mandatorySign">*</span></td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  formControlName="name"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Name.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Description:<span class=""></span></td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText"
+                  title="Enter Text"
+                  formControlName="description"
+                  id="custPartName"
+                />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Pan-Number:<span class=""></span></td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText"
+                  formControlName="panNo"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">State:<span class="mandatorySign"></span></td>
+
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText mandatory"
+                  formControlName="state"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid State.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+            <div class="cboth"></div>
+            <tr>
+              <td class="col1">Zone:<span class="mandatorySign"></span></td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  formControlName="zone"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Zone.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+            <tr>
+              <td class="col1">District:<span class="mandatorySign"></span></td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  formControlName="District"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid District name.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">
+                Muncipality/VDC:<span class="mandatorySign"></span>
+              </td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  formControlName="munVdc"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Muncipality/VDC .</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Ward no:<span class="mandatorySign">*</span></td>
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText mandatory"
+                  formControlName="wardNo"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Ward no.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Phone:<span class="mandatorySign">*</span></td>
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText mandatory"
+                  formControlName="phone"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Phone.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="submitDiv tCenter">
+        <input
+          type="submit"
+          value="Register"
+          class="submit_btn border-rad"
+          id="addProduct"
+        />
+
+        <input
+          type="button"
+          value="Cancel"
+          class="submit_btn cancel_btn border-rad"
+        />
+      </div>
+    </form>
+  </div>
+</div>
