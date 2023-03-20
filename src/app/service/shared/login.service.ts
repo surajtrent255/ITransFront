@@ -25,6 +25,10 @@ export class LoginService {
     this.userObservable = this.userSubject.asObservable();
   }
 
+  public get currentUser(): User {
+    return this.userSubject.value;
+  }
+
   login(userLogin: UserLogin): Observable<RJResponse<User>> {
     return this.http.post<RJResponse<User>>(USER_LOGIN_URL, userLogin).pipe(
       tap({

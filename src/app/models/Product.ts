@@ -9,6 +9,6 @@ export class Product {
   categoryId !: number;
   barcode !: string;
   discount !: number;
-  tax !: number;
+  tax: number = 13;
 
 }

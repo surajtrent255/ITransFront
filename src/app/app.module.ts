@@ -25,6 +25,7 @@ import { TestingComponent } from './components/shared/testing/testing.component'
 import { TabsComponent } from './components/shared/tabs/tabs.component';
 import { PricingTypesAndSequenceComponent } from './components/shared/pricing-types-and-sequence/pricing-types-and-sequence.component';
 import { SearchCreateProductsComponent } from './components/shared/search-create-products/search-create-products.component';
+import { AuthInterceptor } from './auth/AuthInterceptor';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,10 @@ import { SearchCreateProductsComponent } from './components/shared/search-create
       newestOnTop: false,
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

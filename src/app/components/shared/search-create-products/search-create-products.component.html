@@ -262,7 +262,9 @@
     <div>Create a new Product.</div>
   </div>
   <div class="popupContentWrapper">
-    <form id="createProduct" action="/product/add" method="POST">
+    <form #createProductForm="ngForm" name="createProduct"
+      (ngSubmit)="createProduct()" id="createProductForm"
+   >
       <div class="chooseColoumnsWrapper">
         <div class="fieldDiv popUpFormSectionWrapper">
           <table class="formSection" cellpadding="0" cellspacing="0">
@@ -272,153 +274,171 @@
               <td class="col3"></td>
             </tr>
             <tr>
-              <td class="col1">
-                Customer Part Name:<span class="mandatorySign">*</span>
+              <td class="col1 pt-2"  >
+                Product  Name:<span class="mandatorySign">*</span>
               </td>
               <td class="col2">
                 <input
-                  type="text"
-                  class="inputText mandatory"
-                  title="Enter Text"
-                  id="custPartName"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid Customer part name.</span
-                >
+                type="text"
+                [class.is-invalid]="name.invalid && name.touched"
+                class="form-control"
+                id="name"
+                #name="ngModel"
+                required
+                name="name"
+                [(ngModel)]="product.name"
+                required="required"
+              />
+
               </td>
-              <td class="col3"></td>
+              <td class="col3">
+                <small class="text-danger" [class.d-none]="name.valid || name.untouched"
+                >invalid  name</small>
+              </td>
             </tr>
+
+<!-- selling price -->
             <tr>
-              <td class="col1">
-                Master Part Name:<span class="mandatorySign">*</span>
+              <td class="col1 pt-2"  >
+                Selling  Price:<span class="mandatorySign">*</span>
               </td>
               <td class="col2">
                 <input
-                  type="text"
-                  class="inputText mandatory"
-                  title="Enter Text"
-                  id="masterPartName"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid Master part name.</span
-                >
+                type="number"
+                [class.is-invalid]="sellingPrice.invalid && sellingPrice.touched"
+                class="form-control"
+                id="sellingPrice"
+                #sellingPrice="ngModel"
+                name="sellingPrice"
+                required
+                sellingPrice="sellingPrice"
+                [(ngModel)]="product.sellingPrice"
+                required="required"
+              />
+
+
               </td>
-              <td class="col3"></td>
-            </tr>
-            <tr class="">
-              <td class="col1">Org/Customer ID:</td>
-              <td class="col2">
-                <div class="jsTokenWrapper adjustmentTokensWrapper">
-                  <ul class="tokenList tableDataDND" id="organizationId"></ul>
-                  <div class="dragDropInfo">
-                    Drag the organization group and drop here.
-                  </div>
-                  <input
-                    type="text"
-                    class="inputText customer-id-drop tokenInputText customerGroupId mandatory jstree-drop-org"
-                    unid=""
-                    title="Enter Text"
-                    id="orgId"
-                  /><br />
-                </div>
-                <!-- <input type="text" class="inputText customer-id-drop tokenInputText customerGroupId mandatory jstree-drop-org" title="Enter Text" id="orgId"/> -->
-                <span class="validationMsg"
-                  ><br />Please enter valid Org/Customer ID.</span
-                >
+              <td class="col3">
+                <small class="text-danger" [class.d-none]="sellingPrice.valid || sellingPrice.untouched"
+                >invalid  selling price</small>
               </td>
-              <td class="col3"></td>
             </tr>
-            <tr class="customer-name-field-row">
-              <td class="col1">Org/Customer Name:</td>
-              <td class="col2 customer-name customerNameVal dropDNDName"></td>
-              <td class="col3"></td>
-            </tr>
+<!-- cost price -->
             <tr>
-              <td class="col1">
-                Product Group(s):<span class="mandatorySign">*</span>
+              <td class="col1 pt-2"  >
+                Cost Price:<span class="mandatorySign">*</span>
               </td>
-              <td class="col2 posRel">
-                <div class="jsTokenWrapper productGroupsTokensWrapper">
-                  <ul class="tokenList"></ul>
-                  <div class="dragDropInfo">
-                    Drag the Product group and drop here.
-                  </div>
-                  <input
-                    type="text"
-                    class="inputText tokenInputText mandatory jstree-drop-product"
-                    title="Enter Text"
-                    unid=""
-                    id="productId"
-                  />
-                </div>
-                <span class="warning-msg italicText"
-                  >Use commas to separate multiple product groups</span
-                >
-                <span class="validationMsg"
-                  ><br />Please enter valid Product groups.</span
-                >
-              </td>
-              <td class="col3"></td>
-            </tr>
-            <tr>
-              <td class="col1">Effectively Dates:</td>
               <td class="col2">
                 <input
-                  type="text"
-                  class="inputText datepickerInput startDate mandatory"
-                  id="proStartDate"
-                  readonly
-                  value="${CONFIGURATION['EFF_DATE_FROM']}"
-                />
-                <span class="toDateSpan">to</span>
+                type="number"
+                [class.is-invalid]="costPrice.invalid && costPrice.touched"
+                class="form-control"
+                id="costPrice"
+                #costPrice="ngModel"
+                required
+                name="costPrice"
+                costPrice="costPrice"
+                [(ngModel)]="product.costPrice"
+                required="required"
+              />
+
+              </td>
+              <td class="col3">
+                <small class="text-danger" [class.d-none]="costPrice.valid || costPrice.untouched"
+                >invalid  costPrice</small>
+              </td>
+            </tr>
+<!-- barcode -->
+            <tr>
+              <td class="col1 pt-2"  >
+                Bar Code:<span class="mandatorySign">*</span>
+              </td>
+              <td class="col2">
                 <input
-                  type="text"
-                  class="inputText datepickerInput mandatory endDate"
-                  id="proEndDate"
-                  readonly
-                  value="${CONFIGURATION['EFF_DATE_TO']}"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid Effective dates.</span
-                >
+                type="text"
+                [class.is-invalid]="barcode.invalid && barcode.touched"
+                class="form-control"
+                id="barcode"
+                #barcode="ngModel"
+                name="barcode"
+                required
+                barcode="barcode"
+                [(ngModel)]="product.barcode"
+                required="required"
+              />
+
               </td>
-              <td class="col3"></td>
+              <td class="col3">
+                <small class="text-danger" [class.d-none]="barcode.valid || barcode.untouched"
+                >invalid  barcode</small>
+              </td>
             </tr>
+<!-- discount -->
             <tr>
-              <td class="col1">Attributes:</td>
-              <td class="col2">
-                <table class="attrTable" cellspacing="2" cellpadding="2">
-                  <thead>
-                    <tr>
-                      <th class="colAttr">Attributes</th>
-                      <th>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody class="prodAttributes"></tbody>
-                </table>
+              <td class="col1 pt-2"  >
+                Discount  :<span class="mandatorySign">*</span>
               </td>
-              <td class="col3"></td>
+              <td class="col2">
+                <input
+                type="number"
+                [class.is-invalid]="discount.invalid && discount.touched"
+                class="form-control"
+                id="discount"
+                #discount="ngModel"
+                name="discount"
+                required
+                discount="discount"
+                [(ngModel)]="product.discount"
+                required="required"
+              />
+              </td>
+              <td class="col3">
+                <small class="text-danger" [class.d-none]="discount.valid || discount.untouched"
+                >invalid  discount</small>
+              </td>
             </tr>
+<!-- tax -->
             <tr>
-              <td class="col1">Comments:</td>
-              <td class="col2">
-                <textarea
-                  id="proCommentText"
-                  class="textArea inputText"
-                ></textarea>
+              <td class="col1 pt-2"  >
+                Tax  :<span class="mandatorySign">*</span>
               </td>
-              <td class="col3"></td>
+              <td class="col2">
+                <input
+                type="number"
+                [class.is-invalid]="tax.invalid && tax.touched"
+                class="form-control"
+                id="tax"
+                name="tax"
+                #tax="ngModel"
+                tax="tax"
+                [(ngModel)]="product.tax"
+                readOnly
+              />
+              </td>
+              <td class="col3">
+                <small class="text-danger" [class.d-none]="tax.valid || tax.untouched"
+                >invalid  tax</small>
+              </td>
             </tr>
+
+
           </table>
         </div>
       </div>
       <div class="submitDiv tCenter">
         <input
+            class="btn btn-success btn-sm py-2 px-4"
+            type="submit"
+            id="submitCreateProduct"
+            value="Add product"
+            [disabled]="createProductForm.form.invalid"
+         />
+        <!-- <input
           type="button"
           value="Create"
           class="submit_btn border-rad"
           id="addProduct"
-        />
+        /> -->
         <input
           type="button"
           value="Cancel"
@@ -436,7 +456,7 @@
                     buttonImageOnly: true
                 });
             dragNDrop();
-    
+
             $(function(){
                 $('#custPartName').blur(function(){
                     $('#masterPartName').val($('#custPartName').val());
