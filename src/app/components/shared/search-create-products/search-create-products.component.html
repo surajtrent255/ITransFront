@@ -341,7 +341,19 @@
                 >invalid  name</small>
               </td>
             </tr>
-
+<!-- Category -->
+            <tr>
+              <td class="col1 pt-2"  >
+                Select Category:<span class="mandatorySign">*</span>
+              </td>
+              <select name="cars" id="cars">
+                <option value="{{c.id}}" *ngFor="let c of availableCategories">{{c.name}}</option>
+              </select>
+              <!-- <td class="col3">
+                <small class="text-danger" [class.d-none]="name.valid || name.untouched"
+                >invalid  name</small>
+              </td> -->
+            </tr>
 <!-- selling price -->
             <tr>
               <td class="col1 pt-2"  >
