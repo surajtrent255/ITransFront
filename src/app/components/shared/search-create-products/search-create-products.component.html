@@ -303,11 +303,49 @@
     <div class="cboth"></div>
   </div>
   <div class="popupSubHeadingDiv createProduct">
-    <h1 class="heading">Create Product</h1>
+    <h1 class="heading">Create Product <i class="fa fa-plus-square" id="rohit"></i></h1>
     <div>Create a new Product.</div>
   </div>
   <div class="popupContentWrapper">
-    <form #createProductForm="ngForm" name="createProduct"
+    <!-- create cat -->
+    <div class="card-body" *ngIf="categorySelectShowable">
+      <div class="row">
+        <div class="col-md-4" style="border: 1px solid #ccc;">
+          <div class="m-t-10">
+            <h6 class="font-weight-bold">Categories</h6>
+            <div>
+              <a href="#" id="collapseCategory"
+                class="fs-12 font-weight-bold"> collapse all</a> | <a
+                href="#" id="expandCategory" class="fs-12 font-weight-bold">
+                expand all</a>
+            </div>
+            <div class="m-t-10 text-primary">
+              <ul class="fs-13 font-weight-bold" id="categoryHierarchy" >
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8" style="border: 1px solid #ccc;">
+          <div class="m-t-10" style="background-color: #e3e3e3;">
+            <h6 class="m-l-10 p-t-15 p-b-15" id="category-select">Select
+              the Category for Product</h6>
+          </div>
+          <span>Category cat1 has been selected</span>
+          <div class="w-size25 submit-btn">
+            <button type="button"
+              class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" (click)="showAddProductSec()"
+              id="next_btn">Nextjs</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <form #createProductForm="ngForm" name="createProduct" *ngIf="productAddShowable"
       (ngSubmit)="createProduct()" id="createProductForm"
    >
       <div class="chooseColoumnsWrapper">
@@ -341,20 +379,24 @@
                 >invalid  name</small>
               </td>
             </tr>
-<!-- Category -->
-            <tr>
+            <!-- <tr>
               <td class="col1 pt-2"  >
                 Select Category:<span class="mandatorySign">*</span>
               </td>
               <select name="cars" id="cars">
                 <option value="{{c.id}}" *ngFor="let c of availableCategories">{{c.name}}</option>
               </select>
-              <!-- <td class="col3">
-                <small class="text-danger" [class.d-none]="name.valid || name.untouched"
-                >invalid  name</small>
-              </td> -->
+
+            </tr> -->
+            <tr>
+              <td class="col1 pt-2"  >
+                 Category Selected:<span class="mandatorySign">*</span>
+              </td>
+              <td class="col2 pt-2">
+                <small>Category1</small>
+              </td>
+
             </tr>
-<!-- selling price -->
             <tr>
               <td class="col1 pt-2"  >
                 Selling  Price:<span class="mandatorySign">*</span>
@@ -380,7 +422,6 @@
                 >invalid  selling price</small>
               </td>
             </tr>
-<!-- cost price -->
             <tr>
               <td class="col1 pt-2"  >
                 Cost Price:<span class="mandatorySign">*</span>
@@ -405,7 +446,6 @@
                 >invalid  costPrice</small>
               </td>
             </tr>
-<!-- barcode -->
             <tr>
               <td class="col1 pt-2"  >
                 Bar Code:<span class="mandatorySign">*</span>
@@ -430,7 +470,6 @@
                 >invalid  barcode</small>
               </td>
             </tr>
-<!-- discount -->
             <tr>
               <td class="col1 pt-2"  >
                 Discount  :<span class="mandatorySign">*</span>
@@ -454,7 +493,6 @@
                 >invalid  discount</small>
               </td>
             </tr>
-<!-- tax -->
             <tr>
               <td class="col1 pt-2"  >
                 Tax  :<span class="mandatorySign">*</span>
@@ -490,12 +528,7 @@
             value="Add product"
             [disabled]="createProductForm.form.invalid"
          />
-        <!-- <input
-          type="button"
-          value="Create"
-          class="submit_btn border-rad"
-          id="addProduct"
-        /> -->
+
         <input
           type="button"
           value="Cancel"
