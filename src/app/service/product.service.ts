@@ -15,12 +15,16 @@ export class ProductService {
 
   addNewProduct(product: Product): Observable<any> {
     let url = `${BASE_URL}/${productURL}`;
-    console.log("addnewproduct " + product)
     return this.httpClient.post(url, product);
   }
 
   getAllProducts(): Observable<RJResponse<Product[]>> {
     let url = `${BASE_URL}/${productURL}`;
     return this.httpClient.get<RJResponse<Product[]>>(url);
+  }
+
+  getProductById(id: number): Observable<RJResponse<Product>> {
+    let url = `${BASE_URL}/${id}`;
+    return this.httpClient.get<RJResponse<Product>>(url);
   }
 }

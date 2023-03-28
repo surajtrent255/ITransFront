@@ -26,7 +26,7 @@ import { TabsComponent } from './components/shared/tabs/tabs.component';
 import { PricingTypesAndSequenceComponent } from './components/shared/pricing-types-and-sequence/pricing-types-and-sequence.component';
 import { SearchCreateProductsComponent } from './components/shared/search-create-products/search-create-products.component';
 import { AuthInterceptor } from './auth/AuthInterceptor';
-import { SalesBillingComponent } from './components/shared/sales-billing/sales-billing.component';
+import { SalesModule } from './components/shared/sales/sales.module';
 
 @NgModule({
   declarations: [
@@ -43,10 +43,10 @@ import { SalesBillingComponent } from './components/shared/sales-billing/sales-b
     TabsComponent,
     PricingTypesAndSequenceComponent,
     SearchCreateProductsComponent,
-    SalesBillingComponent,
   ],
   imports: [
     BrowserModule,
+    SalesModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,

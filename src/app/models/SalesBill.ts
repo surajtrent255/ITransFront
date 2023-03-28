@@ -2,25 +2,25 @@ export class SalesBill {
   userId !: number;
   custId !: number;
   companyId !: number;
-  fiscalYear !: string;
-  billNo !: number;
-  billPrinted !: boolean;
-  billActive !: boolean;
-  realTime !: boolean;
-  customerName !: string;
-  customerPan !: string;
-  billDate !: Date;
-  amount !: number;
-  discount !: number;
-  taxableAmount !: number;
-  taxAmount !: number;
-  totalAmount !: number;
-  syncWithIrd !: boolean;
-  printedTime !: string;
-  enteredBy !: string;
-  printedBy !: string;
-  paymentMethod !: string;
-  vatRefundAmount !: number;
-  transactionId !: string;
-  status !: boolean;
+  fiscalYear !: string;//imp
+  billNo !: number;//imp
+  billPrinted: boolean = false;//imp
+  billActive: boolean = true;//imp
+  realTime: boolean = true;//imp
+  customerName !: string;//imp
+  customerPan !: string;//imp
+  billDate !: Date;//imp
+  amount !: number;//imp
+  discount !: number;//imp
+  taxableAmount !: number;//imp
+  taxAmount !: number;//imp
+  totalAmount !: number;//imp
+  syncWithIrd: boolean = false;//imp
+  printedTime !: string;//imp
+  enteredBy !: string;//imp
+  printedBy !: string;//imp
+  paymentMethod !: string;//imp
+  vatRefundAmount !: number;//imp if any
+  transactionId !: string;//imp if any
+  status: boolean = true;
 }
