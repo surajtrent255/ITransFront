@@ -28,8 +28,8 @@ export class SearchCreateProductsComponent {
   categoriesLoaded: boolean = false;
   availableProducts: Product[] = []
 
-  // dynamicCat !: string;
   salesBillDetailsForCart: SalesBillDetail[] = [];
+
 
   constructor(private productService: ProductService, private categoryProductService: CategoryProductService, private salesCartService: SalesCartService,
     private elRef: ElementRef, private renderer: Renderer2) { }
@@ -44,10 +44,6 @@ export class SearchCreateProductsComponent {
       this.letsCreateCategoryList(this.categoriesData);
       this.categoriesLoaded = true;
     })
-    if (localStorage.getItem("SalesCart") !== null) {
-      this.salesBillDetailsForCart = JSON.parse(localStorage.getItem("SalesCart")!)
-    }
-    // this.salesCartService.currentProdsInSalesCart.subscribe(data => this.salesBillDetailsForCart = data);
   }
 
   ngAfterViewInit() {
@@ -75,33 +71,27 @@ export class SearchCreateProductsComponent {
 
   letsAdd(catId: number, parentId: number, catName: string) {
   }
-  // for catagories
-  // ngAfterViewChecked() {
-  //   // alert(this.categoriesData.length)
-  //   // for (let i = 0; i < this.categoriesData.length; i++) {
-  //   //   document.getElementById(`cataddplus${this.categoriesData[i].id}`)?.addEventListener('click', () => {
-  //   //     this.letsAdd(this.categoriesData[i].id, this.categoriesData[i].parentId, this.categoriesData[i].name);
-  //   //   })
-  //   // }
-  //   document.getElementById(`cataddplus1`)?.addEventListener('click', ($event: any) => {
-  //     // this.letsAdd(this.categoriesData[1].id, this.categoriesData[1].parentId, this.categoriesData[1].name);
-  //     // this.categoriesData.forEach(cat => {
-  //     //   if (cat.id == 1) {
-  //     //   }
-  //     // })
-  //   })
-  // }
+
 
   addToList() {
     console.log("%%%%%%%%%%%%%%%%%%%%")
   }
 
 
+  // letCreateAdvanceCatList(categoriesData: CategoryProduct[] ){
+
+  // }
+
+
+
+
+
+
   letsCreateCategoryList(categoriesData: CategoryProduct[]): string {
     let categoryHiearchyDom = "";
     function createCategoryHiearchy(categories: CategoryProduct[]) {
       categories.forEach(function (category) {
-        categoryHiearchyDom += `<li><i class="fa fa-plus-square"  (click)="addToList()"  aria-hidden="true"  data-target="${category.id}" data-parent="${category.parentId}"></i>&nbsp <span class="m-r-3"> ${category.name} </span> <i class = "fa fa-caret-down" data-toggle="collapse" data-target="#data${category.id}" aria-hidden="true"></i> `;
+        categoryHiearchyDom += `<li><button class="fa fa-plus-square"  (click)="addToList()"  aria-hidden="true"  data-target="${category.id}" data-parent="${category.parentId}"></button>&nbsp <span class="m-r-3"> ${category.name} </span> <i class = "fa fa-caret-down" data-toggle="collapse" data-target="#data${category.id}" aria-hidden="true"></i> `;
         if (category.childCategories && category.childCategories.length > 0) {
           categoryHiearchyDom += "<ul id='data" + category.id + "' class='pl-3 collapse'>";
 
@@ -115,6 +105,7 @@ export class SearchCreateProductsComponent {
     createCategoryHiearchy(categoriesData);
     const catHierEl = document.getElementById("categoryHierarchy") as HTMLElement
     catHierEl.innerHTML = categoryHiearchyDom;
+    // catHierEl.replaceWith(new DOMParser().parseFromString(categoryHiearchyDom, "text/html").body);
     return categoryHiearchyDom;
     // return "";
   }
@@ -124,35 +115,6 @@ export class SearchCreateProductsComponent {
     this.productAddShowable = true;
   }
 
-  addTosalesCart($event: MouseEvent, product: Product) {
-    let allowable: boolean = true;
-    this.salesBillDetailsForCart.forEach(item => {
-      if (item.productId === product.id) {
-        allowable = false;
-        disbaleSelectProdBtn($event);
-        return;
-      }
-    })
-    if (!allowable) return;
-
-
-    let salesBillDetail: SalesBillDetail = new SalesBillDetail;
-    salesBillDetail.productId = product.id;
-    salesBillDetail.qty = 1;
-    salesBillDetail.discountPerUnit = product.discount;
-    salesBillDetail.rate = product.sellingPrice;
-    if (allowable) this.salesBillDetailsForCart.push(salesBillDetail);
-    localStorage.setItem("SalesCart", JSON.stringify(this.salesBillDetailsForCart))
-    //
-    console.log(this.createSalesComponent);
-    this.createSalesComponent.salesBillDetailInfos = this.salesBillDetailsForCart;
-    this.salesCartService.updateSalesCartInfo(this.salesBillDetailsForCart)
-    disbaleSelectProdBtn($event);
-  }
 }
 
-function disbaleSelectProdBtn($event: any) {
-  const target = $event.target as HTMLButtonElement;
-  target.setAttribute("disabled", "true");
-  target.innerText = "Selected";
-}
+

@@ -24,7 +24,7 @@ export class ProductService {
   }
 
   getProductById(id: number): Observable<RJResponse<Product>> {
-    let url = `${BASE_URL}/${id}`;
+    let url = `${BASE_URL}/product/${id}`;
     return this.httpClient.get<RJResponse<Product>>(url);
   }
 }

@@ -6,6 +6,7 @@ import { BASE_URL } from '../constants/urls';
 import { RJResponse } from '../models/rjresponse';
 import { SalesBill } from '../models/SalesBill';
 import { SalesBillDetail } from '../models/SalesBillDetail';
+import { SalesBillInvoice } from '../models/SalesBillInvoice';
 import { SalesBillMaster } from '../models/SalesBillMaster';
 
 @Injectable({
@@ -27,9 +28,9 @@ export class SalesBillServiceService {
     return this.http.post<RJResponse<number>>(url, salesBillMasterInfo);
   }
 
-  fetchSalesBillDetailForInvoice(billId: number, compId: number): Observable<RJResponse<SalesBillMaster>> {
+  fetchSalesBillDetailForInvoice(billId: number, compId: number): Observable<RJResponse<SalesBillInvoice>> {
     let url = `${BASE_URL}/salesBillDetail?billId=${billId}&comapnyId=${compId}`;
-    return this.http.get<RJResponse<SalesBillMaster>>(url);
+    return this.http.get<RJResponse<SalesBillInvoice>>(url);
   }
 
   printTheBill(billNo: number, printerId: number): Observable<RJResponse<number>> {

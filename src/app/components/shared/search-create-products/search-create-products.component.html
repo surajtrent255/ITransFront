@@ -257,16 +257,8 @@
             >
               seller id
             </th>
-            <th class="last-child"></th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="product_group_name"
-              id="addToSalesCart"
-            >
-              Choose For Sale
-            </th>
-            <th class="last-child"></th>
+
+            <th class="last-child">Actions</th>
           </tr>
         </thead>
         <tbody id="prodTable">
@@ -288,14 +280,6 @@
             <td>{{ product.userId }}</td>
             <td>{{ product.companyId }}</td>
             <td>{{ product.sellerId }}</td>
-            <td>
-              <button
-                (click)="addTosalesCart($event, product)"
-                id="prodSelectBtn{{ product.id }}"
-              >
-                Select
-              </button>
-            </td>
             <td class="last-child">
               <a href="" class="editRowLink editGroupCombo">
                 <img src="../../../assets/resources/images/editRow.png" />

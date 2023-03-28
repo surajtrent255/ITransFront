@@ -27,6 +27,7 @@ import { PricingTypesAndSequenceComponent } from './components/shared/pricing-ty
 import { SearchCreateProductsComponent } from './components/shared/search-create-products/search-create-products.component';
 import { AuthInterceptor } from './auth/AuthInterceptor';
 import { SalesModule } from './components/shared/sales/sales.module';
+import { NumberToWordTransformPipe } from './custompipes/number-to-word-transform.pipe';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { SalesModule } from './components/shared/sales/sales.module';
     TabsComponent,
     PricingTypesAndSequenceComponent,
     SearchCreateProductsComponent,
+    // NumberToWordTransformPipe,
   ],
   imports: [
     BrowserModule,
