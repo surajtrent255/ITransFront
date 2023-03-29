@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, tap } from 'rxjs';
-import { ADD_COMPANY_URL, COMPANY_URL } from 'src/app/constants/urls';
+import { ADD_COMPANY_URL, USER_COMPANY_URL } from 'src/app/constants/urls';
 
 import { Company } from 'src/app/models/company';
 import { RJResponse } from 'src/app/models/rjresponse';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -16,14 +17,17 @@ export class CompanyServiceService {
     private toastrService: ToastrService
   ) {}
 
-  getCompnayDetails(): Observable<any> {
+  getCompnayDetails(user_id: number): Observable<any> {
     console.log('get company hit');
-    return this.httpClient.get(COMPANY_URL);
+    console.log(`this is from get request ${user_id}`);
+    return this.httpClient.get(`${USER_COMPANY_URL}/${user_id}`);
   }
 
-  addCompany(company: Company): Observable<any> {
+  addCompany(companyDTO: Company, userId: number): Observable<any> {
+    const body = { companyDTO, userId };
     console.log('hit the service');
-    return this.httpClient.post(ADD_COMPANY_URL, company).pipe(
+    console.log(body);
+    return this.httpClient.post(ADD_COMPANY_URL, body).pipe(
       tap({
         next: (respone) => {
           console.log(respone);
