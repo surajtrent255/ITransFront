@@ -8,3 +8,5 @@ export const USER_COMPANY_URL = BASE_URL + '/api/v1/company/userCompany';
 export const ADD_COMPANY_URL = BASE_URL + '/api/v1/company/add';
 
 export const USER_CONFIGURATION_DETAILS = BASE_URL + '/api/v1/userconfig';
+
+export const USER_UPDATE_STATUS_URL = BASE_URL + '/api/v1/userconfig/status';

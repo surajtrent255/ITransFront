@@ -394,9 +394,9 @@
                 >
                   <thead>
                     <tr>
-                      <th>name</th>
+                      <th>Name</th>
                       <th>Username</th>
-                      <th>company</th>
+                      <th>Company</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -408,16 +408,20 @@
                       </td>
                       <td>{{ userconfig.email }}</td>
                       <td>{{ userconfig.companyname }}</td>
-                      <td *ngIf="userconfig.status === true">
+                      <td>
                         <div style="display: flex; padding: 2px">
                           <input
                             type="checkbox"
                             id="scales"
                             name="scales"
                             [checked]="userconfig.status"
+                            (change)="
+                              onCheckboxChanged($event, userconfig.userId)
+                            "
                           />
                           <label for="scales">Enabled</label>
                         </div>
+                        <!--  -->
                         <!-- <a
                           class="register_btn border-rad register-button createNewTableRecord"
                           id="createNewProduct"
@@ -425,16 +429,6 @@
                           style="color: whitesmoke"
                           >change</a
                         > -->
-                      </td>
-                      <td *ngIf="userconfig.status === false">
-                        disabled /
-                        <a
-                          class="register_btn border-rad register-button createNewTableRecord"
-                          id="createNewProduct"
-                          value="change"
-                          style="color: whitesmoke"
-                          >change</a
-                        >
                       </td>
                     </tr>
                   </tbody>
@@ -452,50 +446,30 @@
             </div>
             <div class="tabs-section tab-2">
               <div class="fieldDiv popUpFormSectionWrapper">
-                <div class="configListItem">
+                <div
+                  class="configListItem"
+                  *ngFor="let userConfig of userconfiguration"
+                >
                   <label for="getProductsMasterNameCheck">
-                    <!-- <select
-                      *ngFor="let userName of userconfiguration"
-                      class="form-select"
-                      aria-label="Default select example"
-                    >
-                      <option value="data">User</option>
-                      <option value="{{ userName.firstname }}">
-                        {{ userName.firstname }}
-                      </option>
-                    </select>
-                    <select
-                      *ngFor="let userCompany of userconfiguration"
-                      class="form-select"
-                      aria-label="Default select example"
-                    >
-                      <option value="data">company</option>
-                      <option value="">{{ userCompany.companyname }}</option>
-                    </select> -->
                     <form>
                       <table width="100%" cellspacing="0" border="0">
-                        <tr class="toprow">
-                          <!-- DEFAULT -->
-                        </tr>
-
                         <tr class="us-form">
                           <td class="unwrap">
-                            <select>
-                              <option>select box</option>
-                              <option>option 1</option>
-                              <option>option 2</option>
-                              <option>option 3</option>
-                              <option>option 4</option>
+                            <label for="select">User:</label
+                            ><select>
+                              <option>select User</option>
+                              <option>
+                                {{ userConfig.firstname }}
+                                {{ userConfig.lastname }}
+                              </option>
                             </select>
                           </td>
                           <td>
                             <span class="us-form-select-wrap">
+                              <label>Company</label>
                               <select>
-                                <option>select box</option>
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
+                                <option>select Company/option></option>
+                                <option>{{ userConfig.companyname }}</option>
                               </select>
                             </span>
                           </td>
@@ -505,9 +479,47 @@
                       </table>
                     </form>
                   </label>
-                  <div class="fright">
-                    <label for="input">Admin</label>
-                    <input type="checkbox" value="admin" />
+                  <div>
+                    <div class="">
+                      <span>Admin :</span>
+                      <input
+                        type="checkbox"
+                        [checked]="userConfig.status"
+                        value="admin"
+                      />
+                    </div>
+                    <div class="">
+                      <span>User :</span>
+                      <input
+                        type="checkbox"
+                        [checked]="userConfig.status"
+                        value="user"
+                      />
+                    </div>
+                    <div class="">
+                      <span>Accountant :</span>
+                      <input
+                        type="checkbox"
+                        [checked]="userConfig.status"
+                        value="Accountant"
+                      />
+                    </div>
+                    <div class="">
+                      <span>Manager :</span>
+                      <input
+                        type="checkbox"
+                        [checked]="userConfig.status"
+                        value="manager"
+                      />
+                    </div>
+                    <div class="">
+                      <span>Super-Admin :</span>
+                      <input
+                        type="checkbox"
+                        [checked]="userConfig.status"
+                        value="superadmin"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
