@@ -1,56 +1,79 @@
-<div id="pageWrapper" class="pageWrapper bodydiv">
-  <div class="loginBodyWrapper border-rad">
-    <div class="fleft logoLoginWrapper">
+<div id="pageWrapper" class="pageWrapperCompany">
+  <div class="CompanyBodyWrapper border-rad">
+    <div style="justify-content: center" class="">
       <div class="loginLogoWrapper">
-        <!-- <img src="../../../../assets/images/login-logo.png " alt="Pricer" /> -->
-        <h2 class="text-center">Select Your Company</h2>
+        <h2 style="font-size: 2rem" class="text-center">Select Your Company</h2>
       </div>
-      <div id="pricingTypeDropdownDivPricingType">
-        <select
-          class="form-select"
-          #selected
-          (change)="SelectedData(selected.value)"
-          aria-label="Default select example"
-        >
-          <option selected>Select Your Company</option>
-          <option *ngFor="let company of company" value="{{ company.name }}">
-            {{ company.name }}
-          </option>
-          <option disabled value="3">Create if not exist</option>
-        </select>
-      </div>
-      <div class="cboth">
-        <div>
-          <table class="loginBoxTable">
-            <tr>
-              <td class="labelColumn">
-                <tr>
-                  <td class="labelColumn"></td>
-                </tr>
-              </td>
 
-              <td class="inputColumn">
-                <input
-                  type="button"
-                  (click)="proceed(selected.value)"
-                  class="submit_btn border-rad"
-                  value="Proceed"
-                />
-
-                <a
-                  class="register_btn border-rad register-button createNewTableRecord"
-                  id="createNewProduct"
-                  value=""
-                  >Create New Company</a
-                >
-              </td>
-            </tr>
-          </table>
+      <div>
+        <div class="container">
+          <div class="main-body">
+            <div
+              class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm"
+            >
+              <div *ngFor="let company of company" class="col mb-3">
+                <div style="width: 200px" class="card">
+                  <img
+                    src="https://www.bootdey.com/image/340x120/87CEFA/000000"
+                    alt="Cover"
+                    class="card-img-top"
+                  />
+                  <div class="card-body text-center">
+                    <img
+                      src="../../../../assets/images/logo.png"
+                      style="width: 100px; margin-top: -65px"
+                      alt="company"
+                      class="img-fluid img-thumbnail rounded-circle border-0 mb-3"
+                    />
+                    <h5 class="card-title">{{ company.name }}</h5>
+                    <p class="text-secondary mb-1">
+                      Pan No: {{ company.panNo }}
+                    </p>
+                    <p class="text-muted font-size-sm">
+                      {{ company.zone }}
+                    </p>
+                  </div>
+                  <div class="card-footer">
+                    <button
+                      class="submit_btn border-rad btn-sm has-icon btn-block"
+                      (click)="proceed(company.name)"
+                      type="button"
+                    >
+                      proceed
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="cboth"></div>
+    <div class="cboth">
+      <div style="margin-top: 100px">
+        <table class="loginBoxTable">
+          <tr>
+            <td class="labelColumn">
+              <tr>
+                <td class="labelColumn"></td>
+              </tr>
+            </td>
+
+            <td style="padding-left: 200px" class="inputColumn">
+              <a
+                class="register_btn border-rad register-button createNewTableRecord"
+                id="createNewProduct"
+                value=""
+                style="color: white"
+                >Create New Company</a
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
+  <div class="cboth"></div>
 </div>
 
 <div class="popupWrapper" id="createNewProductPopup" style="display: none">

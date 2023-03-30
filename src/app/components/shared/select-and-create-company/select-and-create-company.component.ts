@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
 import { CompanyServiceService } from 'src/app/service/shared/company-service.service';
+import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
   selector: 'app-select-and-create-company',
@@ -16,6 +17,8 @@ import { CompanyServiceService } from 'src/app/service/shared/company-service.se
   encapsulation: ViewEncapsulation.None,
 })
 export class SelectAndCreateCompanyComponent {
+  user!: User;
+  user_id!: number;
   company!: Company[];
   selectedValue!: string;
 
@@ -33,12 +36,17 @@ export class SelectAndCreateCompanyComponent {
 
   constructor(
     private companyService: CompanyServiceService,
+    private loginService: LoginService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.companyService.getCompnayDetails().subscribe((res) => {
+    this.loginService.userObservable.subscribe((LogggedInUser) => {
+      this.user_id = LogggedInUser.user.id;
+    });
+    this.companyService.getCompnayDetails(this.user_id).subscribe((res) => {
+      console.log(`this is from component ${this.user_id}`);
       this.company = res.data;
     });
   }
@@ -80,29 +88,42 @@ export class SelectAndCreateCompanyComponent {
   }
 
   registerCompany() {
+    this.loginService.userObservable.subscribe((loginUser) => {
+      this.user = loginUser;
+      this.user_id = loginUser.user.id;
+      console.log(this.user.user.id);
+    });
     this.companyService
-      .addCompany({
-        name: this.CompanyRegistrationForm.value.name!,
-        description: this.CompanyRegistrationForm.value.description!,
-        panNo: this.CompanyRegistrationForm.value.panNo!,
-        state: this.CompanyRegistrationForm.value.state!,
-        zone: this.CompanyRegistrationForm.value.zone!,
-        district: this.CompanyRegistrationForm.value.district!,
-        munVdc: this.CompanyRegistrationForm.value.munVdc!,
-        wardNo: this.CompanyRegistrationForm.value.wardNo!,
-        phone: this.CompanyRegistrationForm.value.phone!,
-      })
+      .addCompany(
+        {
+          name: this.CompanyRegistrationForm.value.name!,
+          description: this.CompanyRegistrationForm.value.description!,
+          panNo: this.CompanyRegistrationForm.value.panNo!,
+          state: this.CompanyRegistrationForm.value.state!,
+          zone: this.CompanyRegistrationForm.value.zone!,
+          district: this.CompanyRegistrationForm.value.district!,
+          munVdc: this.CompanyRegistrationForm.value.munVdc!,
+          wardNo: this.CompanyRegistrationForm.value.wardNo!,
+          phone: this.CompanyRegistrationForm.value.phone!,
+        },
+        this.user_id
+      )
       .subscribe(() => {
         window.location.reload();
       });
   }
 
-  SelectedData(data: string) {
-    this.selectedValue = data;
-  }
-  proceed(data: string) {
-    if (data != 'Select Your Company' && data != '') {
-      this.router.navigateByUrl('dashboard');
-    }
+  // SelectedData(data: string) {
+  //   this.selectedValue = data;
+  // }
+  // proceed(data: string) {
+  //   if (data != 'Select Your Company' && data != '') {
+  //     this.router.navigateByUrl('dashboard');
+  //   }
+  // }
+
+  proceed(name: string) {
+    console.log(name);
+    this.router.navigateByUrl('dashboard');
   }
 }

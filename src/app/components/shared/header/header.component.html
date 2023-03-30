@@ -354,7 +354,7 @@
   </div>
 
   <!--- Configuration Popup -->
-  <div class="popupWrapper" id="configurationSettingPopup" style="">
+  <div class="popupWrapper" id="configurationSettingPopup" style="width: auto">
     <div class="popupHeading">
       <h2 class="fleft">Configuration</h2>
       <a href="" class="closeButton fright"
@@ -373,76 +373,142 @@
         <div class="tabListWrapper">
           <ul class="tabList popupTablist" id="configurationTabList">
             <li class="active">
-              <a href="" class="fleft tab-1 confTab1" tab="1">General</a>
+              <a href="" class="fleft tab-1 confTab1" tab="1">Users</a>
             </li>
             <li>
-              <a href="" class="fleft tab-2 confTab2" tab="2">Testing</a>
+              <a href="" class="fleft tab-2 confTab2" tab="2">Role</a>
+            </li>
+            <li>
+              <a href="" class="fleft tab-2 confTab2" tab="2">Company</a>
             </li>
           </ul>
         </div>
-        <div class="popupFormField">
+        <div style="width: max-content" class="popupFormField">
           <div id="configurationTabList-Div">
             <div class="tabs-section tab-1">
-              <div class="fieldDiv popUpFormSectionWrapper">
-                <div class="configListItem">
-                  <label for="showTableIdTreeCheck" style="margin-right: 10px">
-                    <input type="checkbox" id="showTableIdTreeCheck" />
-                    <span class=""> Show the table Unique IDs in tree. </span>
-                  </label>
-                  <label for="showTableIdDialogCheck">
-                    <input type="checkbox" id="showTableIdDialogCheck" />
-                    <span class="">
-                      Show the table Unique IDs in Dialogs.
-                    </span>
-                  </label>
-                </div>
+              <div class="queryResultWrapper">
+                <table
+                  cellspacing="0"
+                  cellpadding="0"
+                  class="recordsTable pricingPrefTable"
+                >
+                  <thead>
+                    <tr>
+                      <th>name</th>
+                      <th>Username</th>
+                      <th>company</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let userconfig of userconfiguration">
+                    <tr>
+                      <td>
+                        {{ userconfig.firstname }}
+                        {{ userconfig.lastname }}
+                      </td>
+                      <td>{{ userconfig.email }}</td>
+                      <td>{{ userconfig.companyname }}</td>
+                      <td *ngIf="userconfig.status === true">
+                        <div style="display: flex; padding: 2px">
+                          <input
+                            type="checkbox"
+                            id="scales"
+                            name="scales"
+                            [checked]="userconfig.status"
+                          />
+                          <label for="scales">Enabled</label>
+                        </div>
+                        <!-- <a
+                          class="register_btn border-rad register-button createNewTableRecord"
+                          id="createNewProduct"
+                          value="change"
+                          style="color: whitesmoke"
+                          >change</a
+                        > -->
+                      </td>
+                      <td *ngIf="userconfig.status === false">
+                        disabled /
+                        <a
+                          class="register_btn border-rad register-button createNewTableRecord"
+                          id="createNewProduct"
+                          value="change"
+                          style="color: whitesmoke"
+                          >change</a
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="fieldDiv popUpFormSectionWrapper">
-                <div class="configListItem">
-                  <span>Effective Dates: </span>
-                  <input
-                    type="text"
-                    class="inputText datepickerInput"
-                    id="effDateFrom"
-                    readonly
-                  />
-                  <span class="toDateSpan">to</span>
-                  <input
-                    type="text"
-                    class="inputText datepickerInput"
-                    id="effDateTo"
-                    readonly
-                  />
-                </div>
-              </div>
+
               <div>
-                <input
+                <!-- <input
                   type="button"
-                  value="Reset to default Setings"
+                  value="button"
                   class="submit_btn border-rad"
                   id="resetDefaultSettings"
-                />
+                /> -->
               </div>
             </div>
             <div class="tabs-section tab-2">
               <div class="fieldDiv popUpFormSectionWrapper">
                 <div class="configListItem">
-                  <label for="traceEngineLogonCheck">
-                    <span class="">
-                      <input
-                        type="button"
-                        value="Trace Pricer Engine during logon."
-                        class="submit_btn border-rad"
-                        id="engineTraceFile"
-                      />
-                    </span>
-                  </label>
-                </div>
-                <div class="configListItem">
                   <label for="getProductsMasterNameCheck">
-                    <input type="checkbox" id="getProductsMasterNameCheck" />
-                    <span class=""> Get products Master Name. </span>
+                    <!-- <select
+                      *ngFor="let userName of userconfiguration"
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option value="data">User</option>
+                      <option value="{{ userName.firstname }}">
+                        {{ userName.firstname }}
+                      </option>
+                    </select>
+                    <select
+                      *ngFor="let userCompany of userconfiguration"
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option value="data">company</option>
+                      <option value="">{{ userCompany.companyname }}</option>
+                    </select> -->
+                    <form>
+                      <table width="100%" cellspacing="0" border="0">
+                        <tr class="toprow">
+                          <!-- DEFAULT -->
+                        </tr>
+
+                        <tr class="us-form">
+                          <td class="unwrap">
+                            <select>
+                              <option>select box</option>
+                              <option>option 1</option>
+                              <option>option 2</option>
+                              <option>option 3</option>
+                              <option>option 4</option>
+                            </select>
+                          </td>
+                          <td>
+                            <span class="us-form-select-wrap">
+                              <select>
+                                <option>select box</option>
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                              </select>
+                            </span>
+                          </td>
+                        </tr>
+
+                        <!-- ERROR -->
+                      </table>
+                    </form>
                   </label>
+                  <div class="fright">
+                    <label for="input">Admin</label>
+                    <input type="checkbox" value="admin" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -464,7 +530,11 @@
         </div>
       </form>
     </div>
-    <div class="popupWrapper alertConfPopup" id="confirmDeleteSettings">
+    <div
+      class="popupWrapper alertConfPopup"
+      style="width: auto"
+      id="confirmDeleteSettings"
+    >
       <div class="popupHeading">
         <h2 class="fleft">Confirm</h2>
         <a href="" class="closeButton fright"

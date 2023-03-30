@@ -94,7 +94,7 @@ export class LoginComponent {
         password: this.RegisterForm.value.registerPassword!,
       })
       .subscribe(() => {
-        this.router.navigateByUrl('login');
+        window.location.reload();
       });
   }
 }

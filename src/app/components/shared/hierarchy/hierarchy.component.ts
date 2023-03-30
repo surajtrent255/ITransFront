@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-hierarchy',
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
     './hierarchy.component.css',
     '../../../../assets/resources/css/styles.css',
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HierarchyComponent {}
