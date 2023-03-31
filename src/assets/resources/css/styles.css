@@ -243,6 +243,7 @@ body {
   cellpadding: "0";
   cellspacing: "0";
 }
+
 .loginBoxTable td {
   padding: 8px 3px;
   vertical-align: middle;
@@ -294,7 +295,7 @@ a.genLink {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  background: #7c7c7c url(../images/main-nav-bg.jpg) repeat-x;
+  background: #7c7c7c url("../images/main-nav-bg.jpg") repeat-x;
   color: #ffffff;
 }
 .mainNavList li a img {
@@ -433,7 +434,8 @@ a.genLink {
   padding: 7px;
   background: #ffffff;
   border: 1px solid #afaeac;
-  min-height: 700px;
+  /* min-height: 700px; */
+  min-height: auto;
 }
 .contentRecordsTableContainer .pane-1 .recordsTableDiv,
 .contentRecordsTableContainer .pane-2 .recordsTableDiv,
@@ -449,7 +451,7 @@ a.genLink {
   border: 1px solid #afaeac;
 }
 .recordCategory {
-  background: #d8d9dd url(../images/recordCategory-bg.jpg) repeat-x;
+  background: #d8d9dd url("../images/recordCategory-bg.jpg") repeat-x;
   padding: 6px 10px;
   /*overflow: auto*/
 }
@@ -647,7 +649,8 @@ a.genLink {
   background: #f8f8f8;
 }
 .hierarachy-Div {
-  height: 533px;
+  /* height: 500px; */
+  height: auto;
   padding: 5px;
   overflow: auto;
 }

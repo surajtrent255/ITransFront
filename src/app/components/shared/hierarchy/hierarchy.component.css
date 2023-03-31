@@ -1,0 +1,21 @@
+.sidebar li .submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.sidebar li {
+  font-size: 1rem;
+  font-family: "PT Sans", sans-serif;
+  color: #333333;
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: var(--bs-dark);
+}
+.sidebar .nav-link:hover {
+  color: var(--bs-primary);
+}
