@@ -5,14 +5,13 @@ import { BASE_URL } from '../constants/urls';
 import { InventoryProducts } from '../models/InventoryProducts';
 import { Product } from '../models/Product';
 import { RJResponse } from '../models/rjresponse';
-const productURL = "product"
+const productURL = 'product';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class ProductService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   addNewProduct(product: Product): Observable<any> {
     let url = `${BASE_URL}/${productURL}`;
@@ -21,7 +20,9 @@ export class ProductService {
 
   getAllProducts(): Observable<RJResponse<Product[]>> {
     let url = `${BASE_URL}/${productURL}`;
-    return this.httpClient.get<RJResponse<Product[]>>(url);
+    return this.httpClient.get<RJResponse<Product[]>>(
+      'http://localhost:9999/product'
+    );
   }
 
   getProductById(id: number): Observable<RJResponse<Product>> {
@@ -29,7 +30,9 @@ export class ProductService {
     return this.httpClient.get<RJResponse<Product>>(url);
   }
 
-  getAllProductsForInventory(companyId: number): Observable<RJResponse<InventoryProducts[]>> {
+  getAllProductsForInventory(
+    companyId: number
+  ): Observable<RJResponse<InventoryProducts[]>> {
     let url = `${BASE_URL}/${productURL}/inventory?companyId=${companyId}`;
     return this.httpClient.get<RJResponse<InventoryProducts[]>>(url);
   }

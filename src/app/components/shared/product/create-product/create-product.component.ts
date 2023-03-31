@@ -7,32 +7,33 @@ import { ProductService } from 'src/app/service/product.service';
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
-  styleUrls: ['./create-product.component.css']
+  styleUrls: ['./create-product.component.css'],
 })
 export class CreateProductComponent {
-
   @Output() productInfoEvent = new EventEmitter<Product>();
   product: Product = new Product();
   availableCategories: CategoryProduct[] = [];
-  constructor(private productService: ProductService, private categoryProductService: CategoryProductService,
-  ) { }
+  constructor(
+    private productService: ProductService,
+    private categoryProductService: CategoryProductService
+  ) {}
 
   ngOnInit() {
     this.categoryProductService.getAllCategories().subscribe({
-      next: data => {
+      next: (data) => {
         this.availableCategories = data.data;
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   createProduct(form: any) {
-    console.log(this.product)
-
+    console.log(this.product);
+    console.log('creating');
     this.productInfoEvent.emit(this.product);
-    console.log("createproduct")
+    console.log('createproduct');
     form.reset();
   }
 }

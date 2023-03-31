@@ -6,11 +6,10 @@ import { CategoryProduct } from '../models/CategoryProduct';
 import { RJResponse } from '../models/rjresponse';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoryProductService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllCategories(): Observable<RJResponse<CategoryProduct[]>> {
     let url = `${BASE_URL}/category/all`;
@@ -21,5 +20,4 @@ export class CategoryProductService {
     let url = `${BASE_URL}/category`;
     return this.http.post<RJResponse<number>>(url, category);
   }
-
 }

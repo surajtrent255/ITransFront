@@ -9,32 +9,34 @@ import { LoginService } from 'src/app/service/shared/login.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  styleUrls: ['./product.component.css'],
 })
 export class ProductComponent {
-
-  availableProducts !: Product[];
-  availableCategories !: CategoryProduct[];
+  availableProducts!: Product[];
+  availableCategories!: CategoryProduct[];
 
   showableCreateProdDiv: boolean = false;
-  constructor(private productService: ProductService, private loginService: LoginService,
-    private router: Router) { }
+  constructor(
+    private productService: ProductService,
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
-  newProduct !: Product;
+  newProduct!: Product;
   ngOnInit() {
     this.fetchAllProducts();
   }
 
   fetchAllProducts() {
-    this.productService.getAllProducts().subscribe(data => {
-      this.availableProducts = data.data
-    })
+    this.productService.getAllProducts().subscribe((data) => {
+      this.availableProducts = data.data;
+    });
   }
   showAddProductComp() {
     this.showableCreateProdDiv = true;
   }
   editProduct(id: number) {
-    this.router.navigateByUrl("dashboard/products/edit/" + id);
+    this.router.navigateByUrl('dashboard/products/edit/' + id);
   }
   createNewProduct($event: Product) {
     this.newProduct = $event;
@@ -46,13 +48,12 @@ export class ProductComponent {
         console.log(data.data);
       },
       error: (error) => {
-        console.log("Error occured ");
+        console.log('Error occured ');
       },
       complete: () => {
         this.fetchAllProducts();
-      }
-    })
-    console.log("product.component.ts")
-
+      },
+    });
+    console.log('product.component.ts');
   }
 }
