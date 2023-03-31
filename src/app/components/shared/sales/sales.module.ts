@@ -6,6 +6,8 @@ import { SalesBillingComponent } from './sales-billing/sales-billing.component';
 import { SalesBillInvoiceComponent } from './sales-bill-invoice/sales-bill-invoice.component';
 import { SalesBillEditComponent } from './sales-bill-edit/sales-bill-edit.component';
 import { NumberToWordTransformPipe } from 'src/app/custompipes/number-to-word-transform.pipe';
+import { PopupComponent } from 'src/app/popup/popup.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -15,11 +17,14 @@ import { NumberToWordTransformPipe } from 'src/app/custompipes/number-to-word-tr
     SalesBillingComponent,
     SalesBillInvoiceComponent,
     SalesBillEditComponent,
-    NumberToWordTransformPipe
+    NumberToWordTransformPipe,
+    PopupComponent
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule
+
   ],
   exports: [
     CreateSalesComponent,

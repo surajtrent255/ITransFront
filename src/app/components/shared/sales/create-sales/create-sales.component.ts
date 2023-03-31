@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/models/Product';
 import { SalesBill } from 'src/app/models/SalesBill';
 import { SalesBillDetail } from 'src/app/models/SalesBillDetail';
@@ -9,6 +10,7 @@ import { ProductService } from 'src/app/service/product.service';
 import { SalesBillServiceService } from 'src/app/service/sales-bill-service.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 import { SalesCartService } from 'src/app/service/shared/sales-cart-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-sales',
@@ -30,41 +32,22 @@ export class CreateSalesComponent {
   productQtyUserWantTOSale: number = 1;
   customerId !: number;
 
-  constructor(private salesCartService: SalesCartService, private productService: ProductService) { }
+  // isconfirmAlert: boolean = false;
+  // alertboxshowable: boolean = true;
+
+  constructor(private salesCartService: SalesCartService,
+    private productService: ProductService,
+    private salesBillService: SalesBillServiceService,
+    private router: Router,
+    private loginService: LoginService) { }
 
   ngOnInit() {
-    console.log("ng on init create sales component  ")
-    if (localStorage.getItem("SalesCart") !== null) {
-      this.salesBillDetailsForCart = JSON.parse(localStorage.getItem("SalesCart")!);
-    }
-    // this.salesCartService.currentProdsInSalesCart.subscribe(cartInfo => this.salesBillDetailsForCart);
 
   }
 
-  ngOnDestroy() {
-    console.log("destorying create-sales component")
-  }
-  // submitSalesBillForm(form: NgForm) {
-  //   this.salesBillDetailInfos.push(this.salesBillDetail);
-  //   this.salesBillDetail = new SalesBillDetail;
-  //   form.reset();
+  // deactiveCreateSalesComp() {
+  //   this.activeSalesBillEntryEvent.emit(false)
   // }
-
-  updateQty($event: any, productId: number) {
-    this.salesBillDetailsForCart.forEach((item) => {
-      if (item.productId == productId) {
-        item.qty = $event.target.value;
-      }
-    })
-    localStorage.setItem("SalesCart", JSON.stringify(this.salesBillDetailsForCart))
-    // this.salesCartService.updateSalesCartInfo(this.salesBillDetailsForCart)
-    //
-  }
-
-
-  deactiveCreateSalesComp() {
-    this.activeSalesBillEntryEvent.emit(false)
-  }
 
 
   addTheProductForSale() {
@@ -93,10 +76,11 @@ export class CreateSalesComponent {
 
 
   saleTheProducts() {
-    // this.salesBillDetailInfos = JSON.parse(localStorage.getItem("SalesCart")!)
-    if (this.customerId === 0 || this.customerId === undefined) return;
-    console.log(this.customerId);
-    this.customerIdEntryEvent.emit(this.customerId)
+
+    if (this.customerId === 0 || this.customerId === undefined || this.productsUserWantTosale.length <= 0) return;
+    const hidePopperBtn = document.getElementById("closeAlertPopperButton") as HTMLButtonElement;
+    hidePopperBtn.click();
+    // this.customerIdEntryEvent.emit(this.customerId)
     this.productsUserWantTosale.forEach(prod => {
       let saleBillDetail: SalesBillDetail = new SalesBillDetail;
       saleBillDetail.productId = prod.id;
@@ -106,10 +90,51 @@ export class CreateSalesComponent {
       saleBillDetail.rate = prod.sellingPrice;
       this.salesBillDetailInfos.push(saleBillDetail);
     })
-    console.log("%%%%%%%%%%%%%%")
-    console.log(this.salesBillDetailInfos);
-    this.salesBillDetailListEvent.emit(this.salesBillDetailInfos);
-
+    this.continueSelling();
   }
 
+  continueSelling() {
+    let salesBillDetailInfos = this.salesBillDetailInfos;
+    let amount = 0;
+    let discount = 0;
+    if (salesBillDetailInfos.length > 0) {
+      for (let i = 0; i < salesBillDetailInfos.length; i++) {
+        let prod = salesBillDetailInfos[i];
+        amount += prod.qty * prod.rate;
+        discount += prod.qty * prod.discountPerUnit;
+      }
+    }
+    let taxableAmount = amount - discount;
+    let taxAmount = 13 / 100 * taxableAmount;
+    let totalAmount = taxableAmount + taxAmount;
+
+
+    let salesBill: SalesBill = new SalesBill;
+    let salesBillMaster: SalesBillMaster = new SalesBillMaster;
+    salesBill.amount = amount;
+    salesBill.discount = discount;
+    salesBill.taxableAmount = taxableAmount;
+    salesBill.taxAmount = taxAmount;
+    salesBill.totalAmount = totalAmount;
+    salesBill.custId = this.customerId;
+    salesBill.customerName = "xyz mohit";
+    salesBill.customerPan = "Pan#123";
+    salesBill.syncWithIrd = false;
+    salesBill.enteredBy = this.loginService.currentUser.user.email;
+    salesBill.paymentMethod = "CashInHand";
+
+    salesBill.userId = this.loginService.currentUser.user.id;
+    salesBill.companyId = 1;
+    salesBill.realTime = true;
+    salesBill.billActive = true;
+
+
+    salesBillMaster.salesBillDTO = salesBill;
+    salesBillMaster.salesBillDetails = salesBillDetailInfos;
+    this.salesBillService.createNewSalesBill(salesBillMaster).subscribe({
+      next: data => {
+        this.router.navigateByUrl(`dashboard/salesbill/invoice/${data.data}/${salesBill.companyId}`);
+      }
+    })
+  }
 }

@@ -1,0 +1,33 @@
+<table class="table">
+  <thead>
+    <th>S.N</th>
+    <th>ProductId</th>
+    <th>ProductName</th>
+    <!-- <th>Quantity</th> -->
+    <th>Category Name</th>
+    <th>Stock Qty</th>
+    <th>barcode</th>
+    <th>Add Qty</th>
+    <th>Make Purchase</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let prod of availableProducts; let index = index">
+      <td>{{ index + 1 }}</td>
+      <td>{{ prod.productId }}</td>
+      <td>{{ prod.productName }}</td>
+      <td>{{ prod.categoryName }}</td>
+      <td>{{ prod.stockQty }}</td>
+      <td>{{ prod.barcode }}</td>
+      <td>
+        <input
+          type="number"
+          id="inputQty{{ prod.productId }}"
+          style="width: 50%"
+        />
+      </td>
+      <td>
+        <button (click)="makePurchase(prod.productId)">Make Purchase</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

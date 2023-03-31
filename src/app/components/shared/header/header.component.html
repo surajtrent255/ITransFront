@@ -366,7 +366,7 @@
               var tableID = ui.draggable.attr('table');
               $(this).parents('.paneSelectionTable').children().find('.panes').each(function(){
                   if($(this).attr('tableId')==""){
-                      //alert($(this).text());					
+                      //alert($(this).text());
                       validationError = true;
                       return false;
                   }
@@ -379,22 +379,22 @@
                $(this).removeClass('customerRecordTable');
                $(this).addClass(tableID);
                if($('.paneSelectionTable:visible .panes.adjustmentRecordTable').length==1 && $('.paneSelectionTable:visible .panes.productsRecordTable').length==1 && $('.paneSelectionTable:visible .panes.customerRecordTable').length==1){
-                   validationError = false;	
+                   validationError = false;
                }
                else{
-                   validationError = true;				 	
+                   validationError = true;
                }
               if(validationError == true){
                   $('.panesSelectionWarning').show();
               }
               else{
-                  $('.panesSelectionWarning').hide();	
+                  $('.panesSelectionWarning').hide();
               }
           }
       })
-  
+
       $('#saveSelectedPanesButton').live('click',function(){
-  
+
           if(validationError==true){
               alert('Please select the panes appropriately');
               return false;
@@ -405,7 +405,7 @@
           //alert(paneSecondId);
           var paneThirdId = $('.paneSelectionTable:visible tr td.selectedPane3').attr('tableId');
           //alert(paneThirdId);
-  
+
           if($('.paneSelectionTable:visible').hasClass('tabbedComponent')){
               $('.tabbed-layout-links li').removeClass('pane-1-link');
               $('.tabbed-layout-links li').removeClass('pane-2-link');
@@ -415,7 +415,7 @@
               $('.tabbed-layout-links li#link-'+paneSecondId).addClass('pane-2-link');
               $('.tabbed-layout-links li#link-'+paneThirdId).addClass('pane-3-link');
               $('.tabbed-layout-links li.pane-1-link').addClass('active');
-  
+
               $('.tabbed-layout-links li.pane-1-link').after($('.tabbed-layout-links li.pane-2-link'));
               $('.tabbed-layout-links li.pane-2-link').after($('.tabbed-layout-links li.pane-3-link'));
           }
@@ -424,26 +424,26 @@
               $('.contentRecordsTableContainer.master-data-table-container .recordTableWrapper.pane-2').show();
               $('.contentRecordsTableContainer.master-data-table-container .recordTableWrapper.pane-3').show();
           }
-  
-  
+
+
           $('.contentRecordsTableContainer .recordTableWrapper').removeClass('pane-1');
           $('.contentRecordsTableContainer .recordTableWrapper').removeClass('pane-2');
           $('.contentRecordsTableContainer .recordTableWrapper').removeClass('pane-3');
-  
+
           $('#'+paneFirstId).addClass('pane-1');
           $('#'+paneSecondId).addClass('pane-2');
           $('#'+paneThirdId).addClass('pane-3');
-  
+
           $('.recordTableWrapper.pane-1').after($('.recordTableWrapper.pane-2'));
           $('.recordTableWrapper.pane-2').after($('.recordTableWrapper.pane-3'));
-  
+
           $('.pageOverlay').fadeOut('fast');
           $('.popupWrapper').fadeOut('fast');
           addLayoutConfiguration(paneFirstId+","+paneSecondId+","+paneThirdId,"LAYOUT_PANE_POSITION_1,LAYOUT_PANE_POSITION_2,LAYOUT_PANE_POSITION_3");
           return false;
-  
+
       })
-  });	
+  });
   </script> -->
   </div>
 

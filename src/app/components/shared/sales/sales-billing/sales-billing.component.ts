@@ -1,4 +1,5 @@
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { SalesBill } from 'src/app/models/SalesBill';
 import { SalesBillDetail } from 'src/app/models/SalesBillDetail';
 import { SalesBillInvoice } from 'src/app/models/SalesBillInvoice';
@@ -7,7 +8,6 @@ import { User } from 'src/app/models/user';
 import { SalesBillServiceService } from 'src/app/service/sales-bill-service.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-sales-billing',
   templateUrl: './sales-billing.component.html',
@@ -24,7 +24,7 @@ export class SalesBillingComponent {
   salesBills: SalesBill[] = [];
   customerId !: number;
   activeSalesBillEdit: boolean = false;
-  constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService) { }
+  constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService, private router: Router) { }
 
 
   ngOnInit() {
@@ -57,6 +57,12 @@ export class SalesBillingComponent {
   setCustomerId($event: number) {
     this.customerId = $event
   }
+
+
+  viewSaleBillDetail(billNo: number, companyId: number) {
+    alert(companyId)
+    this.router.navigate[`salesbill/${billNo}/${companyId}`];
+  }
   saleTheProducts(saleBillDetails: SalesBillDetail[]) {
 
     Swal.fire({
@@ -74,6 +80,7 @@ export class SalesBillingComponent {
     })
 
     const continueSelling = () => {
+      console.log("continue selling")
       let salesBillDetailInfos = saleBillDetails;
       let amount = 0;
       let discount = 0;
@@ -118,8 +125,9 @@ export class SalesBillingComponent {
         showCancelButton: false,
         showConfirmButton: false
       })
+      console.log(salesBillMaster)
+      console.log("slaebillmaster above");
       this.salesBillService.createNewSalesBill(salesBillMaster).subscribe(data => {
-        localStorage.removeItem("SalesCart");
         Swal.fire({
           title: 'Produts have been sold',
           text: 'click ok button to watch invoice',

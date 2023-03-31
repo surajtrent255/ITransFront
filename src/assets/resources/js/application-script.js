@@ -738,6 +738,13 @@ $(function () {
     $(".movable").removeClass("movable");
     return false;
   });
+
+  $(".closeAlertPopperButton").live("click", function () {
+    $(".pageOverlay").fadeOut("fast");
+    $(".popperAlert").fadeOut("fast");
+    $(".movable").removeClass("movable");
+    return false;
+  });
   $(document).bind("keydown", function (e) {
     if (e.which == 27) {
       $(".pageOverlay").fadeOut("fast");
@@ -840,6 +847,46 @@ $(function () {
 
     return false;
   });
+
+  $("#popperAlertLink").live("click", function(){
+    $("#popperAlertSettingPopup").fadeIn("fast");
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    $(".pageOverlay").fadeIn("fast");
+    showTblIdTreeCheck = $("#defaultConfigurationData")
+      .children("#showTableIdTreeCheckDefault")
+      .text();
+    if (showTblIdTreeCheck == "checked") {
+      $("#showTableIdTreeCheck").attr("checked", showTblIdTreeCheck);
+    } else {
+      $("#showTableIdTreeCheck").removeAttr("checked");
+    }
+    if (
+      $("#defaultConfigurationData")
+        .children("#showTableIdDialogCheckDefault")
+        .text() == "checked"
+    ) {
+      $("#showTableIdDialogCheck").attr("checked", "checked");
+    } else {
+      $("#showTableIdDialogCheck").removeAttr();
+    }
+    $("#effDateFrom").val(
+      $("#defaultConfigurationData").children("#effDateFromDefault").text()
+    );
+    $("#effDateTo").val(
+      $("#defaultConfigurationData").children("#effDateToDefault").text()
+    );
+    if (
+      $("#defaultConfigurationData")
+        .children("#getProductsMasterNameCheckDefault")
+        .text() == "checked"
+    ) {
+      $("#getProductsMasterNameCheck").attr("checked", "checked");
+    } else {
+      $("#getProductsMasterNameCheck").removeAttr();
+    }
+
+    return false;
+  })
 
   $("#pricingPreferencesLink").live("click", function () {
     $("#pricingPreferencePopup").fadeIn("fast");

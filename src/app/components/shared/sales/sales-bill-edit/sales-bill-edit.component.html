@@ -1,170 +1,25 @@
-<div class="popupHeading">
-  <h2 class="fleft">edit Sales</h2>
-  <a class="closeButton fright" (click)="deactivateSalesBillEdit()"
-    ><img src="../../../assets/resources/images/removetablink.png" alt="close"
-  /></a>
-  <div class="cboth"></div>
-</div>
-<div class="popupSubHeadingDiv">
-  <h1 class="heading">you can edit your products here</h1>
-</div>
-<div class="popupContentWrapper">
-  <div class="row">
-    <div class="col-md-8">
-      <!-- <table class="table">
-        <thead>
-          <th>#product_Id</th>
-          <th>Quantity</th>
-          <th>DiscountPerUnit</th>
-          <th>Rate</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let prod of salesBillDetailsForCart">
-            <td>{{ prod.productId }}</td>
-            <td>
-              <input
-                type="number"
-                value="{{ prod.qty }}"
-                (change)="updateQty($event, prod.productId)"
-              />
-            </td>
-            <td>{{ prod.discountPerUnit }}</td>
-            <td>{{ prod.rate }}</td>
-          </tr>
-        </tbody>
-      </table> -->
-      <!-- <button (click)="saleTheProducts()" id="saleProducts">
-        Sale the product
-      </button> -->
-
-      <!-- <form
-        #createSalesBill="ngForm"
-        (ngSubmit)="submitSalesBillForm(createSalesBill)"
+<div class="row recordsTable">
+  <table class="table table-striped">
+    <thead>
+      <th>S.N</th>
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Per Unit Amount(Rs)</th>
+      <th>Sold At</th>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let invoice of salesBillInvoice.salesBillDetailsWithProd;
+          let i = index
+        "
       >
-        <div class="chooseColoumnsWrapper">
-          <div class="fieldDiv popUpFormSectionWrapper">
-            <table class="formSection" cellpadding="0" cellspacing="0">
-              <tr>
-                <td class="col1 pt-2">
-                  Product Id:<span class="mandatorySign">*</span>
-                </td>
-                <td class="col2">
-                  <input
-                    type="number"
-                    [class.is-invalid]="productId.invalid && productId.touched"
-                    class="form-control"
-                    id="productId"
-                    #productId="ngModel"
-                    required
-                    name="productId"
-                    [(ngModel)]="salesBillDetail.productId"
-                  />
-                </td>
-                <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="productId.valid || productId.untouched"
-                    >invalid productId</small
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td class="col1 pt-2">
-                  Quantity:<span class="mandatorySign">*</span>
-                </td>
-                <td class="col2">
-                  <input
-                    type="number"
-                    [class.is-invalid]="qty.invalid && qty.touched"
-                    class="form-control"
-                    id="qty"
-                    #qty="ngModel"
-                    required
-                    name="qty"
-                    [(ngModel)]="salesBillDetail.qty"
-                  />
-                </td>
-                <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="qty.valid || qty.untouched"
-                    >invalid qty</small
-                  >
-                </td>
-              </tr>
-
-              <tr>
-                <td class="col1 pt-2">
-                  Discount per unit :<span class="mandatorySign">*</span>
-                </td>
-                <td class="col2">
-                  <input
-                    type="number"
-                    [class.is-invalid]="
-                      discountPerUnit.invalid && discountPerUnit.touched
-                    "
-                    class="form-control"
-                    id="discountPerUnit"
-                    #discountPerUnit="ngModel"
-                    required
-                    name="discountPerUnit"
-                    [(ngModel)]="salesBillDetail.discountPerUnit"
-                  />
-                </td>
-                <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="
-                      discountPerUnit.valid || discountPerUnit.untouched
-                    "
-                    >invalid discountPerUnit</small
-                  >
-                </td>
-              </tr>
-
-              <tr>
-                <td class="col1 pt-2">
-                  Rate :<span class="mandatorySign">*</span>
-                </td>
-                <td class="col2">
-                  <input
-                    type="number"
-                    [class.is-invalid]="rate.invalid && rate.touched"
-                    class="form-control"
-                    id="rate"
-                    #rate="ngModel"
-                    required
-                    name="rate"
-                    [(ngModel)]="salesBillDetail.rate"
-                  />
-                </td>
-                <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="rate.valid || rate.untouched"
-                    >invalid rate</small
-                  >
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="submitDiv tCenter">
-          <input
-            class="btn btn-success btn-sm py-2 px-4"
-            type="submit"
-            id="submitSalesBill "
-            value="Add the product"
-          />
-
-          <input
-            style="margin-left: auto"
-            type="button"
-            value="Cancel"
-            class="btn btn-warning btn-sm cancel_btn py-2 px-4"
-          />
-        </div>
-      </form> -->
-    </div>
-  </div>
+        <td>{{ i + 1 }}</td>
+        <td>{{ invoice.productName }}</td>
+        <td>{{ invoice.qty }}</td>
+        <td>{{ invoice.rate }}</td>
+        <td>{{ invoice.date | date }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

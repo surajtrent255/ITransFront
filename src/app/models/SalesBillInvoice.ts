@@ -3,6 +3,6 @@ import { SalesBillDetailWithProdInfo } from "./SalesBillDetailWithProdInfo";
 
 export class SalesBillInvoice {
 
-  salesBillDTO !: SalesBill;
+  salesBillDTO: SalesBill = new SalesBill;
   salesBillDetailsWithProd !: SalesBillDetailWithProdInfo[]
 }

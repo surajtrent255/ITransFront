@@ -17,4 +17,9 @@ export class CategoryProductService {
     return this.http.get<RJResponse<CategoryProduct[]>>(url);
   }
 
+  addNewCategory(category: CategoryProduct): Observable<RJResponse<number>> {
+    let url = `${BASE_URL}/category`;
+    return this.http.post<RJResponse<number>>(url, category);
+  }
+
 }

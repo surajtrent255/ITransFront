@@ -3,6 +3,9 @@ import { SalesBillInvoice } from 'src/app/models/SalesBillInvoice';
 import { SalesBillMaster } from 'src/app/models/SalesBillMaster';
 import Swal from 'sweetalert2';
 import { NumberToWordTransformPipe } from 'src/app/custompipes/number-to-word-transform.pipe';
+import { SalesBillServiceService } from 'src/app/service/sales-bill-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { LoginService } from 'src/app/service/shared/login.service';
 @Component({
   selector: 'app-sales-bill-invoice',
   templateUrl: './sales-bill-invoice.component.html',
@@ -10,30 +13,48 @@ import { NumberToWordTransformPipe } from 'src/app/custompipes/number-to-word-tr
 })
 export class SalesBillInvoiceComponent {
 
-  @Input()
+  // @Input()
+  // salesInvoice: SalesBillInvoice = new SalesBillInvoice;
+
+  // @Output() billNoEvent = new EventEmitter<number>();
+
+  // @Output() activeSalesBillInvoiceEvent = new EventEmitter<boolean>();
   salesInvoice: SalesBillInvoice = new SalesBillInvoice;
 
-  @Output() billNoEvent = new EventEmitter<number>();
 
-  @Output() activeSalesBillInvoiceEvent = new EventEmitter<boolean>();
+  constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    let billNo: number = this.activatedRoute.snapshot.params['billNo'];
+    let companyId: number = this.activatedRoute.snapshot.params['companyId'];
+    this.fetchSalesBillInvoice(billNo, companyId);
     this.salesInvoice.salesBillDTO.totalAmount = Math.floor(this.salesInvoice.salesBillDTO.totalAmount);
     console.log("salebill init");
   }
 
-  printTheBill(billNo: number) {
-    Swal.fire({
-      text: 'loading...',
-      showCancelButton: false,
-      showConfirmButton: false
+  fetchSalesBillInvoice(billNo: number, companyId: number) {
+    this.salesBillService.fetchSalesBillDetailForInvoice(billNo, companyId).subscribe({
+      next: (data) => {
+        this.salesInvoice = data.data;
+      }
     })
-    console.log("bill no = " + billNo)
-    this.billNoEvent.emit(billNo);
   }
 
-  deactivateSalesBillInvoice() {
-    this.activeSalesBillInvoiceEvent.emit(false);
+
+
+  printTheBill(bill_no: number) {
+    let userId = this.loginService.currentUser.user.id;
+    let billNo = bill_no;
+    this.salesBillService.printTheBill(billNo, userId).subscribe({
+      next: (data) => {
+        alert("bill is printed successfully")
+        console.log("bill is printed Successfully");
+      },
+      error: (error) => {
+        console.log("error while printing bill");
+      }
+    })
   }
 
   ngOnDestroy() {

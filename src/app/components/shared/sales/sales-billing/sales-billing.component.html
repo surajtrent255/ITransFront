@@ -276,21 +276,15 @@
               }}
             </td>
             <td class="last-child">
-              <!-- <a href="" class="editRowLink editGroupCombo">
-                <img
-                  src="../../../assets/resources/images/editRow.png"
-                  (click)="editSalesBillInfo(salesBill.billNo)"
-                />
-              </a> -->
-              <a href="" id="editSalesBill" class="createNewTableRecord">
+              <!-- <a href="" id="editSalesBill" class="createNewTableRecord">
                 <img
                   src="../../../assets/resources/images/editRow.png"
                   (click)="activateSalesBillEdit(salesBill.billNo)"
                 />
-                <!-- <span (click)="editSalesBillInfo(salesBill.billNo)">
-                  Create salesBill</span
-                > -->
-              </a>
+              </a> -->
+              <a routerLink="{{ salesBill.billNo }}"
+                ><i class="fa fa-info-circle" aria-hidden="true"></i
+              ></a>
               <a href="" class="deleteRowLink deleteGroupCombo">
                 <img src="../../../assets/resources/images/deleteRow.png" />
               </a>
@@ -303,18 +297,20 @@
 </div>
 
 <div class="popupWrapper" id="createNewsalesBillPopup" style="display: none">
+  <div class="mb-2"></div>
+
   <app-create-sales
     *ngIf="activeSalesBillEntry"
     (salesBillDetailListEvent)="saleTheProducts($event)"
     (activeSalesBillEntryEvent)="deactivateSalesBillEntry($event)"
     (customerIdEntryEvent)="setCustomerId($event)"
   ></app-create-sales>
-  <app-sales-bill-invoice
+  <!-- <app-sales-bill-invoice
     *ngIf="activeSaleBillInvoice"
     [salesInvoice]="invoiceInfo"
     (activeSalesBillInvoiceEvent)="deactivateSalesBillInvoice($event)"
     (billNoEvent)="printTheBill($event)"
-  ></app-sales-bill-invoice>
+  ></app-sales-bill-invoice> -->
 </div>
 
 <div class="popupWrapper" id="editSalesBillPopup" style="display: none">

@@ -1,16 +1,20 @@
 <div class="popupHeading">
   <h2 class="fleft">Create Sales</h2>
-  <a class="closeButton fright" (click)="deactiveCreateSalesComp()"
+  <a class="closeButton fright"
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
   <div class="cboth"></div>
 </div>
 <div class="popupSubHeadingDiv createsalesBill">
-  <h1 class="heading">Choose products for sales</h1>
+  <h1 class="heading">
+    Choose products for sales <a href="" id="popperAlertLink">CG</a>
+  </h1>
 </div>
 <div class="popupContentWrapper">
   <div class="row">
     <div class="col-md-12">
+      <!-- <app-popup class="m-4"></app-popup> -->
+
       <table>
         <tr>
           <td>Enter CustomerId:</td>
@@ -59,9 +63,7 @@
           </tr>
         </tbody>
       </table>
-      <button (click)="saleTheProducts()" id="saleProducts">
-        Sale the product
-      </button>
+      <button id="popperAlertLink">Sale the product</button>
     </div>
   </div>
 </div>
@@ -78,3 +80,43 @@
   <td>{{ prod.discountPerUnit }}</td>
   <td>{{ prod.rate }}</td>
 </tr> -->
+
+<div>
+  <div class="popperAlert" id="popperAlertSettingPopup" style="">
+    <div class="popupHeading">
+      <h2 class="fleft">Confirm</h2>
+      <a href="" class="closeAlertPopperButton fright"
+        ><img
+          src="../../../../assets/resources/images/removetablink.png"
+          alt="close"
+      /></a>
+      <div class="cboth"></div>
+    </div>
+    <div class="popupContentWrapper">
+      <form>
+        <div class="contentDiv">
+          <div class="contentChildTextDiv">Are you sure ?</div>
+          <div class="contentChildTextDiv">
+            Click Yes to continue or Cancel to discard.
+          </div>
+        </div>
+        <div class="submitDiv tCenter">
+          <button
+            (click)="saleTheProducts()"
+            type="button"
+            class="submit_btn border-rad blueGradient resetSettings"
+          >
+            Yes
+          </button>
+          <button
+            type="button"
+            class="closeAlertPopperButton"
+            id="closeAlertPopperButton"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

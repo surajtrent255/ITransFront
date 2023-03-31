@@ -19,6 +19,8 @@ export class SearchCreateProductsComponent {
 
   @ViewChild('prodSelectBtnRef', { static: false }) prodSelectBtnRef !: ElementRef;
   @ViewChild('createSalesComponent', { static: false }) createSalesComponent !: CreateSalesComponent;
+
+
   product: Product = new Product();
   productAddShowable = false;
   categorySelectShowable = true;
@@ -41,7 +43,7 @@ export class SearchCreateProductsComponent {
     this.categoryProductService.getAllCategories().subscribe(data => {
       this.availableCategories = data.data;
       this.categoriesData = data.data;
-      this.letsCreateCategoryList(this.categoriesData);
+      // this.letsCreateCategoryList(this.categoriesData);
       this.categoriesLoaded = true;
     })
   }
@@ -55,7 +57,7 @@ export class SearchCreateProductsComponent {
   }
 
   createProduct() {
-    this.product.categoryId = 1;
+    // this.product.categoryId = 1;
     this.product.companyId = 1;
     this.product.userId = 1;
     this.product.sellerId = 1;
@@ -68,47 +70,40 @@ export class SearchCreateProductsComponent {
   }
 
   @ViewChild('container', { static: true }) container!: ElementRef;
-
   letsAdd(catId: number, parentId: number, catName: string) {
   }
 
-
+  selCategoryName!: string;
+  selectCategory(categoryId: number, catName: string) {
+    this.product.categoryId = categoryId;
+    this.selCategoryName = catName;
+  }
   addToList() {
     console.log("%%%%%%%%%%%%%%%%%%%%")
   }
 
 
-  // letCreateAdvanceCatList(categoriesData: CategoryProduct[] ){
+  // letsCreateCategoryList(categoriesData: CategoryProduct[]): string {
+  //   let categoryHiearchyDom = "";
+  //   function createCategoryHiearchy(categories: CategoryProduct[]) {
+  //     categories.forEach(function (category) {
+  //       categoryHiearchyDom += `<li><button class="fa fa-plus-square"  (click)="addToList()"  aria-hidden="true"  data-target="${category.id}" data-parent="${category.parentId}"></button>&nbsp <span class="m-r-3"> ${category.name} </span> <i class = "fa fa-caret-down" data-toggle="collapse" data-target="#data${category.id}" aria-hidden="true"></i> `;
+  //       if (category.childCategories && category.childCategories.length > 0) {
+  //         categoryHiearchyDom += "<ul id='data" + category.id + "' class='pl-3 collapse'>";
 
+  //         createCategoryHiearchy(category.childCategories)
+  //         categoryHiearchyDom += "</li></ul>";
+  //       }
+  //       categoryHiearchyDom += "</li>";
+
+  //     })
+  //   }
+  //   createCategoryHiearchy(categoriesData);
+  //   const catHierEl = document.getElementById("categoryHierarchy") as HTMLElement
+  //   catHierEl.innerHTML = categoryHiearchyDom;
+  //   // catHierEl.replaceWith(new DOMParser().parseFromString(categoryHiearchyDom, "text/html").body);
+  //   return categoryHiearchyDom;
   // }
-
-
-
-
-
-
-  letsCreateCategoryList(categoriesData: CategoryProduct[]): string {
-    let categoryHiearchyDom = "";
-    function createCategoryHiearchy(categories: CategoryProduct[]) {
-      categories.forEach(function (category) {
-        categoryHiearchyDom += `<li><button class="fa fa-plus-square"  (click)="addToList()"  aria-hidden="true"  data-target="${category.id}" data-parent="${category.parentId}"></button>&nbsp <span class="m-r-3"> ${category.name} </span> <i class = "fa fa-caret-down" data-toggle="collapse" data-target="#data${category.id}" aria-hidden="true"></i> `;
-        if (category.childCategories && category.childCategories.length > 0) {
-          categoryHiearchyDom += "<ul id='data" + category.id + "' class='pl-3 collapse'>";
-
-          createCategoryHiearchy(category.childCategories)
-          categoryHiearchyDom += "</li></ul>";
-        }
-        categoryHiearchyDom += "</li>";
-
-      })
-    }
-    createCategoryHiearchy(categoriesData);
-    const catHierEl = document.getElementById("categoryHierarchy") as HTMLElement
-    catHierEl.innerHTML = categoryHiearchyDom;
-    // catHierEl.replaceWith(new DOMParser().parseFromString(categoryHiearchyDom, "text/html").body);
-    return categoryHiearchyDom;
-    // return "";
-  }
 
   showAddProductSec() {
     this.categorySelectShowable = false;

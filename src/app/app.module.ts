@@ -28,6 +28,12 @@ import { SearchCreateProductsComponent } from './components/shared/search-create
 import { AuthInterceptor } from './auth/AuthInterceptor';
 import { SalesModule } from './components/shared/sales/sales.module';
 import { NumberToWordTransformPipe } from './custompipes/number-to-word-transform.pipe';
+import { PopupComponent } from './popup/popup.component';
+import { CategoryprodComponent } from './components/shared/categoryprod/categoryprod.component';
+import { PurchaseComponent } from './components/shared/purchase/purchase.component';
+import { ProductComponent } from './components/shared/product/product.component';
+import { CreateProductComponent } from './components/shared/product/create-product/create-product.component';
+import { EditproductComponent } from './components/shared/product/editproduct/editproduct.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +50,11 @@ import { NumberToWordTransformPipe } from './custompipes/number-to-word-transfor
     TabsComponent,
     PricingTypesAndSequenceComponent,
     SearchCreateProductsComponent,
-    // NumberToWordTransformPipe,
+    CategoryprodComponent,
+    PurchaseComponent,
+    ProductComponent,
+    CreateProductComponent,
+    EditproductComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +74,7 @@ import { NumberToWordTransformPipe } from './custompipes/number-to-word-transfor
       newestOnTop: false,
     }),
   ],
+
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 
