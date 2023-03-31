@@ -1,0 +1,114 @@
+<div class="popupHeading">
+  <h2 class="fleft">Invoice here</h2>
+  <a class="closeButton fright"
+    ><img src="../../../assets/resources/images/removetablink.png" alt="close"
+  /></a>
+  <div class="cboth"></div>
+</div>
+<div class="popupSubHeadingDiv createsalesBill">
+  <h1 class="heading">Invoice of the sold products</h1>
+</div>
+<div class="popupContentWrapper">
+  <div class="row">
+    <h5 class="text-center">Tax Invoice</h5>
+    <div class="col-md-6">
+      <span>Bill Number: {{ salesInvoice.salesBillDTO.billNo }}</span
+      ><br />
+      <span>Seller PAN: PAN123</span><br />
+      <span>Seller Name: Suraj Adhikari</span><br />
+      <span>Address: Hattiban</span><br />
+      <span>Purchaser's Name: Rohit</span><br />
+      <span>Address: Bharatpur</span><br />
+      <span>Purchaser’s PAN: PAN456 </span><br />
+    </div>
+    <div class="col-md-6">
+      <span
+        >Transaction Date:
+        {{ salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd" }}</span
+      ><br />
+      <span
+        >Invoice issue Date:
+        {{ salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd" }}</span
+      ><br />
+      <span>MethodOfPayment: {{ salesInvoice.salesBillDTO.paymentMethod }}</span
+      ><br />
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <th>S.No</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Per Unit Amount(Rs)</th>
+            <th>Total Amount(Rs)</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let invoice of salesInvoice.salesBillDetailsWithProd">
+              <td>1</td>
+              <td>{{ invoice.productName }}</td>
+              <td>{{ invoice.qty }}</td>
+              <td>{{ invoice.rate }}</td>
+              <td>{{ invoice.qty * invoice.rate }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><span class="text text-bg">Discount%: </span></td>
+              <td>
+                {{ salesInvoice.salesBillDTO.discount | number : "1.0-0" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><span class="text text-bg">Taxable Amount</span></td>
+              <td>
+                {{ salesInvoice.salesBillDTO.taxableAmount | number : "1.0-0" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><span class="text text-bg">VAT 13%</span></td>
+              <td>
+                {{ salesInvoice.salesBillDTO.taxAmount | number : "1.0-0" }}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><span class="text text-bg">Total:</span></td>
+              <td>
+                {{ salesInvoice.salesBillDTO.totalAmount | number : "1.0-0" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        (In Words:
+        {{ salesInvoice.salesBillDTO.totalAmount | numberToWords }})
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-end">
+        <div class="row">
+          <span>.................................</span>
+        </div>
+        <div class="row">
+          <b>Authorized Signature </b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button (click)="printTheBill(salesInvoice.salesBillDTO.billNo)">
+    Print
+  </button>
+</div>

@@ -594,10 +594,10 @@ a.genLink {
   /*background:#e3e6eb url(../images/th-normal.png) no-repeat 95% center; */
 }
 /*.recordsTable th.sortable.tablesorter-headerSortDown{
-	background:#e3e6eb url(../images/th-sort-up.png) no-repeat 95% center;	
+	background:#e3e6eb url(../images/th-sort-up.png) no-repeat 95% center;
 }
 .recordsTable th.sortable.tablesorter-headerSortUp{
-	background:#e3e6eb url(../images/th-sort-down.png) no-repeat 95% center;	
+	background:#e3e6eb url(../images/th-sort-down.png) no-repeat 95% center;
 }*/
 .recordsTable td div {
   background: #f7f7f9;

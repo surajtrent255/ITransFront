@@ -1,0 +1,202 @@
+<form
+  #createProductForm="ngForm"
+  name="createProduct"
+  (ngSubmit)="createProduct(createProductForm)"
+  id="createProductForm"
+>
+  <div class="chooseColoumnsWrapper">
+    <div class="fieldDiv popUpFormSectionWrapper">
+      <table class="" cellpadding="0" cellspacing="1">
+        <tr>
+          <td class="col1 pt-2">
+            Product Name:<span class="mandatorySign">*</span>
+          </td>
+          <td class="col2">
+            <input
+              type="text"
+              [class.is-invalid]="name.invalid && name.touched"
+              class="form-control"
+              id="name"
+              #name="ngModel"
+              required
+              name="name"
+              [(ngModel)]="product.name"
+              required="required"
+            />
+          </td>
+          <td class="col3">
+            <small
+              class="text-danger"
+              [class.d-none]="name.valid || name.untouched"
+              >invalid name</small
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Select Category:</td>
+          <td>
+            <select
+              id="parentId"
+              class="formcontrol"
+              style="width: 100%; height: 30px"
+              name="parnetId"
+              #parentId="ngModel"
+              [(ngModel)]="product.categoryId"
+              required
+            >
+              <option value="" disabled selected>Select an option</option>
+              <option
+                *ngFor="let option of availableCategories"
+                [value]="option.id"
+              >
+                {{ option.name }}
+              </option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="col1 pt-2">
+            Selling Price:<span class="mandatorySign">*</span>
+          </td>
+          <td class="col2">
+            <input
+              type="number"
+              [class.is-invalid]="sellingPrice.invalid && sellingPrice.touched"
+              class="form-control"
+              id="sellingPrice"
+              #sellingPrice="ngModel"
+              name="sellingPrice"
+              required
+              sellingPrice="sellingPrice"
+              [(ngModel)]="product.sellingPrice"
+              required="required"
+            />
+          </td>
+          <td class="col3">
+            <small
+              class="text-danger"
+              [class.d-none]="sellingPrice.valid || sellingPrice.untouched"
+              >invalid selling price</small
+            >
+          </td>
+        </tr>
+        <tr>
+          <td class="col1 pt-2">
+            Cost Price:<span class="mandatorySign">*</span>
+          </td>
+          <td class="col2">
+            <input
+              type="number"
+              [class.is-invalid]="costPrice.invalid && costPrice.touched"
+              class="form-control"
+              id="costPrice"
+              #costPrice="ngModel"
+              required
+              name="costPrice"
+              costPrice="costPrice"
+              [(ngModel)]="product.costPrice"
+              required="required"
+            />
+          </td>
+          <td class="col3">
+            <small
+              class="text-danger"
+              [class.d-none]="costPrice.valid || costPrice.untouched"
+              >invalid costPrice</small
+            >
+          </td>
+        </tr>
+        <tr>
+          <td class="col1 pt-2">
+            Bar Code:<span class="mandatorySign">*</span>
+          </td>
+          <td class="col2">
+            <input
+              type="text"
+              [class.is-invalid]="barcode.invalid && barcode.touched"
+              class="form-control"
+              id="barcode"
+              #barcode="ngModel"
+              name="barcode"
+              required
+              barcode="barcode"
+              [(ngModel)]="product.barcode"
+              required="required"
+            />
+          </td>
+          <td class="col3">
+            <small
+              class="text-danger"
+              [class.d-none]="barcode.valid || barcode.untouched"
+              >invalid barcode</small
+            >
+          </td>
+        </tr>
+        <tr>
+          <td class="col1 pt-2">
+            Discount :<span class="mandatorySign">*</span>
+          </td>
+          <td class="col2">
+            <input
+              type="number"
+              [class.is-invalid]="discount.invalid && discount.touched"
+              class="form-control"
+              id="discount"
+              #discount="ngModel"
+              name="discount"
+              required
+              discount="discount"
+              [(ngModel)]="product.discount"
+              required="required"
+            />
+          </td>
+          <td class="col3">
+            <small
+              class="text-danger"
+              [class.d-none]="discount.valid || discount.untouched"
+              >invalid discount</small
+            >
+          </td>
+        </tr>
+        <tr>
+          <td class="col1 pt-2">Tax :<span class="mandatorySign">*</span></td>
+          <td class="col2">
+            <input
+              type="number"
+              [class.is-invalid]="tax.invalid && tax.touched"
+              class="form-control"
+              id="tax"
+              name="tax"
+              #tax="ngModel"
+              tax="tax"
+              [(ngModel)]="product.tax"
+              readOnly
+            />
+          </td>
+          <td class="col3">
+            <small
+              class="text-danger"
+              [class.d-none]="tax.valid || tax.untouched"
+              >invalid tax</small
+            >
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="submitDiv tCenter">
+    <input
+      type="submit"
+      class="btn btn-sm btn-success"
+      id="submitCreateProduct"
+      value="Add product"
+      [disabled]="createProductForm.form.invalid"
+    />
+
+    <!-- <input
+      type="button"
+      value="Cancel"
+      class="submit_btn cancel_btn border-rad ml-2"
+    /> -->
+  </div>
+</form>

@@ -1,0 +1,25 @@
+<div class="row recordsTable">
+  <table class="table table-striped">
+    <thead>
+      <th>S.N</th>
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Per Unit Amount(Rs)</th>
+      <th>Sold At</th>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let invoice of salesBillInvoice.salesBillDetailsWithProd;
+          let i = index
+        "
+      >
+        <td>{{ i + 1 }}</td>
+        <td>{{ invoice.productName }}</td>
+        <td>{{ invoice.qty }}</td>
+        <td>{{ invoice.rate }}</td>
+        <td>{{ invoice.date | date }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,117 @@
+<table class="table">
+  <thead>
+    <th>Category ID:</th>
+    <th>Category Name:</th>
+    <th>Category Description:</th>
+    <th>Parent Id</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cat of categoriesData">
+      <td>{{ cat.id }}</td>
+      <td>{{ cat.name }}</td>
+      <td>{{ cat.description }}</td>
+      <td>{{ cat.parentId }}</td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="addNewCategory()" class="mt-4 mb-4">Add New Category</button>
+<div hidden id="createCatDiv">
+  <form
+    #createCategoryProdForm="ngForm"
+    name="createCategoryProd"
+    (ngSubmit)="createCategoryProd(createCategoryProdForm)"
+    id="createProductForm"
+  >
+    <div class="chooseColoumnsWrapper">
+      <div class="fieldDiv popUpFormSectionWrapper">
+        <table class="formSection" cellpadding="0" cellspacing="0">
+          <tr>
+            <td>Parent Category:</td>
+            <td>
+              <select
+                id="parentId"
+                class="formcontrol"
+                style="width: 100%; height: 30px"
+                name="parnetId"
+                #parentId="ngModel"
+                [(ngModel)]="categoryProd.parentId"
+                required
+              >
+                <option value="" disabled selected>Select an option</option>
+                <option
+                  *ngFor="let option of categoriesData"
+                  [value]="option.id"
+                >
+                  {{ option.name }}
+                </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="col1 pt-2">
+              Category Name:<span class="mandatorySign">*</span>
+            </td>
+            <td class="col2">
+              <input
+                type="text"
+                [class.is-invalid]="name.invalid && name.touched"
+                class="form-control"
+                id="name"
+                #name="ngModel"
+                name="name"
+                [(ngModel)]="categoryProd.name"
+                required="required"
+              />
+            </td>
+            <td class="col3">
+              <small
+                class="text-danger"
+                [class.d-none]="name.valid || name.untouched"
+                >invalid name</small
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="col1 pt-2">
+              Description :<span class="mandatorySign">*</span>
+            </td>
+            <td class="col2">
+              <textarea
+                type="textField"
+                [class.is-invalid]="description.invalid && description.touched"
+                class="form-control"
+                id="description"
+                #description="ngModel"
+                name="description"
+                [(ngModel)]="categoryProd.description"
+                required="required"
+              ></textarea>
+            </td>
+            <td class="col3">
+              <small
+                class="text-danger"
+                [class.d-none]="description.valid || description.untouched"
+                >invalid description</small
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="submitDiv tCenter">
+      <input
+        type="submit"
+        class="btn btn-sm btn-success"
+        id="submitCategoryPrd"
+        value="Add Category"
+        [disabled]="createCategoryProdForm.form.invalid"
+      />
+
+      <input
+        type="button"
+        value="Cancel"
+        class="submit_btn cancel_btn border-rad ml-2"
+      />
+    </div>
+  </form>
+</div>

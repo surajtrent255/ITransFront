@@ -26,6 +26,15 @@ import { TabsComponent } from './components/shared/tabs/tabs.component';
 import { PricingTypesAndSequenceComponent } from './components/shared/pricing-types-and-sequence/pricing-types-and-sequence.component';
 import { SearchCreateProductsComponent } from './components/shared/search-create-products/search-create-products.component';
 import { SelectAndCreateCompanyComponent } from './components/shared/select-and-create-company/select-and-create-company.component';
+import { AuthInterceptor } from './auth/AuthInterceptor';
+import { SalesModule } from './components/shared/sales/sales.module';
+import { NumberToWordTransformPipe } from './custompipes/number-to-word-transform.pipe';
+import { PopupComponent } from './popup/popup.component';
+import { CategoryprodComponent } from './components/shared/categoryprod/categoryprod.component';
+import { PurchaseComponent } from './components/shared/purchase/purchase.component';
+import { ProductComponent } from './components/shared/product/product.component';
+import { CreateProductComponent } from './components/shared/product/create-product/create-product.component';
+import { EditproductComponent } from './components/shared/product/editproduct/editproduct.component';
 
 @NgModule({
   declarations: [
@@ -42,9 +51,15 @@ import { SelectAndCreateCompanyComponent } from './components/shared/select-and-
     PricingTypesAndSequenceComponent,
     SearchCreateProductsComponent,
     SelectAndCreateCompanyComponent,
+    CategoryprodComponent,
+    PurchaseComponent,
+    ProductComponent,
+    CreateProductComponent,
+    EditproductComponent,
   ],
   imports: [
     BrowserModule,
+    SalesModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -60,7 +75,10 @@ import { SelectAndCreateCompanyComponent } from './components/shared/select-and-
       newestOnTop: false,
     }),
   ],
-  providers: [],
+
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
