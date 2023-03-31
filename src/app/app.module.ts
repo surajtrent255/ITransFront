@@ -32,7 +32,6 @@ import { SelectAndCreateCompanyComponent } from './components/shared/select-and-
     AppComponent,
     LoginComponent,
     DemoComponent,
-
     DashboardComponent,
     HeaderComponent,
     FooterComponent,

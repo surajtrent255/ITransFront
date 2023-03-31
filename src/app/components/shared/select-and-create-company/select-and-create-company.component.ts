@@ -47,6 +47,7 @@ export class SelectAndCreateCompanyComponent {
     });
     this.companyService.getCompnayDetails(this.user_id).subscribe((res) => {
       console.log(`this is from component ${this.user_id}`);
+      console.log(res.data);
       this.company = res.data;
     });
   }

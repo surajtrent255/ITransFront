@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, tap } from 'rxjs';
-import { ADD_COMPANY_URL, USER_COMPANY_URL } from 'src/app/constants/urls';
+import {
+  ADD_COMPANY_URL,
+  UPDATE_USER_COMPANY_URL,
+  USER_COMPANY_URL,
+} from 'src/app/constants/urls';
 
 import { Company } from 'src/app/models/company';
 import { RJResponse } from 'src/app/models/rjresponse';
@@ -21,6 +25,11 @@ export class CompanyServiceService {
     console.log('get company hit');
     console.log(`this is from get request ${user_id}`);
     return this.httpClient.get(`${USER_COMPANY_URL}/${user_id}`);
+  }
+
+  updateUserCompany(comapanyId: number, userId: number): Observable<any> {
+    const body = { comapanyId, userId };
+    return this.httpClient.post(UPDATE_USER_COMPANY_URL, body);
   }
 
   addCompany(companyDTO: Company, userId: number): Observable<any> {

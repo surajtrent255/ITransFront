@@ -1,3 +1,4 @@
+<script src="../../../../assets/resources/js/main.js"></script>
 <div id="headerWrapper" class="headerWrapper">
   <div class="logoutDiv">
     <div class="fright" style="padding-right: 30px">
@@ -379,7 +380,7 @@
               <a href="" class="fleft tab-2 confTab2" tab="2">Role</a>
             </li>
             <li>
-              <a href="" class="fleft tab-2 confTab2" tab="2">Company</a>
+              <a href="" class="fleft tab-3 confTab3" tab="3">Company</a>
             </li>
           </ul>
         </div>
@@ -474,8 +475,6 @@
                             </span>
                           </td>
                         </tr>
-
-                        <!-- ERROR -->
                       </table>
                     </form>
                   </label>
@@ -521,10 +520,142 @@
                       />
                     </div>
                   </div>
+
+                  <!-- <table
+                    cellspacing="0"
+                    cellpadding="0"
+                    class="recordsTable pricingPrefTable"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Company</th>
+                        <th>Role</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let userconfig of userconfiguration">
+                      <tr>
+                        <td>
+                          {{ userconfig.firstname }}
+                          {{ userconfig.lastname }}
+                        </td>
+
+                        <td>{{ userconfig.companyname }}</td>
+                        <td>
+                          <div style="display: flex; padding: 2px">
+                            <div>
+                              <input
+                                type="checkbox"
+                                id="scales"
+                                name="scales"
+                                [checked]="userconfig.role == 'ADMIN'"
+                                (change)="onRoleChecked(userconfig.userId, 1)"
+                              />
+                              <label for="scales">Admin</label>
+                            </div>
+
+                            <div>
+                              <input
+                                type="checkbox"
+                                id="scales"
+                                name="scales"
+                                [checked]="userconfig.role == 'USER'"
+                                (change)="onRoleChecked(userconfig.userId, 2)"
+                              />
+                              <label for="scales">USER</label>
+                            </div>
+
+                            <div>
+                              <input
+                                type="checkbox"
+                                id="scales"
+                                name="scales"
+                                [checked]="userconfig.role == 'ACCOUNTANT'"
+                                (change)="onRoleChecked(userconfig.userId, 3)"
+                              />
+                              <label for="scales">Accountant</label>
+                            </div>
+
+                            <div>
+                              <input
+                                type="checkbox"
+                                id="scales"
+                                name="scales"
+                                [checked]="userconfig.role == 'MANAGER'"
+                                (change)="onRoleChecked(userconfig.userId, 4)"
+                              />
+                              <label for="scales">Manager</label>
+                            </div>
+
+                            <div>
+                              <input
+                                type="checkbox"
+                                id="scales"
+                                name="scales"
+                                [checked]="userconfig.role == 'SUPERADMIN'"
+                                (change)="onRoleChecked(userconfig.userId, 5)"
+                              />
+                              <label for="scales">Super Admin</label>
+                            </div>
+                          </div>
+
+                          <!--  -->
+                  <!-- <a
+                          class="register_btn border-rad register-button createNewTableRecord"
+                          id="createNewProduct"
+                          value="change"
+                          style="color: whitesmoke"
+                          >change</a
+                        > -->
+                  <!-- </td>
+                      </tr>
+                    </tbody>
+                  </table>  -->
                 </div>
               </div>
             </div>
-            <div class="tabs-section tab-3"></div>
+            <div class="tabs-section tab-3">
+              <div class="fieldDiv popUpFormSectionWrapper">
+                <div class="configListItem">
+                  <table
+                    cellspacing="0"
+                    cellpadding="0"
+                    class="recordsTable pricingPrefTable"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Company</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let userconfig of userconfiguration">
+                      <tr>
+                        <td>
+                          {{ userconfig.firstname }}
+                          {{ userconfig.lastname }}
+                        </td>
+
+                        <td>{{ userconfig.companyname }}</td>
+                        <td>
+                          <div style="display: flex; padding: 2px">
+                            <div>
+                              <input
+                                type="checkbox"
+                                id="scales"
+                                name="scales"
+                                [checked]="userconfig.status"
+                              />
+                              <label for="scales">Enable</label>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="submitDiv tCenter">

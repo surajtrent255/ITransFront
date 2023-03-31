@@ -27,4 +27,9 @@ export class HeaderComponent {
         console.log(res);
       });
   }
+
+  onRoleChecked(userId: number, roleId: number) {
+    console.log(userId);
+    console.log(roleId);
+  }
 }
