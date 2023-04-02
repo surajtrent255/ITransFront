@@ -48,4 +48,8 @@ export class HeaderComponent {
         console.log(res);
       });
   }
+
+  onClicked() {
+    window.location.reload();
+  }
 }

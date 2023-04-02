@@ -848,7 +848,7 @@ $(function () {
     return false;
   });
 
-  $("#popperAlertLink").live("click", function(){
+  $("#popperAlertLink").live("click", function () {
     $("#popperAlertSettingPopup").fadeIn("fast");
     $("html, body").animate({ scrollTop: 0 }, "slow");
     $(".pageOverlay").fadeIn("fast");
@@ -886,7 +886,7 @@ $(function () {
     }
 
     return false;
-  })
+  });
 
   $("#pricingPreferencesLink").live("click", function () {
     $("#pricingPreferencePopup").fadeIn("fast");
@@ -7484,53 +7484,70 @@ $(function () {
   //for configuration saving
   $("#configurationBtn").live("click", function () {
     if ($(".confTab1").parents("li").hasClass("active")) {
-      var showTableIdTreeCheck = $("#showTableIdTreeCheck").is(":checked")
+      var productsMasterNameCheck = $("#getProductsMasterNameCheck").is(
+        ":checked"
+      )
         ? "checked"
         : "unchecked";
-      var showTableIdDialogCheck = $("#showTableIdDialogCheck").is(":checked")
-        ? "checked"
-        : "unchecked";
-      var effDateFrom = $("#effDateFrom").val();
-      var effDateTo = $("#effDateTo").val();
-      $("#defStartDate").html(effDateFrom);
-      $("#defEndDate").html(effDateTo);
-
       addLayoutConfiguration(
-        showTableIdTreeCheck +
-          "," +
-          showTableIdDialogCheck +
-          "," +
-          effDateFrom +
-          "," +
-          effDateTo,
-        "TABLE_UNIQUE_ID_IN_TREE,TABLE_UNIQUE_ID_IN_DIALOGS,EFF_DATE_FROM,EFF_DATE_TO",
+        productsMasterNameCheck,
+        "GET_PRD_MASTER_NAME",
         "/configuration/update"
       );
-      showTblIdTreeCheck = $("#defaultConfigurationData")
-        .children("#showTableIdTreeCheckDefault")
-        .text();
       $("#defaultConfigurationData")
-        .children("#showTableIdTreeCheckDefault")
+        .children("#getProductsMasterNameCheckDefault")
         .text(
-          $("#showTableIdTreeCheck").is(":checked") ? "checked" : "unchecked"
+          $("#getProductsMasterNameCheck").is(":checked")
+            ? "checked"
+            : "unchecked"
         );
-      $("#defaultConfigurationData")
-        .children("#effDateFromDefault")
-        .text(effDateFrom);
-      $("#defaultConfigurationData")
-        .children("#effDateToDefault")
-        .text(effDateTo);
-      $("#defaultConfigurationData")
-        .children("#showTableIdDialogCheckDefault")
-        .text(
-          $("#showTableIdDialogCheck").is(":checked") ? "checked" : "unchecked"
-        );
-      // if(showTblIdTreeCheck!=showTableIdTreeCheck){
-      $.jstree._reference($("#productHierarchy")).close_all(-1);
-      $.jstree._reference($("#organizationHierarchy")).close_all(-1);
-      $.jstree._reference($("#productHierarchy")).refresh(-1);
-      $.jstree._reference($("#organizationHierarchy")).refresh(-1);
-      //}
+      // var showTableIdTreeCheck = $("#showTableIdTreeCheck").is(":checked")
+      //   ? "checked"
+      //   : "unchecked";
+      // var showTableIdDialogCheck = $("#showTableIdDialogCheck").is(":checked")
+      //   ? "checked"
+      //   : "unchecked";
+      // var effDateFrom = $("#effDateFrom").val();
+      // var effDateTo = $("#effDateTo").val();
+      // $("#defStartDate").html(effDateFrom);
+      // $("#defEndDate").html(effDateTo);
+
+      // addLayoutConfiguration(
+      //   showTableIdTreeCheck +
+      //     "," +
+      //     showTableIdDialogCheck +
+      //     "," +
+      //     effDateFrom +
+      //     "," +
+      //     effDateTo,
+      //   "TABLE_UNIQUE_ID_IN_TREE,TABLE_UNIQUE_ID_IN_DIALOGS,EFF_DATE_FROM,EFF_DATE_TO",
+      //   "/configuration/update"
+      // );
+      // showTblIdTreeCheck = $("#defaultConfigurationData")
+      //   .children("#showTableIdTreeCheckDefault")
+      //   .text();
+      // $("#defaultConfigurationData")
+      //   .children("#showTableIdTreeCheckDefault")
+      //   .text(
+      //     $("#showTableIdTreeCheck").is(":checked") ? "checked" : "unchecked"
+      //   );
+      // $("#defaultConfigurationData")
+      //   .children("#effDateFromDefault")
+      //   .text(effDateFrom);
+      // $("#defaultConfigurationData")
+      //   .children("#effDateToDefault")
+      //   .text(effDateTo);
+      // $("#defaultConfigurationData")
+      //   .children("#showTableIdDialogCheckDefault")
+      //   .text(
+      //     $("#showTableIdDialogCheck").is(":checked") ? "checked" : "unchecked"
+      //   );
+      // // if(showTblIdTreeCheck!=showTableIdTreeCheck){
+      // $.jstree._reference($("#productHierarchy")).close_all(-1);
+      // $.jstree._reference($("#organizationHierarchy")).close_all(-1);
+      // $.jstree._reference($("#productHierarchy")).refresh(-1);
+      // $.jstree._reference($("#organizationHierarchy")).refresh(-1);
+      // //}
     } else if ($(".confTab2").parents("li").hasClass("active")) {
       var productsMasterNameCheck = $("#getProductsMasterNameCheck").is(
         ":checked"
