@@ -28,7 +28,14 @@
               (keydown.enter)="addTheProductForSale()"
             />
           </td>
-          <td><button (click)="addTheProductForSale()">Add product</button></td>
+          <td>
+            <button
+              class="submit_btn border-rad"
+              (click)="addTheProductForSale()"
+            >
+              Add product
+            </button>
+          </td>
         </tr>
         <tr>
           <td>Enter product Name:</td>
@@ -63,7 +70,9 @@
           </tr>
         </tbody>
       </table>
-      <button id="popperAlertLink">Sale the product</button>
+      <button class="submit_btn border-rad" id="popperAlertLink">
+        Sale the product
+      </button>
     </div>
   </div>
 </div>

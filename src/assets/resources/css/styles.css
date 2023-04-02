@@ -1,3 +1,14 @@
+.Containerheight {
+  height: 545px;
+}
+
+.MainContainer {
+  width: 1248px;
+  height: 560px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
 html,
 body,
 div,

@@ -66,6 +66,10 @@ const routes: Routes = [
         path: 'products/edit/:prodId',
         component: EditproductComponent,
       },
+      {
+        path: 'demo',
+        component: DemoComponent,
+      },
     ],
   },
 ];

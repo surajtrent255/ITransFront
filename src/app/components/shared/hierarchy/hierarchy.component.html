@@ -104,7 +104,7 @@
               >
                 <ul class="nav flex-column" id="nav_accordion">
                   <li class="nav-item">
-                    <a class="nav-link" routerLink="/dashboard/salesbill">
+                    <a class="nav-link" routerLink="/dashboard/demo">
                       Dashboard
                     </a>
                   </li>
@@ -113,8 +113,19 @@
                       Inventory <i class="bi small bi-caret-down-fill"></i>
                     </a>
                     <ul class="submenu collapse">
-                      <li><a class="nav-link" href="#"> Category </a></li>
-                      <li><a class="nav-link" href="#"> Product </a></li>
+                      <li>
+                        <a
+                          class="nav-link"
+                          routerLink="/dashboard/categoryprod"
+                        >
+                          Category
+                        </a>
+                      </li>
+                      <li>
+                        <a class="nav-link" routerLink="/dashboard/products">
+                          Product
+                        </a>
+                      </li>
                     </ul>
                   </li>
                   <li class="nav-item has-submenu">
@@ -123,7 +134,7 @@
                     </a>
                     <ul class="submenu collapse">
                       <li>
-                        <a class="nav-link" routerLink="dashboard/salesbill">
+                        <a class="nav-link" routerLink="/dashboard/salesbill">
                           Invoice
                         </a>
                       </li>
@@ -135,7 +146,11 @@
                       Purchase <i class="bi small bi-caret-down-fill"></i>
                     </a>
                     <ul class="submenu collapse">
-                      <li><a class="nav-link" href="#">Product </a></li>
+                      <li>
+                        <a class="nav-link" routerLink="/dashboard/purchase"
+                          >Product
+                        </a>
+                      </li>
                     </ul>
                   </li>
                   <li class="nav-item has-submenu">

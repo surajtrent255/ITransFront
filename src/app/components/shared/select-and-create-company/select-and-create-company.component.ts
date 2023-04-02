@@ -117,6 +117,6 @@ export class SelectAndCreateCompanyComponent {
 
   proceed(company: any) {
     localStorage.setItem('companyDetails', JSON.stringify(company));
-    this.router.navigateByUrl('dashboard');
+    this.router.navigateByUrl('/dashboard/demo');
   }
 }
