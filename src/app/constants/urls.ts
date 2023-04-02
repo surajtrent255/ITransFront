@@ -9,7 +9,13 @@ export const ADD_COMPANY_URL = BASE_URL + '/api/v1/company/add';
 
 export const USER_CONFIGURATION_DETAILS = BASE_URL + '/api/v1/userconfig';
 
-export const USER_UPDATE_STATUS_URL = BASE_URL + '/api/v1/userconfig/status';
+export const USER_UPDATE_STATUS_URL =
+  BASE_URL + '/api/v1/userconfig/update/role/status';
+
+export const UPDATE_USER_COMPANY_STATUS =
+  BASE_URL + '/api/v1/userconfig/update/usercompany/status';
+
+export const USER_ROLE_UPDATE = BASE_URL + '/api/v1/userconfig/add/role';
 
 export const UPDATE_USER_COMPANY_URL =
   BASE_URL + '/api/v1/userconfig/update/company';

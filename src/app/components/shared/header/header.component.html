@@ -401,35 +401,39 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody *ngFor="let userconfig of userconfiguration">
+                  <!-- *ngFor="let userconfig of userconfiguration[0]" -->
+                  <tbody>
                     <tr>
                       <td>
-                        {{ userconfig.firstname }}
-                        {{ userconfig.lastname }}
+                        {{ userconfiguration[0].firstname }}
+                        {{ userconfiguration[0].lastname }}
                       </td>
-                      <td>{{ userconfig.email }}</td>
-                      <td>{{ userconfig.companyname }}</td>
+                      <td>{{ userconfiguration[0].email }}</td>
+                      <td>{{ userconfiguration[0].companyname }}</td>
                       <td>
                         <div style="display: flex; padding: 2px">
                           <input
                             type="checkbox"
                             id="scales"
                             name="scales"
-                            [checked]="userconfig.status"
+                            [checked]="userconfiguration[0].status"
                             (change)="
-                              onCheckboxChanged($event, userconfig.userId)
+                              onCheckboxChanged(
+                                $event,
+                                userconfiguration[0].userId
+                              )
                             "
                           />
-                          <label for="scales">Enabled</label>
+                          <label for="scales">Enabled /</label>
                         </div>
                         <!--  -->
-                        <!-- <a
+                        <a
                           class="register_btn border-rad register-button createNewTableRecord"
                           id="createNewProduct"
                           value="change"
                           style="color: whitesmoke"
-                          >change</a
-                        > -->
+                          >Add Role</a
+                        >
                       </td>
                     </tr>
                   </tbody>
@@ -451,7 +455,7 @@
                   class="configListItem"
                   *ngFor="let userConfig of userconfiguration"
                 >
-                  <label for="getProductsMasterNameCheck">
+                  <!-- <label for="getProductsMasterNameCheck">
                     <form>
                       <table width="100%" cellspacing="0" border="0">
                         <tr class="us-form">
@@ -519,9 +523,9 @@
                         value="superadmin"
                       />
                     </div>
-                  </div>
+                  </div> -->
 
-                  <!-- <table
+                  <table
                     cellspacing="0"
                     cellpadding="0"
                     class="recordsTable pricingPrefTable"
@@ -548,13 +552,18 @@
                                 type="checkbox"
                                 id="scales"
                                 name="scales"
-                                [checked]="userconfig.role == 'ADMIN'"
-                                (change)="onRoleChecked(userconfig.userId, 1)"
+                                [checked]="userconfig.role == userConfig.role"
+                                (change)="
+                                  onRoleChecked(
+                                    userconfig.userId,
+                                    userconfig.roleId
+                                  )
+                                "
                               />
-                              <label for="scales">Admin</label>
+                              <label for="scales">{{ userConfig.role }}</label>
                             </div>
 
-                            <div>
+                            <!-- <div>
                               <input
                                 type="checkbox"
                                 id="scales"
@@ -563,9 +572,9 @@
                                 (change)="onRoleChecked(userconfig.userId, 2)"
                               />
                               <label for="scales">USER</label>
-                            </div>
+                            </div> -->
 
-                            <div>
+                            <!-- <div>
                               <input
                                 type="checkbox"
                                 id="scales"
@@ -574,9 +583,9 @@
                                 (change)="onRoleChecked(userconfig.userId, 3)"
                               />
                               <label for="scales">Accountant</label>
-                            </div>
+                            </div> -->
 
-                            <div>
+                            <!-- <div>
                               <input
                                 type="checkbox"
                                 id="scales"
@@ -585,8 +594,8 @@
                                 (change)="onRoleChecked(userconfig.userId, 4)"
                               />
                               <label for="scales">Manager</label>
-                            </div>
-
+                            </div> -->
+                            <!-- 
                             <div>
                               <input
                                 type="checkbox"
@@ -596,21 +605,20 @@
                                 (change)="onRoleChecked(userconfig.userId, 5)"
                               />
                               <label for="scales">Super Admin</label>
-                            </div>
+                            </div> -->
                           </div>
 
-                          <!--  -->
-                  <!-- <a
-                          class="register_btn border-rad register-button createNewTableRecord"
-                          id="createNewProduct"
-                          value="change"
-                          style="color: whitesmoke"
-                          >change</a
-                        > -->
-                  <!-- </td>
+                          <a
+                            class="register_btn border-rad register-button createNewTableRecord"
+                            id="createNewProduct"
+                            value="change"
+                            style="color: whitesmoke"
+                            >Add Role</a
+                          >
+                        </td>
                       </tr>
                     </tbody>
-                  </table>  -->
+                  </table>
                 </div>
               </div>
             </div>
@@ -629,14 +637,14 @@
                         <th>Action</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let userconfig of userconfiguration">
+                    <tbody>
                       <tr>
                         <td>
-                          {{ userconfig.firstname }}
-                          {{ userconfig.lastname }}
+                          {{ userconfiguration[0].firstname }}
+                          {{ userconfiguration[0].lastname }}
                         </td>
 
-                        <td>{{ userconfig.companyname }}</td>
+                        <td>{{ userconfiguration[0].companyname }}</td>
                         <td>
                           <div style="display: flex; padding: 2px">
                             <div>
@@ -644,7 +652,13 @@
                                 type="checkbox"
                                 id="scales"
                                 name="scales"
-                                [checked]="userconfig.status"
+                                [checked]="userconfiguration[0].status"
+                                (change)="
+                                  onCompanyCheckboxChanged(
+                                    $event,
+                                    userconfiguration[0].companyId
+                                  )
+                                "
                               />
                               <label for="scales">Enable</label>
                             </div>
@@ -1091,5 +1105,128 @@
         </div>
       </form>
     </div>
+  </div>
+</div>
+
+<!-- Pop for assign -->
+
+<div class="popupWrapper" id="createNewProductPopup" style="display: none">
+  <div class="popupHeading">
+    <h2 class="fleft">Register</h2>
+    <a href="" class="closeButton fright"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv createProduct">
+    <h1 class="heading">Register</h1>
+    <div>Create a new User.</div>
+  </div>
+  <div class="popupContentWrapper">
+    <form id="createProduct">
+      <!-- [formGroup]="RegisterForm"
+    (ngSubmit)="registerUser()" -->
+      <div class="chooseColoumnsWrapper">
+        <div class="fieldDiv popUpFormSectionWrapper">
+          <label for="getProductsMasterNameCheck">
+            <form>
+              <table width="100%" cellspacing="0" border="0">
+                <tr class="us-form">
+                  <td class="unwrap">
+                    <label for="select">User:</label>
+
+                    <h1>
+                      {{ userconfiguration[0].firstname }}
+                      {{ userconfiguration[0].lastname }}
+                    </h1>
+                    <!-- <select>
+                      <option>select User</option>
+                      <option selected disabled>
+                        {{ userConfig.firstname }}
+                        {{ userConfig.lastname }}
+                      </option>
+                    </select> -->
+                  </td>
+                  <td>
+                    <span class="us-form-select-wrap">
+                      <label>Company</label>
+                      <h1>{{ userconfiguration[0].companyname }}</h1>
+                      <!-- <select>
+                        <option>select Company/option></option>
+                        <option selected disabled>
+                          {{ userConfig.companyname }}
+                        </option>
+                      </select> -->
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </label>
+          <div *ngFor="let userConfig of userconfiguration">
+            <div class="">
+              <span>Admin :</span>
+              <input
+                type="checkbox"
+                [checked]="userConfig.role == 'ADMIN'"
+                (change)="onRoleChecked(userConfig.userId, 1)"
+                value="admin"
+              />
+            </div>
+            <div class="">
+              <span>User :</span>
+              <input
+                type="checkbox"
+                [checked]="userConfig.role == 'USER'"
+                (change)="onRoleChecked(userConfig.userId, 2)"
+                value="user"
+              />
+            </div>
+            <div class="">
+              <span>Accountant :</span>
+              <input
+                type="checkbox"
+                [checked]="userConfig.role == 'ACCOUNTANT'"
+                (change)="onRoleChecked(userConfig.userId, 3)"
+                value="Accountant"
+              />
+            </div>
+            <div class="">
+              <span>Manager :</span>
+              <input
+                type="checkbox"
+                [checked]="userConfig.role == 'MANAGER'"
+                (change)="onRoleChecked(userConfig.userId, 4)"
+                value="manager"
+              />
+            </div>
+            <div class="">
+              <span>Super-Admin :</span>
+              <input
+                type="checkbox"
+                [checked]="userConfig.role == 'SUPER_ADMIN'"
+                (change)="onRoleChecked(userConfig.userId, 5)"
+                value="superadmin"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="submitDiv tCenter">
+        <input
+          type="submit"
+          value="Register"
+          class="submit_btn border-rad"
+          id="addProduct"
+        />
+        <input
+          type="button"
+          value="Cancel"
+          class="submit_btn cancel_btn border-rad"
+        />
+      </div>
+    </form>
   </div>
 </div>

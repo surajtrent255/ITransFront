@@ -13,10 +13,15 @@ export class HeaderComponent {
   constructor(private userConfigurationService: UserConfigurationService) {}
 
   ngOnInit() {
-    this.userConfigurationService.getUserConfiguration().subscribe((res) => {
-      console.log(res.data);
-      this.userconfiguration = res.data;
-    });
+    const data = localStorage.getItem('companyDetails');
+    const parsedData = JSON.parse(data || '{}');
+    const { companyId } = parsedData;
+    this.userConfigurationService
+      .getUserConfiguration(companyId)
+      .subscribe((res) => {
+        console.log('**********************' + res.data);
+        this.userconfiguration = res.data;
+      });
   }
 
   onCheckboxChanged(e: any, userId: number) {
@@ -27,9 +32,20 @@ export class HeaderComponent {
         console.log(res);
       });
   }
+  onCompanyCheckboxChanged(e: any, companyId: number) {
+    let status = e.target.checked;
+    this.userConfigurationService
+      .updateUserCompanyStatus(status, companyId)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
 
   onRoleChecked(userId: number, roleId: number) {
-    console.log(userId);
-    console.log(roleId);
+    this.userConfigurationService
+      .updateUserRole(userId, roleId)
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }

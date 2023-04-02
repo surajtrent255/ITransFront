@@ -2,6 +2,7 @@ import { JsonPipe } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SavedUserData } from 'src/app/models/SavedUserData';
 import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
 import { CompanyServiceService } from 'src/app/service/shared/company-service.service';
@@ -20,7 +21,6 @@ export class SelectAndCreateCompanyComponent {
   user!: User;
   user_id!: number;
   company!: Company[];
-  selectedValue!: string;
 
   CompanyRegistrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -49,6 +49,7 @@ export class SelectAndCreateCompanyComponent {
       console.log(`this is from component ${this.user_id}`);
       console.log(res.data);
       this.company = res.data;
+      localStorage.setItem('companyDetails', JSON.stringify(res.data));
     });
   }
 
@@ -114,17 +115,8 @@ export class SelectAndCreateCompanyComponent {
       });
   }
 
-  // SelectedData(data: string) {
-  //   this.selectedValue = data;
-  // }
-  // proceed(data: string) {
-  //   if (data != 'Select Your Company' && data != '') {
-  //     this.router.navigateByUrl('dashboard');
-  //   }
-  // }
-
-  proceed(name: string) {
-    console.log(name);
+  proceed(company: any) {
+    localStorage.setItem('companyDetails', JSON.stringify(company));
     this.router.navigateByUrl('dashboard');
   }
 }

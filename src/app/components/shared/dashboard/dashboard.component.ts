@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Company } from 'src/app/models/company';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,4 +10,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class DashboardComponent {}
+export class DashboardComponent implements OnInit {
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+}

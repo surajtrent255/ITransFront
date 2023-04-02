@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, tap } from 'rxjs';
 import {
+  UPDATE_USER_COMPANY_STATUS,
   USER_CONFIGURATION_DETAILS,
+  USER_ROLE_UPDATE,
   USER_UPDATE_STATUS_URL,
 } from 'src/app/constants/urls';
 
@@ -13,8 +15,8 @@ import {
 export class UserConfigurationService {
   constructor(private http: HttpClient, private toastrService: ToastrService) {}
 
-  getUserConfiguration(): Observable<any> {
-    return this.http.get(USER_CONFIGURATION_DETAILS);
+  getUserConfiguration(companyId: number): Observable<any> {
+    return this.http.get(`${USER_CONFIGURATION_DETAILS}/${companyId}`);
   }
 
   updateUserStatus(status: string, userId: number): Observable<any> {
@@ -29,6 +31,40 @@ export class UserConfigurationService {
         error: (err) => {
           console.log(err);
           this.toastrService.error(err.error, 'Status Change Failed');
+        },
+      })
+    );
+  }
+
+  updateUserCompanyStatus(status: string, companyId: number): Observable<any> {
+    const userComapnyStatus = { status, companyId };
+    console.log(userComapnyStatus);
+    return this.http.post(UPDATE_USER_COMPANY_STATUS, userComapnyStatus).pipe(
+      tap({
+        next: (respone) => {
+          console.log(respone);
+          this.toastrService.success('Status Changed Successfully');
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastrService.error(err.error, 'Status Change Failed');
+        },
+      })
+    );
+  }
+
+  updateUserRole(userId: number, roleId: number): Observable<any> {
+    const userRoleStatus = { userId, roleId };
+    console.log(userRoleStatus);
+    return this.http.post(USER_ROLE_UPDATE, userRoleStatus).pipe(
+      tap({
+        next: (respone) => {
+          console.log(respone);
+          this.toastrService.success('Role Changed Successfully');
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastrService.error(err.error, 'Role Change Failed');
         },
       })
     );
