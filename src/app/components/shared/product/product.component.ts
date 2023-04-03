@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { Product } from 'src/app/models/Product';
@@ -12,17 +12,21 @@ import { LoginService } from 'src/app/service/shared/login.service';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent {
-  availableProducts!: Product[];
-  availableCategories!: CategoryProduct[];
+
+  availableProducts: Product[] = [];
+  availableCategories: CategoryProduct[] = [];
 
   showableCreateProdDiv: boolean = false;
   constructor(
     private productService: ProductService,
     private loginService: LoginService,
     private router: Router
-  ) {}
+  ) { }
 
   newProduct!: Product;
+
+  productInfoForUpdate!: Product
+
   ngOnInit() {
     this.fetchAllProducts();
   }
@@ -32,28 +36,35 @@ export class ProductComponent {
       this.availableProducts = data.data;
     });
   }
+
   showAddProductComp() {
     this.showableCreateProdDiv = true;
   }
-  editProduct(id: number) {
-    this.router.navigateByUrl('dashboard/products/edit/' + id);
-  }
-  createNewProduct($event: Product) {
-    this.newProduct = $event;
-    this.newProduct.companyId = 1;
-    this.newProduct.userId = this.loginService.currentUser.user.id;
-    this.newProduct.sellerId = 1;
-    this.productService.addNewProduct(this.newProduct).subscribe({
+
+  getProduct(id: number) {
+    this.productService.getProductById(id).subscribe({
       next: (data) => {
-        console.log(data.data);
-      },
-      error: (error) => {
-        console.log('Error occured ');
-      },
-      complete: () => {
-        this.fetchAllProducts();
-      },
-    });
-    console.log('product.component.ts');
+        this.productInfoForUpdate = data.data;
+      }
+    })
+  }
+
+  editProduct(product: Product) {
+    this.productInfoForUpdate = product;
+    // this.getProduct(id);
+    // this.router.navigateByUrl('dashboard/products/edit/' + id);
+  }
+
+  createNewProduct($event: boolean) {
+    if ($event == true) {
+      this.fetchAllProducts();
+    }
+  }
+  deleteProduct(id: number) {
+    this.productService.deleteProductById(id).subscribe({
+      next: (res) => { console.log(res) },
+      error: (error) => { console.log(error) },
+      complete: () => { this.fetchAllProducts() }
+    })
   }
 }

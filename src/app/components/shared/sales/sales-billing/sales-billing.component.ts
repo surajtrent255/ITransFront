@@ -24,13 +24,16 @@ export class SalesBillingComponent {
   salesBills: SalesBill[] = [];
   customerId !: number;
   activeSalesBillEdit: boolean = false;
+
+  companyId !: number;
   constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService, private router: Router) { }
 
 
   ngOnInit() {
     console.log("sales-billingbasecomp")
     this.loggedUser = JSON.parse(localStorage.getItem("User")!);
-    this.salesBillService.getAllSalesBill().subscribe(data => {
+    this.companyId = this.loginService.getCompnayId();
+    this.salesBillService.getAllSalesBill(this.companyId).subscribe(data => {
       this.salesBills = data.data;
     })
   }
@@ -103,16 +106,16 @@ export class SalesBillingComponent {
       salesBill.taxableAmount = taxableAmount;
       salesBill.taxAmount = taxAmount;
       salesBill.totalAmount = totalAmount;
-      salesBill.custId = this.customerId;
+      salesBill.customerId = this.customerId;
       salesBill.customerName = "xyz mohit";
       salesBill.customerPan = "Pan#123";
       salesBill.syncWithIrd = false;
       salesBill.enteredBy = this.loggedUser.user.email;
       salesBill.paymentMethod = "CashInHand";
-      console.log(salesBill.custId)
+      console.log(salesBill.customerId)
       console.log("^^^^^^^^^^^^")
       salesBill.userId = this.loggedUser.user.id;
-      salesBill.companyId = 1;
+      salesBill.companyId = this.loginService.getCompnayId();;
       salesBill.realTime = true;
       salesBill.billActive = true;
 
@@ -187,6 +190,10 @@ export class SalesBillingComponent {
         showCancelButton: true,
       })
     })
+  }
+
+  createNewSaleBill() {
+    this.router.navigateByUrl("dashboard/salesbill/create")
   }
 }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { Product } from 'src/app/models/Product';
@@ -12,7 +12,10 @@ import { ProductService } from 'src/app/service/product.service';
 })
 export class EditproductComponent {
 
-  product: Product = new Product();
+
+  @Input() product: Product = new Product();
+  @Output() updatedSuccessful = new EventEmitter<boolean>(false);
+
   availableCategories: CategoryProduct[] = [];
   constructor(private productService: ProductService,
     private categoryProductService: CategoryProductService,
@@ -21,9 +24,8 @@ export class EditproductComponent {
   ) { }
 
   ngOnInit() {
+    this.product = new Product()
     this.getAllCategories();
-
-    this.getProduct(this.activatedRoute.snapshot.params['prodId']);
   }
 
   getAllCategories() {
@@ -47,16 +49,18 @@ export class EditproductComponent {
     })
   }
 
-  createProduct(form: any) {
+  editProduct(form: any) {
     console.log(this.product)
     this.productService.editProduct(this.product).subscribe({
       next: (data) => {
-        alert("product successfully updated")
+        // alert("product successfully updated")
         this.getProduct(this.product.id)
-        this.router.navigateByUrl("/dashboard/products")
+        this.updatedSuccessful.emit(true);
       },
       complete: () => {
         console.log("completed")
+        const closeBtn = document.getElementById("closeEditButton") as HTMLButtonElement;
+        closeBtn.click()
       }
     })
 

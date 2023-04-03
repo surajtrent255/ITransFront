@@ -13,6 +13,8 @@ import { SalesBillEditComponent } from './components/shared/sales/sales-bill-edi
 import { SalesBillInvoiceComponent } from './components/shared/sales/sales-bill-invoice/sales-bill-invoice.component';
 import { SalesBillingComponent } from './components/shared/sales/sales-billing/sales-billing.component';
 import { CategoryProduct } from './models/CategoryProduct';
+import { CreatePurchaseBillComponent } from './components/shared/purchase/create-purchase-bill/create-purchase-bill.component';
+import { StockComponent } from './components/shared/stock/stock.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -55,8 +57,12 @@ const routes: Routes = [
         component: CategoryprodComponent,
       },
       {
-        path: 'purchase',
-        component: PurchaseComponent,
+        path: 'purchase/create',
+        component: CreatePurchaseBillComponent,
+      },
+      {
+        path: ":id/purchasebills",
+        component: PurchaseComponent
       },
       {
         path: 'products',
@@ -66,6 +72,10 @@ const routes: Routes = [
         path: 'products/edit/:prodId',
         component: EditproductComponent,
       },
+      {
+        path: ":id/stock",
+        component: StockComponent
+      }
     ],
   },
 ];
@@ -74,4 +84,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

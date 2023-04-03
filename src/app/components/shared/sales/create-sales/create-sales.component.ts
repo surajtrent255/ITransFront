@@ -64,6 +64,7 @@ export class CreateSalesComponent {
       }
     })
   }
+
   updateProdQtyUserWantToSale($event: any, prod: Product) {
     if ($event.target.value === undefined) {
       return;
@@ -116,7 +117,7 @@ export class CreateSalesComponent {
     salesBill.taxableAmount = taxableAmount;
     salesBill.taxAmount = taxAmount;
     salesBill.totalAmount = totalAmount;
-    salesBill.custId = this.customerId;
+    salesBill.customerId = this.customerId;
     salesBill.customerName = "xyz mohit";
     salesBill.customerPan = "Pan#123";
     salesBill.syncWithIrd = false;
@@ -124,13 +125,14 @@ export class CreateSalesComponent {
     salesBill.paymentMethod = "CashInHand";
 
     salesBill.userId = this.loginService.currentUser.user.id;
-    salesBill.companyId = 1;
+    salesBill.companyId = this.loginService.getCompnayId();
     salesBill.realTime = true;
     salesBill.billActive = true;
 
 
     salesBillMaster.salesBillDTO = salesBill;
     salesBillMaster.salesBillDetails = salesBillDetailInfos;
+    console.log(salesBillMaster);
     this.salesBillService.createNewSalesBill(salesBillMaster).subscribe({
       next: data => {
         this.router.navigateByUrl(`dashboard/salesbill/invoice/${data.data}/${salesBill.companyId}`);
