@@ -19,7 +19,7 @@ export class CompanyServiceService {
   constructor(
     private httpClient: HttpClient,
     private toastrService: ToastrService
-  ) {}
+  ) { }
 
   getCompnayDetails(user_id: number): Observable<any> {
     console.log('get company hit');

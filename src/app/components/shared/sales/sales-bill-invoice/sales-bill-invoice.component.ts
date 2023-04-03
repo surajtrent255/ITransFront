@@ -6,6 +6,7 @@ import { NumberToWordTransformPipe } from 'src/app/custompipes/number-to-word-tr
 import { SalesBillServiceService } from 'src/app/service/sales-bill-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/app/service/shared/login.service';
+import { RJResponse } from 'src/app/models/rjresponse';
 @Component({
   selector: 'app-sales-bill-invoice',
   templateUrl: './sales-bill-invoice.component.html',
@@ -29,14 +30,17 @@ export class SalesBillInvoiceComponent {
     let billNo: number = this.activatedRoute.snapshot.params['billNo'];
     let companyId: number = this.activatedRoute.snapshot.params['companyId'];
     this.fetchSalesBillInvoice(billNo, companyId);
-    this.salesInvoice.salesBillDTO.totalAmount = Math.floor(this.salesInvoice.salesBillDTO.totalAmount);
     console.log("salebill init");
+
+
   }
 
   fetchSalesBillInvoice(billNo: number, companyId: number) {
     this.salesBillService.fetchSalesBillDetailForInvoice(billNo, companyId).subscribe({
-      next: (data) => {
+      next: (data: RJResponse<SalesBillInvoice>) => {
         this.salesInvoice = data.data;
+        this.salesInvoice.salesBillDTO.totalAmount = Math.round(this.salesInvoice.salesBillDTO.totalAmount);
+
       }
     })
   }

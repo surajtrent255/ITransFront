@@ -44,7 +44,7 @@ export class SearchCreateProductsComponent {
     private salesCartService: SalesCartService,
     private elRef: ElementRef,
     private renderer: Renderer2
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.productService.getAllProducts().subscribe((data) => {
@@ -83,7 +83,7 @@ export class SearchCreateProductsComponent {
   }
 
   @ViewChild('container', { static: true }) container!: ElementRef;
-  letsAdd(catId: number, parentId: number, catName: string) {}
+  letsAdd(catId: number, parentId: number, catName: string) { }
 
   selCategoryName!: string;
   selectCategory(categoryId: number, catName: string) {
@@ -94,27 +94,27 @@ export class SearchCreateProductsComponent {
     console.log('%%%%%%%%%%%%%%%%%%%%');
   }
 
-  // letsCreateCategoryList(categoriesData: CategoryProduct[]): string {
-  //   let categoryHiearchyDom = "";
-  //   function createCategoryHiearchy(categories: CategoryProduct[]) {
-  //     categories.forEach(function (category) {
-  //       categoryHiearchyDom += `<li><button class="fa fa-plus-square"  (click)="addToList()"  aria-hidden="true"  data-target="${category.id}" data-parent="${category.parentId}"></button>&nbsp <span class="m-r-3"> ${category.name} </span> <i class = "fa fa-caret-down" data-toggle="collapse" data-target="#data${category.id}" aria-hidden="true"></i> `;
-  //       if (category.childCategories && category.childCategories.length > 0) {
-  //         categoryHiearchyDom += "<ul id='data" + category.id + "' class='pl-3 collapse'>";
+  letsCreateCategoryList(categoriesData: CategoryProduct[]): string {
+    let categoryHiearchyDom = "";
+    function createCategoryHiearchy(categories: CategoryProduct[]) {
+      categories.forEach(function (category) {
+        categoryHiearchyDom += `<li><button class="fa fa-plus-square"  (click)="addToList()"  aria-hidden="true"  data-target="${category.id}" data-parent="${category.parentId}"></button>&nbsp <span class="m-r-3"> ${category.name} </span> <i class = "fa fa-caret-down" data-toggle="collapse" data-target="#data${category.id}" aria-hidden="true"></i> `;
+        if (category.childCategories && category.childCategories.length > 0) {
+          categoryHiearchyDom += "<ul id='data" + category.id + "' class='pl-3 collapse'>";
 
-  //         createCategoryHiearchy(category.childCategories)
-  //         categoryHiearchyDom += "</li></ul>";
-  //       }
-  //       categoryHiearchyDom += "</li>";
+          createCategoryHiearchy(category.childCategories)
+          categoryHiearchyDom += "</li></ul>";
+        }
+        categoryHiearchyDom += "</li>";
 
-  //     })
-  //   }
-  //   createCategoryHiearchy(categoriesData);
-  //   const catHierEl = document.getElementById("categoryHierarchy") as HTMLElement
-  //   catHierEl.innerHTML = categoryHiearchyDom;
-  //   // catHierEl.replaceWith(new DOMParser().parseFromString(categoryHiearchyDom, "text/html").body);
-  //   return categoryHiearchyDom;
-  // }
+      })
+    }
+    createCategoryHiearchy(categoriesData);
+    const catHierEl = document.getElementById("categoryHierarchy") as HTMLElement
+    catHierEl.innerHTML = categoryHiearchyDom;
+    // catHierEl.replaceWith(new DOMParser().parseFromString(categoryHiearchyDom, "text/html").body);
+    return categoryHiearchyDom;
+  }
 
   showAddProductSec() {
     this.categorySelectShowable = false;

@@ -1,7 +1,5 @@
 <div class="recordCategory">
-  <h2 id="totalpurchaseBills" class="fleft">
-    purchaseBills - showing purchaseBillListSize of totalpurchaseBillRecords
-  </h2>
+  <h2 id="totalProducts" class="fleft">Stock Status</h2>
   <div class="fright minimizeLinkDiv">
     <a href="" class="minimizeLink">&nbsp;</a>
   </div>
@@ -24,10 +22,10 @@
       />
       <a href="#" class="genLink">Clear searchs</a>
     </div>
-    <div class="fright" class="createpurchaseBillDiv">
-      <a href="" (click)="createNewPurchaseBill()" class="createNewTableRecord"
-        >Create Purchase Bill
-        <img src="../../../assets/resources/images/createpurchaseBill.png" />
+    <div class="fright" class="createProductDiv">
+      <a href="" id="createNewProduct" class="createNewTableRecord">
+        <img src="../../../assets/resources/images/createProduct.png" />
+        <span> Create Product</span>
       </a>
     </div>
     <div class="cboth"></div>
@@ -39,14 +37,14 @@
           <span class="italicText"></span>
         </div>
         <ul
-          class="fleft filtersDisplayList purchaseBillsTableFiltersDisplayList"
+          class="fleft filtersDisplayList ProductsTableFiltersDisplayList"
         ></ul>
         <div class="cboth"></div>
       </div>
       <div class="fright configNavTableWrapper">
         <div
           class="fleft configTableDiv newFilterItem"
-          dropdownId="purchaseBillsTableFilters"
+          dropdownId="ProductsTableFilters"
         >
           <a href="" class="">
             <img
@@ -54,7 +52,7 @@
               alt="New Filter"
               title="Add new filter"
             />
-            <span id="newpurchaseBillFilter" search="off">New Filter</span>
+            <span id="newProductFilter" search="off">New Filter</span>
           </a>
         </div>
         <div class="fleft configTableDiv">
@@ -63,17 +61,17 @@
             <span>Configure Table</span>
             <img src="../../../assets/resources/images/th-sort-down.png" />
           </a>
-          <div class="configTableDropdown" id="purchaseBillsTableFilters">
-            <ul class="configOptionList" id="purchaseBillConfigList">
+          <div class="configTableDropdown" id="ProductsTableFilters">
+            <ul class="configOptionList" id="ProductConfigList">
               <li class="filterItem">
                 <span>Recent Filters</span>
-                <ul class="filterList" id="purchaseBillFilterList">
-                  <!-- <c:if test="${not empty purchaseBillFilters}"> -->
-                  <!-- <c:forEach items="${purchaseBillFilters}" var="filter"> -->
+                <ul class="filterList" id="ProductFilterList">
+                  <!-- <c:if test="${not empty ProductFilters}"> -->
+                  <!-- <c:forEach items="${ProductFilters}" var="filter"> -->
                   <li>
                     <a
                       href=""
-                      class="filterLink purchaseBillFilterName"
+                      class="filterLink ProductFilterName"
                       style="
                         white-space: nowrap;
                         overflow: hidden;
@@ -81,11 +79,11 @@
                       "
                       >filter.name</a
                     >
-                    <span class="purchaseBillFilterId" style="display: none"
+                    <span class="ProductFilterId" style="display: none"
                       >filter.id</span
                     >
                     <div
-                      class="purchaseBillFilterReqData hoverData"
+                      class="ProductFilterReqData hoverData"
                       style="display: none"
                     >
                       filter.reqData
@@ -93,15 +91,15 @@
                   </li>
                   <!-- </c:forEach> -->
                   <!-- </c:if> -->
-                  <!-- <c:if test="${not empty purchaseBillFilterSeeMore}"> -->
+                  <!-- <c:if test="${not empty ProductFilterSeeMore}"> -->
                   <li class="seeAllFilterLink">
                     <a href="" class="seeMoreLink">See More</a>
-                    <ul class="allFiltersList purchaseBillAllFilterList">
-                      <!-- <c:forEach items="${purchaseBillFilterSeeMore}" var="filter"> -->
+                    <ul class="allFiltersList ProductAllFilterList">
+                      <!-- <c:forEach items="${ProductFilterSeeMore}" var="filter"> -->
                       <li>
                         <a
                           href=""
-                          class="filterLink purchaseBillFilterName"
+                          class="filterLink ProductFilterName"
                           style="
                             white-space: nowrap;
                             overflow: hidden;
@@ -109,11 +107,11 @@
                           "
                           >filter.name</a
                         >
-                        <span class="purchaseBillFilterId" style="display: none"
+                        <span class="ProductFilterId" style="display: none"
                           >filter.id</span
                         >
                         <div
-                          class="purchaseBillFilterReqData hoverData"
+                          class="ProductFilterReqData hoverData"
                           style="display: none"
                         >
                           filter.reqData
@@ -137,7 +135,7 @@
             </ul>
           </div>
         </div>
-        <div class="fleft tableNavDiv" id="purchaseBillsTablePagination">
+        <div class="fleft tableNavDiv" id="ProductsTablePagination">
           <a href="" class="first first-page pageNumber">
             <img src="../../../assets/resources/images/first-page.png" />
           </a>
@@ -147,13 +145,13 @@
           <span class="showingText">Page</span>
           <span class="pagedisplay"><span class="pageNum">1</span> </span>
           <!-- <c:choose>
-                          <c:when test="${(totalpurchaseBillRecords mod 10)!=0}">
-                              <c:set var="res" value="${(totalpurchaseBillRecords - (totalpurchaseBillRecords mod purchaseBillTableRecords))/purchaseBillTableRecords + 1}"/>
+                          <c:when test="${(totalProductRecords mod 10)!=0}">
+                              <c:set var="res" value="${(totalProductRecords - (totalProductRecords mod ProductTableRecords))/ProductTableRecords + 1}"/>
                               <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
                               <span class="totalPage">${totalPage}</span>
                           </c:when>
                           <c:otherwise>
-                              <c:set var="res" value="${totalpurchaseBillRecords/10}"/>
+                              <c:set var="res" value="${totalProductRecords/10}"/>
                               <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
                               <span class="totalPage">${totalPage}</span>
                           </c:otherwise>
@@ -173,117 +171,42 @@
         cellspacing="0"
         cellpadding="0"
         class="recordsTable"
-        id="purchaseBillsRecordsTable"
+        id="ProductsRecordsTable"
       >
         <thead>
           <tr>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="customer_name"
-              id="costprice"
-            >
-              Bill No
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="organization_name"
-              id="name"
-            >
-              Fiscal Year
-            </th>
-
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="master_name"
-              id="sellingprice"
-            >
-              Seller Name
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="barcode"
-            >
-              Total Amount
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="discount"
-            >
-              Status
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="tax"
-            >
-              Tax
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="tax"
-            >
-              syncWithIrd
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="tax"
-            >
-              printedTime
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="actions"
-            >
-              Actions
-            </th>
+            <th>S.N</th>
+            <th>ProductId</th>
+            <th>ProductName</th>
+            <!-- <th>Quantity</th> -->
+            <th>Category Name</th>
+            <th>Stock Qty</th>
+            <th>barcode</th>
           </tr>
         </thead>
         <tbody id="prodTable">
           <tr>
             <span class="noProdRecord">No records found</span>
           </tr>
-          <tr
-            *ngFor="let purchaseBill of purchaseBills"
-            id="saleBill_{{ purchaseBill.purchaseBillNo }}"
-          >
-            <td>{{ purchaseBill.purchaseBillNo }}</td>
-            <td>{{ purchaseBill.fiscalYear }}</td>
-            <td>{{ purchaseBill.sellerName }}</td>
-            <td>{{ purchaseBill.taxAmount }}</td>
-            <td>{{ purchaseBill.status }}</td>
-            <td>{{ purchaseBill.taxAmount }}</td>
-            <td>{{ purchaseBill.syncWithIrd }}</td>
-            <td>
-              {{
-                purchaseBill.printedTime
-                  ? (purchaseBill.printedTime | date)
-                  : "not yet"
-              }}
-            </td>
-            <td class="last-child">
-              <a routerLink="{{ purchaseBill.purchaseBillNo }}"
-                ><i class="fa fa-info-circle" aria-hidden="true"></i
-              ></a>
-            </td>
+          <!-- <c:forEach items="${products}" var="product">  -->
+          <tr *ngFor="let prod of availableProducts; let index = index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ prod.productId }}</td>
+            <td>{{ prod.productName }}</td>
+            <td>{{ prod.categoryName }}</td>
+            <td>{{ prod.stockQty }}</td>
+            <td>{{ prod.barcode }}</td>
           </tr>
+          <!-- </c:forEach>	 -->
         </tbody>
       </table>
     </div>
   </div>
 </div>
 
-<!-- suraj -->
+<div class="popupWrapper" id="createNewProductPopup" style="display: none">
+  <div class="mb-2"></div>
+  <app-create-product
+    (productInfoEvent)="createNewProduct($event)"
+  ></app-create-product>
+</div>

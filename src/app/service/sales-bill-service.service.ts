@@ -17,8 +17,8 @@ export class SalesBillServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getAllSalesBill(): Observable<RJResponse<SalesBill[]>> {
-    let url = `${BASE_URL}/salesBill`;
+  getAllSalesBill(id: number): Observable<RJResponse<SalesBill[]>> {
+    let url = `${BASE_URL}/salesBill/company?compId=${id}`;
     return this.http.get<RJResponse<SalesBill[]>>(url);
   }
 

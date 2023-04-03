@@ -1,14 +1,14 @@
-export class SalesBill {
+export class PurchaseBill {
   userId !: number;
-  customerId !: number;
+  sellerId !: number;
   companyId !: number;
   fiscalYear !: string;//imp
-  billNo !: number;//imp
+  purchaseBillNo !: number;//imp
   billPrinted: boolean = false;//imp
   billActive: boolean = true;//imp
   realTime: boolean = true;//imp
-  customerName !: string;//imp
-  customerPan !: string;//imp
+  sellerName !: string;//imp
+  sellerPan !: string;//imp
   billDate !: Date;//imp
   amount !: number;//imp
   discount !: number;//imp

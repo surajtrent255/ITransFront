@@ -6,6 +6,10 @@ import { User } from 'src/app/models/user';
 import { ProductService } from 'src/app/service/product.service';
 import { StockService } from 'src/app/service/stock/stock.service';
 import { LoginService } from "src/app/service/shared/login.service"
+import { PurchaseBillService } from 'src/app/service/purchase-bill.service';
+import { PurchaseBill } from 'src/app/models/PurchaseBill';
+import { PurchaseBillMaster } from 'src/app/models/PurchaseBillMaster';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchase',
@@ -14,48 +18,36 @@ import { LoginService } from "src/app/service/shared/login.service"
 })
 export class PurchaseComponent {
 
-  stock: Stock = new Stock;
-  availableProducts !: InventoryProducts[]
-  userId !: number;
-  constructor(private productService: ProductService, private stockService: StockService, private loginService: LoginService) { }
+
+  purchaseBills: PurchaseBill[] = []
+  compId !: number;
+  purchaseBillMaster !: PurchaseBillMaster;
+  constructor(private purchaseBillService: PurchaseBillService,
+    private router: Router,
+    private loginService: LoginService) {
+
+  }
 
   ngOnInit() {
-    console.log(this.loginService.currentUser.user.id)
-    this.userId = this.loginService.currentUser.user.id;
-    this.getAllProducts();
-
+    this.compId = this.loginService.getCompnayId();
+    this.getAllPurchaseBills(this.compId);
   }
 
-  getAllProducts() {
-    this.productService.getAllProductsForInventory(1).subscribe({
-      next: (data: RJResponse<InventoryProducts[]>) => {
-        this.availableProducts = data.data;
-        console.log(this.availableProducts)
+  getAllPurchaseBills(compId: number) {
+    this.purchaseBillService.getAllPurchaseBillByCompId(this.compId).subscribe({
+      next: (data) => {
+        console.log(data.data);
+        this.purchaseBills = data.data
       },
       error: (error) => {
-        console.log("sorry")
-        console.log(error);
+        console.log(error)
       }
     })
   }
 
-  makePurchase(prodId: number) {
-    const inputStockQtyElement = document.getElementById("inputQty" + prodId) as HTMLInputElement;
-    let inputStockQty = (Number(inputStockQtyElement.value));
-    if (inputStockQty <= 0) {
-      return;
-    }
-    this.stock.productId = prodId;
-    this.stock.companyId = 1;
-    this.stock.qty = inputStockQty;
-    this.stockService.updateStockWithProdIdAndCompanyId(this.stock).subscribe({
-      error: (error) => {
-        console.log(error);
-      },
-      complete: () => {
-        this.getAllProducts();
-      }
-    })
+  createNewPurchaseBill() {
+    this.router.navigateByUrl("dashboard/purchase/create")
   }
+
 
 }

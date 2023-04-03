@@ -35,6 +35,9 @@ import { PurchaseComponent } from './components/shared/purchase/purchase.compone
 import { ProductComponent } from './components/shared/product/product.component';
 import { CreateProductComponent } from './components/shared/product/create-product/create-product.component';
 import { EditproductComponent } from './components/shared/product/editproduct/editproduct.component';
+import { CreatecategoryComponent } from './components/shared/categoryprod/createcategory/createcategory.component';
+import { CreatePurchaseBillComponent } from './components/shared/purchase/create-purchase-bill/create-purchase-bill.component';
+import { StockComponent } from './components/shared/stock/stock.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { EditproductComponent } from './components/shared/product/editproduct/ed
     ProductComponent,
     CreateProductComponent,
     EditproductComponent,
+    CreatecategoryComponent,
+    CreatePurchaseBillComponent,
+    StockComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,4 +87,4 @@ import { EditproductComponent } from './components/shared/product/editproduct/ed
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

@@ -15,14 +15,14 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-create-sales',
   templateUrl: './create-sales.component.html',
-  styleUrls: ['./create-sales.component.css']
+  styleUrls: ['./create-sales.component.css'],
 })
 export class CreateSalesComponent {
   @Output() salesBillDetailListEvent = new EventEmitter<SalesBillDetail[]>();
   @Output() activeSalesBillEntryEvent = new EventEmitter<boolean>();
 
   @Output() customerIdEntryEvent = new EventEmitter<number>();
-  salesBillDetail: SalesBillDetail = new SalesBillDetail;
+  salesBillDetail: SalesBillDetail = new SalesBillDetail();
   salesBillDetailInfos: SalesBillDetail[] = [];
 
   salesBillDetailsForCart: SalesBillDetail[] = [];
@@ -30,66 +30,76 @@ export class CreateSalesComponent {
   productBarCodeId: undefined | number;
   productsUserWantTosale: Product[] = [];
   productQtyUserWantTOSale: number = 1;
-  customerId !: number;
+  customerId!: number;
 
   // isconfirmAlert: boolean = false;
   // alertboxshowable: boolean = true;
 
-  constructor(private salesCartService: SalesCartService,
+  constructor(
+    private salesCartService: SalesCartService,
     private productService: ProductService,
     private salesBillService: SalesBillServiceService,
     private router: Router,
-    private loginService: LoginService) { }
+    private loginService: LoginService
+  ) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   // deactiveCreateSalesComp() {
   //   this.activeSalesBillEntryEvent.emit(false)
   // }
 
-
   addTheProductForSale() {
     if (this.productBarCodeId === undefined) {
       return;
     }
-    this.productService.getProductById(this.productBarCodeId).subscribe((data) => {
-      console.log(data.data);
-      console.log("navin");
-      if (data.data !== null) {
-        this.productsUserWantTosale.push(data.data);
-        this.productBarCodeId = undefined;
-
-      }
-    })
+    this.productService
+      .getProductById(this.productBarCodeId)
+      .subscribe((data) => {
+        console.log(data.data);
+        console.log('navin');
+        if (data.data !== null) {
+          this.productsUserWantTosale.push(data.data);
+          this.productBarCodeId = undefined;
+        }
+      });
   }
+
   updateProdQtyUserWantToSale($event: any, prod: Product) {
     if ($event.target.value === undefined) {
       return;
     }
     let qtyProd = $event.target.value;
-    const prodtotalAmountElement = document.getElementById("totalAmount" + prod.id) as HTMLElement;
+    const prodtotalAmountElement = document.getElementById(
+      'totalAmount' + prod.id
+    ) as HTMLElement;
     let prodTotalAmount = Number(qtyProd) * prod.sellingPrice;
     prodtotalAmountElement.innerText = '' + prodTotalAmount;
   }
 
-
   saleTheProducts() {
-
-    if (this.customerId === 0 || this.customerId === undefined || this.productsUserWantTosale.length <= 0) return;
-    const hidePopperBtn = document.getElementById("closeAlertPopperButton") as HTMLButtonElement;
-    hidePopperBtn.click();
+    if (
+      this.customerId === 0 ||
+      this.customerId === undefined ||
+      this.productsUserWantTosale.length <= 0
+    )
+      return;
+    const hidePopperBtn = document.getElementById(
+      'closeAlertPopperButton'
+    ) as HTMLButtonElement;
+    // hidePopperBtn.click();
     // this.customerIdEntryEvent.emit(this.customerId)
-    this.productsUserWantTosale.forEach(prod => {
-      let saleBillDetail: SalesBillDetail = new SalesBillDetail;
+    this.productsUserWantTosale.forEach((prod) => {
+      let saleBillDetail: SalesBillDetail = new SalesBillDetail();
       saleBillDetail.productId = prod.id;
-      let qtyElement = document.getElementById("qtyProd" + prod.id) as HTMLInputElement;
+      let qtyElement = document.getElementById(
+        'qtyProd' + prod.id
+      ) as HTMLInputElement;
       saleBillDetail.qty = Number(qtyElement.value);
       saleBillDetail.discountPerUnit = prod.discount;
       saleBillDetail.rate = prod.sellingPrice;
       this.salesBillDetailInfos.push(saleBillDetail);
-    })
+    });
     this.continueSelling();
   }
 
@@ -105,36 +115,37 @@ export class CreateSalesComponent {
       }
     }
     let taxableAmount = amount - discount;
-    let taxAmount = 13 / 100 * taxableAmount;
+    let taxAmount = (13 / 100) * taxableAmount;
     let totalAmount = taxableAmount + taxAmount;
 
-
-    let salesBill: SalesBill = new SalesBill;
-    let salesBillMaster: SalesBillMaster = new SalesBillMaster;
+    let salesBill: SalesBill = new SalesBill();
+    let salesBillMaster: SalesBillMaster = new SalesBillMaster();
     salesBill.amount = amount;
     salesBill.discount = discount;
     salesBill.taxableAmount = taxableAmount;
     salesBill.taxAmount = taxAmount;
     salesBill.totalAmount = totalAmount;
-    salesBill.custId = this.customerId;
-    salesBill.customerName = "xyz mohit";
-    salesBill.customerPan = "Pan#123";
+    salesBill.customerId = this.customerId;
+    salesBill.customerName = 'xyz mohit';
+    salesBill.customerPan = 'Pan#123';
     salesBill.syncWithIrd = false;
     salesBill.enteredBy = this.loginService.currentUser.user.email;
-    salesBill.paymentMethod = "CashInHand";
+    salesBill.paymentMethod = 'CashInHand';
 
     salesBill.userId = this.loginService.currentUser.user.id;
-    salesBill.companyId = 1;
+    salesBill.companyId = this.loginService.getCompnayId();
     salesBill.realTime = true;
     salesBill.billActive = true;
 
-
     salesBillMaster.salesBillDTO = salesBill;
     salesBillMaster.salesBillDetails = salesBillDetailInfos;
+    console.log(salesBillMaster);
     this.salesBillService.createNewSalesBill(salesBillMaster).subscribe({
-      next: data => {
-        this.router.navigateByUrl(`dashboard/salesbill/invoice/${data.data}/${salesBill.companyId}`);
-      }
-    })
+      next: (data) => {
+        this.router.navigateByUrl(
+          `dashboard/salesbill/invoice/${data.data}/${salesBill.companyId}`
+        );
+      },
+    });
   }
 }

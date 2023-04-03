@@ -8,9 +8,11 @@ import { ToastrService } from 'ngx-toastr';
 
 import { User } from 'src/app/models/user';
 import { IUserRegistration } from 'src/app/interfaces/iuser-registration';
+import { Company } from 'src/app/models/company';
 
 const USER_KEY = 'User';
 const USER_TOKEN = 'UserToken';
+const COMPANY_KEY = "Company";
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +21,10 @@ export class LoginService {
   private userSubject = new BehaviorSubject<User>(
     this.getUserFromLocalStorage()
   );
+
+  private companySubject = new BehaviorSubject<Company>(
+    this.getCompanyFromLocalStorage()
+  )
   public userObservable: Observable<User>;
 
   constructor(private http: HttpClient, private toastrService: ToastrService) {
@@ -27,6 +33,14 @@ export class LoginService {
 
   public get currentUser(): User {
     return this.userSubject.value;
+  }
+
+  public get CurrentCompnay(): Company {
+    return this.companySubject.value
+  }
+  // rought
+  getCompnayId(): number {
+    return 1;
   }
 
   login(userLogin: UserLogin): Observable<RJResponse<User>> {
@@ -78,5 +92,12 @@ export class LoginService {
     const userJson = localStorage.getItem(USER_KEY);
     if (userJson) return JSON.parse(userJson) as User;
     return new User();
+  }
+
+  getCompanyFromLocalStorage() {
+    localStorage.setItem(COMPANY_KEY, JSON.stringify(1));
+    const companyJson = localStorage.getItem(COMPANY_KEY);
+    if (companyJson) return JSON.parse(companyJson) as Company;
+    return new Company();
   }
 }

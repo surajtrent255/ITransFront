@@ -6,129 +6,257 @@
       <div class="cboth"></div>
     </div>
 
-    <table class="table">
-      <thead>
-        <th>Category ID:</th>
-        <th>Category Name:</th>
-        <th>Category Description:</th>
-        <th>Parent Id</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cat of categoriesData">
-          <td>{{ cat.id }}</td>
-          <td>{{ cat.name }}</td>
-          <td>{{ cat.description }}</td>
-          <td>{{ cat.parentId }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="padding-left: 550px; margin: 5px">
-      <button (click)="addNewCategory()" class="submit_btn border-rad">
-        Add New Category
-      </button>
+    <div class="recordCategory">
+      <h2 id="totalCategories" class="fleft">Category List</h2>
+      <div class="fright minimizeLinkDiv">
+        <a href="" class="minimizeLink">&nbsp;</a>
+      </div>
+      <div class="cboth"></div>
     </div>
-
-    <div hidden id="createCatDiv">
-      <form
-        #createCategoryProdForm="ngForm"
-        name="createCategoryProd"
-        (ngSubmit)="createCategoryProd(createCategoryProdForm)"
-        id="createProductForm"
-      >
-        <div class="chooseColoumnsWrapper">
-          <div class="fieldDiv popUpFormSectionWrapper">
-            <table class="formSection" cellpadding="0" cellspacing="0">
-              <tr>
-                <td>Parent Category:</td>
-                <td>
-                  <select
-                    id="parentId"
-                    class="formcontrol"
-                    style="width: 100%; height: 30px"
-                    name="parnetId"
-                    #parentId="ngModel"
-                    [(ngModel)]="categoryProd.parentId"
-                    required
-                  >
-                    <option value="" disabled selected>Select an option</option>
-                    <option
-                      *ngFor="let option of categoriesData"
-                      [value]="option.id"
-                    >
-                      {{ option.name }}
-                    </option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class="col1 pt-2">
-                  Category Name:<span class="mandatorySign">*</span>
-                </td>
-                <td class="col2">
-                  <input
-                    type="text"
-                    [class.is-invalid]="name.invalid && name.touched"
-                    class="form-control"
-                    id="name"
-                    #name="ngModel"
-                    name="name"
-                    [(ngModel)]="categoryProd.name"
-                    required="required"
-                  />
-                </td>
-                <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="name.valid || name.untouched"
-                    >invalid name</small
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td class="col1 pt-2">
-                  Description :<span class="mandatorySign">*</span>
-                </td>
-                <td class="col2">
-                  <textarea
-                    type="textField"
-                    [class.is-invalid]="
-                      description.invalid && description.touched
-                    "
-                    class="form-control"
-                    id="description"
-                    #description="ngModel"
-                    name="description"
-                    [(ngModel)]="categoryProd.description"
-                    required="required"
-                  ></textarea>
-                </td>
-                <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="description.valid || description.untouched"
-                    >invalid description</small
-                  >
-                </td>
-              </tr>
-            </table>
+    <div class="searchCreateTableDiv">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText hintText"
+            type="text"
+            search="off"
+            value="Enter CustomerPartName/MasterPartName to Search"
+          />
+          <input
+            type="image"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a href="#" class="genLink">Clear searchs</a>
+        </div>
+        <div class="fright" class="createCategoryDiv">
+          <a href="" id="createNewCategory" class="createNewTableRecord">
+            <img src="../../../assets/resources/images/createCategory.png" />
+            <span> Create Category</span>
+          </a>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fleft filterListWrapper">
+            <div class="fleft">
+              <span class="italicText"></span>
+            </div>
+            <ul
+              class="fleft filtersDisplayList CategoriesTableFiltersDisplayList"
+            ></ul>
+            <div class="cboth"></div>
           </div>
+          <div class="fright configNavTableWrapper">
+            <div
+              class="fleft configTableDiv newFilterItem"
+              dropdownId="CategoriesTableFilters"
+            >
+              <a href="" class="">
+                <img
+                  src="../../../assets/resources/images/newfilter-bg.png"
+                  alt="New Filter"
+                  title="Add new filter"
+                />
+                <span id="newCategoryFilter" search="off">New Filter</span>
+              </a>
+            </div>
+            <div class="fleft configTableDiv">
+              <a href="" class="configTableLink">
+                <img src="../../../assets/resources/images/config-bg.png" />
+                <span>Configure Table</span>
+                <img src="../../../assets/resources/images/th-sort-down.png" />
+              </a>
+              <div class="configTableDropdown" id="CategoriesTableFilters">
+                <ul class="configOptionList" id="CategoryConfigList">
+                  <li class="filterItem">
+                    <span>Recent Filters</span>
+                    <ul class="filterList" id="CategoryFilterList">
+                      <!-- <c:if test="${not empty CategoryFilters}"> -->
+                      <!-- <c:forEach items="${CategoryFilters}" var="filter"> -->
+                      <li>
+                        <a
+                          href=""
+                          class="filterLink CategoryFilterName"
+                          style="
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          "
+                          >filter.name</a
+                        >
+                        <span class="CategoryFilterId" style="display: none"
+                          >filter.id</span
+                        >
+                        <div
+                          class="CategoryFilterReqData hoverData"
+                          style="display: none"
+                        >
+                          filter.reqData
+                        </div>
+                      </li>
+                      <!-- </c:forEach> -->
+                      <!-- </c:if> -->
+                      <!-- <c:if test="${not empty CategoryFilterSeeMore}"> -->
+                      <li class="seeAllFilterLink">
+                        <a href="" class="seeMoreLink">See More</a>
+                        <ul class="allFiltersList CategoryAllFilterList">
+                          <!-- <c:forEach items="${CategoryFilterSeeMore}" var="filter"> -->
+                          <li>
+                            <a
+                              href=""
+                              class="filterLink CategoryFilterName"
+                              style="
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                              "
+                              >filter.name</a
+                            >
+                            <span class="CategoryFilterId" style="display: none"
+                              >filter.id</span
+                            >
+                            <div
+                              class="CategoryFilterReqData hoverData"
+                              style="display: none"
+                            >
+                              filter.reqData
+                            </div>
+                          </li>
+                          <!-- </c:forEach> -->
+                        </ul>
+                      </li>
+                      <!-- </c:if> -->
+                    </ul>
+                  </li>
+                  <li class="chooseCol">
+                    <a href="">Choose Columns</a>
+                  </li>
+                  <li class="recordsPerPage">
+                    <a href="">Records Per Page</a>
+                  </li>
+                  <li class="exportTableLink">
+                    <a href="">Export Table</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="fleft tableNavDiv" id="CategoriesTablePagination">
+              <a href="" class="first first-page pageNumber">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev pageNumber">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+              <!-- <c:choose>
+                          <c:when test="${(totalCategoryRecords mod 10)!=0}">
+                              <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
+                              <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                              <span class="totalPage">${totalPage}</span>
+                          </c:when>
+                          <c:otherwise>
+                              <c:set var="res" value="${totalCategoryRecords/10}"/>
+                              <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                              <span class="totalPage">${totalPage}</span>
+                          </c:otherwise>
+                        </c:choose> -->
+              <a href="" class="next pageNumber">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page pageNumber">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
+            </div>
+          </div>
+          <div class="cboth"></div>
         </div>
-        <div class="submitDiv tCenter">
-          <input
-            type="submit"
-            class="submit_btn border-rad"
-            id="submitCategoryPrd"
-            value="Add Category"
-            [disabled]="createCategoryProdForm.form.invalid"
-          />
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="CategoriesRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="first-child sortable"
+                  sortDir="asc"
+                  sortCol="organization_id"
+                  id="id"
+                >
+                  Category Id
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                  id="name"
+                >
+                  Category Name
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="customer_name"
+                  id="costprice"
+                >
+                  Category Description
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="sellingprice"
+                >
+                  Parent ID
+                </th>
 
-          <input
-            type="button"
-            value="Cancel"
-            class="submit_btn cancel_btn border-rad ml-2"
-          />
+                <th class="last-child">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <tr>
+                <span class="noProdRecord">No records found</span>
+              </tr>
+              <!-- <c:forEach items="${Categories}" var="Category">  -->
+              <tr *ngFor="let cat of categoriesData">
+                <td>{{ cat.id }}</td>
+                <td>{{ cat.name }}</td>
+                <td>{{ cat.description }}</td>
+                <td>{{ cat.parentId }}</td>
+                <td class="last-child">
+                  <a href="" class="">
+                    <img src="../../../assets/resources/images/editRow.png" />
+                  </a>
+                  <a href="" class="deleteRowLink deleteGroupCombo">
+                    <img src="../../../assets/resources/images/deleteRow.png" />
+                  </a>
+                </td>
+              </tr>
+              <!-- </c:forEach>	 -->
+            </tbody>
+          </table>
         </div>
-      </form>
+      </div>
     </div>
+
+    <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+      <div class="mb-2"></div>
+
+      <app-createcategory
+        (categorySuccessInfoEvent)="createNewCategory($event)"
+      ></app-createcategory>
+    </div>
+
+    <div
+      class="popupWrapper"
+      id="editCategoryPopup"
+      style="display: none"
+    ></div>
   </div>
 </div>

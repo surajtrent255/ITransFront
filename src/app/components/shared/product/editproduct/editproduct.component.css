@@ -1,0 +1,12 @@
+td{
+  vertical-align: middle;
+}
+
+select{
+  min-width: 80%;
+}
+
+input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+}
