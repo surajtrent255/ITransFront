@@ -482,13 +482,13 @@
                                 name="scales"
                                 [checked]="userConfig.role == userConfig.role"
                                 (change)="
-                                  onRoleChecked(
+                                  onAssignedRoleChecked(
                                     userConfig.userId,
                                     userConfig.roleId
                                   )
                                 "
                               />
-                              <label for="scales">{{ userConfig.role }}</label>
+                              <label for="scales">{{ userConfig.role }} </label>
                             </div>
                           </div>
                         </td>
@@ -1001,78 +1001,62 @@
   </div>
   <div class="popupContentWrapper">
     <form id="createProduct">
-      <!-- [formGroup]="RegisterForm"
-    (ngSubmit)="registerUser()" -->
       <div class="chooseColoumnsWrapper">
         <div class="fieldDiv popUpFormSectionWrapper">
-          <label for="getProductsMasterNameCheck">
-            <form>
-              <table width="100%" cellspacing="0" border="0">
-                <tr class="us-form">
-                  <td class="unwrap">
-                    <label for="select">User:</label>
-
-                    <h1>
-                      {{ userconfiguration[0].firstname }}
-                      {{ userconfiguration[0].lastname }}
-                    </h1>
-                  </td>
-                  <td>
-                    <span class="us-form-select-wrap">
-                      <label>Company</label>
-                      <h1>{{ userconfiguration[0].companyname }}</h1>
-                    </span>
-                  </td>
+          <div class="recordsTableDiv">
+            <table
+              cellspacing="0"
+              cellpadding="0"
+              class="recordsTable"
+              id="salesBillsRecordsTable"
+            >
+              <thead>
+                <tr>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="customer_name"
+                    style="background: darkgray"
+                    id="costprice"
+                  >
+                    User
+                  </th>
+                  <th
+                    class="sortable"
+                    style="background: darkgray"
+                    sortDir="asc"
+                    sortCol="organization_name"
+                    id="name"
+                  >
+                    Company
+                  </th>
                 </tr>
-              </table>
-            </form>
-          </label>
-          <div *ngFor="let role of role">
-            <div>
-              <Label>{{ role.role }}</Label>
-              <input
-                type="checkbox"
-                [checked]="hasRole(role.role)"
-                (change)="onRoleChecked(userconfiguration[0].userId, role.id)"
-                value="admin"
-              />
+              </thead>
+              <tbody id="prodTable">
+                <tr>
+                  <td>
+                    {{ userconfiguration[0].firstname }}
+                    {{ userconfiguration[0].lastname }}
+                  </td>
+                  <td>{{ userconfiguration[0].companyname }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="container" style="margin-top: 10px">
+            <span>Roles</span>
+            <div style="border-bottom: 2px solid #bdbdbd"></div>
+            <div style="margin: 4px" *ngFor="let role of role">
+              <div style="margin: 1px">
+                <input
+                  type="checkbox"
+                  [checked]="hasRole(role.role)"
+                  (change)="onRoleChecked(userconfiguration[0].userId, role.id)"
+                  value="admin"
+                />
+                <Label>{{ role.role }}</Label>
+              </div>
             </div>
-            <!-- <div class="">
-              <span>User :</span>
-              <input
-                type="checkbox"
-                [checked]="userConfig.role == 'USER'"
-                (change)="onRoleChecked(userConfig.userId, 2)"
-                value="user"
-              />
-            </div>
-            <div class="">
-              <span>Accountant :</span>
-              <input
-                type="checkbox"
-                [checked]="userConfig.role == 'ACCOUNTANT'"
-                (change)="onRoleChecked(userConfig.userId, 3)"
-                value="Accountant"
-              />
-            </div>
-            <div class="">
-              <span>Manager :</span>
-              <input
-                type="checkbox"
-                [checked]="userConfig.role == 'MANAGER'"
-                (change)="onRoleChecked(userConfig.userId, 4)"
-                value="manager"
-              />
-            </div>
-            <div class="">
-              <span>Super-Admin :</span>
-              <input
-                type="checkbox"
-                [checked]="userConfig.role == 'SUPER_ADMIN'"
-                (change)="onRoleChecked(userConfig.userId, 5)"
-                value="superadmin"
-              />
-            </div> -->
           </div>
         </div>
       </div>

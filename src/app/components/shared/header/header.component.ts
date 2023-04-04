@@ -48,7 +48,7 @@ export class HeaderComponent {
     this.userConfigurationService
       .updateUserCompanyStatus(status, companyId)
       .subscribe((res) => {
-        console.log(res);
+        console.log('Company Updated');
       });
   }
 
@@ -58,6 +58,10 @@ export class HeaderComponent {
       .subscribe((res) => {
         console.log(res);
       });
+  }
+
+  onAssignedRoleChecked(userId: number, roleId: number) {
+    alert('Assign Role Changed');
   }
 
   hasRole(roleName: string): boolean {
