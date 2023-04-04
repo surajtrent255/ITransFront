@@ -11,8 +11,8 @@ import { RJResponse } from '../models/rjresponse';
 export class CategoryProductService {
   constructor(private http: HttpClient) {}
 
-  getAllCategories(): Observable<RJResponse<CategoryProduct[]>> {
-    let url = `${BASE_URL}/category/all`;
+  getAllCategories(compId: number): Observable<RJResponse<CategoryProduct[]>> {
+    let url = `${BASE_URL}/category/all?compId=${compId}`;
     console.log(url);
     return this.http.get<RJResponse<CategoryProduct[]>>(url);
   }

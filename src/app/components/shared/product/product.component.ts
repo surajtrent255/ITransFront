@@ -12,7 +12,6 @@ import { LoginService } from 'src/app/service/shared/login.service';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent {
-
   availableProducts: Product[] = [];
   availableCategories: CategoryProduct[] = [];
 
@@ -21,18 +20,19 @@ export class ProductComponent {
     private productService: ProductService,
     private loginService: LoginService,
     private router: Router
-  ) { }
+  ) {}
 
   newProduct!: Product;
 
-  productInfoForUpdate!: Product
-
+  productInfoForUpdate!: Product;
+  compId!: number;
   ngOnInit() {
-    this.fetchAllProducts();
+    this.compId = this.loginService.getCompnayId();
+    this.fetchAllProducts(this.compId);
   }
 
-  fetchAllProducts() {
-    this.productService.getAllProducts().subscribe((data) => {
+  fetchAllProducts(compId: number) {
+    this.productService.getAllProducts(compId).subscribe((data) => {
       this.availableProducts = data.data;
     });
   }
@@ -42,11 +42,11 @@ export class ProductComponent {
   }
 
   getProduct(id: number) {
-    this.productService.getProductById(id).subscribe({
+    this.productService.getProductByIdAndCompanyId(id, this.compId).subscribe({
       next: (data) => {
         this.productInfoForUpdate = data.data;
-      }
-    })
+      },
+    });
   }
 
   editProduct(product: Product) {
@@ -55,16 +55,26 @@ export class ProductComponent {
     // this.router.navigateByUrl('dashboard/products/edit/' + id);
   }
 
+  fetchAllProductsAfterEdit() {
+    this.fetchAllProducts(this.compId);
+  }
+
   createNewProduct($event: boolean) {
     if ($event == true) {
-      this.fetchAllProducts();
+      this.fetchAllProducts(this.compId);
     }
   }
   deleteProduct(id: number) {
     this.productService.deleteProductById(id).subscribe({
-      next: (res) => { console.log(res) },
-      error: (error) => { console.log(error) },
-      complete: () => { this.fetchAllProducts() }
-    })
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.fetchAllProducts(this.compId);
+      },
+    });
   }
 }

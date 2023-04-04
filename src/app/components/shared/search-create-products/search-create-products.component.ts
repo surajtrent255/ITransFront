@@ -15,6 +15,7 @@ import { CategoryProductService } from 'src/app/service/category-product.service
 import { SalesBillDetail } from 'src/app/models/SalesBillDetail';
 import { SalesCartService } from 'src/app/service/shared/sales-cart-service.service';
 import { CreateSalesComponent } from '../sales/create-sales/create-sales.component';
+import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
   selector: 'app-search-create-products',
@@ -43,19 +44,24 @@ export class SearchCreateProductsComponent {
     private categoryProductService: CategoryProductService,
     private salesCartService: SalesCartService,
     private elRef: ElementRef,
-    private renderer: Renderer2
-  ) { }
+    private renderer: Renderer2,
+    private loginService: LoginService
+  ) {}
 
+  companyId!: number;
   ngOnInit() {
-    this.productService.getAllProducts().subscribe((data) => {
+    this.companyId = this.loginService.getCompnayId();
+    this.productService.getAllProducts(this.companyId).subscribe((data) => {
       this.availableProducts = data.data;
     });
-    this.categoryProductService.getAllCategories().subscribe((data) => {
-      this.availableCategories = data.data;
-      this.categoriesData = data.data;
-      // this.letsCreateCategoryList(this.categoriesData);
-      this.categoriesLoaded = true;
-    });
+    this.categoryProductService
+      .getAllCategories(this.companyId)
+      .subscribe((data) => {
+        this.availableCategories = data.data;
+        this.categoriesData = data.data;
+        // this.letsCreateCategoryList(this.categoriesData);
+        this.categoriesLoaded = true;
+      });
   }
 
   ngAfterViewInit() {
@@ -83,7 +89,7 @@ export class SearchCreateProductsComponent {
   }
 
   @ViewChild('container', { static: true }) container!: ElementRef;
-  letsAdd(catId: number, parentId: number, catName: string) { }
+  letsAdd(catId: number, parentId: number, catName: string) {}
 
   selCategoryName!: string;
   selectCategory(categoryId: number, catName: string) {
@@ -95,22 +101,24 @@ export class SearchCreateProductsComponent {
   }
 
   letsCreateCategoryList(categoriesData: CategoryProduct[]): string {
-    let categoryHiearchyDom = "";
+    let categoryHiearchyDom = '';
     function createCategoryHiearchy(categories: CategoryProduct[]) {
       categories.forEach(function (category) {
         categoryHiearchyDom += `<li><button class="fa fa-plus-square"  (click)="addToList()"  aria-hidden="true"  data-target="${category.id}" data-parent="${category.parentId}"></button>&nbsp <span class="m-r-3"> ${category.name} </span> <i class = "fa fa-caret-down" data-toggle="collapse" data-target="#data${category.id}" aria-hidden="true"></i> `;
         if (category.childCategories && category.childCategories.length > 0) {
-          categoryHiearchyDom += "<ul id='data" + category.id + "' class='pl-3 collapse'>";
+          categoryHiearchyDom +=
+            "<ul id='data" + category.id + "' class='pl-3 collapse'>";
 
-          createCategoryHiearchy(category.childCategories)
-          categoryHiearchyDom += "</li></ul>";
+          createCategoryHiearchy(category.childCategories);
+          categoryHiearchyDom += '</li></ul>';
         }
-        categoryHiearchyDom += "</li>";
-
-      })
+        categoryHiearchyDom += '</li>';
+      });
     }
     createCategoryHiearchy(categoriesData);
-    const catHierEl = document.getElementById("categoryHierarchy") as HTMLElement
+    const catHierEl = document.getElementById(
+      'categoryHierarchy'
+    ) as HTMLElement;
     catHierEl.innerHTML = categoryHiearchyDom;
     // catHierEl.replaceWith(new DOMParser().parseFromString(categoryHiearchyDom, "text/html").body);
     return categoryHiearchyDom;

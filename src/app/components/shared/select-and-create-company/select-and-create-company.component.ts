@@ -98,6 +98,7 @@ export class SelectAndCreateCompanyComponent {
     this.companyService
       .addCompany(
         {
+          id: 0,
           name: this.CompanyRegistrationForm.value.name!,
           description: this.CompanyRegistrationForm.value.description!,
           panNo: this.CompanyRegistrationForm.value.panNo!,

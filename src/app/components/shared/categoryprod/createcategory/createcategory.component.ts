@@ -2,38 +2,45 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { CategoryProductService } from 'src/app/service/category-product.service';
+import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
   selector: 'app-createcategory',
   templateUrl: './createcategory.component.html',
-  styleUrls: ['./createcategory.component.css']
+  styleUrls: ['./createcategory.component.css'],
 })
 export class CreatecategoryComponent {
-
   @Output() categorySuccessInfoEvent = new EventEmitter<boolean>();
-  categoryProd: CategoryProduct = new CategoryProduct
-  categoriesData: CategoryProduct[] = []
-
-  constructor(private categoryProductService: CategoryProductService) {
-
-  }
+  categoryProd: CategoryProduct = new CategoryProduct();
+  categoriesData: CategoryProduct[] = [];
+  companyId!: number;
+  constructor(
+    private categoryProductService: CategoryProductService,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit() {
+    this.companyId = this.loginService.getCompnayId();
     this.fetchAllCategories();
   }
 
   fetchAllCategories() {
-    this.categoryProductService.getAllCategories().subscribe(data => {
-      this.categoriesData = data.data;
-    })
+    this.categoryProductService
+      .getAllCategories(this.companyId)
+      .subscribe((data) => {
+        this.categoriesData = data.data;
+      });
   }
 
   addNewCategory() {
-    const catCreateDiv = document.getElementById("createCatDiv") as HTMLDivElement;
-    catCreateDiv.removeAttribute("hidden");
+    const catCreateDiv = document.getElementById(
+      'createCatDiv'
+    ) as HTMLDivElement;
+    catCreateDiv.removeAttribute('hidden');
   }
 
   createCategoryProd(createCategoryProdForm: any) {
+    this.categoryProd.companyId = this.companyId;
     this.categoryProductService.addNewCategory(this.categoryProd).subscribe({
       next: (data: RJResponse<number>) => {
         createCategoryProdForm.reset();
@@ -45,8 +52,7 @@ export class CreatecategoryComponent {
         createCategoryProdForm.reset();
         this.fetchAllCategories();
         this.categorySuccessInfoEvent.emit(true);
-      }
-    })
+      },
+    });
   }
-
 }

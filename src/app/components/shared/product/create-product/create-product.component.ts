@@ -17,11 +17,13 @@ export class CreateProductComponent {
   constructor(
     private productService: ProductService,
     private categoryProductService: CategoryProductService,
-    private loginService: LoginService,
-  ) { }
+    private loginService: LoginService
+  ) {}
 
+  compId!: number;
   ngOnInit() {
-    this.categoryProductService.getAllCategories().subscribe({
+    this.compId = this.loginService.getCompnayId();
+    this.categoryProductService.getAllCategories(this.compId).subscribe({
       next: (data) => {
         this.availableCategories = data.data;
       },
@@ -47,11 +49,9 @@ export class CreateProductComponent {
       },
       complete: () => {
         this.productInfoEvent.emit(true);
-
       },
     });
     console.log('product.component.ts');
     form.reset();
-
   }
 }

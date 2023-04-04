@@ -18,15 +18,17 @@ export class ProductService {
     return this.httpClient.post(url, product);
   }
 
-  getAllProducts(): Observable<RJResponse<Product[]>> {
-    let url = `${BASE_URL}/${productURL}`;
-    return this.httpClient.get<RJResponse<Product[]>>(
-      'http://localhost:9999/product'
-    );
+  getAllProducts(compId: number): Observable<RJResponse<Product[]>> {
+    let url = `${BASE_URL}/${productURL}?compId=${compId}`;
+    console.log('url  = ' + url);
+    return this.httpClient.get<RJResponse<Product[]>>(url);
   }
 
-  getProductById(id: number): Observable<RJResponse<Product>> {
-    let url = `${BASE_URL}/product/${id}`;
+  getProductByIdAndCompanyId(
+    id: number,
+    compId: number
+  ): Observable<RJResponse<Product>> {
+    let url = `${BASE_URL}/product/${id}?compId=${compId}`;
     console.log(url);
     return this.httpClient.get<RJResponse<Product>>(url);
   }

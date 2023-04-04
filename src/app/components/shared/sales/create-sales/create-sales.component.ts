@@ -34,7 +34,7 @@ export class CreateSalesComponent {
 
   // isconfirmAlert: boolean = false;
   // alertboxshowable: boolean = true;
-
+  companyId!: number;
   constructor(
     private salesCartService: SalesCartService,
     private productService: ProductService,
@@ -43,7 +43,9 @@ export class CreateSalesComponent {
     private loginService: LoginService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.companyId = this.loginService.getCompnayId();
+  }
 
   // deactiveCreateSalesComp() {
   //   this.activeSalesBillEntryEvent.emit(false)
@@ -54,7 +56,7 @@ export class CreateSalesComponent {
       return;
     }
     this.productService
-      .getProductById(this.productBarCodeId)
+      .getProductByIdAndCompanyId(this.productBarCodeId, this.companyId)
       .subscribe((data) => {
         console.log(data.data);
         console.log('navin');

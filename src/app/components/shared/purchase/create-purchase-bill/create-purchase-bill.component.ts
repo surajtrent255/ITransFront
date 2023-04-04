@@ -14,24 +14,24 @@ import { SalesCartService } from 'src/app/service/shared/sales-cart-service.serv
 @Component({
   selector: 'app-create-purchase-bill',
   templateUrl: './create-purchase-bill.component.html',
-  styleUrls: ['./create-purchase-bill.component.css']
+  styleUrls: ['./create-purchase-bill.component.css'],
 })
 export class CreatePurchaseBillComponent {
-
   billNo: number = 0;
   sellerId: number | undefined = 0;
   productBarCodeId: undefined | number;
 
-  companyId !: number;
+  companyId!: number;
   productsUserWantToPurchase: Product[] = [];
   purchaseBillDetailInfos: PurchaseBillDetail[] = [];
 
-
-  constructor(private salesCartService: SalesCartService,
+  constructor(
+    private salesCartService: SalesCartService,
     private productService: ProductService,
     private purchaseBillService: PurchaseBillService,
     private router: Router,
-    private loginService: LoginService) { }
+    private loginService: LoginService
+  ) {}
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
@@ -40,13 +40,14 @@ export class CreatePurchaseBillComponent {
     if (this.productBarCodeId === undefined) {
       return;
     }
-    this.productService.getProductById(this.productBarCodeId).subscribe((data) => {
-      if (data.data !== null) {
-        this.productsUserWantToPurchase.push(data.data);
-        this.productBarCodeId = undefined;
-
-      }
-    })
+    this.productService
+      .getProductByIdAndCompanyId(this.productBarCodeId, this.companyId)
+      .subscribe((data) => {
+        if (data.data !== null) {
+          this.productsUserWantToPurchase.push(data.data);
+          this.productBarCodeId = undefined;
+        }
+      });
   }
 
   updateProdQtyUserWantToPurchase($event: any, prod: Product) {
@@ -54,26 +55,36 @@ export class CreatePurchaseBillComponent {
       return;
     }
     let qtyProd = $event.target.value;
-    const prodtotalAmountElement = document.getElementById("totalAmount" + prod.id) as HTMLElement;
+    const prodtotalAmountElement = document.getElementById(
+      'totalAmount' + prod.id
+    ) as HTMLElement;
     let prodTotalAmount = Number(qtyProd) * prod.sellingPrice;
     prodtotalAmountElement.innerText = '' + prodTotalAmount;
   }
 
-
   purchaseTheProducts() {
-    console.log("above")
+    console.log('above');
 
-    if (this.billNo === 0 || this.billNo === undefined || this.productsUserWantToPurchase.length <= 0 || this.sellerId === 0 || this.sellerId === undefined) return;
-    console.log("below")
-    this.productsUserWantToPurchase.forEach(prod => {
-      let purchaseBillDetail: PurchaseBillDetail = new PurchaseBillDetail;
+    if (
+      this.billNo === 0 ||
+      this.billNo === undefined ||
+      this.productsUserWantToPurchase.length <= 0 ||
+      this.sellerId === 0 ||
+      this.sellerId === undefined
+    )
+      return;
+    console.log('below');
+    this.productsUserWantToPurchase.forEach((prod) => {
+      let purchaseBillDetail: PurchaseBillDetail = new PurchaseBillDetail();
       purchaseBillDetail.productId = prod.id;
-      let qtyElement = document.getElementById("qtyProd" + prod.id) as HTMLInputElement;
+      let qtyElement = document.getElementById(
+        'qtyProd' + prod.id
+      ) as HTMLInputElement;
       purchaseBillDetail.qty = Number(qtyElement.value);
       purchaseBillDetail.discountPerUnit = prod.discount;
       purchaseBillDetail.rate = prod.sellingPrice;
       this.purchaseBillDetailInfos.push(purchaseBillDetail);
-    })
+    });
     this.continueSelling();
   }
 
@@ -88,23 +99,22 @@ export class CreatePurchaseBillComponent {
       }
     }
     let taxableAmount = amount - discount;
-    let taxAmount = 13 / 100 * taxableAmount;
+    let taxAmount = (13 / 100) * taxableAmount;
     let totalAmount = taxableAmount + taxAmount;
 
-
-    let purchaseBill: PurchaseBill = new PurchaseBill;
-    let purchaseBillMaster: PurchaseBillMaster = new PurchaseBillMaster;
+    let purchaseBill: PurchaseBill = new PurchaseBill();
+    let purchaseBillMaster: PurchaseBillMaster = new PurchaseBillMaster();
     purchaseBill.amount = amount;
     purchaseBill.discount = discount;
     purchaseBill.taxableAmount = taxableAmount;
     purchaseBill.taxAmount = taxAmount;
     purchaseBill.totalAmount = totalAmount;
     purchaseBill.sellerId = this.sellerId!;
-    purchaseBill.sellerName = "xyz mohit";
-    purchaseBill.sellerPan = "Pan#123";
+    purchaseBill.sellerName = 'xyz mohit';
+    purchaseBill.sellerPan = 'Pan#123';
     purchaseBill.syncWithIrd = false;
     purchaseBill.enteredBy = this.loginService.currentUser.user.email;
-    purchaseBill.paymentMethod = "CashInHand";
+    purchaseBill.paymentMethod = 'CashInHand';
     purchaseBill.purchaseBillNo = this.billNo;
     purchaseBill.userId = this.loginService.currentUser.user.id;
     purchaseBill.companyId = this.companyId;
@@ -114,20 +124,23 @@ export class CreatePurchaseBillComponent {
     purchaseBillMaster.purchaseBillDetails = this.purchaseBillDetailInfos;
 
     console.log(purchaseBillMaster);
-    this.purchaseBillService.createNewPurchaseBill(purchaseBillMaster).subscribe({
-      next: data => {
-        console.log(data.data)
-        this.router.navigateByUrl(`dashboard/${this.companyId}/purchasebills`)
-      },
-      error: (error) => { console.log(error.error.description); }
-    })
+    this.purchaseBillService
+      .createNewPurchaseBill(purchaseBillMaster)
+      .subscribe({
+        next: (data) => {
+          console.log(data.data);
+          this.router.navigateByUrl(
+            `dashboard/${this.companyId}/purchasebills`
+          );
+        },
+        error: (error) => {
+          console.log(error.error.description);
+        },
+      });
   }
 
-  createNewProduct($event: any) {
-
-  }
+  createNewProduct($event: any) {}
 }
-
 
 interface InputEvent extends Event {
   target: HTMLInputElement;

@@ -12,7 +12,7 @@ import { Company } from 'src/app/models/company';
 
 const USER_KEY = 'User';
 const USER_TOKEN = 'UserToken';
-const COMPANY_KEY = "Company";
+const COMPANY_KEY = 'Company';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,7 @@ export class LoginService {
 
   private companySubject = new BehaviorSubject<Company>(
     this.getCompanyFromLocalStorage()
-  )
+  );
   public userObservable: Observable<User>;
 
   constructor(private http: HttpClient, private toastrService: ToastrService) {
@@ -36,11 +36,14 @@ export class LoginService {
   }
 
   public get CurrentCompnay(): Company {
-    return this.companySubject.value
+    return this.companySubject.value;
   }
   // rought
   getCompnayId(): number {
-    return 1;
+    var compnay: any = JSON.parse(localStorage.getItem('companyDetails')!);
+    console.log(compnay);
+    console.log('creating product !!! ');
+    return compnay.companyId;
   }
 
   login(userLogin: UserLogin): Observable<RJResponse<User>> {
