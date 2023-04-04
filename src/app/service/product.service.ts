@@ -11,7 +11,7 @@ const productURL = 'product';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   addNewProduct(product: Product): Observable<any> {
     let url = `${BASE_URL}/${productURL}`;
@@ -27,6 +27,7 @@ export class ProductService {
 
   getProductById(id: number): Observable<RJResponse<Product>> {
     let url = `${BASE_URL}/product/${id}`;
+    console.log(url);
     return this.httpClient.get<RJResponse<Product>>(url);
   }
 
@@ -43,7 +44,7 @@ export class ProductService {
   }
 
   deleteProductById(id: number) {
-    let url = `${BASE_URL}/product/${id}`
+    let url = `${BASE_URL}/product/${id}`;
     return this.httpClient.delete(url);
   }
 }

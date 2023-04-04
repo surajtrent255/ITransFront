@@ -428,9 +428,9 @@
                         </div>
                         <!--  -->
                         <a
-                          class="register_btn border-rad register-button createNewTableRecord"
+                          class="register_btn_addrole border-rad register-button createNewTableRecord"
                           value="change"
-                          style="color: whitesmoke"
+                          id="createNewAssign"
                           >Add Role</a
                         >
                         <!-- id="createNewProduct" -->
@@ -451,80 +451,7 @@
             </div>
             <div class="tabs-section tab-2">
               <div class="fieldDiv popUpFormSectionWrapper">
-                <div
-                  class="configListItem"
-                  *ngFor="let userConfig of userconfiguration"
-                >
-                  <!-- <label for="getProductsMasterNameCheck">
-                    <form>
-                      <table width="100%" cellspacing="0" border="0">
-                        <tr class="us-form">
-                          <td class="unwrap">
-                            <label for="select">User:</label
-                            ><select>
-                              <option>select User</option>
-                              <option>
-                                {{ userConfig.firstname }}
-                                {{ userConfig.lastname }}
-                              </option>
-                            </select>
-                          </td>
-                          <td>
-                            <span class="us-form-select-wrap">
-                              <label>Company</label>
-                              <select>
-                                <option>select Company/option></option>
-                                <option>{{ userConfig.companyname }}</option>
-                              </select>
-                            </span>
-                          </td>
-                        </tr>
-                      </table>
-                    </form>
-                  </label>
-                  <div>
-                    <div class="">
-                      <span>Admin :</span>
-                      <input
-                        type="checkbox"
-                        [checked]="userConfig.status"
-                        value="admin"
-                      />
-                    </div>
-                    <div class="">
-                      <span>User :</span>
-                      <input
-                        type="checkbox"
-                        [checked]="userConfig.status"
-                        value="user"
-                      />
-                    </div>
-                    <div class="">
-                      <span>Accountant :</span>
-                      <input
-                        type="checkbox"
-                        [checked]="userConfig.status"
-                        value="Accountant"
-                      />
-                    </div>
-                    <div class="">
-                      <span>Manager :</span>
-                      <input
-                        type="checkbox"
-                        [checked]="userConfig.status"
-                        value="manager"
-                      />
-                    </div>
-                    <div class="">
-                      <span>Super-Admin :</span>
-                      <input
-                        type="checkbox"
-                        [checked]="userConfig.status"
-                        value="superadmin"
-                      />
-                    </div>
-                  </div> -->
-
+                <div class="configListItem">
                   <table
                     cellspacing="0"
                     cellpadding="0"
@@ -537,14 +464,14 @@
                         <th>Role</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let userconfig of userconfiguration">
+                    <tbody *ngFor="let userConfig of userconfiguration">
                       <tr>
                         <td>
-                          {{ userconfig.firstname }}
-                          {{ userconfig.lastname }}
+                          {{ userConfig.firstname }}
+                          {{ userConfig.lastname }}
                         </td>
 
-                        <td>{{ userconfig.companyname }}</td>
+                        <td>{{ userConfig.companyname }}</td>
                         <td>
                           <div style="display: flex; padding: 2px">
                             <div>
@@ -552,69 +479,17 @@
                                 type="checkbox"
                                 id="scales"
                                 name="scales"
-                                [checked]="userconfig.role == userConfig.role"
+                                [checked]="userConfig.role == userConfig.role"
                                 (change)="
                                   onRoleChecked(
-                                    userconfig.userId,
-                                    userconfig.roleId
+                                    userConfig.userId,
+                                    userConfig.roleId
                                   )
                                 "
                               />
                               <label for="scales">{{ userConfig.role }}</label>
                             </div>
-
-                            <!-- <div>
-                              <input
-                                type="checkbox"
-                                id="scales"
-                                name="scales"
-                                [checked]="userconfig.role == 'USER'"
-                                (change)="onRoleChecked(userconfig.userId, 2)"
-                              />
-                              <label for="scales">USER</label>
-                            </div> -->
-
-                            <!-- <div>
-                              <input
-                                type="checkbox"
-                                id="scales"
-                                name="scales"
-                                [checked]="userconfig.role == 'ACCOUNTANT'"
-                                (change)="onRoleChecked(userconfig.userId, 3)"
-                              />
-                              <label for="scales">Accountant</label>
-                            </div> -->
-
-                            <!-- <div>
-                              <input
-                                type="checkbox"
-                                id="scales"
-                                name="scales"
-                                [checked]="userconfig.role == 'MANAGER'"
-                                (change)="onRoleChecked(userconfig.userId, 4)"
-                              />
-                              <label for="scales">Manager</label>
-                            </div> -->
-                            <!-- 
-                            <div>
-                              <input
-                                type="checkbox"
-                                id="scales"
-                                name="scales"
-                                [checked]="userconfig.role == 'SUPERADMIN'"
-                                (change)="onRoleChecked(userconfig.userId, 5)"
-                              />
-                              <label for="scales">Super Admin</label>
-                            </div> -->
                           </div>
-
-                          <a
-                            class="register_btn border-rad register-button createNewTableRecord"
-                            id="createNewProduct"
-                            value="change"
-                            style="color: whitesmoke"
-                            >Add Role</a
-                          >
                         </td>
                       </tr>
                     </tbody>
@@ -1110,7 +985,7 @@
 
 <!-- Pop for assign -->
 
-<!-- <div class="popupWrapper" id="createNewProductPopup" style="display: none">
+<div class="popupWrapper" id="createNewAssignPopup" style="display: none">
   <div class="popupHeading">
     <h2 class="fleft">Register</h2>
     <a href="" class="closeButton fright"
@@ -1122,11 +997,11 @@
   </div>
   <div class="popupSubHeadingDiv createProduct">
     <h1 class="heading">Register</h1>
-    <div>Create a new User.</div>
   </div>
   <div class="popupContentWrapper">
     <form id="createProduct">
-   
+      <!-- [formGroup]="RegisterForm"
+    (ngSubmit)="registerUser()" -->
       <div class="chooseColoumnsWrapper">
         <div class="fieldDiv popUpFormSectionWrapper">
           <label for="getProductsMasterNameCheck">
@@ -1140,30 +1015,28 @@
                       {{ userconfiguration[0].firstname }}
                       {{ userconfiguration[0].lastname }}
                     </h1>
-             
                   </td>
                   <td>
                     <span class="us-form-select-wrap">
                       <label>Company</label>
                       <h1>{{ userconfiguration[0].companyname }}</h1>
-              
                     </span>
                   </td>
                 </tr>
               </table>
             </form>
           </label>
-          <div *ngFor="let userConfig of userconfiguration">
-            <div class="">
-              <span>Admin :</span>
+          <div *ngFor="let role of role">
+            <div>
+              <Label>{{ role.role }}</Label>
               <input
                 type="checkbox"
-                [checked]="userConfig.role == 'ADMIN'"
-                (change)="onRoleChecked(userConfig.userId, 1)"
+                [checked]="hasRole(role.role)"
+                (change)="onRoleChecked(userconfiguration[0].userId, role.id)"
                 value="admin"
               />
             </div>
-            <div class="">
+            <!-- <div class="">
               <span>User :</span>
               <input
                 type="checkbox"
@@ -1198,7 +1071,7 @@
                 (change)="onRoleChecked(userConfig.userId, 5)"
                 value="superadmin"
               />
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -1218,4 +1091,4 @@
       </div>
     </form>
   </div>
-</div> -->
+</div>

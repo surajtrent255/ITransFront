@@ -1,103 +1,78 @@
-<div class="recordCategory">
-  <h2 id="totalpurchaseBills" class="fleft">
-    purchaseBills - showing purchaseBillListSize of totalpurchaseBillRecords
-  </h2>
-  <div class="fright minimizeLinkDiv">
-    <a href="" class="minimizeLink">&nbsp;</a>
-  </div>
-  <div class="cboth"></div>
-</div>
-<div class="searchCreateTableDiv">
-  <div class="searchCreateDiv">
-    <div class="fleft searchDiv" id="prodSearch">
-      <input
-        class="inputText hintText"
-        type="text"
-        search="off"
-        value="Enter CustomerPartName/MasterPartName to Search"
-      />
-      <input
-        type="image"
-        src="../../../assets/resources/images/searchButton.png"
-        class="serachButton"
-        title="Search Term"
-      />
-      <a href="#" class="genLink">Clear searchs</a>
+<div class="contentRecordsTableContainer MainContainer">
+  <div class="recordTableWrapper" style="height: 545px">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations">Purchase bills</h2>
+      <div class="cboth"></div>
     </div>
-    <div class="fright" class="createpurchaseBillDiv">
-      <a href="" (click)="createNewPurchaseBill()" class="createNewTableRecord"
-        >Create Purchase Bill
-        <img src="../../../assets/resources/images/createpurchaseBill.png" />
-      </a>
-    </div>
-    <div class="cboth"></div>
-  </div>
-  <div class="tableWrapper">
-    <div class="tablesettingDiv">
-      <div class="fleft filterListWrapper">
-        <div class="fleft">
-          <span class="italicText"></span>
+
+    <div class="searchCreateTableDiv">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText hintText"
+            type="text"
+            search="off"
+            value="Enter CustomerPartName/MasterPartName to Search"
+          />
+          <input
+            type="image"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a href="#" class="genLink">Clear searchs</a>
         </div>
-        <ul
-          class="fleft filtersDisplayList purchaseBillsTableFiltersDisplayList"
-        ></ul>
+        <div class="fright" class="createpurchaseBillDiv">
+          <a
+            href=""
+            (click)="createNewPurchaseBill()"
+            class="createNewTableRecord"
+            >Create Purchase Bill
+            <img
+              src="../../../assets/resources/images/createpurchaseBill.png"
+            />
+          </a>
+        </div>
         <div class="cboth"></div>
       </div>
-      <div class="fright configNavTableWrapper">
-        <div
-          class="fleft configTableDiv newFilterItem"
-          dropdownId="purchaseBillsTableFilters"
-        >
-          <a href="" class="">
-            <img
-              src="../../../assets/resources/images/newfilter-bg.png"
-              alt="New Filter"
-              title="Add new filter"
-            />
-            <span id="newpurchaseBillFilter" search="off">New Filter</span>
-          </a>
-        </div>
-        <div class="fleft configTableDiv">
-          <a href="" class="configTableLink">
-            <img src="../../../assets/resources/images/config-bg.png" />
-            <span>Configure Table</span>
-            <img src="../../../assets/resources/images/th-sort-down.png" />
-          </a>
-          <div class="configTableDropdown" id="purchaseBillsTableFilters">
-            <ul class="configOptionList" id="purchaseBillConfigList">
-              <li class="filterItem">
-                <span>Recent Filters</span>
-                <ul class="filterList" id="purchaseBillFilterList">
-                  <!-- <c:if test="${not empty purchaseBillFilters}"> -->
-                  <!-- <c:forEach items="${purchaseBillFilters}" var="filter"> -->
-                  <li>
-                    <a
-                      href=""
-                      class="filterLink purchaseBillFilterName"
-                      style="
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                      "
-                      >filter.name</a
-                    >
-                    <span class="purchaseBillFilterId" style="display: none"
-                      >filter.id</span
-                    >
-                    <div
-                      class="purchaseBillFilterReqData hoverData"
-                      style="display: none"
-                    >
-                      filter.reqData
-                    </div>
-                  </li>
-                  <!-- </c:forEach> -->
-                  <!-- </c:if> -->
-                  <!-- <c:if test="${not empty purchaseBillFilterSeeMore}"> -->
-                  <li class="seeAllFilterLink">
-                    <a href="" class="seeMoreLink">See More</a>
-                    <ul class="allFiltersList purchaseBillAllFilterList">
-                      <!-- <c:forEach items="${purchaseBillFilterSeeMore}" var="filter"> -->
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fleft filterListWrapper">
+            <div class="fleft">
+              <span class="italicText"></span>
+            </div>
+            <ul
+              class="fleft filtersDisplayList purchaseBillsTableFiltersDisplayList"
+            ></ul>
+            <div class="cboth"></div>
+          </div>
+          <div class="fright configNavTableWrapper">
+            <div
+              class="fleft configTableDiv newFilterItem"
+              dropdownId="purchaseBillsTableFilters"
+            >
+              <a href="" class="">
+                <img
+                  src="../../../assets/resources/images/newfilter-bg.png"
+                  alt="New Filter"
+                  title="Add new filter"
+                />
+                <span id="newpurchaseBillFilter" search="off">New Filter</span>
+              </a>
+            </div>
+            <div class="fleft configTableDiv">
+              <a href="" class="configTableLink">
+                <img src="../../../assets/resources/images/config-bg.png" />
+                <span>Configure Table</span>
+                <img src="../../../assets/resources/images/th-sort-down.png" />
+              </a>
+              <div class="configTableDropdown" id="purchaseBillsTableFilters">
+                <ul class="configOptionList" id="purchaseBillConfigList">
+                  <li class="filterItem">
+                    <span>Recent Filters</span>
+                    <ul class="filterList" id="purchaseBillFilterList">
+                      <!-- <c:if test="${not empty purchaseBillFilters}"> -->
+                      <!-- <c:forEach items="${purchaseBillFilters}" var="filter"> -->
                       <li>
                         <a
                           href=""
@@ -120,170 +95,202 @@
                         </div>
                       </li>
                       <!-- </c:forEach> -->
+                      <!-- </c:if> -->
+                      <!-- <c:if test="${not empty purchaseBillFilterSeeMore}"> -->
+                      <li class="seeAllFilterLink">
+                        <a href="" class="seeMoreLink">See More</a>
+                        <ul class="allFiltersList purchaseBillAllFilterList">
+                          <!-- <c:forEach items="${purchaseBillFilterSeeMore}" var="filter"> -->
+                          <li>
+                            <a
+                              href=""
+                              class="filterLink purchaseBillFilterName"
+                              style="
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                              "
+                              >filter.name</a
+                            >
+                            <span
+                              class="purchaseBillFilterId"
+                              style="display: none"
+                              >filter.id</span
+                            >
+                            <div
+                              class="purchaseBillFilterReqData hoverData"
+                              style="display: none"
+                            >
+                              filter.reqData
+                            </div>
+                          </li>
+                          <!-- </c:forEach> -->
+                        </ul>
+                      </li>
+                      <!-- </c:if> -->
                     </ul>
                   </li>
-                  <!-- </c:if> -->
+                  <li class="chooseCol">
+                    <a href="">Choose Columns</a>
+                  </li>
+                  <li class="recordsPerPage">
+                    <a href="">Records Per Page</a>
+                  </li>
+                  <li class="exportTableLink">
+                    <a href="">Export Table</a>
+                  </li>
                 </ul>
-              </li>
-              <li class="chooseCol">
-                <a href="">Choose Columns</a>
-              </li>
-              <li class="recordsPerPage">
-                <a href="">Records Per Page</a>
-              </li>
-              <li class="exportTableLink">
-                <a href="">Export Table</a>
-              </li>
-            </ul>
+              </div>
+            </div>
+            <div class="fleft tableNavDiv" id="purchaseBillsTablePagination">
+              <a href="" class="first first-page pageNumber">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev pageNumber">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+              <!-- <c:choose>
+                              <c:when test="${(totalpurchaseBillRecords mod 10)!=0}">
+                                  <c:set var="res" value="${(totalpurchaseBillRecords - (totalpurchaseBillRecords mod purchaseBillTableRecords))/purchaseBillTableRecords + 1}"/>
+                                  <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                                  <span class="totalPage">${totalPage}</span>
+                              </c:when>
+                              <c:otherwise>
+                                  <c:set var="res" value="${totalpurchaseBillRecords/10}"/>
+                                  <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                                  <span class="totalPage">${totalPage}</span>
+                              </c:otherwise>
+                            </c:choose> -->
+              <a href="" class="next pageNumber">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page pageNumber">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
+            </div>
           </div>
+          <div class="cboth"></div>
         </div>
-        <div class="fleft tableNavDiv" id="purchaseBillsTablePagination">
-          <a href="" class="first first-page pageNumber">
-            <img src="../../../assets/resources/images/first-page.png" />
-          </a>
-          <a href="" class="prev pageNumber">
-            <img src="../../../assets/resources/images/prev-page.png" />
-          </a>
-          <span class="showingText">Page</span>
-          <span class="pagedisplay"><span class="pageNum">1</span> </span>
-          <!-- <c:choose>
-                          <c:when test="${(totalpurchaseBillRecords mod 10)!=0}">
-                              <c:set var="res" value="${(totalpurchaseBillRecords - (totalpurchaseBillRecords mod purchaseBillTableRecords))/purchaseBillTableRecords + 1}"/>
-                              <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
-                              <span class="totalPage">${totalPage}</span>
-                          </c:when>
-                          <c:otherwise>
-                              <c:set var="res" value="${totalpurchaseBillRecords/10}"/>
-                              <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
-                              <span class="totalPage">${totalPage}</span>
-                          </c:otherwise>
-                        </c:choose> -->
-          <a href="" class="next pageNumber">
-            <img src="../../../assets/resources/images/next-page.png" />
-          </a>
-          <a href="" class="last last-page pageNumber">
-            <img src="../../../assets/resources/images/last-page.png" />
-          </a>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="purchaseBillsRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="customer_name"
+                  id="costprice"
+                >
+                  Bill No
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                  id="name"
+                >
+                  Fiscal Year
+                </th>
+
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="sellingprice"
+                >
+                  Seller Name
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="purchaseBill_group_name"
+                  id="barcode"
+                >
+                  Total Amount
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="purchaseBill_group_name"
+                  id="discount"
+                >
+                  Status
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="purchaseBill_group_name"
+                  id="tax"
+                >
+                  Tax
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="purchaseBill_group_name"
+                  id="tax"
+                >
+                  syncWithIrd
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="purchaseBill_group_name"
+                  id="tax"
+                >
+                  printedTime
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="purchaseBill_group_name"
+                  id="actions"
+                >
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <tr>
+                <span class="noProdRecord">No records found</span>
+              </tr>
+              <tr
+                *ngFor="let purchaseBill of purchaseBills"
+                id="saleBill_{{ purchaseBill.purchaseBillNo }}"
+              >
+                <td>{{ purchaseBill.purchaseBillNo }}</td>
+                <td>{{ purchaseBill.fiscalYear }}</td>
+                <td>{{ purchaseBill.sellerName }}</td>
+                <td>{{ purchaseBill.taxAmount }}</td>
+                <td>{{ purchaseBill.status }}</td>
+                <td>{{ purchaseBill.taxAmount }}</td>
+                <td>{{ purchaseBill.syncWithIrd }}</td>
+                <td>
+                  {{
+                    purchaseBill.printedTime
+                      ? (purchaseBill.printedTime | date)
+                      : "not yet"
+                  }}
+                </td>
+                <td class="last-child">
+                  <a routerLink="{{ purchaseBill.purchaseBillNo }}"
+                    ><i class="fa fa-info-circle" aria-hidden="true"></i
+                  ></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="cboth"></div>
     </div>
-    <div class="recordsTableDiv">
-      <table
-        cellspacing="0"
-        cellpadding="0"
-        class="recordsTable"
-        id="purchaseBillsRecordsTable"
-      >
-        <thead>
-          <tr>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="customer_name"
-              id="costprice"
-            >
-              Bill No
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="organization_name"
-              id="name"
-            >
-              Fiscal Year
-            </th>
 
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="master_name"
-              id="sellingprice"
-            >
-              Seller Name
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="barcode"
-            >
-              Total Amount
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="discount"
-            >
-              Status
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="tax"
-            >
-              Tax
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="tax"
-            >
-              syncWithIrd
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="tax"
-            >
-              printedTime
-            </th>
-            <th
-              class="sortable"
-              sortDir="asc"
-              sortCol="purchaseBill_group_name"
-              id="actions"
-            >
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody id="prodTable">
-          <tr>
-            <span class="noProdRecord">No records found</span>
-          </tr>
-          <tr
-            *ngFor="let purchaseBill of purchaseBills"
-            id="saleBill_{{ purchaseBill.purchaseBillNo }}"
-          >
-            <td>{{ purchaseBill.purchaseBillNo }}</td>
-            <td>{{ purchaseBill.fiscalYear }}</td>
-            <td>{{ purchaseBill.sellerName }}</td>
-            <td>{{ purchaseBill.taxAmount }}</td>
-            <td>{{ purchaseBill.status }}</td>
-            <td>{{ purchaseBill.taxAmount }}</td>
-            <td>{{ purchaseBill.syncWithIrd }}</td>
-            <td>
-              {{
-                purchaseBill.printedTime
-                  ? (purchaseBill.printedTime | date)
-                  : "not yet"
-              }}
-            </td>
-            <td class="last-child">
-              <a routerLink="{{ purchaseBill.purchaseBillNo }}"
-                ><i class="fa fa-info-circle" aria-hidden="true"></i
-              ></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <!-- suraj -->
   </div>
 </div>
-
-<!-- suraj -->

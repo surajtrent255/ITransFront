@@ -13,6 +13,7 @@ export class CategoryProductService {
 
   getAllCategories(): Observable<RJResponse<CategoryProduct[]>> {
     let url = `${BASE_URL}/category/all`;
+    console.log(url);
     return this.http.get<RJResponse<CategoryProduct[]>>(url);
   }
 

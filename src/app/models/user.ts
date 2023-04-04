@@ -1,3 +1,5 @@
+import { Roles } from './Roles';
+
 export class User {
   token!: string;
   user!: {
@@ -5,13 +7,7 @@ export class User {
     firstname: string;
     lastname: string;
     email: string;
-    roles: [
-      {
-        id: number;
-        role: string;
-        description: string;
-      }
-    ];
+    roles: Roles[];
     enabled: boolean;
     username: string;
     authorities: [

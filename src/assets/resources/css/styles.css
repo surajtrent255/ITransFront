@@ -670,7 +670,7 @@ a.genLink {
 }
 
 /*---- POPUP STYLES --- */
-.pageOverlay {
+/* .pageOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -682,7 +682,7 @@ a.genLink {
   z-index: 10;
   display: none;
   background: #000;
-}
+} */
 .popupWrapper {
   position: absolute;
   top: 50px;
@@ -865,6 +865,13 @@ input.rangeInput {
   color: #fff;
   background: #276dcc url("../images/submit_btn-bg.jpg") repeat-x;
   border: 1px solid #276dcc;
+  margin-right: 15px;
+}
+
+.register_btn_addrole {
+  cursor: pointer;
+  color: #fff;
+
   margin-right: 15px;
 }
 

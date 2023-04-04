@@ -1,113 +1,130 @@
-<div class="popupHeading">
-  <h2 class="fleft">Create Purchase</h2>
+<div class="contentRecordsTableContainer MainContainer">
+  <div class="recordTableWrapper" style="height: 545px">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations">Create Purchase</h2>
+      <div class="cboth"></div>
+    </div>
 
-  <div class="cboth"></div>
-</div>
-<div class="popupSubHeadingDiv createsalesBill">
-  <div class="headingContainer">
-    <span class="headingcontent">
-      <h1 class="heading">Choose products for Purchase</h1></span
-    >
-    <a
-      href=""
-      id="createNewProduct"
-      style="float: right"
-      class="createNewTableRecord createNewProdbtn"
-    >
-      <img src="../../../assets/resources/images/createProduct.png" />
-      <span> Create Product</span>
-    </a>
-  </div>
-</div>
-<div class="popupContentWrapper">
-  <div class="row">
-    <div class="col-md-12">
-      <!-- <app-popup class="m-4"></app-popup> -->
+    <div class="popupSubHeadingDiv createsalesBill">
+      <div class="headingContainer">
+        <span class="headingcontent">
+          <h1 class="heading">Choose products for Purchase</h1></span
+        >
+        <a
+          href=""
+          id="createNewProduct"
+          style="float: right"
+          class="createNewTableRecord createNewProdbtn"
+        >
+          <img src="../../../assets/resources/images/createProduct.png" />
+          <span> Create Product</span>
+        </a>
+      </div>
+    </div>
+    <div class="popupContentWrapper" style="background: none">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- <app-popup class="m-4"></app-popup> -->
 
-      <table>
-        <tr>
-          <td>Seller Id:</td>
-          <td>
-            <input class="input-field" type="number" [(ngModel)]="sellerId" />
-          </td>
-        </tr>
-        <tr>
-          <td>Enter Bill No.:</td>
-          <td>
-            <input class="input-field" type="number" [(ngModel)]="billNo" />
-          </td>
-        </tr>
-        <tr>
-          <td>Enter product Id:</td>
-          <td>
-            <input
-              class="input-field"
-              [(ngModel)]="productBarCodeId"
-              (keydown.enter)="addTheProductForPurchase()"
-            />
-          </td>
-          <td>
-            <button class="button" (click)="addTheProductForPurchase()">
-              Add product
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Enter product Name:</td>
-          <td><input class="input-field" type="text" readonly /></td>
-        </tr>
-      </table>
+          <table>
+            <tr>
+              <td>Seller Id:</td>
+              <td>
+                <input
+                  class="input-field"
+                  type="number"
+                  [(ngModel)]="sellerId"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Enter Bill No.:</td>
+              <td>
+                <input class="input-field" type="number" [(ngModel)]="billNo" />
+              </td>
+            </tr>
+            <tr>
+              <td>Enter product Id:</td>
+              <td>
+                <input
+                  class="input-field"
+                  [(ngModel)]="productBarCodeId"
+                  (keydown.enter)="addTheProductForPurchase()"
+                />
+              </td>
+            </tr>
 
-      <table class="table">
-        <thead>
-          <th>S.N</th>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Rate</th>
-          <th>Amount</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let prod of productsUserWantToPurchase; let i = index">
-            <td>{{ i + 1 }}</td>
+            <tr>
+              <td>Enter product Name:</td>
+              <td><input class="input-field" type="text" readonly /></td>
+            </tr>
             <td>
-              {{ prod.name }}
+              <div style="padding-top: 15px">
+                <button
+                  class="submit_btn border-rad"
+                  (click)="addTheProductForPurchase()"
+                >
+                  Add product
+                </button>
+              </div>
             </td>
-            <td>
-              <input
-                class="input-field"
-                type="number"
-                value="1"
-                id="qtyProd{{ prod.id }}"
-                (change)="updateProdQtyUserWantToPurchase($event, prod)"
-              />
-            </td>
-            <td>{{ prod.sellingPrice }}</td>
-            <td id="totalAmount{{ prod.id }}">{{ prod.sellingPrice }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <button id="" class="button" (click)="purchaseTheProducts()">
-        Purchase
-      </button>
+          </table>
+
+          <div class="recordsTableDiv">
+            <table cellspacing="0" cellpadding="0" class="recordsTable">
+              <thead>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Amount</th>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let prod of productsUserWantToPurchase; let i = index"
+                >
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    {{ prod.name }}
+                  </td>
+                  <td>
+                    <input
+                      class="input-field"
+                      type="number"
+                      value="1"
+                      id="qtyProd{{ prod.id }}"
+                      (change)="updateProdQtyUserWantToPurchase($event, prod)"
+                    />
+                  </td>
+                  <td>{{ prod.sellingPrice }}</td>
+                  <td id="totalAmount{{ prod.id }}">{{ prod.sellingPrice }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="cboth"></div>
+            <div style="margin-top: 20px">
+              <button
+                id=""
+                class="submit_btn border-rad"
+                (click)="purchaseTheProducts()"
+              >
+                Purchase
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="popupWrapper"
+        id="createNewProductPopup"
+        style="display: none"
+      >
+        <div class="mb-2"></div>
+        <app-create-product
+          (productInfoEvent)="createNewProduct($event)"
+        ></app-create-product>
+      </div>
     </div>
   </div>
 </div>
-
-<div class="popupWrapper" id="createNewProductPopup" style="display: none">
-  <div class="mb-2"></div>
-  <app-create-product
-    (productInfoEvent)="createNewProduct($event)"
-  ></app-create-product>
-</div>
-<!-- <tr *ngFor="let prod of productsUserWantTosale; let i = index">
-  <td>{{ i+1 }}</td>
-  <td>
-    <input
-      type="number"
-      value="{{ prod.qty }}"
-      (change)="updateQty($event, prod.productId)"
-    />
-  </td>
-  <td>{{ prod.discountPerUnit }}</td>
-  <td>{{ prod.rate }}</td>
-</tr> -->

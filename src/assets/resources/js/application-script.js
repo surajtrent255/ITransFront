@@ -1031,6 +1031,7 @@ $(function () {
           } else {
             createNewAttr(
               "createNewProductPopup",
+              "createNewAssignPopup",
               "newproductattr",
               "prodAttributes"
             );
@@ -1397,6 +1398,20 @@ $(function () {
       } else {
         createNewAttr(
           "createNewProductPopup",
+          "createNewAssignPopup",
+          "newproductattr",
+          "prodAttributes"
+        );
+      }
+    } else if (recordTypeId == "createNewAssign") {
+      $("#createProduct input#proStartDate").val($("#defStartDate").text());
+      $("#createProduct input#proEndDate").val($("#defEndDate").text());
+      if ($("#val_newproductattr").children().length == 0) {
+        popProductAttributes();
+      } else {
+        createNewAttr(
+          "createNewProductPopup",
+          "createNewAssignPopup",
           "newproductattr",
           "prodAttributes"
         );

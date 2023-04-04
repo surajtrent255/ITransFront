@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, tap } from 'rxjs';
 import {
+  GET_ALL_ROLES,
   UPDATE_USER_COMPANY_STATUS,
   USER_CONFIGURATION_DETAILS,
   USER_ROLE_UPDATE,
@@ -17,6 +18,10 @@ export class UserConfigurationService {
 
   getUserConfiguration(companyId: number): Observable<any> {
     return this.http.get(`${USER_CONFIGURATION_DETAILS}/${companyId}`);
+  }
+
+  getRoles(): Observable<any> {
+    return this.http.get(GET_ALL_ROLES);
   }
 
   updateUserStatus(status: string, userId: number): Observable<any> {
