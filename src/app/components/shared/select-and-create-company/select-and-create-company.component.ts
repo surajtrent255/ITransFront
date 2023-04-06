@@ -7,6 +7,7 @@ import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
 import { CompanyServiceService } from 'src/app/service/shared/company-service.service';
 import { LoginService } from 'src/app/service/shared/login.service';
+import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
 
 @Component({
   selector: 'app-select-and-create-company',
@@ -38,7 +39,8 @@ export class SelectAndCreateCompanyComponent {
     private companyService: CompanyServiceService,
     private loginService: LoginService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private userConfiguarationSerivice: UserConfigurationService
   ) {}
 
   ngOnInit() {
@@ -114,6 +116,7 @@ export class SelectAndCreateCompanyComponent {
       .subscribe(() => {
         window.location.reload();
       });
+    this.userConfiguarationSerivice.updateUserRole(this.user_id, 1);
   }
 
   proceed(company: any) {

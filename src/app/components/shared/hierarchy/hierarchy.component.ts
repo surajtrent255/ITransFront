@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Company } from 'src/app/models/company';
+import { LoginService } from 'src/app/service/shared/login.service';
 declare const bootstrap: any;
 
 @Component({
@@ -11,8 +13,16 @@ declare const bootstrap: any;
   encapsulation: ViewEncapsulation.None,
 })
 export class HierarchyComponent implements OnInit {
+  constructor(private loginService: LoginService) {}
+
+  companyName!: string;
+
   ngOnInit(): void {
-    // Initialize Bootstrap collapse
+    const data = localStorage.getItem('companyDetails');
+    const parsedData = JSON.parse(data || '{}');
+    const { name } = parsedData;
+    this.companyName = name;
+
     document.querySelectorAll('.sidebar .nav-link').forEach(function (element) {
       element.addEventListener('click', function (e) {
         let nextEl = element.nextElementSibling;

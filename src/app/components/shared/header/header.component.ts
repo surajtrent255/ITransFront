@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Roles } from 'src/app/models/Roles';
+import { User } from 'src/app/models/user';
 import { UserConfiguration } from 'src/app/models/user-configuration';
 import { LoginService } from 'src/app/service/shared/login.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
@@ -14,6 +15,8 @@ export class HeaderComponent {
   userconfiguration!: UserConfiguration[];
   role!: Roles[];
   isChecked!: boolean;
+  allUser!: User;
+
   constructor(
     private userConfigurationService: UserConfigurationService,
     private loginService: LoginService
@@ -26,12 +29,15 @@ export class HeaderComponent {
     this.userConfigurationService
       .getUserConfiguration(companyId)
       .subscribe((res) => {
-        console.log('**********************' + res.data);
         this.userconfiguration = res.data;
       });
 
     this.userConfigurationService.getRoles().subscribe((res) => {
       this.role = res.data;
+    });
+
+    this.userConfigurationService.getAllUser().subscribe((res) => {
+      this.allUser = res.data;
     });
   }
 

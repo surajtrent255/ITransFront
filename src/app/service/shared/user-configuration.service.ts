@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, tap } from 'rxjs';
 import {
   GET_ALL_ROLES,
+  GET_ALL_USER,
   UPDATE_USER_COMPANY_STATUS,
   USER_CONFIGURATION_DETAILS,
   USER_ROLE_UPDATE,
@@ -73,5 +74,9 @@ export class UserConfigurationService {
         },
       })
     );
+  }
+
+  getAllUser(): Observable<any> {
+    return this.http.get(GET_ALL_USER);
   }
 }
