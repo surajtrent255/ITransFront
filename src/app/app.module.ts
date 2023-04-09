@@ -80,6 +80,11 @@ import { StockComponent } from './components/shared/stock/stock.component';
       positionClass: 'toast-bottom-right',
       newestOnTop: false,
     }),
+    // MatSelectModule,
+    // MatOptionModule,
+    // MatInputModule,
+    // FormsModule,
+    // ReactiveFormsModule,
   ],
 
   providers: [

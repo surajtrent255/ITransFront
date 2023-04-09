@@ -21,12 +21,9 @@ export class SalesBillEditComponent {
   salesBillInvoice !: SalesBillInvoice;
 
   ngOnInit() {
-    let billNo = this.activatedRoute.snapshot.params['billNo']
-    let compaId = this.activatedRoute.snapshot.params['companyId']
+    let billId = this.activatedRoute.snapshot.params['billId']
     console.log(this.activatedRoute.snapshot.params)
-    console.log("billNo = " + billNo);
-    console.log("companyId = " + compaId)
-    this.salesBillService.fetchSalesBillDetailForInvoice(billNo, 0).subscribe(data => {
+    this.salesBillService.fetchSalesBillDetailForInvoice(billId).subscribe(data => {
 
       this.salesBillInvoice = data.data;
 

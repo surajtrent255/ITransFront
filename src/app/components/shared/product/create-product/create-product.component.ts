@@ -18,7 +18,7 @@ export class CreateProductComponent {
     private productService: ProductService,
     private categoryProductService: CategoryProductService,
     private loginService: LoginService
-  ) {}
+  ) { }
 
   compId!: number;
   ngOnInit() {
@@ -52,6 +52,6 @@ export class CreateProductComponent {
       },
     });
     console.log('product.component.ts');
-    form.reset();
+    form.reset({ tax: 13 });
   }
 }

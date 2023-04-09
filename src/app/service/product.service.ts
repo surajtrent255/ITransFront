@@ -11,7 +11,7 @@ const productURL = 'product';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   addNewProduct(product: Product): Observable<any> {
     let url = `${BASE_URL}/${productURL}`;

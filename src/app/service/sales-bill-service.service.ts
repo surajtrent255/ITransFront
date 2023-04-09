@@ -28,12 +28,12 @@ export class SalesBillServiceService {
     return this.http.post<RJResponse<number>>(url, salesBillMasterInfo);
   }
 
-  fetchSalesBillDetailForInvoice(billId: number, compId: number): Observable<RJResponse<SalesBillInvoice>> {
-    let url = `${BASE_URL}/salesBillDetail?billId=${billId}&comapnyId=${compId}`;
+  fetchSalesBillDetailForInvoice(billId: number): Observable<RJResponse<SalesBillInvoice>> {
+    let url = `${BASE_URL}/salesBillDetail?billId=${billId}`;
     return this.http.get<RJResponse<SalesBillInvoice>>(url);
   }
 
-  printTheBill(billNo: number, printerId: number): Observable<RJResponse<number>> {
+  printTheBill(billNo: string, printerId: number): Observable<RJResponse<number>> {
     let url = `${BASE_URL}/salesBill/print/${billNo}`;
     console.log("print url = " + url)
     return this.http.post<RJResponse<number>>(url, { "printerId": printerId });

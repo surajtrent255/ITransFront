@@ -3,6 +3,7 @@ td{
 }
 select{
   min-width: 80%;
+  background-color: white;
 }
 
 input[type="text"] {

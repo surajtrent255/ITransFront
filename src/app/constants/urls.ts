@@ -21,3 +21,5 @@ export const UPDATE_USER_COMPANY_URL =
   BASE_URL + '/api/v1/userconfig/update/company';
 
 export const GET_ALL_ROLES = BASE_URL + '/api/v1/userconfig/role';
+
+export const COMPANY_BASE_URL = BASE_URL + "/api/v1/company"

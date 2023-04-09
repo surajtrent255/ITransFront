@@ -1,14 +1,15 @@
 export class SalesBill {
+  id !: number;
   userId !: number;
   customerId !: number;
   companyId !: number;
   fiscalYear !: string;//imp
-  billNo !: number;//imp
+  billNo !: string;//imp
   billPrinted: boolean = false;//imp
   billActive: boolean = true;//imp
   realTime: boolean = true;//imp
   customerName !: string;//imp
-  customerPan !: string;//imp
+  customerPan !: number;//imp
   billDate !: Date;//imp
   amount !: number;//imp
   discount !: number;//imp
@@ -23,4 +24,7 @@ export class SalesBill {
   vatRefundAmount !: number;//imp if any
   transactionId !: string;//imp if any
   status: boolean = true;
+  branchId !: number;
+  draft !: boolean;
+  taxApproach !: number;
 }

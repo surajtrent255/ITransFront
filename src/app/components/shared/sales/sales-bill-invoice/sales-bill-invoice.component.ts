@@ -27,16 +27,15 @@ export class SalesBillInvoiceComponent {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    let billNo: number = this.activatedRoute.snapshot.params['billNo'];
-    let companyId: number = this.activatedRoute.snapshot.params['companyId'];
-    this.fetchSalesBillInvoice(billNo, companyId);
+    let billId: number = this.activatedRoute.snapshot.params['billId'];
+    this.fetchSalesBillInvoice(billId);
     console.log("salebill init");
 
 
   }
 
-  fetchSalesBillInvoice(billNo: number, companyId: number) {
-    this.salesBillService.fetchSalesBillDetailForInvoice(billNo, companyId).subscribe({
+  fetchSalesBillInvoice(billId: number) {
+    this.salesBillService.fetchSalesBillDetailForInvoice(billId).subscribe({
       next: (data: RJResponse<SalesBillInvoice>) => {
         this.salesInvoice = data.data;
         this.salesInvoice.salesBillDTO.totalAmount = Math.round(this.salesInvoice.salesBillDTO.totalAmount);
@@ -47,7 +46,7 @@ export class SalesBillInvoiceComponent {
 
 
 
-  printTheBill(bill_no: number) {
+  printTheBill(bill_no: string) {
     let userId = this.loginService.currentUser.user.id;
     let billNo = bill_no;
     this.salesBillService.printTheBill(billNo, userId).subscribe({
