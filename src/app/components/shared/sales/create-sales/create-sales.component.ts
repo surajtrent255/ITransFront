@@ -175,50 +175,60 @@ export class CreateSalesComponent {
     let discountPerc: number = Number(discountPercElement.value);
     console.log("discountPerc = " + discountPerc);
 
+    let totalAmountElement = document.getElementById(`totalAmount${prod.id}`) as HTMLElement;
+
+    if (this.taxApproach === 1) {
+      let actSp = sellingPrice - 13 / (100 + 13) * sellingPrice;
+      let totalEachRow: number = (actSp - discountPerc / 100 * actSp) * prodQty;
+      totalAmountElement.innerText = String(Math.round(totalEachRow));
+    } else {
+      let totalEachRow: number = (sellingPrice - discountPerc / 100 * sellingPrice) * prodQty;
+      totalAmountElement.innerText = String(Math.round(totalEachRow));
+    }
+
 
     // for tracking TaxRate
-    const vatRateTypesElement = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
-    let vatRateTypes: number = Number(vatRateTypesElement.value);
-    console.log("vat rate types = " + vatRateTypes);
+    // const vatRateTypesElement = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
+    // let vatRateTypes: number = Number(vatRateTypesElement.value);
+    // console.log("vat rate types = " + vatRateTypes);
 
     // for tracking tax approach i.e tax inclusive or taxExclusive 1 for tax inclusive two tax Exclusive
-    let taxApproach: number = this.taxApproach;
+    // let taxApproach: number = this.taxApproach;
 
 
     // for calculating total amount before tax approach
-    let singleProdPreTotal: number = (sellingPrice - (discountPerc / 100 * sellingPrice));
+    // let singleProdPreTotal: number = (sellingPrice - (discountPerc / 100 * sellingPrice));
 
-    let trueTotalProductsPretotal: number = 0;
-    let totalProductsPretotal: number = 0;
+    // let trueTotalProductsPretotal: number = 0;
+    // let totalProductsPretotal: number = 0;
 
-    // for updating total Amount
-    let totalAmountElement = document.getElementById(`totalAmount${prod.id}`) as HTMLElement;
-
-
-    if (taxApproach === 1) {
-
-      if (vatRateTypes === 3) {//vattypes chai salesbilldetail table ma rakhae track garna
-        totalProductsPretotal = (singleProdPreTotal - (13 / (100 + 13)) * singleProdPreTotal) * prodQty;
-        totalAmountElement.innerHTML = String(Math.round(totalProductsPretotal));
-      } else {
-        totalAmountElement.innerHTML = String(Math.round(singleProdPreTotal * prodQty));
-
-      }
-    }
-
-    if (taxApproach === 2) {
-      let totalProductsPretotal = singleProdPreTotal * prodQty;
-      totalAmountElement.innerHTML = String(Math.round(totalProductsPretotal));
-      // but we have to store it somewhere in database; databse ko salesbill table ma taxApproach inclusive or exclusive rakhnae status;
+    // // for updating total Amount
+    // let totalAmountElement = document.getElementById(`totalAmount${prod.id}`) as HTMLElement;
 
 
-      if (vatRateTypes === 3) {
-        // let singleProductTotal = singleProdPreTotal + (13 / 100 * singleProdPreTotal);
+    // if (taxApproach === 1) {
+
+    //   if (vatRateTypes === 3) {//vattypes chai salesbilldetail table ma rakhae track garna
+    //     totalProductsPretotal = (singleProdPreTotal - (13 / (100 + 13)) * singleProdPreTotal) * prodQty;
+    //     totalAmountElement.innerHTML = String(Math.round(totalProductsPretotal));
+    //   } else {
+    //     totalAmountElement.innerHTML = String(Math.round(singleProdPreTotal * prodQty));
+
+    //   }
+    // }
+
+    // if (taxApproach === 2) {
+    //   let totalProductsPretotal = singleProdPreTotal * prodQty;
+    //   totalAmountElement.innerHTML = String(Math.round(totalProductsPretotal));
+    //   // but we have to store it somewhere in database; databse ko salesbill table ma taxApproach inclusive or exclusive rakhnae status;
 
 
-      }
+    //   if (vatRateTypes === 3) {
+    //     // let singleProductTotal = singleProdPreTotal + (13 / 100 * singleProdPreTotal);
 
-    }
+    //   }
+
+    // }
 
 
 
@@ -248,10 +258,14 @@ export class CreateSalesComponent {
     prodtotalAmountElement.innerText = '' + prodTotalAmount;
   }
 
+  removeItemFromCart(id: number) {
+    this.productsUserWantTosale = this.productsUserWantTosale.filter(prod => prod.id !== id);
+  }
 
-  saleTheProducts() {
+  saleTheProducts(draft: boolean) {
     if (
       this.customerId === 0 ||
+      this.date === undefined ||
       this.customerId === undefined ||
       this.productsUserWantTosale.length <= 0
     )
@@ -273,6 +287,9 @@ export class CreateSalesComponent {
       let discountPerc: number = Number(discountPercElement.value);
 
       saleBillDetail.discountPerUnit = discountPerc;
+
+      const totalAmountEl = document.getElementById(`totalAmount${prod.id}`) as HTMLElement;
+      saleBillDetail.rowTotal = Number(totalAmountEl.innerText);
       saleBillDetail.date = this.date;
       saleBillDetail.companyId = this.loginService.getCompnayId();//backend mai set gar
 
@@ -286,10 +303,10 @@ export class CreateSalesComponent {
       saleBillDetail.rate = prod.sellingPrice;
       this.salesBillDetailInfos.push(saleBillDetail);
     });
-    this.continueSelling();
+    this.continueSelling(draft);
   }
 
-  continueSelling() {
+  continueSelling(draft: boolean) {
     let salesBillDetailInfos = this.salesBillDetailInfos;
     // let amount = 0;
     // let discount = 0;
@@ -304,13 +321,12 @@ export class CreateSalesComponent {
     // let taxAmount = (13 / 100) * taxableAmount;
     // let totalAmount = taxableAmount + taxAmount;
 
+
+
     let salesBill: SalesBill = new SalesBill();
     let salesBillMaster: SalesBillMaster = new SalesBillMaster();
-    salesBill.amount = 4567;
-    salesBill.discount = 345; //we have to calculate discount
-    salesBill.taxableAmount = 3211;
-    salesBill.taxAmount = 500;
-    salesBill.totalAmount = 4560;
+
+    this.calculateSubMetrics(salesBill);
     salesBill.customerId = this.customerId;
     salesBill.customerName = this.customerName;
     salesBill.customerPan = this.customerPan;
@@ -325,6 +341,7 @@ export class CreateSalesComponent {
     salesBill.branchId = 0; //mjremain
     salesBill.realTime = true;
     salesBill.billActive = true;
+    salesBill.draft = draft;
     salesBill.taxApproach = this.taxApproach;
     // salesBill.draft  = true mjremain
     salesBillMaster.salesBillDTO = salesBill;
@@ -334,10 +351,107 @@ export class CreateSalesComponent {
     this.salesBillService.createNewSalesBill(salesBillMaster).subscribe({
       next: (data) => {
         console.log(data);
-        this.router.navigateByUrl(
-          `dashboard/salesbill/invoice/${data.data}`
-        );
+        if (draft === false) {
+          this.router.navigateByUrl(
+            `dashboard/salesbill/invoice/${data.data}`
+          );
+        } else {
+          alert("Draft has been saved ");
+        }
+
       },
     });
   }
+
+  // salesBill.amount = 4567;
+  // salesBill.discount = 345; //we have to calculate discount
+  // salesBill.taxableAmount = 3211;
+  // salesBill.taxAmount = 500;
+  // salesBill.totalAmount = 4560;
+  calculateSubMetrics(salesBill: SalesBill) {
+    let discount: number = 0;
+    let taxableAmount: number = 0;
+    let taxAmount: number = 0;
+    let totalAmount: number = 0;
+    let amount: number = 0;
+    this.productsUserWantTosale.forEach((prod) => {
+
+      let taxElement = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
+      let taxId: number = Number(taxElement.value);
+
+      const discountEl = document.getElementById(`discountPerc${prod.id}`) as HTMLInputElement;
+      let discountPerc = Number(discountEl.value);
+
+      const qtyEl = document.getElementById(`qtyProd${prod.id}`) as HTMLInputElement
+      let qty = Number(qtyEl.value);
+
+      if (this.taxApproach === 1) {
+        let sp = prod.sellingPrice;
+
+        if (taxId === 3) {
+          sp = prod.sellingPrice - (13 / 113) * prod.sellingPrice;
+          let discPerProd = discountPerc / 100 * (sp * qty);
+          let netAmountPerProd = ((sp * qty - discPerProd))
+          let taxableAmountPerProd = ((sp * qty) - discPerProd);
+          let taxAmountPerProd = 0.13 * taxableAmountPerProd;
+          let totalAmountPerProd = taxableAmountPerProd + taxAmountPerProd;
+          discount += discPerProd;
+          taxableAmount += taxableAmountPerProd;
+          taxAmount += taxAmountPerProd;
+          totalAmount += totalAmountPerProd;
+          amount += netAmountPerProd;
+
+        } else {
+          sp = prod.sellingPrice;
+          let discPerProd = discountPerc / 100 * (sp * qty);
+          let totalAmountPerProd = sp - discPerProd;
+          let netAmountPerProd = totalAmountPerProd;
+
+          amount += netAmountPerProd;
+          discount += discPerProd;
+          totalAmount += totalAmountPerProd;
+
+        }
+
+
+
+      } else if (this.taxApproach === 2) {
+        let sp = prod.sellingPrice;
+        let discountPerProd = discountPerc / 100 * sp * qty;
+        if (taxId === 3) {
+          let taxableAmountPerProd = (sp * qty - discountPerProd);
+          let netAmountPerProd = ((sp * qty - discountPerProd))
+
+          let taxAmountPerProd = 0.13 * taxableAmountPerProd;
+          let totalAmountPerProd = taxableAmountPerProd + taxAmountPerProd;
+
+          amount += netAmountPerProd;
+          discount += discountPerProd;
+          taxableAmount += taxableAmountPerProd;
+          taxAmount += taxAmountPerProd;
+          totalAmount += totalAmountPerProd;
+
+        } else {
+          discount += discountPerProd;
+          let totalAmountPerProd = (sp * qty) - discountPerProd;
+          totalAmount += totalAmountPerProd
+          let netAmountPerProd = totalAmountPerProd;
+
+          amount += netAmountPerProd;
+        }
+
+      }
+
+      // for calculatirng overall discount
+    })
+    salesBill.amount = amount;
+    salesBill.taxableAmount = taxableAmount;
+    salesBill.taxAmount = taxAmount;
+    salesBill.totalAmount = totalAmount;
+    salesBill.discount = discount;
+
+  }
 }
+
+
+

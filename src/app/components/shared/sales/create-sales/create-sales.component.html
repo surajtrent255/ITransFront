@@ -17,12 +17,16 @@
             <div class="col-md-3">
               <span class="inputItems">To:</span>
               <Select
+                style="width: 70%"
                 class="inputItems"
                 id="customerSelect"
                 (change)="setCustomerInfo($event)"
               >
-                <option selected disabled>-----------------------------</option>
+                <option selected disabled>
+                  ------------------------------------
+                </option>
                 <option
+                  style="color: green"
                   *ngFor="let company of selectMenusForCompanies"
                   value="{{ company.panNo }}"
                 >
@@ -197,6 +201,7 @@
                 <th>Disc %</th>
                 <th>Tax Rate</th>
                 <th>Amount NRP</th>
+                <th>Remove Item</th>
                 <!-- <th>Name</th>
                 <th>Quantity</th>
                 <th>Rate</th>
@@ -208,7 +213,7 @@
                   <td>
                     {{ prod.name }}
                   </td>
-                  <td>This is the product...</td>
+                  <td>{{ prod.description | slice : 0 : 60 }}....</td>
                   <td>
                     <input
                       type="number"
@@ -244,6 +249,12 @@
                     </select>
                   </td>
                   <td id="totalAmount{{ prod.id }}">{{ prod.sellingPrice }}</td>
+                  <td style="text-align: center; vertical-align: middle">
+                    <i
+                      class="fa fa-remove text-danger"
+                      (click)="removeItemFromCart(prod.id)"
+                    ></i>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -252,8 +263,11 @@
             <!-- <button class="submit_btn border-rad" id="popperAlertLink">
               Sale the product
             </button> -->
-            <button class="submit_btn" (click)="saleTheProducts()">
-              Save as Draft
+            <button class="submit_btn" (click)="saleTheProducts(true)">
+              Save as a Draft
+            </button>
+            <button class="submit_btn" (click)="saleTheProducts(false)">
+              Sale the Product
             </button>
           </div>
         </div>
@@ -281,7 +295,7 @@
             </div>
             <div class="submitDiv tCenter">
               <button
-                (click)="saleTheProducts()"
+                (click)="saleTheProducts(true)"
                 type="button"
                 class="submit_btn border-rad blueGradient resetSettings"
               >

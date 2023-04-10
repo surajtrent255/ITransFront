@@ -9,4 +9,5 @@ export class SalesBillDetail {
   companyId !: number;
   branchId !: number;
   taxRate !: number;
+  rowTotal!: number;
 }

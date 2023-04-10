@@ -14,12 +14,22 @@
         <div class="col-md-6">
           <span>Bill Number: {{ salesInvoice.salesBillDTO.billNo }}</span
           ><br />
-          <span>Seller PAN: PAN123</span><br />
-          <span>Seller Name: Suraj Adhikari</span><br />
-          <span>Address: Hattiban</span><br />
-          <span>Purchaser's Name: Rohit</span><br />
-          <span>Address: Bharatpur</span><br />
-          <span>Purchaser’s PAN: PAN456 </span><br />
+          <span>Seller PAN: {{ salesInvoice.sellerCompany.panNo }}</span
+          ><br />
+          <span>Seller Name: {{ salesInvoice.sellerCompany.name }}</span
+          ><br />
+          <span
+            >Address: {{ salesInvoice.sellerCompany.district }}
+            {{ salesInvoice.sellerCompany.munVdc }}</span
+          ><br />
+          <span
+            >Purchaser's Name:
+            {{ salesInvoice.salesBillDTO.customerName }}</span
+          ><br />
+          <span>Address: Bharatpur </span><br />
+          <span
+            >Purchaser’s PAN: {{ salesInvoice.salesBillDTO.customerPan }} </span
+          ><br />
         </div>
         <div class="col-md-6">
           <span
@@ -53,7 +63,17 @@
                   <td>{{ invoice.productName }}</td>
                   <td>{{ invoice.qty }}</td>
                   <td>{{ invoice.rate }}</td>
-                  <td>{{ invoice.qty * invoice.rate }}</td>
+                  <td>{{ invoice.rowTotal }}</td>
+                </tr>
+                <tr></tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>Net Amount:</td>
+                  <td>
+                    {{ salesInvoice.salesBillDTO.amount | number : "1.0-0" }}
+                  </td>
                 </tr>
                 <tr>
                   <td></td>

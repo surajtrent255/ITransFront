@@ -30,8 +30,6 @@ export class SalesBillInvoiceComponent {
     let billId: number = this.activatedRoute.snapshot.params['billId'];
     this.fetchSalesBillInvoice(billId);
     console.log("salebill init");
-
-
   }
 
   fetchSalesBillInvoice(billId: number) {
