@@ -8,4 +8,5 @@ export class SalesBillDetailWithProdInfo {
   billId !: number;
   companyId !: number;
   productName !: string;
+  rowTotal !: number;
 }

@@ -9,10 +9,10 @@ import { RJResponse } from '../models/rjresponse';
   providedIn: 'root',
 })
 export class CategoryProductService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAllCategories(compId: number): Observable<RJResponse<CategoryProduct[]>> {
-    let url = `${BASE_URL}/category/all?compId=${compId}`;
+  getAllCategories(compId: number, branchId: number): Observable<RJResponse<CategoryProduct[]>> {
+    let url = `${BASE_URL}/category/all?compId=${compId}&branchId=${branchId}`;
     console.log(url);
     return this.http.get<RJResponse<CategoryProduct[]>>(url);
   }

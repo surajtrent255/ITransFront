@@ -45,11 +45,11 @@ const routes: Routes = [
         component: CreateSalesComponent,
       },
       {
-        path: 'salesbill/:billNo',
+        path: 'salesbill/:billId',
         component: SalesBillEditComponent,
       },
       {
-        path: 'salesbill/invoice/:billNo/:companyId',
+        path: 'salesbill/invoice/:billId',
         component: SalesBillInvoiceComponent,
       },
       {
@@ -88,4 +88,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

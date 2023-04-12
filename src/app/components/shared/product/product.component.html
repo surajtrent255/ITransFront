@@ -251,6 +251,14 @@
                   class="sortable"
                   sortDir="asc"
                   sortCol="product_group_name"
+                  id="companyId"
+                >
+                  branch id
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
                   id="sellerId"
                 >
                   seller id
@@ -277,6 +285,7 @@
                 <td>{{ product.tax }}</td>
                 <td>{{ product.userId }}</td>
                 <td>{{ product.companyId }}</td>
+                <td>{{ product.branchId }}</td>
                 <td>{{ product.sellerId }}</td>
                 <td class="last-child">
                   <a

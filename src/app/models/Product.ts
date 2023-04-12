@@ -1,10 +1,12 @@
 export class Product {
   id !: number;
   name !: string;
+  description !: string;
   sellingPrice !: number;
   costPrice !: number;
   userId !: number;
   companyId !: number;
+  branchId !: number;
   sellerId !: number;
   categoryId !: number;
   barcode !: string;

@@ -26,6 +26,7 @@ export class SalesBillingComponent {
   activeSalesBillEdit: boolean = false;
 
   companyId !: number;
+  branchId !: number;
   constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService, private router: Router) { }
 
 
@@ -33,9 +34,30 @@ export class SalesBillingComponent {
     console.log("sales-billingbasecomp")
     this.loggedUser = JSON.parse(localStorage.getItem("User")!);
     this.companyId = this.loginService.getCompnayId();
-    this.salesBillService.getAllSalesBill(this.companyId).subscribe(data => {
+    this.branchId = this.loginService.getBranchId();
+    this.getSalesBillForCompanyBranch();
+  }
+
+  getSalesBillForCompanyBranch() {
+    this.salesBillService.getAllSalesBill(this.companyId, this.branchId).subscribe(data => {
       this.salesBills = data.data;
     })
+  }
+  ApproveTheBill(id: number) {
+    this.salesBillService.approveTheBill(id).subscribe({
+      next: (data) => { },
+      complete: () => {
+        this.getSalesBillForCompanyBranch();
+      }
+    })
+  }
+
+  cancelTheBill(id: number) {
+    this.salesBillService.cancelTheBill(id).subscribe({
+      complete: () => {
+        this.getSalesBillForCompanyBranch();
+      }
+    });
   }
 
   activateSalesBillEntry() {
@@ -108,7 +130,7 @@ export class SalesBillingComponent {
       salesBill.totalAmount = totalAmount;
       salesBill.customerId = this.customerId;
       salesBill.customerName = "xyz mohit";
-      salesBill.customerPan = "Pan#123";
+      // salesBill.customerPan = this.cus
       salesBill.syncWithIrd = false;
       salesBill.enteredBy = this.loggedUser.user.email;
       salesBill.paymentMethod = "CashInHand";
@@ -138,23 +160,23 @@ export class SalesBillingComponent {
           showCancelButton: false,
           showConfirmButton: true
         }).then(
-          () => {
-            this.salesBillService.fetchSalesBillDetailForInvoice(data.data, salesBill.companyId).subscribe(data => {
+          // () => {
+          //   this.salesBillService.fetchSalesBillDetailForInvoice(data.data, salesBill.companyId).subscribe(data => {
 
-              this.activeSalesBillEntry = false;
-              this.invoiceInfo = data.data;
-              this.activeSaleBillInvoice = true;
+          //     this.activeSalesBillEntry = false;
+          //     this.invoiceInfo = data.data;
+          //     this.activeSaleBillInvoice = true;
 
-            }, (error) => {
-              Swal.fire({
-                title: 'error occured',
-                text: 'something went wrong while creating invoice',
-                icon: 'error',
-                showCancelButton: true,
-                showConfirmButton: true
-              })
-            })
-          }
+          //   }, (error) => {
+          //     Swal.fire({
+          //       title: 'error occured',
+          //       text: 'something went wrong while creating invoice',
+          //       icon: 'error',
+          //       showCancelButton: true,
+          //       showConfirmButton: true
+          //     })
+          //   })
+          // }
         )
       }, (error) => {
         Swal.fire({
@@ -168,7 +190,7 @@ export class SalesBillingComponent {
     }
   }
 
-  printTheBill($event: number) {
+  printTheBill($event: string) {
     let userId = this.loggedUser.user.id;
     let billNo = $event;
     this.salesBillService.printTheBill(billNo, userId).subscribe((data) => {

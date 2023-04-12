@@ -18,12 +18,14 @@ export class CreateProductComponent {
     private productService: ProductService,
     private categoryProductService: CategoryProductService,
     private loginService: LoginService
-  ) {}
+  ) { }
 
   compId!: number;
+  branchId !: number;
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
-    this.categoryProductService.getAllCategories(this.compId).subscribe({
+    this.branchId = this.loginService.getBranchId();
+    this.categoryProductService.getAllCategories(this.compId, this.branchId).subscribe({
       next: (data) => {
         this.availableCategories = data.data;
       },
@@ -34,10 +36,8 @@ export class CreateProductComponent {
   }
 
   createProduct(form: any) {
-    console.log(this.product);
-    console.log('creating');
-    console.log('createproduct');
-    this.product.companyId = this.loginService.getCompnayId();
+    this.product.companyId = this.compId;
+    this.product.branchId = this.branchId;
     this.product.userId = this.loginService.currentUser.user.id;
     this.product.sellerId;
     this.productService.addNewProduct(this.product).subscribe({
@@ -52,6 +52,6 @@ export class CreateProductComponent {
       },
     });
     console.log('product.component.ts');
-    form.reset();
+    form.reset({ tax: 13 });
   }
 }

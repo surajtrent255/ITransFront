@@ -17,8 +17,8 @@ export class SalesBillServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getAllSalesBill(id: number): Observable<RJResponse<SalesBill[]>> {
-    let url = `${BASE_URL}/salesBill/company?compId=${id}`;
+  getAllSalesBill(id: number, branchId: number): Observable<RJResponse<SalesBill[]>> {
+    let url = `${BASE_URL}/salesBill/company?compId=${id}&branchId=${branchId}`;
     return this.http.get<RJResponse<SalesBill[]>>(url);
   }
 
@@ -28,14 +28,24 @@ export class SalesBillServiceService {
     return this.http.post<RJResponse<number>>(url, salesBillMasterInfo);
   }
 
-  fetchSalesBillDetailForInvoice(billId: number, compId: number): Observable<RJResponse<SalesBillInvoice>> {
-    let url = `${BASE_URL}/salesBillDetail?billId=${billId}&comapnyId=${compId}`;
+  fetchSalesBillDetailForInvoice(billId: number): Observable<RJResponse<SalesBillInvoice>> {
+    let url = `${BASE_URL}/salesBillDetail?billId=${billId}`;
     return this.http.get<RJResponse<SalesBillInvoice>>(url);
   }
 
-  printTheBill(billNo: number, printerId: number): Observable<RJResponse<number>> {
+  printTheBill(billNo: string, printerId: number): Observable<RJResponse<number>> {
     let url = `${BASE_URL}/salesBill/print/${billNo}`;
     console.log("print url = " + url)
     return this.http.post<RJResponse<number>>(url, { "printerId": printerId });
+  }
+
+  approveTheBill(id: number) {
+    let url = `${BASE_URL}/salesBill/approve/${id}`;
+    return this.http.post<RJResponse<number>>(url, {});
+  }
+
+  cancelTheBill(id: number) {
+    let url = `${BASE_URL}/salesBill/${id}`;
+    return this.http.delete(url);
   }
 }

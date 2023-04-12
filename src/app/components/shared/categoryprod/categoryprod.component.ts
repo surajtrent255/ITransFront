@@ -12,22 +12,28 @@ import { LoginService } from 'src/app/service/shared/login.service';
 export class CategoryprodComponent {
   categoryProd: CategoryProduct = new CategoryProduct();
   categoriesData: CategoryProduct[] = [];
+
   compId!: number;
+  branchId !: number;
   constructor(
     private categoryProductService: CategoryProductService,
     private loginService: LoginService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
+    this.branchId = this.loginService.getBranchId();
     this.fetchAllCategories();
   }
 
   fetchAllCategories() {
     this.categoryProductService
-      .getAllCategories(this.compId)
+      .getAllCategories(this.compId, this.branchId)
       .subscribe((data) => {
         this.categoriesData = data.data;
+        console.log(this.categoriesData);
+
+
       });
   }
 

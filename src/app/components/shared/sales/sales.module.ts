@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateSalesComponent } from './create-sales/create-sales.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SalesBillingComponent } from './sales-billing/sales-billing.component';
 import { SalesBillInvoiceComponent } from './sales-bill-invoice/sales-bill-invoice.component';
 import { SalesBillEditComponent } from './sales-bill-edit/sales-bill-edit.component';
 import { NumberToWordTransformPipe } from 'src/app/custompipes/number-to-word-transform.pipe';
 import { PopupComponent } from 'src/app/popup/popup.component';
 import { RouterModule } from '@angular/router';
+import { CreateCustomerComponent } from './create-customer/create-customer.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -18,12 +20,16 @@ import { RouterModule } from '@angular/router';
     SalesBillInvoiceComponent,
     SalesBillEditComponent,
     NumberToWordTransformPipe,
-    PopupComponent
+    PopupComponent,
+    CreateCustomerComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    NgSelectModule
+
 
   ],
   exports: [

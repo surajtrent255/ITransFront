@@ -289,11 +289,38 @@
                 </td>
               </tr>
               <tr>
+                <td class="col1 pt-2">
+                  Description :<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <textarea
+                    name="description"
+                    [(ngModel)]="product.description"
+                    required
+                    #description="ngModel"
+                    [class.is-invalid]="
+                      description.invalid && description.touched
+                    "
+                    class="form-control"
+                    id="description"
+                    cols="30"
+                    rows="2"
+                  ></textarea>
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="description.valid || description.untouched"
+                    >invalid description</small
+                  >
+                </td>
+              </tr>
+
+              <tr>
                 <td>Select Category:</td>
                 <td>
                   <select
                     id="parentId"
-                    class="formcontrol"
                     style="width: 100%; height: 30px"
                     name="parnetId"
                     #parentId="ngModel"

@@ -110,6 +110,7 @@ export class SelectAndCreateCompanyComponent {
           munVdc: this.CompanyRegistrationForm.value.munVdc!,
           wardNo: this.CompanyRegistrationForm.value.wardNo!,
           phone: this.CompanyRegistrationForm.value.phone!,
+          customer: false,
         },
         this.user_id
       )

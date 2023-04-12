@@ -40,3 +40,4 @@ export const ASSIGN_BRANCH_TO_USER = BASE_URL + '/api/v1/branch/assign';
 
 export const GET_BRANCH_DETAILS_BY_USERID_COMPANYID =
   BASE_URL + '/api/v1/branch/get';
+export const COMPANY_BASE_URL = BASE_URL + '/api/v1/company';

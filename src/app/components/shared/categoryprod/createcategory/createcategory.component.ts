@@ -13,20 +13,23 @@ export class CreatecategoryComponent {
   @Output() categorySuccessInfoEvent = new EventEmitter<boolean>();
   categoryProd: CategoryProduct = new CategoryProduct();
   categoriesData: CategoryProduct[] = [];
+
   companyId!: number;
+  branchId !: number;
   constructor(
     private categoryProductService: CategoryProductService,
     private loginService: LoginService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
+    this.branchId = this.loginService.getBranchId();
     this.fetchAllCategories();
   }
 
   fetchAllCategories() {
     this.categoryProductService
-      .getAllCategories(this.companyId)
+      .getAllCategories(this.companyId, this.branchId)
       .subscribe((data) => {
         this.categoriesData = data.data;
       });
@@ -41,6 +44,8 @@ export class CreatecategoryComponent {
 
   createCategoryProd(createCategoryProdForm: any) {
     this.categoryProd.companyId = this.companyId;
+    this.categoryProd.branchId = this.branchId;
+    this.categoryProd.userId = this.loginService.currentUser.user.id;
     this.categoryProductService.addNewCategory(this.categoryProd).subscribe({
       next: (data: RJResponse<number>) => {
         createCategoryProdForm.reset();

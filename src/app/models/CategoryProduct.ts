@@ -5,6 +5,7 @@ export class CategoryProduct {
   parentId !: number;
   userId !: number;
   companyId !: number;
+  branchId !: number;
   createdDate !: Date;
   editedDate !: Date;
   childCategories !: CategoryProduct[];

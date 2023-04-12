@@ -13,47 +13,233 @@
         <div class="col-md-12">
           <!-- <app-popup class="m-4"></app-popup> -->
 
-          <table>
-            <tr>
-              <td>Enter CustomerId:</td>
-              <td>
-                <input class="input-field" [(ngModel)]="customerId" />
-              </td>
-            </tr>
-            <tr>
-              <td>Enter product Id:</td>
-              <td>
-                <input
-                  class="input-field"
-                  [(ngModel)]="productBarCodeId"
-                  (keydown.enter)="addTheProductForSale()"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Enter product Name:</td>
-              <td>
-                <input class="input-field" type="text" readonly />
-              </td>
-            </tr>
-            <td style="padding-top: 10px">
-              <button
-                class="submit_btn border-rad"
-                (click)="addTheProductForSale()"
+          <div class="row">
+            <div class="col-md-3">
+              <span class="inputItems">To:</span>
+              <!-- <Select
+                style="width: 70%"
+                class="inputItems"
+                id="customerSelect"
+                (change)="setCustomerInfo($event)"
               >
-                Add product
-              </button>
-            </td>
-          </table>
-
+                <option selected disabled>
+                  ------------------------------------
+                </option>
+                <option
+                  style="color: green"
+                  *ngFor="let company of selectMenusForCompanies"
+                  value="{{ company.panNo }}"
+                >
+                  {{ company.name }}
+                </option>
+              </Select> -->
+              <ng-select
+                [items]="selectMenusForCompanies"
+                placeholder="Select an option"
+              >
+                <ng-option *ngFor="let comp of selectMenusForCompanies">{{
+                  comp.name
+                }}</ng-option>
+              </ng-select>
+            </div>
+            <div
+              class="col-md-3"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+              "
+            >
+              <span style="text-align: left"
+                >Add Customer:
+                <button id="createNewCustomer" class="createNewTableRecord">
+                  <i
+                    class="fa-sharp fa-solid fa-user-plus"
+                    style="color: green"
+                  ></i>
+                </button>
+                <!-- <select
+                  name="taxType"
+                  class="input-field"
+                  id="taxType"
+                  (change)="getApproach($event)"
+                >
+                  <option value="1" selected>Tax Inclusive</option>
+                  <option value="2">Tax Exclusive</option>
+                </select> -->
+              </span>
+            </div>
+            <div class="col-md-3">
+              <span class="inputItems">Date:</span>
+              <input
+                class="inputItems input-field"
+                id="date"
+                (change)="getBillDate($event)"
+                type="date"
+              />
+            </div>
+            <div class="col-md-3">
+              <span class="inputItems">Invoice number:</span>
+              <input class="inputItems input-field" type="text" />
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-3">
+              <span class="inputItems">Current Branch</span>
+              <input
+                class="inputItems input-field"
+                type="text"
+                value="Branch Satdobato"
+                readonly
+              />
+            </div>
+            <!-- <div class="col-md-3">
+              <input type="radio" name="discountType" value="1" />
+              Discount Per unit
+              <input type="radio" name="discountType" value="0" ; />
+              On overall basis
+            </div> -->
+            <div
+              class="col-md-4"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+              "
+            >
+              <div>
+                <div style="display: inline-block">
+                  <label style="margin-top: 8px; display: inline-block"
+                    >Discount Per Unit </label
+                  ><input
+                    type="radio"
+                    style="
+                      margin-top: 8px;
+                      display: inline-block;
+                      margin-left: 3px;
+                    "
+                    name="discountType"
+                    (change)="getDiscountMethod(1)"
+                  />
+                </div>
+                <div style="display: inline-block; margin-left: 10px">
+                  <input
+                    type="radio"
+                    style="margin-top: 8px; display: inline-block"
+                    name="discountType"
+                    checked
+                    (change)="getDiscountMethod(2)"
+                  />
+                  <label
+                    style="
+                      margin-top: 8px;
+                      margin-left: 3px;
+                      display: inline-block;
+                    "
+                    >OverAll Discountt</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-md-5"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+              "
+            >
+              <span style="text-align: right"
+                >Amounts are:
+                <select
+                  name="taxType"
+                  class="input-field"
+                  id="taxType"
+                  (change)="getApproach($event)"
+                >
+                  <option value="1" selected>Tax Inclusive</option>
+                  <option value="2">Tax Exclusive</option>
+                </select>
+              </span>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="offset-md-3">
+              <div style="text-align: left">
+                <div style="display: inline-block; width: 150px">
+                  Enter product Id:
+                </div>
+                <div style="display: inline-block">
+                  <input
+                    type="text"
+                    class="input-field"
+                    [(ngModel)]="productBarCodeId"
+                    (keydown.enter)="addTheProductForSale()"
+                  />
+                </div>
+              </div>
+              <div style="text-align: left" class="mt-3">
+                <div style="display: inline-block; width: 150px">
+                  Enter Product Name:
+                </div>
+                <div style="display: inline-block">
+                  <input type="text" class="input-field" />
+                </div>
+              </div>
+              <div class="mt-3">
+                <button
+                  class="submit_btn border-rad"
+                  (click)="addTheProductForSale()"
+                >
+                  Add product
+                </button>
+              </div>
+            </div>
+            <!-- <table class="">
+              <tr>
+                <td>Enter product Id:</td>
+                <td>
+                  <input
+                    class="input-field"
+                    [(ngModel)]="productBarCodeId"
+                    (keydown.enter)="addTheProductForSale()"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Enter product Name:</td>
+                <td>
+                  <input class="input-field" type="text" readonly />
+                </td>
+              </tr>
+              <td style="padding-top: 10px">
+                <button
+                  class="submit_btn border-rad"
+                  (click)="addTheProductForSale()"
+                >
+                  Add product
+                </button>
+              </td>
+            </table> -->
+          </div>
           <div class="recordsTableDiv">
             <table cellspacing="0" cellpadding="0" class="recordsTable">
               <thead>
                 <th>S.N</th>
-                <th>Name</th>
+                <th>Item</th>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Disc %</th>
+                <th>Tax Rate</th>
+                <th>Amount NRP</th>
+                <th>Remove Item</th>
+                <!-- <th>Name</th>
                 <th>Quantity</th>
                 <th>Rate</th>
-                <th>Amount</th>
+                <th>Amount</th> -->
               </thead>
               <tbody>
                 <tr *ngFor="let prod of productsUserWantTosale; let i = index">
@@ -61,23 +247,61 @@
                   <td>
                     {{ prod.name }}
                   </td>
+                  <td>{{ prod.description | slice : 0 : 60 }}....</td>
                   <td>
                     <input
                       type="number"
                       value="1"
                       id="qtyProd{{ prod.id }}"
-                      (change)="updateProdQtyUserWantToSale($event, prod)"
+                      (change)="updateTotalAmount(prod)"
                     />
+                    <!-- (change)="updateProdQtyUserWantToSale($event, prod)" -->
                   </td>
                   <td>{{ prod.sellingPrice }}</td>
+                  <td>
+                    <input
+                      id="discountPerc{{ prod.id }}"
+                      type="number"
+                      value="{{ prod.discount }}"
+                      [readOnly]="discountReadOnly"
+                      (change)="updateTotalAmount(prod)"
+                    />
+                  </td>
+                  <td>
+                    <select
+                      name=""
+                      id="vatRateTypes{{ prod.id }}"
+                      (change)="updateTotalAmount(prod)"
+                    >
+                      <option
+                        *ngFor="let vat of vatRateTypes"
+                        value="{{ vat.id }}"
+                        [selected]="vat.id === 3"
+                      >
+                        {{ vat.vatRate }}
+                      </option>
+                    </select>
+                  </td>
                   <td id="totalAmount{{ prod.id }}">{{ prod.sellingPrice }}</td>
+                  <td style="text-align: center; vertical-align: middle">
+                    <i
+                      class="fa fa-remove text-danger"
+                      (click)="removeItemFromCart(prod.id)"
+                    ></i>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div style="margin-top: 20px">
-            <button class="submit_btn border-rad" id="popperAlertLink">
+            <!-- <button class="submit_btn border-rad" id="popperAlertLink">
               Sale the product
+            </button> -->
+            <button class="submit_btn" (click)="saleTheProducts(true)">
+              Save as a Draft
+            </button>
+            <button class="submit_btn" (click)="saleTheProducts(false)">
+              Sale the Product
             </button>
           </div>
         </div>
@@ -105,7 +329,7 @@
             </div>
             <div class="submitDiv tCenter">
               <button
-                (click)="saleTheProducts()"
+                (click)="saleTheProducts(true)"
                 type="button"
                 class="submit_btn border-rad blueGradient resetSettings"
               >
@@ -124,4 +348,10 @@
       </div>
     </div>
   </div>
+</div>
+<div class="popupWrapper" id="createNewCustomerPopup" style="display: none">
+  <div class="mb-2"></div>
+  <app-create-customer
+    (customerAddedSuccessMsg)="getCompanyList()"
+  ></app-create-customer>
 </div>

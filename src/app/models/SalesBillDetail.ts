@@ -7,4 +7,7 @@ export class SalesBillDetail {
   rate: number = 0.0;
   billId !: number;
   companyId !: number;
+  branchId !: number;
+  taxRate !: number;
+  rowTotal!: number;
 }

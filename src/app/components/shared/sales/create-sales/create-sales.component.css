@@ -22,7 +22,7 @@
   position: relative;
   display: inline-block;
   padding: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid grey;
   border-radius: 5px;
 }
 
@@ -48,4 +48,19 @@
   position: absolute;
   top: 0;
   right: 0;
+}
+
+
+
+.inputItems{
+  display: block;
+  margin-top: 8px;
+}
+
+
+
+
+.ng-dropdown-panel .ng-option[value='option1'] {
+  background-color: #b9e1dc; /* Set the background color of the option field */
+  color: #333; /* Set the text color of the option field */
 }

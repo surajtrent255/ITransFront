@@ -11,24 +11,23 @@ const productURL = 'product';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   addNewProduct(product: Product): Observable<any> {
     let url = `${BASE_URL}/${productURL}`;
     return this.httpClient.post(url, product);
   }
 
-  getAllProducts(compId: number): Observable<RJResponse<Product[]>> {
-    let url = `${BASE_URL}/${productURL}?compId=${compId}`;
+  getAllProducts(compId: number, branchId: number): Observable<RJResponse<Product[]>> {
+    let url = `${BASE_URL}/${productURL}?compId=${compId}&branchId=${branchId}`;
     console.log('url  = ' + url);
     return this.httpClient.get<RJResponse<Product[]>>(url);
   }
 
-  getProductByIdAndCompanyId(
+  getProductById(
     id: number,
-    compId: number
   ): Observable<RJResponse<Product>> {
-    let url = `${BASE_URL}/product/${id}?compId=${compId}`;
+    let url = `${BASE_URL}/product/${id}`;
     console.log(url);
     return this.httpClient.get<RJResponse<Product>>(url);
   }

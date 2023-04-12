@@ -190,6 +190,14 @@
                 <th
                   class="sortable"
                   sortDir="asc"
+                  sortCol="salesBill_group_name"
+                  id="actions"
+                >
+                  Draft
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
                   sortCol="organization_name"
                   id="name"
                 >
@@ -252,6 +260,7 @@
                 >
                   Actions
                 </th>
+
                 <th class="last-child"></th>
               </tr>
             </thead>
@@ -264,6 +273,19 @@
                 id="saleBill_{{ salesBill.billNo }}"
               >
                 <td>{{ salesBill.billNo }}</td>
+                <td>
+                  {{ salesBill.draft }}
+
+                  <i
+                    *ngIf="salesBill.draft"
+                    class="fas fa-hand-pointer"
+                    aria-hidden="true"
+                    style="float: right"
+                    (click)="ApproveTheBill(salesBill.id)"
+                  >
+                    Approve</i
+                  >
+                </td>
                 <td>{{ salesBill.fiscalYear }}</td>
                 <td>{{ salesBill.customerName }}</td>
                 <td>{{ salesBill.taxAmount }}</td>
@@ -284,10 +306,15 @@
                       (click)="activateSalesBillEdit(salesBill.billNo)"
                     />
                   </a> -->
-                  <a routerLink="{{ salesBill.billNo }}"
+
+                  <a routerLink="/dashboard/salesbill/{{ salesBill.id }}"
                     ><i class="fa fa-info-circle" aria-hidden="true"></i
                   ></a>
-                  <a href="" class="deleteRowLink deleteGroupCombo">
+                  <a
+                    href=""
+                    (click)="cancelTheBill(salesBill.id)"
+                    class="deleteRowLink deleteGroupCombo"
+                  >
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
                 </td>
