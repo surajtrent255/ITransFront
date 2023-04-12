@@ -59,6 +59,7 @@ export class LoginService {
           );
         },
         error: (errorResponse) => {
+          console.log(errorResponse);
           this.toastrService.error(errorResponse.error, 'Login Failed');
         },
       })

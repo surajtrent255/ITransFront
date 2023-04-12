@@ -1,5 +1,6 @@
 $(function () {
   //TODO: need to take this from user configuration.
+
   var totalRecordsPerPage = 10;
   var customerRecordsPerPage = parseInt(
     $(".customerPaginationData span.endIndex").text()
@@ -1032,7 +1033,10 @@ $(function () {
             createNewAttr(
               "createNewProductPopup",
               "createNewAssignPopup",
+              "assignNewBranchPopup",
               "newproductattr",
+              "AddNewUserPopup",
+
               "prodAttributes"
             );
           }
@@ -1399,6 +1403,8 @@ $(function () {
         createNewAttr(
           "createNewProductPopup",
           "createNewAssignPopup",
+          "AddNewUserPopup",
+          "assignNewBranchPopup",
           "newproductattr",
           "prodAttributes"
         );
@@ -1412,9 +1418,27 @@ $(function () {
         createNewAttr(
           "createNewProductPopup",
           "createNewAssignPopup",
+          "AddNewUserPopup",
+
           "newproductattr",
           "prodAttributes"
         );
+      }
+    } else if (recordTypeId == "AddNewUser") {
+      $("#createProduct input#proStartDate").val($("#defStartDate").text());
+      $("#createProduct input#proEndDate").val($("#defEndDate").text());
+      if ($("#val_newproductattr").children().length == 0) {
+        popProductAttributes();
+      } else {
+        createNewAttr("AddNewUserPopup");
+      }
+    } else if (recordTypeId == "assignNewBranch") {
+      $("#createProduct input#proStartDate").val($("#defStartDate").text());
+      $("#createProduct input#proEndDate").val($("#defEndDate").text());
+      if ($("#val_newproductattr").children().length == 0) {
+        popProductAttributes();
+      } else {
+        createNewAttr("assignNewBranchPopup");
       }
     }
     return false;

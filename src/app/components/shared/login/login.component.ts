@@ -32,6 +32,7 @@ export class LoginComponent {
     firstname: new FormControl('', [Validators.required]),
     lastname: new FormControl(''),
     registerEmail: new FormControl('', [Validators.required, Validators.email]),
+    phone: new FormControl('', [Validators.minLength(10)]),
     registerPassword: new FormControl('', [
       Validators.required,
       Validators.minLength(5),
@@ -67,6 +68,10 @@ export class LoginComponent {
     return this.RegisterForm.get('lastname');
   }
 
+  get phone() {
+    return this.RegisterForm.get('phone');
+  }
+
   loginUser() {
     this.isSubmitted = true;
     if (this.loginForm.invalid) return;
@@ -91,6 +96,7 @@ export class LoginComponent {
         firstname: this.RegisterForm.value.firstname!,
         lastname: this.RegisterForm.value.lastname!,
         email: this.RegisterForm.value.registerEmail!,
+        phone: this.RegisterForm.value.phone!,
         password: this.RegisterForm.value.registerPassword!,
       })
       .subscribe(() => {

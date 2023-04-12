@@ -36,13 +36,13 @@
             <img
               src="../../../../assets/resources/images/configuration-bg.png"
             />
-            <span>Configuration</span>
+            <span>User Configuration</span>
           </a>
         </li>
         <li>
           <a href="" id="pricingPreferencesLink">
             <img src="../../../../assets/resources/images/pricing-bg.png" />
-            <span>Pricing Preferences</span>
+            <span>Branch</span>
           </a>
         </li>
         <li>
@@ -80,291 +80,7 @@
     <div class="cboth"></div>
   </div>
 
-  <!--Page Overlay Popup-->
-  <div class="pageOverlay"></div>
-
-  <div class="popupWrapper" id="chooseLayoutOptionsPopup" style="display: none">
-    <div class="popupHeading">
-      <h2 class="fleft">Master Data - Layout Options</h2>
-      <a href="" class="closeButton fright"
-        ><img
-          src="../../../../assets/resources/images/removetablink.png"
-          alt="close"
-      /></a>
-      <div class="cboth"></div>
-    </div>
-    <div class="popupSubHeadingDiv layoutDivSubHeading">
-      <h1 class="heading">Select a Layout</h1>
-      <div>Choose a layout for the Master Data Tab.</div>
-    </div>
-    <div class="popupContentWrapper">
-      <form id="" action="" method="">
-        <div class="chooseColoumnsWrapper">
-          <div class="fieldDiv popUpFormSectionWrapper">
-            <table
-              class="formSection masterlayoutOptionTable"
-              cellpadding="0"
-              cellspacing="0"
-            >
-              <tr>
-                <td class="col1">
-                  <label for="horizontally-stacked-option">
-                    <input
-                      type="radio"
-                      id="horizontally-stacked-option"
-                      name="chosenLayout"
-                    />
-                    Horizontally Stacked<br />
-                    <img
-                      src="../../../../assets/resources/images/horizon-stack-link.png"
-                      class="layoutImage"
-                    />
-                  </label>
-                </td>
-                <td class="col2">
-                  <label for="mixed-layout-A-option">
-                    <input
-                      type="radio"
-                      id="mixed-layout-A-option"
-                      name="chosenLayout"
-                    />
-                    Mixed Layout A<br />
-                    <img
-                      src="../../../../assets/resources/images/mixed-layout-A-link.png"
-                      class="layoutImage"
-                    />
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td class="col1">
-                  <label for="vertically-stacked-option">
-                    <input
-                      type="radio"
-                      id="vertically-stacked-option"
-                      name="chosenLayout"
-                    />
-                    Vertically Stacked<br />
-                    <img
-                      src="../../../../assets/resources/images/vertical-stack-link.png"
-                      class="layoutImage"
-                    />
-                  </label>
-                </td>
-                <td class="col2">
-                  <label for="mixed-layout-B-option">
-                    <input
-                      type="radio"
-                      id="mixed-layout-B-option"
-                      name="chosenLayout"
-                    />
-                    Mixed Layout B<br />
-                    <img
-                      src="../../../../assets/resources/images/mixed-layout-B-link.png"
-                      class="layoutImage"
-                    />
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td class="col1">
-                  <label for="tabbed-layout-option">
-                    <input
-                      type="radio"
-                      id="tabbed-layout-option"
-                      name="chosenLayout"
-                    />
-                    Tabbed layout<br />
-                    <img
-                      src="../../../../assets/resources/images/tabbed-layout-link.png"
-                      class="layoutImage"
-                    />
-                  </label>
-                </td>
-                <td class="col2"></td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="submitDiv tCenter">
-          <input
-            type="button"
-            value="Save"
-            class="submit_btn border-rad"
-            id="saveSelectedLayoutButton"
-          />
-          <input
-            type="button"
-            value="Cancel"
-            class="submit_btn cancel_btn border-rad"
-          />
-        </div>
-      </form>
-      <div id="selectedPane1Name" style="display: none">
-        <!-- ${UI_CONFIGURATION['LAYOUT_PANE_POSITION_1']} -->
-      </div>
-      <div id="selectedPane2Name" style="display: none">
-        <!-- ${UI_CONFIGURATION['LAYOUT_PANE_POSITION_2']} -->
-      </div>
-      <div id="selectedPane3Name" style="display: none">
-        <!-- ${UI_CONFIGURATION['LAYOUT_PANE_POSITION_3']} -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Pane Selection in Layout Popup -->
-  <div class="popupWrapper" id="paneSelectionPopup" style="">
-    <div class="layout-pane-selection">
-      <div class="popupHeading">
-        <h2 class="fleft changeable horizontalComponent">
-          Horizontally Stacked Data
-        </h2>
-        <h2 class="fleft changeable verticalComponent">
-          Vertically Stacked Data
-        </h2>
-        <h2 class="fleft changeable mixedTypeAComponent">
-          Mixed type-A Stacked Data
-        </h2>
-        <h2 class="fleft changeable mixedTypeBComponent">
-          Mixed type-B Stacked Data
-        </h2>
-        <h2 class="fleft changeable tabbedComponent">Tabbed Stacked Data</h2>
-        <a href="" class="closeButton fright"
-          ><img
-            src="../../../../assets/resources/images/removetablink.png"
-            alt="close"
-        /></a>
-        <div class="cboth"></div>
-      </div>
-      <div class="popupSubHeadingDiv layoutDivSubHeading">
-        <h1 class="heading">Select a Layout</h1>
-        <div>Choose a table for each of the panes.</div>
-      </div>
-      <div class="popupContentWrapper">
-        <form id="" action="" method="">
-          <div class="chooseColoumnsWrapper">
-            <div class="popUpFormSectionWrapper">
-              Drag and drop a table from the 'Tables' list to a pane in the
-              'Layout' area to place it within that pane. Note that only one
-              table can be added to a pane.
-            </div>
-            <div class="fieldDiv popUpFormSectionWrapper">
-              <div class="fleft paneSelectionWrapper">
-                <h4>Layout</h4>
-                <div class="paneselectionTableWrapper">
-                  <table
-                    cellpadding="5"
-                    cellspacing="10"
-                    class="paneSelectionTable changeable horizontalComponent"
-                  >
-                    <tr>
-                      <td class="selectedPane1 panes" tableId="">Pane 1</td>
-                      <td class="selectedPane2 panes" tableId="">Pane 2</td>
-                      <td class="selectedPane3 panes" tableId="">Pane 3</td>
-                    </tr>
-                  </table>
-                  <table
-                    cellpadding="5"
-                    cellspacing="10"
-                    class="paneSelectionTable changeable verticalComponent"
-                  >
-                    <tr>
-                      <td class="selectedPane1 panes" tableId="">Pane 1</td>
-                    </tr>
-                    <tr>
-                      <td class="selectedPane2 panes" tableId="">Pane 2</td>
-                    </tr>
-                    <tr>
-                      <td class="selectedPane3 panes" tableId="">Pane 3</td>
-                    </tr>
-                  </table>
-                  <table
-                    cellpadding="5"
-                    cellspacing="10"
-                    class="paneSelectionTable changeable mixedTypeAComponent"
-                  >
-                    <tr>
-                      <td colspan="2" class="selectedPane1 panes" tableId="">
-                        Pane 1
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="selectedPane2 panes" tableId="">Pane 2</td>
-                      <td class="selectedPane3 panes" tableId="">Pane 3</td>
-                    </tr>
-                  </table>
-                  <table
-                    cellpadding="5"
-                    cellspacing="10"
-                    class="paneSelectionTable changeable mixedTypeBComponent"
-                  >
-                    <tr>
-                      <td class="selectedPane1 panes" tableId="">Pane 1</td>
-                      <td class="selectedPane2 panes" tableId="">Pane 2</td>
-                    </tr>
-                    <tr>
-                      <td colspan="2" class="selectedPane3 panes" tableId="">
-                        Pane 3
-                      </td>
-                    </tr>
-                  </table>
-                  <table
-                    cellpadding="5"
-                    cellspacing="10"
-                    class="paneSelectionTable changeable tabbedComponent"
-                  >
-                    <tr>
-                      <td class="selectedPane1 panes" tableId="">Pane 1</td>
-                      <td class="selectedPane2 panes" tableId="">Pane 2</td>
-                      <td class="selectedPane3 panes" tableId="">Pane 3</td>
-                    </tr>
-                    <tr>
-                      <td colspan="3" height="50px"></td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-              <div class="fright paneSelectionWrapper">
-                <h4>Tables</h4>
-                <div class="tableOptionWrapper">
-                  <ul>
-                    <li class="customerTable" table="customerRecordTable">
-                      Customer
-                    </li>
-                    <li class="adjustmentTable" table="adjustmentRecordTable">
-                      Adjustment
-                    </li>
-                    <li class="productTable" table="productsRecordTable">
-                      Product
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="cboth"></div>
-              <div class="panesSelectionWarning warning-msg validationMsg">
-                Please select all panes with different tables.
-              </div>
-            </div>
-          </div>
-          <div class="submitDiv tCenter">
-            <input
-              type="button"
-              value="Save"
-              class="submit_btn border-rad"
-              id="saveSelectedPanesButton"
-            />
-            <input
-              type="button"
-              value="Cancel"
-              class="submit_btn cancel_btn border-rad"
-            />
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!--- Configuration Popup -->
+  <!--- User Configuration Popup -->
   <div class="popupWrapper" id="configurationSettingPopup" style="width: auto">
     <div class="popupHeading">
       <h2 class="fleft">Configuration</h2>
@@ -408,8 +124,11 @@
                 <a href="#" class="genLink">Clear searchs</a>
               </div>
               <div style="padding-bottom: 15px">
-                <button class="submit_btn border-rad fright" id="AddNewUser">
-                  Add User
+                <button
+                  class="submit_btn border-rad fright createNewTableRecord"
+                  id="AddNewUser"
+                >
+                  Assign Company
                 </button>
               </div>
               <div class="queryResultWrapper">
@@ -426,27 +145,25 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <!-- *ngFor="let userconfig of userconfiguration[0]" -->
-                  <tbody>
-                    <tr>
+                  <!--  -->
+
+                  <tbody *ngFor="let userconfig of UsersByCompanyId">
+                    <tr *ngIf="userconfig.userId != loggedInUser.user.id">
                       <td>
-                        {{ userconfiguration[0].firstname }}
-                        {{ userconfiguration[0].lastname }}
+                        {{ userconfig.firstName }}
+                        {{ userconfig.lastName }}
                       </td>
-                      <td>{{ userconfiguration[0].email }}</td>
-                      <td>{{ userconfiguration[0].companyname }}</td>
+                      <td>{{ userconfig.email }}</td>
+                      <td>{{ companyName }}</td>
                       <td>
                         <div style="display: flex; padding: 2px">
                           <input
                             type="checkbox"
                             id="scales"
                             name="scales"
-                            [checked]="userconfiguration[0].status"
+                            [checked]="userconfig.companyStatus"
                             (change)="
-                              onCheckboxChanged(
-                                $event,
-                                userconfiguration[0].userId
-                              )
+                              onCheckboxChanged($event, userconfig.userId)
                             "
                           />
                           <label for="scales">Enabled / </label>
@@ -454,26 +171,17 @@
                             class="register_btn_addrole border-rad register-button createNewTableRecord"
                             value="change"
                             id="createNewAssign"
+                            (click)="addRole(userconfig)"
                             >Add Role</a
                           >
                         </div>
-                        <!--  -->
-
-                        <!-- id="createNewProduct" -->
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
 
-              <div>
-                <!-- <input
-                  type="button"
-                  value="button"
-                  class="submit_btn border-rad"
-                  id="resetDefaultSettings"
-                /> -->
-              </div>
+              <div></div>
             </div>
             <div class="tabs-section tab-2">
               <div class="fieldDiv popUpFormSectionWrapper">
@@ -491,13 +199,13 @@
                       </tr>
                     </thead>
                     <tbody *ngFor="let userConfig of userconfiguration">
-                      <tr>
+                      <tr *ngIf="userConfig.userId != loggedInUser.user.id">
                         <td>
-                          {{ userConfig.firstname }}
-                          {{ userConfig.lastname }}
+                          {{ userConfig.firstName }}
+                          {{ userConfig.lastName }}
                         </td>
 
-                        <td>{{ userConfig.companyname }}</td>
+                        <td>{{ userConfig.companyName }}</td>
                         <td>
                           <div style="display: flex; padding: 2px">
                             <div>
@@ -507,7 +215,7 @@
                                 name="scales"
                                 [checked]="userConfig.role == userConfig.role"
                                 (change)="
-                                  onAssignedRoleChecked(
+                                  onRoleChecked(
                                     userConfig.userId,
                                     userConfig.roleId
                                   )
@@ -538,14 +246,14 @@
                         <th>Action</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
+                    <tbody *ngFor="let companyData of UsersByCompanyId">
+                      <tr *ngIf="companyData.userId != loggedInUser.user.id">
                         <td>
-                          {{ userconfiguration[0].firstname }}
-                          {{ userconfiguration[0].lastname }}
+                          {{ companyData.firstName }}
+                          {{ companyData.lastName }}
                         </td>
 
-                        <td>{{ userconfiguration[0].companyname }}</td>
+                        <td>{{ companyData.companyName }}</td>
                         <td>
                           <div style="display: flex; padding: 2px">
                             <div>
@@ -553,11 +261,11 @@
                                 type="checkbox"
                                 id="scales"
                                 name="scales"
-                                [checked]="userconfiguration[0].status"
+                                [checked]="companyData.companyStatus"
                                 (change)="
                                   onCompanyCheckboxChanged(
                                     $event,
-                                    userconfiguration[0].companyId
+                                    companyData.userId
                                   )
                                 "
                               />
@@ -625,24 +333,13 @@
         </form>
       </div>
     </div>
-    <div id="defaultConfigurationData" style="display: none">
-      <span id="showTableIdTreeCheckDefault"
-        >CONFIGURATION['TABLE_UNIQUE_ID_IN_TREE']</span
-      >
-      <span id="showTableIdDialogCheckDefault"
-        >CONFIGURATION['TABLE_UNIQUE_ID_IN_DIALOGS']</span
-      >
-      <span id="effDateFromDefault">CONFIGURATION['EFF_DATE_FROM']</span>
-      <span id="effDateToDefault">CONFIGURATION['EFF_DATE_TO']</span>
-      <span id="getProductsMasterNameCheckDefault"
-        >CONFIGURATION['GET_PRD_MASTER_NAME']</span
-      >
-    </div>
   </div>
+
+  <!-- Branch Configuration Pop -->
 
   <div class="popupWrapper" id="pricingPreferencePopup" style="display: none">
     <div class="popupHeading">
-      <h2 class="fleft">Pricing Preferences</h2>
+      <h2 class="fleft">Branch</h2>
       <a href="" class="closeButton fright"
         ><img
           src="../../../../assets/resources/images/removetablink.png"
@@ -651,108 +348,56 @@
       <div class="cboth"></div>
     </div>
     <div class="popupSubHeadingDiv pricingPreferenceSubHeading">
-      <h1 class="heading">Pricing Preferences</h1>
-      <div>View/add Pricing Preferences.</div>
+      <h1 class="heading">Branch</h1>
+      <div>View/add Branch.</div>
     </div>
     <div class="popupContentWrapper">
-      <form id="" action="" method="">
-        <div class="setDiv">
-          <a href="" id="savePricingPreference">
-            <img src="../../../../assets/resources/images/saveLink.png" />
-            <span>Commit Changes</span>
-          </a>
-          <a href="" id="addPricingPreferenceLink">
-            <img src="../../../../assets/resources/images/addPref.png" />
-            <span>Add Preferences</span>
-          </a>
-        </div>
-        <div class="popupFormField">
-          <table
-            cellspacing="0"
-            cellpadding="0"
-            class="recordsTable pricingPrefTable"
-            id="pricingPrefTable"
-          >
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Pref ID</th>
-                <th>Description</th>
-                <th>Value</th>
-                <th>UNID</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="pricingPrefBody">
-              <
-              <tr id="pricingPref-${preference.unid}">
-                <td>
-                  <select
-                    class="inputText popTableSelect prefTypeDropDown"
-                    id="preferenceType"
-                  >
-                    <option value="-1">Choose type</option>
+      <table
+        cellspacing="0"
+        cellpadding="0"
+        class="recordsTable pricingPrefTable"
+      >
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Abbrv</th>
+            <th>Pan No</th>
+            <th>Address</th>
+            <th>phone</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let branch of branch">
+          <tr>
+            <td>
+              {{ branch.name }}
+            </td>
+            <td>{{ branch.abbrv }}</td>
+            <td>{{ branch.panNo }}</td>
+            <td>{{ branch.zone }},{{ branch.district }}</td>
+            <td>{{ branch.phone }}</td>
 
-                    <option value="pref.prefType" selected="selected">
-                      pref.prefName
-                    </option>
-
-                    <option value="pref.prefType">pref.prefName</option>
-                  </select>
-                </td>
-                <td>
-                  <select
-                    class="inputText popTableSelect prefIdDropDown"
-                    id="preferencesIdDD"
-                  >
-                    <option value="-1">Choose Pref ID</option>
-                  </select>
-                </td>
-                <td>
-                  <select
-                    class="inputText popTableSelect prefNameDropDown"
-                    id="preferencesNameDD"
-                  >
-                    <option value="-1">Choose Pref</option>
-                  </select>
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    class="inputText popTableInputText"
-                    value="preference.prefValue"
-                  />
-                </td>
-                <td>preference.unid</td>
-                <td>
-                  <a href="#" class="deletePricingPref">
-                    <img
-                      src="../../../../assets/resources/images/deleteRow.png"
-                      alt="Delete"
-                    />
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="submitDiv tCenter">
-          <input
-            type="button"
-            value="Close"
-            class="submit_btn cancel_btn border-rad"
-          />
-        </div>
-        <div style="display: none" id="pricingPrefData">
-          <!-- <c:forEach items="${preferences}" var="prefs">
-              <div id="${prefs.prefName}" unid="${prefs.prefType}">
-                  <c:forEach items="${prefs.prefList}" var="pref">
-                      <span class="prefName" unid="${pref.unid}">${pref.name}</span>
-                  </c:forEach>
-              </div>
-          </c:forEach> -->
-        </div>
-      </form>
+            <td>
+              <a
+                class="register_btn_addrole border-rad register-button createNewTableRecord"
+                value="change"
+                (click)="onAssinBranchButtonClick(branch.id)"
+                id="assignNewBranch"
+                >Assign Branch</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin: 10px">
+        <a
+          class="register_btn border-rad register-button createNewTableRecord"
+          id="createNewProduct"
+          value=""
+          style="color: white"
+          >Create New branch</a
+        >
+      </div>
     </div>
   </div>
 
@@ -977,7 +622,7 @@
   </div>
 </div>
 
-<!-- Pop for assign -->
+<!-- Pop for assign Company-->
 
 <div class="popupWrapper" id="createNewAssignPopup" style="display: none">
   <div class="popupHeading">
@@ -1028,10 +673,10 @@
               <tbody id="prodTable">
                 <tr>
                   <td>
-                    {{ userconfiguration[0].firstname }}
-                    {{ userconfiguration[0].lastname }}
+                    {{ userconfiguration[0].firstName }}
+                    {{ userconfiguration[0].lastName }}
                   </td>
-                  <td>{{ userconfiguration[0].companyname }}</td>
+                  <td>{{ userconfiguration[0].companyName }}</td>
                 </tr>
               </tbody>
             </table>
@@ -1074,7 +719,7 @@
 <!-- popup for add User -->
 <div class="popupWrapper" id="AddNewUserPopup" style="display: none">
   <div class="popupHeading">
-    <h2 class="fleft">Register</h2>
+    <h2 class="fleft">Assign Company</h2>
     <a href="" class="closeButton fright"
       ><img
         src="../../../assets/resources/images/removetablink.png"
@@ -1083,7 +728,7 @@
     <div class="cboth"></div>
   </div>
   <div class="popupSubHeadingDiv createProduct">
-    <h1 class="heading">Register</h1>
+    <h1 class="heading">Assign Company</h1>
   </div>
   <div class="popupContentWrapper">
     <form id="createProduct">
@@ -1103,46 +748,57 @@
                     sortDir="asc"
                     sortCol="customer_name"
                     style="background: darkgray"
-                    id="costprice"
                   >
-                    User
+                    First Name
                   </th>
                   <th
                     class="sortable"
                     style="background: darkgray"
                     sortDir="asc"
                     sortCol="organization_name"
-                    id="name"
                   >
-                    Company
+                    Last Name
+                  </th>
+                  <th
+                    class="sortable"
+                    style="background: darkgray"
+                    sortDir="asc"
+                    sortCol="organization_name"
+                  >
+                    Email
+                  </th>
+                  <th
+                    class="sortable"
+                    style="background: darkgray"
+                    sortDir="asc"
+                    sortCol="organization_name"
+                  >
+                    Assign
                   </th>
                 </tr>
               </thead>
-              <tbody id="prodTable">
-                <tr>
+
+              <tbody id="prodTable" *ngFor="let allUser of allUser">
+                <tr *ngIf="allUser.userId != loggedInUser.user.id">
                   <td>
-                    {{ userconfiguration[0].firstname }}
-                    {{ userconfiguration[0].lastname }}
+                    <a>{{ allUser.firstName }}</a>
                   </td>
-                  <td>{{ userconfiguration[0].companyname }}</td>
+                  <td>
+                    <a>{{ allUser.lastName }}</a>
+                  </td>
+                  <td>
+                    <a>{{ allUser.email }}</a>
+                  </td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      (change)="onAssignCompanyChange($event, allUser.userId)"
+                    />
+                    <label for="input"></label>
+                  </td>
                 </tr>
               </tbody>
             </table>
-          </div>
-          <div class="container" style="margin-top: 10px">
-            <span>Roles</span>
-            <div style="border-bottom: 2px solid #bdbdbd"></div>
-            <div style="margin: 4px" *ngFor="let role of role">
-              <div style="margin: 1px">
-                <input
-                  type="checkbox"
-                  [checked]="hasRole(role.role)"
-                  (change)="onRoleChecked(userconfiguration[0].userId, role.id)"
-                  value="admin"
-                />
-                <Label>{{ role.role }}</Label>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -1152,7 +808,326 @@
           value="OK"
           class="submit_btn border-rad"
           (click)="onClicked()"
+          id=""
+        />
+        <input
+          type="button"
+          value="Cancel"
+          class="submit_btn cancel_btn border-rad"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- PopUp For branch -->
+
+<div class="popupWrapper" id="createNewProductPopup" style="display: none">
+  <div class="popupHeading">
+    <h2 class="fleft">Register Branch</h2>
+    <a href="" class="closeButton fright"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv createProduct">
+    <h1 class="heading">Register Branch</h1>
+    <div>Create a new Branch.</div>
+  </div>
+  <div class="popupContentWrapper">
+    <form
+      id="createProduct"
+      [formGroup]="BranchRegistrationForm"
+      (ngSubmit)="registerBranch()"
+    >
+      <div class="chooseColoumnsWrapper">
+        <div class="fieldDiv popUpFormSectionWrapper">
+          <table class="formSection" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="col1">Name:<span class="mandatorySign">*</span></td>
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  formControlName="BranchName"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Name.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Abbvr:<span class="mandatorySign">*</span></td>
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  formControlName="BranchAbbvr"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid abbr.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Description:<span class=""></span></td>
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText"
+                  formControlName="BranchDescription"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Pan-Number:<span class=""></span></td>
+
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText"
+                  title="Enter Text"
+                  formControlName="BranchPanNo"
+                  id="custPartName"
+                />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">State:<span class="mandatorySign"></span></td>
+
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText mandatory"
+                  formControlName="BranchState"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid State.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+            <div class="cboth"></div>
+            <tr>
+              <td class="col1">Zone:<span class="mandatorySign"></span></td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  formControlName="BranchZone"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Zone.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+            <tr>
+              <td class="col1">District:<span class="mandatorySign"></span></td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  formControlName="BranchDistrict"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid District name.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">
+                Muncipality/VDC:<span class="mandatorySign"></span>
+              </td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  formControlName="BranchMunVdc"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Muncipality/VDC .</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Ward no:<span class="mandatorySign">*</span></td>
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  formControlName="BranchWardNo"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Ward no.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Phone:<span class="mandatorySign">*</span></td>
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  formControlName="BranchPhone"
+                  id="custPartName"
+                />
+                <span class="validationMsg"
+                  ><br />Please enter valid Phone.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="submitDiv tCenter">
+        <input
+          type="submit"
+          value="Register"
+          class="submit_btn border-rad"
           id="addProduct"
+        />
+
+        <input
+          type="button"
+          value="Cancel"
+          class="submit_btn cancel_btn border-rad"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- assign branch popup -->
+<div class="popupWrapper" id="assignNewBranchPopup" style="display: none">
+  <div class="popupHeading">
+    <h2 class="fleft">Assign Branch</h2>
+    <a href="" class="closeButton fright"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv createProduct">
+    <h1 class="heading">Assign Branch</h1>
+  </div>
+  <div class="popupContentWrapper">
+    <form id="createProduct">
+      <div class="chooseColoumnsWrapper">
+        <div class="fieldDiv popUpFormSectionWrapper">
+          <div class="recordsTableDiv">
+            <table
+              cellspacing="0"
+              cellpadding="0"
+              class="recordsTable"
+              id="salesBillsRecordsTable"
+            >
+              <thead>
+                <tr>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="customer_name"
+                    style="background: darkgray"
+                  >
+                    First Name
+                  </th>
+                  <th
+                    class="sortable"
+                    style="background: darkgray"
+                    sortDir="asc"
+                    sortCol="organization_name"
+                  >
+                    Last Name
+                  </th>
+                  <th
+                    class="sortable"
+                    style="background: darkgray"
+                    sortDir="asc"
+                    sortCol="organization_name"
+                  >
+                    Email
+                  </th>
+                  <th
+                    class="sortable"
+                    style="background: darkgray"
+                    sortDir="asc"
+                    sortCol="organization_name"
+                  >
+                    Assign
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody id="prodTable" *ngFor="let allUser of allUser">
+                <tr *ngIf="allUser.userId != loggedInUser.user.id">
+                  <td>
+                    <a>{{ allUser.firstName }}</a>
+                  </td>
+                  <td>
+                    <a>{{ allUser.lastName }}</a>
+                  </td>
+                  <td>
+                    <a>{{ allUser.email }}</a>
+                  </td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      (change)="onAssignBranchChange($event, allUser.userId)"
+                    />
+                    <label for="input"></label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="submitDiv tCenter">
+        <input
+          type="submit"
+          value="OK"
+          class="submit_btn border-rad"
+          (click)="onClicked()"
+          id=""
         />
         <input
           type="button"

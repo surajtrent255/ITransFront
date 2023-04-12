@@ -27,10 +27,10 @@ export class CompanyServiceService {
     return this.httpClient.get(`${USER_COMPANY_URL}/${user_id}`);
   }
 
-  updateUserCompany(comapanyId: number, userId: number): Observable<any> {
-    const body = { comapanyId, userId };
-    return this.httpClient.post(UPDATE_USER_COMPANY_URL, body);
-  }
+  // updateUserCompany(comapanyId: number, userId: number): Observable<any> {
+  //   const body = { comapanyId, userId };
+  //   return this.httpClient.post(UPDATE_USER_COMPANY_URL, body);
+  // }
 
   addCompany(companyDTO: Company, userId: number): Observable<any> {
     const body = { companyDTO, userId };

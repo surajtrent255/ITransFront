@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SavedUserData } from 'src/app/models/SavedUserData';
 import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
+import { BranchService } from 'src/app/service/shared/branch.service';
 import { CompanyServiceService } from 'src/app/service/shared/company-service.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
@@ -40,7 +41,8 @@ export class SelectAndCreateCompanyComponent {
     private loginService: LoginService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private userConfiguarationSerivice: UserConfigurationService
+    private userConfiguarationSerivice: UserConfigurationService,
+    private branchService: BranchService
   ) {}
 
   ngOnInit() {
@@ -48,8 +50,6 @@ export class SelectAndCreateCompanyComponent {
       this.user_id = LogggedInUser.user.id;
     });
     this.companyService.getCompnayDetails(this.user_id).subscribe((res) => {
-      console.log(`this is from component ${this.user_id}`);
-      console.log(res.data);
       this.company = res.data;
       localStorage.setItem('companyDetails', JSON.stringify(res.data));
     });
@@ -121,6 +121,16 @@ export class SelectAndCreateCompanyComponent {
 
   proceed(company: any) {
     localStorage.setItem('companyDetails', JSON.stringify(company));
-    this.router.navigateByUrl('/dashboard/demo');
+    this.branchService
+      .getBranchDetailsByCompanyAndUserId(company.companyId, this.user_id)
+      .subscribe((res) => {
+        if (res.data) {
+          localStorage.setItem('BranchDetails', JSON.stringify(res.data));
+        }
+        if (!res.data || Object.keys(res.data).length === 0) {
+          alert('No Branch is Assigned For This Company');
+        }
+        this.router.navigateByUrl('/dashboard/demo');
+      });
   }
 }

@@ -1,11 +1,12 @@
 export class UserConfiguration {
-  firstname!: string;
-  lastname!: string;
+  firstName!: string;
+  lastName!: string;
   email!: string;
   companyId!: number;
   userId!: number;
   roleId!: number;
-  status!: boolean;
+  roleStatus!: boolean;
+  companyStatus!: boolean;
   role!: string;
-  companyname!: string;
+  companyName!: string;
 }
