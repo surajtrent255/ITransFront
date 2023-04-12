@@ -39,7 +39,7 @@ export class SelectAndCreateCompanyComponent {
     private loginService: LoginService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginService.userObservable.subscribe((LogggedInUser) => {
@@ -108,6 +108,7 @@ export class SelectAndCreateCompanyComponent {
           munVdc: this.CompanyRegistrationForm.value.munVdc!,
           wardNo: this.CompanyRegistrationForm.value.wardNo!,
           phone: this.CompanyRegistrationForm.value.phone!,
+          customer: false,
         },
         this.user_id
       )

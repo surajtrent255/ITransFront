@@ -58,3 +58,9 @@
 }
 
 
+
+
+.ng-dropdown-panel .ng-option[value='option1'] {
+  background-color: #b9e1dc; /* Set the background color of the option field */
+  color: #333; /* Set the text color of the option field */
+}

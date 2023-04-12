@@ -8,6 +8,8 @@ import { SalesBillMaster } from 'src/app/models/SalesBillMaster';
 import { VatRateTypes } from 'src/app/models/VatRateTypes';
 import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { ProductService } from 'src/app/service/product.service';
 import { SalesBillServiceService } from 'src/app/service/sales-bill-service.service';
 import { CompanyServiceService } from 'src/app/service/shared/company-service.service';
@@ -50,6 +52,8 @@ export class CreateSalesComponent {
   // isconfirmAlert: boolean = false;
   // alertboxshowable: boolean = true;
   companyId!: number;
+  branchId !: number;
+
   constructor(
     private salesCartService: SalesCartService,
     private productService: ProductService,
@@ -62,8 +66,16 @@ export class CreateSalesComponent {
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
+    this.branchId = this.loginService.getBranchId();
     this.getCompanyList();
     this.getVatRateTypes();
+  }
+
+
+
+  customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return item.label.toLowerCase().indexOf(term) > -1 || item.value.toLowerCase().indexOf(term) > -1;
   }
 
   getVatRateTypes() {
@@ -139,7 +151,7 @@ export class CreateSalesComponent {
     }
 
     this.productService
-      .getProductByIdAndCompanyId(this.productBarCodeId, this.companyId)
+      .getProductById(this.productBarCodeId)
       .subscribe({
         next: (data) => {
           console.log(data.data);
@@ -298,7 +310,7 @@ export class CreateSalesComponent {
       saleBillDetail.taxRate = Number(vatRateTypesElement.value);
 
 
-      saleBillDetail.branchId = 0; //backendma set gar
+      saleBillDetail.branchId = this.branchId; //backendma set gar
       saleBillDetail.date = new Date() //backend ma set gar
       saleBillDetail.rate = prod.sellingPrice;
       this.salesBillDetailInfos.push(saleBillDetail);
@@ -338,7 +350,7 @@ export class CreateSalesComponent {
 
     salesBill.userId = this.loginService.currentUser.user.id;
     salesBill.companyId = this.loginService.getCompnayId();
-    salesBill.branchId = 0; //mjremain
+    salesBill.branchId = this.branchId; //mjremain
     salesBill.realTime = true;
     salesBill.billActive = true;
     salesBill.draft = draft;
@@ -357,6 +369,7 @@ export class CreateSalesComponent {
           );
         } else {
           alert("Draft has been saved ");
+          this.router.navigateByUrl("dashboard/salesbill");
         }
 
       },

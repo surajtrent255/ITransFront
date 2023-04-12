@@ -9,4 +9,5 @@ export class Company {
   munVdc!: string;
   wardNo!: string;
   phone!: string;
+  customer!: boolean;
 }

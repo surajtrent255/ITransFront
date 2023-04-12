@@ -26,6 +26,7 @@ export class SalesBillingComponent {
   activeSalesBillEdit: boolean = false;
 
   companyId !: number;
+  branchId !: number;
   constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService, private router: Router) { }
 
 
@@ -33,9 +34,30 @@ export class SalesBillingComponent {
     console.log("sales-billingbasecomp")
     this.loggedUser = JSON.parse(localStorage.getItem("User")!);
     this.companyId = this.loginService.getCompnayId();
-    this.salesBillService.getAllSalesBill(this.companyId).subscribe(data => {
+    this.branchId = this.loginService.getBranchId();
+    this.getSalesBillForCompanyBranch();
+  }
+
+  getSalesBillForCompanyBranch() {
+    this.salesBillService.getAllSalesBill(this.companyId, this.branchId).subscribe(data => {
       this.salesBills = data.data;
     })
+  }
+  ApproveTheBill(id: number) {
+    this.salesBillService.approveTheBill(id).subscribe({
+      next: (data) => { },
+      complete: () => {
+        this.getSalesBillForCompanyBranch();
+      }
+    })
+  }
+
+  cancelTheBill(id: number) {
+    this.salesBillService.cancelTheBill(id).subscribe({
+      complete: () => {
+        this.getSalesBillForCompanyBranch();
+      }
+    });
   }
 
   activateSalesBillEntry() {

@@ -46,6 +46,11 @@ export class LoginService {
     return compnay.companyId;
   }
 
+  getBranchId(): number {
+    var branchId = 1;
+    return 1;
+  }
+
   login(userLogin: UserLogin): Observable<RJResponse<User>> {
     return this.http.post<RJResponse<User>>(USER_LOGIN_URL, userLogin).pipe(
       tap({

@@ -6,6 +6,7 @@ export class Product {
   costPrice !: number;
   userId !: number;
   companyId !: number;
+  branchId !: number;
   sellerId !: number;
   categoryId !: number;
   barcode !: string;

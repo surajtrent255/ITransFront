@@ -20,19 +20,21 @@ export class ProductComponent {
     private productService: ProductService,
     private loginService: LoginService,
     private router: Router
-  ) {}
+  ) { }
 
   newProduct!: Product;
 
   productInfoForUpdate!: Product;
   compId!: number;
+  branchId !: number;
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
-    this.fetchAllProducts(this.compId);
+    this.branchId = this.loginService.getBranchId();
+    this.fetchAllProducts(this.compId, this.branchId);
   }
 
-  fetchAllProducts(compId: number) {
-    this.productService.getAllProducts(compId).subscribe((data) => {
+  fetchAllProducts(compId: number, branchId: number) {
+    this.productService.getAllProducts(compId, branchId).subscribe((data) => {
       this.availableProducts = data.data;
     });
   }
@@ -42,7 +44,7 @@ export class ProductComponent {
   }
 
   getProduct(id: number) {
-    this.productService.getProductByIdAndCompanyId(id, this.compId).subscribe({
+    this.productService.getProductById(id).subscribe({
       next: (data) => {
         this.productInfoForUpdate = data.data;
       },
@@ -56,12 +58,12 @@ export class ProductComponent {
   }
 
   fetchAllProductsAfterEdit() {
-    this.fetchAllProducts(this.compId);
+    this.fetchAllProducts(this.compId, this.branchId);
   }
 
   createNewProduct($event: boolean) {
     if ($event == true) {
-      this.fetchAllProducts(this.compId);
+      this.fetchAllProducts(this.compId, this.branchId);
     }
   }
   deleteProduct(id: number) {
@@ -73,7 +75,7 @@ export class ProductComponent {
         console.log(error);
       },
       complete: () => {
-        this.fetchAllProducts(this.compId);
+        this.fetchAllProducts(this.compId, this.branchId);
       },
     });
   }

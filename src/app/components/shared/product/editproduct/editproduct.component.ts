@@ -16,6 +16,7 @@ export class EditproductComponent {
   @Output() updatedSuccessful = new EventEmitter<boolean>(false);
 
   compId!: number;
+  branchId !: number;
   availableCategories: CategoryProduct[] = [];
   constructor(
     private productService: ProductService,
@@ -23,16 +24,17 @@ export class EditproductComponent {
     private activatedRoute: ActivatedRoute,
     private loginService: LoginService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
+    this.branchId = this.loginService.getBranchId();
     this.product = new Product();
     this.getAllCategories();
   }
 
   getAllCategories() {
-    this.categoryProductService.getAllCategories(this.compId).subscribe({
+    this.categoryProductService.getAllCategories(this.compId, this.branchId).subscribe({
       next: (data) => {
         this.availableCategories = data.data;
       },
@@ -43,7 +45,7 @@ export class EditproductComponent {
   }
 
   getProduct(id: number) {
-    this.productService.getProductByIdAndCompanyId(id, this.compId).subscribe({
+    this.productService.getProductById(id).subscribe({
       next: (data) => {
         this.product = data.data;
         console.log(this.product);
@@ -53,7 +55,8 @@ export class EditproductComponent {
   }
 
   editProduct(form: any) {
-    console.log(this.product);
+    this.product.companyId = this.compId;
+    this.product.branchId = this.branchId;
     this.productService.editProduct(this.product).subscribe({
       next: (data) => {
         // alert("product successfully updated")
@@ -61,7 +64,6 @@ export class EditproductComponent {
         this.updatedSuccessful.emit(true);
       },
       complete: () => {
-        console.log('completed');
         const closeBtn = document.getElementById(
           'closeEditButton'
         ) as HTMLButtonElement;

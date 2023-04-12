@@ -31,7 +31,7 @@ export class CreatePurchaseBillComponent {
     private purchaseBillService: PurchaseBillService,
     private router: Router,
     private loginService: LoginService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
@@ -41,7 +41,7 @@ export class CreatePurchaseBillComponent {
       return;
     }
     this.productService
-      .getProductByIdAndCompanyId(this.productBarCodeId, this.companyId)
+      .getProductById(this.productBarCodeId)
       .subscribe((data) => {
         if (data.data !== null) {
           this.productsUserWantToPurchase.push(data.data);
@@ -139,7 +139,7 @@ export class CreatePurchaseBillComponent {
       });
   }
 
-  createNewProduct($event: any) {}
+  createNewProduct($event: any) { }
 }
 
 interface InputEvent extends Event {

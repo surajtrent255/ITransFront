@@ -86,6 +86,9 @@ import { StockComponent } from './components/shared/stock/stock.component';
     // FormsModule,
     // ReactiveFormsModule,
   ],
+  exports: [
+    ProductComponent
+  ],
 
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

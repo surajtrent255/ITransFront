@@ -16,7 +16,7 @@
           <div class="row">
             <div class="col-md-3">
               <span class="inputItems">To:</span>
-              <Select
+              <!-- <Select
                 style="width: 70%"
                 class="inputItems"
                 id="customerSelect"
@@ -32,9 +32,43 @@
                 >
                   {{ company.name }}
                 </option>
-              </Select>
+              </Select> -->
+              <ng-select
+                [items]="selectMenusForCompanies"
+                placeholder="Select an option"
+              >
+                <ng-option *ngFor="let comp of selectMenusForCompanies">{{
+                  comp.name
+                }}</ng-option>
+              </ng-select>
             </div>
-
+            <div
+              class="col-md-3"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+              "
+            >
+              <span style="text-align: left"
+                >Add Customer:
+                <button id="createNewCustomer" class="createNewTableRecord">
+                  <i
+                    class="fa-sharp fa-solid fa-user-plus"
+                    style="color: green"
+                  ></i>
+                </button>
+                <!-- <select
+                  name="taxType"
+                  class="input-field"
+                  id="taxType"
+                  (change)="getApproach($event)"
+                >
+                  <option value="1" selected>Tax Inclusive</option>
+                  <option value="2">Tax Exclusive</option>
+                </select> -->
+              </span>
+            </div>
             <div class="col-md-3">
               <span class="inputItems">Date:</span>
               <input
@@ -314,4 +348,10 @@
       </div>
     </div>
   </div>
+</div>
+<div class="popupWrapper" id="createNewCustomerPopup" style="display: none">
+  <div class="mb-2"></div>
+  <app-create-customer
+    (customerAddedSuccessMsg)="getCompanyList()"
+  ></app-create-customer>
 </div>
