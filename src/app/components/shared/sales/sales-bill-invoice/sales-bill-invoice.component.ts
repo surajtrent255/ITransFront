@@ -44,10 +44,10 @@ export class SalesBillInvoiceComponent {
 
 
 
-  printTheBill(bill_no: string) {
+  printTheBill(billId: number) {
     let userId = this.loginService.currentUser.user.id;
-    let billNo = bill_no;
-    this.salesBillService.printTheBill(billNo, userId).subscribe({
+
+    this.salesBillService.printTheBill(billId, userId).subscribe({
       next: (data) => {
         alert("bill is printed successfully")
         console.log("bill is printed Successfully");

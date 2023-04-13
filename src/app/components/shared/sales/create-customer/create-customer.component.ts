@@ -48,7 +48,7 @@ export class CreateCustomerComponent {
     this.companyService
       .addCompany(
         {
-          id: 0,
+          companyId: 0,
           name: this.CompanyRegistrationForm.value.name!,
           description: this.CompanyRegistrationForm.value.description!,
           panNo: this.CompanyRegistrationForm.value.panNo!,

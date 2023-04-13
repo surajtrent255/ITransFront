@@ -47,8 +47,9 @@ export class LoginService {
   }
 
   getBranchId(): number {
-    var branchId = 1;
-    return 1;
+    var branchDetail: any = JSON.parse(localStorage.getItem("BranchDetails")!);
+    var branchId = branchDetail[0].branchId;
+    return branchId;
   }
 
   login(userLogin: UserLogin): Observable<RJResponse<User>> {
