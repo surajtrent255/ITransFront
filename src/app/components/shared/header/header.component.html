@@ -2,12 +2,12 @@
 <div id="headerWrapper" class="headerWrapper">
   <div class="logoutDiv">
     <div class="fright" style="padding-right: 30px">
-      <a href="/login">
+      <a (click)="logout()" href="/login">
         <img
           src="../../../../assets/resources/images/logout-bg.png"
           class="logoutImage"
         />
-        <span>logout</span>
+        <span> logout</span>
       </a>
     </div>
     <div class="fright" style="padding-right: 30px">
@@ -96,7 +96,7 @@
       <div>Configure application.</div>
     </div>
     <div class="popupContentWrapper configPopupWrapper">
-      <form id="" action="" method="">
+      <form>
         <div class="tabListWrapper">
           <ul class="tabList popupTablist" id="configurationTabList">
             <li class="active">
@@ -121,7 +121,7 @@
                   value="Search"
                 />
 
-                <a href="#" class="genLink">Clear searchs</a>
+                <a href="#" class="genLink">Clear searchs </a>
               </div>
               <div style="padding-bottom: 15px">
                 <button
@@ -171,7 +171,13 @@
                             class="register_btn_addrole border-rad register-button createNewTableRecord"
                             value="change"
                             id="createNewAssign"
-                            (click)="addRole(userconfig)"
+                            (click)="
+                              addRole(
+                                userconfig.userId,
+                                userconfig.firstName,
+                                userconfig.lastName
+                              )
+                            "
                             >Add Role</a
                           >
                         </div>
@@ -198,14 +204,14 @@
                         <th>Role</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let userConfig of userconfiguration">
+                    <tbody *ngFor="let userConfig of userRoleconfiguration">
                       <tr *ngIf="userConfig.userId != loggedInUser.user.id">
                         <td>
                           {{ userConfig.firstName }}
                           {{ userConfig.lastName }}
                         </td>
 
-                        <td>{{ userConfig.companyName }}</td>
+                        <td>{{ companyName }}</td>
                         <td>
                           <div style="display: flex; padding: 2px">
                             <div>
@@ -213,9 +219,10 @@
                                 type="checkbox"
                                 id="scales"
                                 name="scales"
-                                [checked]="userConfig.role == userConfig.role"
+                                [checked]="userConfig.roleStatus"
                                 (change)="
-                                  onRoleChecked(
+                                  onRoleInConfigurationChecked(
+                                    $event,
                                     userConfig.userId,
                                     userConfig.roleId
                                   )
@@ -253,7 +260,7 @@
                           {{ companyData.lastName }}
                         </td>
 
-                        <td>{{ companyData.companyName }}</td>
+                        <td>{{ companyName }}</td>
                         <td>
                           <div style="display: flex; padding: 2px">
                             <div>
@@ -296,48 +303,11 @@
         </div>
       </form>
     </div>
-    <div
-      class="popupWrapper alertConfPopup"
-      style="width: auto"
-      id="confirmDeleteSettings"
-    >
-      <div class="popupHeading">
-        <h2 class="fleft">Confirm</h2>
-        <a href="" class="closeButton fright"
-          ><img
-            src="../../../../assets/resources/images/removetablink.png"
-            alt="close"
-        /></a>
-        <div class="cboth"></div>
-      </div>
-      <div class="popupContentWrapper">
-        <form>
-          <div class="contentDiv">
-            <div class="contentChildTextDiv">Your Changes will be lost.</div>
-            <div class="contentChildTextDiv">
-              Click OK to continue or Cancel to discard.
-            </div>
-          </div>
-          <div class="submitDiv tCenter">
-            <input
-              type="button"
-              value="Register Now"
-              class="submit_btn border-rad blueGradient resetSettings"
-            />
-            <input
-              type="button"
-              value="Cancel"
-              class="submit_btn cancel_btn border-rad"
-            />
-          </div>
-        </form>
-      </div>
-    </div>
   </div>
 
   <!-- Branch Configuration Pop -->
 
-  <div class="popupWrapper" id="pricingPreferencePopup" style="display: none">
+  <div class="popupWrapper" id="pricingPreferencePopup" style="width: auto">
     <div class="popupHeading">
       <h2 class="fleft">Branch</h2>
       <a href="" class="closeButton fright"
@@ -351,53 +321,154 @@
       <h1 class="heading">Branch</h1>
       <div>View/add Branch.</div>
     </div>
-    <div class="popupContentWrapper">
-      <table
-        cellspacing="0"
-        cellpadding="0"
-        class="recordsTable pricingPrefTable"
-      >
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Abbrv</th>
-            <th>Pan No</th>
-            <th>Address</th>
-            <th>phone</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let branch of branch">
-          <tr>
-            <td>
-              {{ branch.name }}
-            </td>
-            <td>{{ branch.abbrv }}</td>
-            <td>{{ branch.panNo }}</td>
-            <td>{{ branch.zone }},{{ branch.district }}</td>
-            <td>{{ branch.phone }}</td>
+    <div class="popupContentWrapper configPopupWrapper">
+      <form>
+        <div class="tabListWrapper">
+          <ul class="tabList popupTablist" id="configurationTabList">
+            <li class="active">
+              <a href="" class="fleft tab-1 confTab1" tab="1">Branch</a>
+            </li>
+            <li>
+              <a href="" class="fleft tab-2 confTab2" tab="2">Branch User</a>
+            </li>
+          </ul>
+        </div>
+        <div style="width: max-content; height: auto" class="popupFormField">
+          <div id="configurationTabList-Div">
+            <div class="tabs-section tab-1">
+              <div class="fleft searchDiv" id="prodSearch">
+                <input
+                  class="inputText hintText"
+                  type="text"
+                  search="off"
+                  value="Search"
+                />
 
-            <td>
-              <a
-                class="register_btn_addrole border-rad register-button createNewTableRecord"
-                value="change"
-                (click)="onAssinBranchButtonClick(branch.id)"
-                id="assignNewBranch"
-                >Assign Branch</a
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div style="margin: 10px">
-        <a
-          class="register_btn border-rad register-button createNewTableRecord"
-          id="createNewProduct"
-          value=""
-          style="color: white"
-          >Create New branch</a
-        >
-      </div>
+                <a href="#" class="genLink">Clear searchs</a>
+              </div>
+
+              <div class="queryResultWrapper">
+                <table
+                  cellspacing="0"
+                  cellpadding="0"
+                  class="recordsTable pricingPrefTable"
+                >
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Abbrv</th>
+                      <th>Pan No</th>
+                      <th>Address</th>
+                      <th>phone</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let branch of branch">
+                    <tr>
+                      <td>
+                        {{ branch.name }}
+                      </td>
+                      <td>{{ branch.abbrv }}</td>
+                      <td>{{ branch.panNo }}</td>
+                      <td>{{ branch.zone }},{{ branch.district }}</td>
+                      <td>{{ branch.phone }}</td>
+
+                      <td>
+                        <a
+                          class="register_btn_addrole border-rad register-button createNewTableRecord"
+                          value="change"
+                          (click)="onAssinBranchButtonClick(branch.id)"
+                          id="assignNewBranch"
+                          >Assign Branch</a
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div style="margin: 10px">
+                  <a
+                    class="register_btn border-rad register-button createNewTableRecord"
+                    id="createNewProduct"
+                    value=""
+                    style="color: white"
+                    >Create New branch</a
+                  >
+                </div>
+              </div>
+
+              <div></div>
+            </div>
+            <div class="tabs-section tab-2">
+              <div class="fieldDiv popUpFormSectionWrapper">
+                <div class="configListItem">
+                  <table
+                    cellspacing="0"
+                    cellpadding="0"
+                    class="recordsTable pricingPrefTable"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>User Name</th>
+                        <th>User Phone</th>
+                        <th>Branch Name</th>
+                        <th>Address</th>
+                        <th>Branch Phone</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let branchuser of branchUsers">
+                      <tr>
+                        <td>
+                          {{ branchuser.firstName }} {{ branchuser.lastName }}
+                        </td>
+                        <td>{{ branchuser.email }}</td>
+                        <td>{{ branchuser.userPhone }}</td>
+                        <td>{{ branchuser.branchName }}</td>
+                        <td>{{ branchuser.branchDistrict }}</td>
+                        <td>{{ branchuser.branchPhone }}</td>
+                        <td>
+                          <div style="display: flex; padding: 2px">
+                            <div>
+                              <input
+                                type="checkbox"
+                                id="scales"
+                                name="scales"
+                                [checked]="branchuser.branchStatus"
+                                (change)="
+                                  onBranchCheckboxChanged(
+                                    $event,
+                                    branchuser.userId,
+                                    branchuser.branchId
+                                  )
+                                "
+                              />
+                              <label for="scales">Enable</label>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="submitDiv tCenter">
+          <input
+            type="button"
+            value="Save"
+            class="submit_btn border-rad"
+            id="configurationBtn"
+          />
+          <input
+            type="button"
+            value="Cancel"
+            class="submit_btn cancel_btn border-rad"
+          />
+        </div>
+      </form>
     </div>
   </div>
 
@@ -452,181 +523,13 @@
       </form>
     </div>
   </div>
-
-  <div
-    class="popupWrapper popupwrapperSmall"
-    id="recordsPerPagePopUp"
-    style="display: none"
-  >
-    <div class="popupHeading">
-      <h2 class="fleft">Records Per Page</h2>
-      <a href="" class="closeButton fright"
-        ><img
-          src="../../../../assets/resources/images/removetablink.png"
-          alt="close"
-      /></a>
-      <div class="cboth"></div>
-    </div>
-    <div class="popupContentWrapper">
-      <form id="recordPerPageForm">
-        <div class="chooseColoumnsWrapper create_group_wrapper_popup">
-          <div class="fieldDiv popUpFormSectionWrapper">
-            <table class="formSection" cellpadding="0" cellspacing="0">
-              <tr>
-                <td class="col1">Records:</td>
-                <td class="col2">
-                  <input
-                    type="text"
-                    id="records"
-                    class="inputText mandatory"
-                    title="Enter Text"
-                  />
-                  <span class="validationMsg"
-                    ><br />Please enter a number.</span
-                  >
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="submitDiv tCenter">
-          <input
-            type="button"
-            value="Set"
-            class="submit_btn border-rad submitBtn"
-            id="recordsPerPage"
-          />
-          <input
-            type="button"
-            value="Cancel"
-            class="submit_btn cancel_btn border-rad"
-          />
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="popupWrapper" id="reportsPopup" style="display: none">
-    <div class="popupHeading">
-      <h2 class="fleft">Reports</h2>
-      <a href="" class="closeButton fright"
-        ><img
-          src="../../../../assets/resources/images/removetablink.png"
-          alt="close"
-      /></a>
-      <div class="cboth"></div>
-    </div>
-    <div class="popupSubHeadingDiv reportsSubHeading">
-      <h1 class="heading">Reports</h1>
-      <div>Create and run Queries.</div>
-    </div>
-    <div class="popupContentWrapper">
-      <form id="" action="" method="">
-        <div class="setDiv">
-          <div class="fleft">
-            <span>Choose Report Query: </span>
-            <select class="inputText querySelect">
-              <option>Query 1</option>
-              <option>Query 2</option>
-              <option>Query 3</option>
-              <option>Query 4</option>
-            </select>
-          </div>
-          <div class="fright">
-            <a href="#" class="newReportQueryLink">
-              <img
-                src="../../../../assets/resources/images/createNewQuery.png"
-                alt=""
-              />
-              <span>Create New Report Query</span>
-            </a>
-          </div>
-          <div class="cboth"></div>
-        </div>
-        <div class="queryWrapper">
-          <div class="recordCategory">
-            <h2 class="fleft">Query A</h2>
-            <div class="cboth"></div>
-          </div>
-          <div class="popupFormField">
-            <div class="queryWrittenArea">
-              <h2 class="queryHeading">Query</h2>
-              <textarea class="queryTextarea"> </textarea>
-              <div class="fright">
-                <a href="#">
-                  <img
-                    src="../../../../assets/resources/images/execute-query.png"
-                  />
-                </a>
-              </div>
-              <div class="cboth"></div>
-            </div>
-            <div class="queryResultWrapper">
-              <table
-                cellspacing="0"
-                cellpadding="0"
-                class="recordsTable pricingPrefTable"
-              >
-                <thead>
-                  <tr>
-                    <th>tril_grid</th>
-                    <th>Modification date</th>
-                    <th>Amount</th>
-                    <th>end_date</th>
-                    <th>high_range</th>
-                    <th>low_range</th>
-                    <th>object_name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="queryOperationsWrapper">
-              <input
-                type="button"
-                class="border-rad submit_btn"
-                value="Save Query"
-              />
-              <input
-                type="button"
-                class="border-rad submit_btn"
-                value="Delete Query"
-              />
-              <input
-                type="button"
-                class="border-rad submit_btn mr0"
-                value="Export Query Result"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="submitDiv tCenter">
-          <input
-            type="button"
-            value="Close"
-            class="submit_btn cancel_btn border-rad"
-          />
-        </div>
-      </form>
-    </div>
-  </div>
 </div>
 
-<!-- Pop for assign Company-->
+<!-- Pop for add role-->
 
 <div class="popupWrapper" id="createNewAssignPopup" style="display: none">
   <div class="popupHeading">
-    <h2 class="fleft">Register</h2>
+    <h2 class="fleft">Add Role</h2>
     <a href="" class="closeButton fright"
       ><img
         src="../../../assets/resources/images/removetablink.png"
@@ -635,7 +538,7 @@
     <div class="cboth"></div>
   </div>
   <div class="popupSubHeadingDiv createProduct">
-    <h1 class="heading">Register</h1>
+    <h1 class="heading">Add Role</h1>
   </div>
   <div class="popupContentWrapper">
     <form id="createProduct">
@@ -673,10 +576,9 @@
               <tbody id="prodTable">
                 <tr>
                   <td>
-                    {{ userconfiguration[0].firstName }}
-                    {{ userconfiguration[0].lastName }}
+                    {{ selectedUser }}
                   </td>
-                  <td>{{ userconfiguration[0].companyName }}</td>
+                  <td>{{ companyName }}</td>
                 </tr>
               </tbody>
             </table>
@@ -689,7 +591,7 @@
                 <input
                   type="checkbox"
                   [checked]="hasRole(role.role)"
-                  (change)="onRoleChecked(userconfiguration[0].userId, role.id)"
+                  (change)="onRoleChecked($event, role.id)"
                   value="admin"
                 />
                 <Label>{{ role.role }}</Label>
@@ -778,7 +680,7 @@
                 </tr>
               </thead>
 
-              <tbody id="prodTable" *ngFor="let allUser of allUser">
+              <tbody id="prodTable" *ngFor="let allUser of allUsers">
                 <tr *ngIf="allUser.userId != loggedInUser.user.id">
                   <td>
                     <a>{{ allUser.firstName }}</a>
@@ -804,11 +706,11 @@
       </div>
       <div class="submitDiv tCenter">
         <input
-          type="submit"
-          value="OK"
+          type="button"
+          value="Save"
           class="submit_btn border-rad"
           (click)="onClicked()"
-          id=""
+          id="configurationBtn"
         />
         <input
           type="button"
@@ -824,7 +726,7 @@
 
 <div class="popupWrapper" id="createNewProductPopup" style="display: none">
   <div class="popupHeading">
-    <h2 class="fleft">Register Branch</h2>
+    <h2 class="fleft">Branch</h2>
     <a href="" class="closeButton fright"
       ><img
         src="../../../assets/resources/images/removetablink.png"
@@ -909,20 +811,25 @@
             </tr>
 
             <tr>
-              <td class="col1">State:<span class="mandatorySign"></span></td>
-
-              <td class="col3">
-                <input
-                  type="number"
-                  class="inputText mandatory"
+              <td class="col1">State: <span class="mandatorySign"></span></td>
+              <div style="padding-left: 4.5px">
+                <select
                   formControlName="BranchState"
-                  title="Enter Text"
-                  id="custPartName"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid State.</span
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 300px"
+                  #selected
+                  (change)="stateChange(selected.value)"
                 >
-              </td>
+                  <option selected disabled>Select the state</option>
+                  <option
+                    *ngFor="let state of province"
+                    value="{{ state.provinceId }}"
+                  >
+                    {{ state.provinceName }}
+                  </option>
+                </select>
+              </div>
               <td class="col3"></td>
             </tr>
             <div class="cboth"></div>
@@ -946,18 +853,22 @@
             <tr>
               <td class="col1">District:<span class="mandatorySign"></span></td>
 
-              <td class="col3">
-                <input
-                  type="text"
-                  class="inputText mandatory"
+              <div style="padding-left: 4.5px">
+                <select
                   formControlName="BranchDistrict"
-                  title="Enter Text"
-                  id="custPartName"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid District name.</span
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 300px"
+                  #selected
                 >
-              </td>
+                  <option
+                    *ngFor="let district of districts"
+                    value="{{ district.districtName }}"
+                  >
+                    {{ district.districtName }}
+                  </option>
+                </select>
+              </div>
               <td class="col3"></td>
             </tr>
 
@@ -1097,7 +1008,7 @@
                 </tr>
               </thead>
 
-              <tbody id="prodTable" *ngFor="let allUser of allUser">
+              <tbody id="prodTable" *ngFor="let allUser of assignUserList">
                 <tr *ngIf="allUser.userId != loggedInUser.user.id">
                   <td>
                     <a>{{ allUser.firstName }}</a>

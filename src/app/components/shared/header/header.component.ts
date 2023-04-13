@@ -2,11 +2,17 @@ import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Branch } from 'src/app/models/Branch';
+import { BranchConfig } from 'src/app/models/BranchConfig';
+import { District } from 'src/app/models/District';
+import { Province } from 'src/app/models/Province';
 import { Roles } from 'src/app/models/Roles';
+import { Demo } from 'src/app/models/demo';
 import { User } from 'src/app/models/user';
 import { UserConfiguration } from 'src/app/models/user-configuration';
 import { BranchService } from 'src/app/service/shared/branch.service';
+import { DistrictAndProvinceService } from 'src/app/service/shared/district-and-province.service';
 import { LoginService } from 'src/app/service/shared/login.service';
+import { RoleService } from 'src/app/service/shared/role.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
 
 @Component({
@@ -15,16 +21,28 @@ import { UserConfigurationService } from 'src/app/service/shared/user-configurat
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  userconfiguration!: UserConfiguration[];
+  userRoleconfiguration!: UserConfiguration[];
   role!: Roles[];
   isChecked!: boolean;
-  allUser!: UserConfiguration[];
   UsersByCompanyId!: UserConfiguration[];
+  assignUserList!: UserConfiguration[];
+  allUsers!: UserConfiguration[];
   loggedInUser!: User;
   branch!: Branch[];
   companyName!: string;
   branchId!: number;
-  addRoleData!: UserConfiguration;
+  addRoleData!: Demo[];
+  districts!: District[];
+  province!: Province[];
+
+  branchUsers!: BranchConfig[];
+
+  // for testing
+
+  selectedUserId!: number;
+  selectedUser!: string;
+  selectedRoleId!: number;
+  localStorageCompanyId!: number;
 
   BranchRegistrationForm = new FormGroup({
     BranchName: new FormControl('', [Validators.required]),
@@ -42,19 +60,22 @@ export class HeaderComponent {
   constructor(
     private userConfigurationService: UserConfigurationService,
     private loginService: LoginService,
-    private branchService: BranchService
+    private branchService: BranchService,
+    private districtAndProvinceService: DistrictAndProvinceService,
+    private roleService: RoleService
   ) {}
 
   ngOnInit() {
     const data = localStorage.getItem('companyDetails');
     const parsedData = JSON.parse(data || '{}');
     const { companyId } = parsedData;
+    this.localStorageCompanyId = companyId;
     const { name } = parsedData;
     this.companyName = name;
     this.userConfigurationService
-      .getUserConfiguration(companyId)
+      .getUserRoleDetailsBasedOnCompanyId(this.localStorageCompanyId)
       .subscribe((res) => {
-        this.userconfiguration = res.data;
+        this.userRoleconfiguration = res.data;
       });
 
     this.userConfigurationService.getRoles().subscribe((res) => {
@@ -62,23 +83,41 @@ export class HeaderComponent {
     });
 
     this.userConfigurationService.getAllUser().subscribe((res) => {
-      this.allUser = res.data;
-      console.log('all Users');
-      console.log(this.allUser);
+      this.allUsers = res.data;
+      console.log('All Users');
+      console.log(this.allUsers);
     });
-
     this.loginService.userObservable.subscribe((user) => {
       this.loggedInUser = user;
     });
 
-    this.branchService.getBranchDetails(companyId).subscribe((res) => {
-      this.branch = res.data;
-    });
+    this.branchService
+      .getBranchDetails(this.localStorageCompanyId)
+      .subscribe((res) => {
+        this.branch = res.data;
+      });
 
     this.userConfigurationService
-      .getUsersByCompanyId(companyId)
+      .getUsersByCompanyId(this.localStorageCompanyId)
       .subscribe((res) => {
         this.UsersByCompanyId = res.data;
+      });
+
+    this.districtAndProvinceService.getAllProvince().subscribe((res) => {
+      console.log(res.data);
+      this.province = res.data;
+    });
+
+    this.branchService
+      .getUserForAssignBranchList(this.localStorageCompanyId)
+      .subscribe((res) => {
+        this.assignUserList = res.data;
+      });
+
+    this.branchService
+      .getBranchUsersByCompanyId(this.localStorageCompanyId)
+      .subscribe((res) => {
+        this.branchUsers = res.data;
       });
   }
 
@@ -139,20 +178,42 @@ export class HeaderComponent {
       });
   }
 
-  onRoleChecked(userId: number, roleId: number) {
-    this.userConfigurationService
-      .updateUserRole(userId, roleId)
+  onRoleInConfigurationChecked(e: any, userId: number, roleId: number) {
+    let status = e.target.checked;
+    const data = localStorage.getItem('companyDetails');
+    const parsedData = JSON.parse(data || '{}');
+    const { companyId } = parsedData;
+    this.roleService
+      .updateUserRoleStatus(status, userId, companyId, roleId)
       .subscribe((res) => {
         console.log(res);
       });
   }
 
-  onAssignedRoleChecked(userId: number, roleId: number) {
-    alert('Assign Role Changed');
+  onRoleChecked(e: any, roleId: number) {
+    alert('Are You Sure');
+
+    let status = e.target.checked;
+    console.log(status);
+
+    if (status === true) {
+      this.roleService
+        .addToUserRole(this.selectedUserId, this.localStorageCompanyId, roleId)
+        .subscribe((res) => {
+          console.log(res);
+        });
+    }
+    if (status === false) {
+      alert('You Have Already Added This Role');
+    }
   }
 
-  hasRole(roleName: string): boolean {
-    return this.userconfiguration.some((user) => user.role.includes(roleName));
+  hasRole(roleName: string) {
+    if (!this.addRoleData) {
+      return;
+    } else {
+      return this.addRoleData.some((user) => user.role.includes(roleName));
+    }
   }
 
   onClicked() {
@@ -161,7 +222,7 @@ export class HeaderComponent {
 
   onAssignCompanyChange(e: any, userId: number) {
     let status = e.target.checked;
-
+    alert('Are You Sure You Cannot Revert This');
     if (status == true) {
       let companyId = this.loginService.getCompnayId();
       this.userConfigurationService
@@ -169,6 +230,13 @@ export class HeaderComponent {
         .subscribe((res) => {
           console.log(res);
         });
+      this.roleService.addToUserRole(userId, companyId, 2).subscribe((res) => {
+        console.log(res);
+      });
+    }
+    if (status === false) {
+      alert('You Have Already Assigned the User');
+      return;
     }
   }
 
@@ -198,9 +266,17 @@ export class HeaderComponent {
     window.location.reload();
   }
 
-  addRole(userConfig: UserConfiguration) {
-    this.addRoleData = userConfig;
-    console.log(this.addRoleData.firstName);
+  addRole(userId: number, firstName: string, lastName: string) {
+    this.selectedUser = firstName + ' ' + lastName;
+    this.selectedUserId = userId;
+    this.roleService
+      .getUserRoleDetailsBasedOnCompanyIdAndUserId(
+        this.localStorageCompanyId,
+        userId
+      )
+      .subscribe((res) => {
+        this.addRoleData = res.data;
+      });
   }
 
   onAssignBranchChange(e: any, userId: number) {
@@ -216,5 +292,28 @@ export class HeaderComponent {
 
   onAssinBranchButtonClick(branchId: number) {
     this.branchId = branchId;
+  }
+
+  stateChange(data: string) {
+    const provinceId = parseInt(data, 10);
+    this.districtAndProvinceService
+      .getDistrictByProvinceId(provinceId)
+      .subscribe((res) => {
+        this.districts = res.data;
+      });
+  }
+
+  onBranchCheckboxChanged(e: any, userId: number, branchId: number) {
+    let status = e.target.checked;
+    alert('Are You Sure');
+    this.branchService
+      .enableDisableUser(status, userId, this.localStorageCompanyId, branchId)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 }

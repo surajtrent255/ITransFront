@@ -5,7 +5,6 @@ import { Observable, tap } from 'rxjs';
 import {
   ADD_COMPANY_URL,
   COMPANY_BASE_URL,
-  UPDATE_USER_COMPANY_URL,
   USER_COMPANY_URL,
 } from 'src/app/constants/urls';
 
@@ -20,7 +19,7 @@ export class CompanyServiceService {
   constructor(
     private httpClient: HttpClient,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   getCompnayDetails(user_id: number): Observable<any> {
     console.log('get company hit');

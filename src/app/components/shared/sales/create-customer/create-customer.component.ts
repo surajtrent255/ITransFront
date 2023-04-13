@@ -1,4 +1,10 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
@@ -8,22 +14,21 @@ import { LoginService } from 'src/app/service/shared/login.service';
 @Component({
   selector: 'app-create-customer',
   templateUrl: './create-customer.component.html',
-  styleUrls: ['./create-customer.component.css']
+  styleUrls: ['./create-customer.component.css'],
 })
 export class CreateCustomerComponent {
-
-  company: Company = new Company;
+  company: Company = new Company();
   user: User = new User();
-  user_id !: number;
+  user_id!: number;
 
-  @ViewChild('closeCustomer') closeCustomer !: ElementRef;
+  @ViewChild('closeCustomer') closeCustomer!: ElementRef;
 
   @Output() customerAddedSuccessMsg = new EventEmitter<boolean>(false);
 
   constructor(
     private loginService: LoginService,
     private companyService: CompanyServiceService
-  ) { }
+  ) {}
 
   CompanyRegistrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -44,11 +49,11 @@ export class CreateCustomerComponent {
       console.log(this.user.user.id);
     });
     console.log(this.CompanyRegistrationForm);
-    console.log("*******************")
+    console.log('*******************');
     this.companyService
       .addCompany(
         {
-          id: 0,
+          companyId: 0,
           name: this.CompanyRegistrationForm.value.name!,
           description: this.CompanyRegistrationForm.value.description!,
           panNo: this.CompanyRegistrationForm.value.panNo!,
@@ -58,7 +63,7 @@ export class CreateCustomerComponent {
           munVdc: this.CompanyRegistrationForm.value.munVdc!,
           wardNo: this.CompanyRegistrationForm.value.wardNo!,
           phone: this.CompanyRegistrationForm.value.phone!,
-          customer: true!
+          customer: true!,
         },
         this.user_id
       )
@@ -66,10 +71,6 @@ export class CreateCustomerComponent {
         const button = this.closeCustomer.nativeElement;
         button.click();
         this.customerAddedSuccessMsg.emit(true);
-
       });
   }
-
-
-
 }

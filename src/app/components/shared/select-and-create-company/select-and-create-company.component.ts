@@ -2,12 +2,17 @@ import { JsonPipe } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { District } from 'src/app/models/District';
+import { Province } from 'src/app/models/Province';
 import { SavedUserData } from 'src/app/models/SavedUserData';
 import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
+import { UserConfiguration } from 'src/app/models/user-configuration';
 import { BranchService } from 'src/app/service/shared/branch.service';
 import { CompanyServiceService } from 'src/app/service/shared/company-service.service';
+import { DistrictAndProvinceService } from 'src/app/service/shared/district-and-province.service';
 import { LoginService } from 'src/app/service/shared/login.service';
+import { RoleService } from 'src/app/service/shared/role.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
 
 @Component({
@@ -23,6 +28,8 @@ export class SelectAndCreateCompanyComponent {
   user!: User;
   user_id!: number;
   company!: Company[];
+  districts!: District[];
+  province!: Province[];
 
   CompanyRegistrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -39,10 +46,10 @@ export class SelectAndCreateCompanyComponent {
   constructor(
     private companyService: CompanyServiceService,
     private loginService: LoginService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private userConfiguarationSerivice: UserConfigurationService,
-    private branchService: BranchService
+    private branchService: BranchService,
+    private districtAndProvinceService: DistrictAndProvinceService,
+    private roleService: RoleService
   ) {}
 
   ngOnInit() {
@@ -52,6 +59,11 @@ export class SelectAndCreateCompanyComponent {
     this.companyService.getCompnayDetails(this.user_id).subscribe((res) => {
       this.company = res.data;
       localStorage.setItem('companyDetails', JSON.stringify(res.data));
+    });
+
+    this.districtAndProvinceService.getAllProvince().subscribe((res) => {
+      console.log(res.data);
+      this.province = res.data;
     });
   }
 
@@ -97,10 +109,11 @@ export class SelectAndCreateCompanyComponent {
       this.user_id = loginUser.user.id;
       console.log(this.user.user.id);
     });
+    console.log(this.CompanyRegistrationForm.value);
     this.companyService
       .addCompany(
         {
-          id: 0,
+          companyId: 0,
           name: this.CompanyRegistrationForm.value.name!,
           description: this.CompanyRegistrationForm.value.description!,
           panNo: this.CompanyRegistrationForm.value.panNo!,
@@ -117,7 +130,7 @@ export class SelectAndCreateCompanyComponent {
       .subscribe(() => {
         window.location.reload();
       });
-    this.userConfiguarationSerivice.updateUserRole(this.user_id, 1);
+    // this.userConfiguarationSerivice.updateUserRole(this.user_id, 1);
   }
 
   proceed(company: any) {
@@ -129,9 +142,18 @@ export class SelectAndCreateCompanyComponent {
           localStorage.setItem('BranchDetails', JSON.stringify(res.data));
         }
         if (!res.data || Object.keys(res.data).length === 0) {
-          alert('No Branch is Assigned For This Company');
+          alert('You Are Not Assigned To any Branch');
         }
         this.router.navigateByUrl('/dashboard/demo');
+      });
+  }
+
+  stateChange(data: string) {
+    const provinceId = parseInt(data, 10);
+    this.districtAndProvinceService
+      .getDistrictByProvinceId(provinceId)
+      .subscribe((res) => {
+        this.districts = res.data;
       });
   }
 }

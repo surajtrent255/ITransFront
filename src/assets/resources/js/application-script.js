@@ -1032,7 +1032,7 @@ $(function () {
           } else {
             createNewAttr(
               "createNewProductPopup",
-              "createNewAssignPopup",
+
               "assignNewBranchPopup",
               "newproductattr",
               "AddNewUserPopup",
@@ -1402,24 +1402,8 @@ $(function () {
       } else {
         createNewAttr(
           "createNewProductPopup",
-          "createNewAssignPopup",
           "AddNewUserPopup",
           "assignNewBranchPopup",
-          "newproductattr",
-          "prodAttributes"
-        );
-      }
-    } else if (recordTypeId == "createNewAssign") {
-      $("#createProduct input#proStartDate").val($("#defStartDate").text());
-      $("#createProduct input#proEndDate").val($("#defEndDate").text());
-      if ($("#val_newproductattr").children().length == 0) {
-        popProductAttributes();
-      } else {
-        createNewAttr(
-          "createNewProductPopup",
-          "createNewAssignPopup",
-          "AddNewUserPopup",
-
           "newproductattr",
           "prodAttributes"
         );

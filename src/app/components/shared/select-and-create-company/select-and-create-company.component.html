@@ -149,19 +149,25 @@
 
             <tr>
               <td class="col1">State:<span class="mandatorySign"></span></td>
-
-              <td class="col3">
-                <input
-                  type="number"
-                  class="inputText mandatory"
+              <div style="padding-left: 4.5px">
+                <select
                   formControlName="state"
-                  title="Enter Text"
-                  id="custPartName"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid State.</span
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 300px"
+                  #selected
+                  (change)="stateChange(selected.value)"
                 >
-              </td>
+                  <option selected disabled>Select the state</option>
+                  <option
+                    *ngFor="let province of province"
+                    value="{{ province.provinceId }}"
+                  >
+                    {{ province.provinceName }}
+                  </option>
+                </select>
+              </div>
+
               <td class="col3"></td>
             </tr>
             <div class="cboth"></div>
@@ -184,19 +190,23 @@
             </tr>
             <tr>
               <td class="col1">District:<span class="mandatorySign"></span></td>
-
-              <td class="col3">
-                <input
-                  type="text"
-                  class="inputText mandatory"
+              <div style="padding-left: 4.5px">
+                <select
                   formControlName="district"
-                  title="Enter Text"
-                  id="custPartName"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid District name.</span
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 300px"
+                  #selected
                 >
-              </td>
+                  <option
+                    *ngFor="let district of districts"
+                    value="{{ district.districtName }}"
+                  >
+                    {{ district.districtName }}
+                  </option>
+                </select>
+              </div>
+
               <td class="col3"></td>
             </tr>
 

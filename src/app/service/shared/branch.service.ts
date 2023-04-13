@@ -4,8 +4,11 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, tap } from 'rxjs';
 import {
   ASSIGN_BRANCH_TO_USER,
+  ENABLE_DISABLE_BRANCH_USER,
   GET_BRANCH_DETAILS,
   GET_BRANCH_DETAILS_BY_USERID_COMPANYID,
+  GET_BRANCH_USERS,
+  GET_USER_FOR_ASSIGN_BRANCH_LIST,
 } from 'src/app/constants/urls';
 import { Branch } from 'src/app/models/Branch';
 
@@ -65,6 +68,28 @@ export class BranchService {
   ): Observable<any> {
     return this.http.get(
       `${GET_BRANCH_DETAILS_BY_USERID_COMPANYID}?companyId=${compayId}&userId=${userId}`
+    );
+  }
+
+  getBranchUsersByCompanyId(companyId: number): Observable<any> {
+    return this.http.get(`${GET_BRANCH_USERS}?companyId=${companyId}`);
+  }
+
+  enableDisableUser(
+    status: boolean,
+    userId: number,
+    companyId: number,
+    branchId: number
+  ): Observable<any> {
+    return this.http.put(
+      `${ENABLE_DISABLE_BRANCH_USER}?status=${status}&userId=${userId}&companyId=${companyId}&branchId=${branchId}`,
+      ''
+    );
+  }
+
+  getUserForAssignBranchList(companyId: number): Observable<any> {
+    return this.http.get(
+      `${GET_USER_FOR_ASSIGN_BRANCH_LIST}?companyId=${companyId}`
     );
   }
 }

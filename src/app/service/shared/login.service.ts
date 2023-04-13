@@ -109,4 +109,14 @@ export class LoginService {
     if (companyJson) return JSON.parse(companyJson) as Company;
     return new Company();
   }
+
+  logout() {
+    this.userSubject.next(new User());
+    localStorage.removeItem(USER_KEY);
+    localStorage.removeItem('companyDetails');
+    localStorage.removeItem('BranchDetails');
+    localStorage.removeItem('Company');
+    localStorage.removeItem(USER_TOKEN);
+    window.location.reload();
+  }
 }
