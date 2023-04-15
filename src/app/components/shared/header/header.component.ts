@@ -241,13 +241,10 @@ export class HeaderComponent {
   }
 
   registerBranch() {
-    const data = localStorage.getItem('companyDetails');
-    const parsedData = JSON.parse(data || '{}');
-    const { companyId } = parsedData;
     this.branchService
       .addBranch({
         id: 0,
-        companyId: companyId,
+        companyId: this.localStorageCompanyId,
         name: this.BranchRegistrationForm.value.BranchName!,
         abbrv: this.BranchRegistrationForm.value.BranchAbbvr!,
         description: this.BranchRegistrationForm.value.BranchDescription!,

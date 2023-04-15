@@ -48,8 +48,7 @@ export class SelectAndCreateCompanyComponent {
     private loginService: LoginService,
     private router: Router,
     private branchService: BranchService,
-    private districtAndProvinceService: DistrictAndProvinceService,
-    private roleService: RoleService
+    private districtAndProvinceService: DistrictAndProvinceService
   ) {}
 
   ngOnInit() {
