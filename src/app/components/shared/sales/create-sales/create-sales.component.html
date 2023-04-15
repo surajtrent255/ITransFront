@@ -1,7 +1,9 @@
 <div class="contentRecordsTableContainer MainContainer">
   <div class="recordTableWrapper">
     <div class="recordCategory">
-      <h2 class="text-center" id="totalGroupCombinations">Create Sales</h2>
+      <h2 class="text-center" id="totalGroupCombinations">
+        Create Sales {{ customerCompany | json }}
+      </h2>
       <div class="cboth"></div>
     </div>
 
@@ -16,7 +18,7 @@
           <div class="row">
             <div class="col-md-3">
               <span class="inputItems">To:</span>
-              <!-- <Select
+              <Select
                 style="width: 70%"
                 class="inputItems"
                 id="customerSelect"
@@ -26,21 +28,14 @@
                   ------------------------------------
                 </option>
                 <option
+                  [selected]="company.companyId === customerId"
                   style="color: green"
                   *ngFor="let company of selectMenusForCompanies"
                   value="{{ company.panNo }}"
                 >
                   {{ company.name }}
                 </option>
-              </Select> -->
-              <ng-select
-                [items]="selectMenusForCompanies"
-                placeholder="Select an option"
-              >
-                <ng-option *ngFor="let comp of selectMenusForCompanies">{{
-                  comp.name
-                }}</ng-option>
-              </ng-select>
+              </Select>
             </div>
             <div
               class="col-md-3"
@@ -74,7 +69,7 @@
               <input
                 class="inputItems input-field"
                 id="date"
-                (change)="getBillDate($event)"
+                [(ngModel)]="date"
                 type="date"
               />
             </div>
@@ -90,7 +85,7 @@
               <input
                 class="inputItems input-field"
                 type="text"
-                value="Branch Satdobato"
+                [ngModel]="currentBranch"
                 readonly
               />
             </div>
@@ -120,6 +115,7 @@
                       margin-left: 3px;
                     "
                     name="discountType"
+                    [checked]="discountApproachSelect === 1"
                     (change)="getDiscountMethod(1)"
                   />
                 </div>
@@ -128,7 +124,7 @@
                     type="radio"
                     style="margin-top: 8px; display: inline-block"
                     name="discountType"
-                    checked
+                    [checked]="discountApproachSelect === 2"
                     (change)="getDiscountMethod(2)"
                   />
                   <label
@@ -137,7 +133,7 @@
                       margin-left: 3px;
                       display: inline-block;
                     "
-                    >OverAll Discountt</label
+                    >OverAll Discount</label
                   >
                 </div>
               </div>
@@ -153,12 +149,13 @@
               <span style="text-align: right"
                 >Amounts are:
                 <select
+                  [(ngModel)]="taxApproachSelectEl"
                   name="taxType"
                   class="input-field"
                   id="taxType"
                   (change)="getApproach($event)"
                 >
-                  <option value="1" selected>Tax Inclusive</option>
+                  <option value="1">Tax Inclusive</option>
                   <option value="2">Tax Exclusive</option>
                 </select>
               </span>
@@ -269,6 +266,7 @@
                   </td>
                   <td>
                     <select
+                      [(ngModel)]="selectedValueForTaxRateTypes"
                       name=""
                       id="vatRateTypes{{ prod.id }}"
                       (change)="updateTotalAmount(prod)"
@@ -276,7 +274,6 @@
                       <option
                         *ngFor="let vat of vatRateTypes"
                         value="{{ vat.id }}"
-                        [selected]="vat.id === 3"
                       >
                         {{ vat.vatRate }}
                       </option>

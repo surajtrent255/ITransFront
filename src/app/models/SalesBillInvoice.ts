@@ -7,4 +7,5 @@ export class SalesBillInvoice {
   salesBillDTO: SalesBill = new SalesBill;
   salesBillDetailsWithProd !: SalesBillDetailWithProdInfo[];
   sellerCompany !: Company;
+  customerAddress!: string
 }

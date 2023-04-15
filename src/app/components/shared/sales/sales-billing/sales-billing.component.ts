@@ -44,12 +44,13 @@ export class SalesBillingComponent {
     })
   }
   ApproveTheBill(id: number) {
-    this.salesBillService.approveTheBill(id).subscribe({
-      next: (data) => { },
-      complete: () => {
-        this.getSalesBillForCompanyBranch();
-      }
-    })
+    this.router.navigateByUrl(`dashboard/salesbill/create?id=${id}`);
+    // this.salesBillService.approveTheBill(id).subscribe({
+    //   next: (data) => { },
+    //   complete: () => {
+    //     this.getSalesBillForCompanyBranch();
+    //   }
+    // })
   }
 
   cancelTheBill(id: number) {
@@ -190,29 +191,7 @@ export class SalesBillingComponent {
     }
   }
 
-  printTheBill($event: string) {
-    let userId = this.loggedUser.user.id;
-    let billNo = $event;
-    this.salesBillService.printTheBill(billNo, userId).subscribe((data) => {
-      console.log(data.data);
-      Swal.fire({
-        title: 'Done !',
-        text: 'printing info is updated successfully',
-        icon: 'success',
-        showConfirmButton: true
-      }).then(() => {
-        this.activeSalesBillEntry = false;
-        this.activeSaleBillInvoice = false;
-      })
-    }, (error) => {
-      Swal.fire({
-        title: 'Error occured',
-        text: 'Error has been occured while printing the bill',
-        icon: 'error',
-        showCancelButton: true,
-      })
-    })
-  }
+
 
   createNewSaleBill() {
     this.router.navigateByUrl("dashboard/salesbill/create")

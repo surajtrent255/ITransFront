@@ -129,7 +129,6 @@ export class SelectAndCreateCompanyComponent {
       .subscribe(() => {
         window.location.reload();
       });
-    // this.userConfiguarationSerivice.updateUserRole(this.user_id, 1);
   }
 
   proceed(company: any) {

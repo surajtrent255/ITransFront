@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/Product';
 import { SalesBill } from 'src/app/models/SalesBill';
 import { SalesBillDetail } from 'src/app/models/SalesBillDetail';
@@ -17,6 +17,9 @@ import { LoginService } from 'src/app/service/shared/login.service';
 import { SalesCartService } from 'src/app/service/shared/sales-cart-service.service';
 import { VatRateTypesService } from 'src/app/service/shared/vat-rate-types.service';
 import Swal from 'sweetalert2';
+import { SalesBillInvoice } from 'src/app/models/SalesBillInvoice';
+import { RJResponse } from 'src/app/models/rjresponse';
+import { SalesBillDetailWithProdInfo } from 'src/app/models/SalesBillDetailWithProdInfo';
 
 @Component({
   selector: 'app-create-sales',
@@ -35,7 +38,10 @@ export class CreateSalesComponent {
 
   productBarCodeId: undefined | number;
   productsUserWantTosale: Product[] = [];
+
   productQtyUserWantTOSale: number = 1;
+
+  customerCompany !: Company;
   customerId!: number;
   customerName!: string;
   customerPan!: number;
@@ -45,14 +51,20 @@ export class CreateSalesComponent {
   vatRateTypes: VatRateTypes[] = [];
   discountReadOnly: boolean = true;
 
+  discountApproachSelect: number = 2;
+
   taxApproach: number = 1;
 
-  date !: Date;
-
+  currentBranch !: string;
+  date !: string;
   // isconfirmAlert: boolean = false;
   // alertboxshowable: boolean = true;
   companyId!: number;
   branchId !: number;
+
+  alreadyDraft: number = 0;
+  selectedValueForTaxRateTypes: number = 3;
+  taxApproachSelectEl: number = 2;
 
   constructor(
     private salesCartService: SalesCartService,
@@ -62,14 +74,75 @@ export class CreateSalesComponent {
     private loginService: LoginService,
     private companyService: CompanyServiceService,
     private vatRateTypeService: VatRateTypesService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
+    this.currentBranch = "Branch " + this.branchId;
+    let billId: number = this.activatedRoute.snapshot.queryParams['id'];
+    if (billId > 0) {
+      this.alreadyDraft = billId;
+      this.fetchSalesBillDraftInvoice(billId)
+    }
     this.getCompanyList();
     this.getVatRateTypes();
+
   }
+
+  fetchSalesBillDraftInvoice(billId: number) {
+    this.salesBillService.fetchSalesBillDetailForInvoice(billId).subscribe({
+      next: (data: RJResponse<SalesBillInvoice>) => {
+        // alert(data.data.salesBillDTO.draft);
+        let salesBillInvoice: SalesBillInvoice = data.data;
+
+        // this.date = data.data.salesBillDTO.billDate.toISOString().substring(0, 10);
+        this.date = new Date(salesBillInvoice.salesBillDTO.billDate).toISOString().substring(0, 10)
+        this.customerId = salesBillInvoice.salesBillDTO.customerId;
+        this.taxApproachSelectEl = salesBillInvoice.salesBillDTO.taxApproach;
+        this.getDiscountMethod(salesBillInvoice.salesBillDTO.taxApproach);
+
+        this.customerId = salesBillInvoice.salesBillDTO.customerId
+        this.customerName = salesBillInvoice.salesBillDTO.customerName;
+        this.customerPan = salesBillInvoice.salesBillDTO.customerPan;
+
+        let productsIds: number[] = []
+        salesBillInvoice.salesBillDetailsWithProd.forEach(prod => {
+          productsIds.push(prod.productId);
+        })
+
+        this.productService.getProductsByProductIds(productsIds).subscribe({
+          next: (data) => {
+
+            this.productsUserWantTosale = data.data
+            setTimeout(() => {
+
+              this.manipulateDomItemsForDraft(salesBillInvoice.salesBillDetailsWithProd);
+
+            })
+          }
+        })
+
+      }
+    })
+  }
+  manipulateDomItemsForDraft(salesBillDetailsWithProd: SalesBillDetailWithProdInfo[]) {
+    this.productsUserWantTosale.forEach((prod) => {
+      const qtyEl = document.getElementById(`qtyProd${prod.id}`) as HTMLInputElement;
+      const discountEl = document.getElementById(`discountPerc${prod.id}`) as HTMLInputElement;
+      const totalAmountEl = document.getElementById(`totalAmount${prod.id}`) as HTMLElement;
+
+
+      let salesProd: SalesBillDetailWithProdInfo = salesBillDetailsWithProd.find((sp) => sp.productId === prod.id)!;
+      this.selectedValueForTaxRateTypes = salesProd.taxRate;
+      qtyEl.value = String(salesProd.qty);
+      discountEl.value = String(salesProd.discountPerUnit);
+      totalAmountEl.innerText = String(salesProd.rowTotal);
+
+    })
+  }
+
 
 
 
@@ -90,7 +163,7 @@ export class CreateSalesComponent {
   setCustomerInfo($event: any) {
     let a = $event.target.value;
     let comp: Company = this.selectMenusForCompanies.find(comp => Number(comp.panNo) === Number(a))!
-    this.customerId = Number(comp.panNo);
+    this.customerId = comp.companyId;
     this.customerName = comp.name;
     this.customerPan = Number(comp.panNo);
   }
@@ -116,15 +189,15 @@ export class CreateSalesComponent {
     })
   }
 
-  getBillDate($event: any) {
-    this.date = new Date($event.target.value);
-  }
 
   getDiscountMethod(id: number) {
     if (id === 1) {
+      this.discountApproachSelect = 1
       this.discountReadOnly = false;
 
+
     } else if (id == 2) {
+      this.discountApproachSelect = 2
       this.discountReadOnly = true;
       this.productsUserWantTosale.forEach(prod => {
         const discountInputElement = document.getElementById(`discountPerc${prod.id}`) as HTMLInputElement;
@@ -302,7 +375,6 @@ export class CreateSalesComponent {
 
       const totalAmountEl = document.getElementById(`totalAmount${prod.id}`) as HTMLElement;
       saleBillDetail.rowTotal = Number(totalAmountEl.innerText);
-      saleBillDetail.date = this.date;
       saleBillDetail.companyId = this.loginService.getCompnayId();//backend mai set gar
 
       // for accessing tax rate type
@@ -311,7 +383,7 @@ export class CreateSalesComponent {
 
 
       saleBillDetail.branchId = this.branchId; //backendma set gar
-      saleBillDetail.date = new Date() //backend ma set gar
+      saleBillDetail.date = new Date(this.date) //backend ma set gar
       saleBillDetail.rate = prod.sellingPrice;
       this.salesBillDetailInfos.push(saleBillDetail);
     });
@@ -346,7 +418,7 @@ export class CreateSalesComponent {
     salesBill.billPrinted = false;
     salesBill.enteredBy = this.loginService.currentUser.user.email;
     salesBill.paymentMethod = 'CashInHand';
-    salesBill.billDate = this.date;
+    salesBill.billDate = new Date(this.date);
 
     salesBill.userId = this.loginService.currentUser.user.id;
     salesBill.companyId = this.loginService.getCompnayId();
@@ -355,9 +427,11 @@ export class CreateSalesComponent {
     salesBill.billActive = true;
     salesBill.draft = draft;
     salesBill.taxApproach = this.taxApproach;
+    salesBill.discountApproach = this.discountApproachSelect;
     // salesBill.draft  = true mjremain
     salesBillMaster.salesBillDTO = salesBill;
     salesBillMaster.salesBillDetails = salesBillDetailInfos;
+    salesBillMaster.alreadyDraft = this.alreadyDraft;
     console.log(salesBillMaster)
     console.log("ales bill master **********************")
     this.salesBillService.createNewSalesBill(salesBillMaster).subscribe({

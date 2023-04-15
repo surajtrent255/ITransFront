@@ -9,4 +9,5 @@ export class SalesBillDetailWithProdInfo {
   companyId !: number;
   productName !: string;
   rowTotal !: number;
+  taxRate !: number;
 }

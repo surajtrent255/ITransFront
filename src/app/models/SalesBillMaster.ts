@@ -5,6 +5,7 @@ export class SalesBillMaster {
 
   salesBillDTO !: SalesBill;
   salesBillDetails !: SalesBillDetail[]
+  alreadyDraft !: number;
   // productId !: number;
   // qty !: number;
   // date !: Date;//

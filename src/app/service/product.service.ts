@@ -48,4 +48,9 @@ export class ProductService {
     let url = `${BASE_URL}/product/${id}`;
     return this.httpClient.delete(url);
   }
+
+  getProductsByProductIds(productsIds: number[]): Observable<RJResponse<Product[]>> {
+    let url = `${BASE_URL}/product/getProductsByIds?productsIds=${productsIds}`;
+    return this.httpClient.get<RJResponse<Product[]>>(url);
+  }
 }

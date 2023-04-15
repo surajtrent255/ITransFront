@@ -220,14 +220,7 @@
                 >
                   Total Amount
                 </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="salesBill_group_name"
-                  id="discount"
-                >
-                  Status
-                </th>
+
                 <th
                   class="sortable"
                   sortDir="asc"
@@ -252,6 +245,7 @@
                 >
                   printedTime
                 </th>
+                <th>Status</th>
                 <th
                   class="sortable"
                   sortDir="asc"
@@ -277,19 +271,27 @@
                   {{ salesBill.draft }}
 
                   <i
-                    *ngIf="salesBill.draft"
+                    *ngIf="salesBill.draft && salesBill.status"
                     class="fas fa-hand-pointer"
                     aria-hidden="true"
                     style="float: right"
                     (click)="ApproveTheBill(salesBill.id)"
                   >
-                    Approve</i
+                    Inspect
+                  </i>
+
+                  <i
+                    *ngIf="salesBill.draft && salesBill.status === false"
+                    class="fas fa-hand-pointer"
+                    aria-hidden="true"
+                    style="float: right; text-decoration: line-through"
                   >
+                    Inspect
+                  </i>
                 </td>
                 <td>{{ salesBill.fiscalYear }}</td>
                 <td>{{ salesBill.customerName }}</td>
                 <td>{{ salesBill.taxAmount }}</td>
-                <td>{{ salesBill.status }}</td>
                 <td>{{ salesBill.taxAmount }}</td>
                 <td>{{ salesBill.syncWithIrd }}</td>
                 <td>
@@ -298,6 +300,21 @@
                       ? (salesBill.printedTime | date)
                       : "not yet"
                   }}
+                </td>
+                <td>
+                  <span
+                    *ngIf="salesBill.status && salesBill.draft"
+                    style="color: orange"
+                    >DRAFT</span
+                  >
+                  <span
+                    *ngIf="!salesBill.draft && salesBill.status"
+                    style="color: green"
+                    >ACTIVE</span
+                  >
+                  <span *ngIf="!salesBill.status" style="color: red"
+                    >CANCELED</span
+                  >
                 </td>
                 <td class="last-child">
                   <!-- <a href="" id="editSalesBill" class="createNewTableRecord">

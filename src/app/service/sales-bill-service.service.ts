@@ -28,13 +28,19 @@ export class SalesBillServiceService {
     return this.http.post<RJResponse<number>>(url, salesBillMasterInfo);
   }
 
+  getBillDetailById(billId: number): Observable<RJResponse<SalesBillDetail[]>> {
+    let url = `${BASE_URL}/salesBillDetail/getByBillId?billId=${billId}`;
+    return this.http.get<RJResponse<SalesBillDetail[]>>(url);
+
+
+  }
   fetchSalesBillDetailForInvoice(billId: number): Observable<RJResponse<SalesBillInvoice>> {
     let url = `${BASE_URL}/salesBillDetail?billId=${billId}`;
     return this.http.get<RJResponse<SalesBillInvoice>>(url);
   }
 
-  printTheBill(billNo: string, printerId: number): Observable<RJResponse<number>> {
-    let url = `${BASE_URL}/salesBill/print/${billNo}`;
+  printTheBill(billId: number, printerId: number): Observable<RJResponse<number>> {
+    let url = `${BASE_URL}/salesBill/print/${billId}`;
     console.log("print url = " + url)
     return this.http.post<RJResponse<number>>(url, { "printerId": printerId });
   }

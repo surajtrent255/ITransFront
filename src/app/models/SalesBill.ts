@@ -13,6 +13,7 @@ export class SalesBill {
   billDate !: Date;//imp
   amount !: number;//imp
   discount !: number;//imp
+  discountApproach !: number;
   taxableAmount !: number;//imp
   taxAmount !: number;//imp
   totalAmount !: number;//imp
