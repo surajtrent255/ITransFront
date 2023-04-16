@@ -605,7 +605,7 @@
           type="submit"
           value="OK"
           class="submit_btn border-rad"
-          (click)="onClicked()"
+          (click)="onClicked($event)"
           id="addProduct"
         />
         <input
@@ -706,11 +706,11 @@
       </div>
       <div class="submitDiv tCenter">
         <input
-          type="button"
+          type="submit"
           value="Save"
           class="submit_btn border-rad"
-          (click)="onClicked()"
-          id="configurationBtn"
+          (click)="onAssignCompanySaveClicked($event)"
+          id=""
         />
         <input
           type="button"
@@ -1037,7 +1037,7 @@
           type="submit"
           value="OK"
           class="submit_btn border-rad"
-          (click)="onClicked()"
+          (click)="onClicked($event)"
           id=""
         />
         <input

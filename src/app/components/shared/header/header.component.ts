@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Branch } from 'src/app/models/Branch';
@@ -23,7 +22,6 @@ import { UserConfigurationService } from 'src/app/service/shared/user-configurat
 export class HeaderComponent {
   userRoleconfiguration!: UserConfiguration[];
   role!: Roles[];
-  isChecked!: boolean;
   UsersByCompanyId!: UserConfiguration[];
   assignUserList!: UserConfiguration[];
   allUsers!: UserConfiguration[];
@@ -43,6 +41,14 @@ export class HeaderComponent {
   selectedUser!: string;
   selectedRoleId!: number;
   localStorageCompanyId!: number;
+
+  // Role Testing
+  status!: boolean;
+  roleId!: number;
+
+  // Assign Company
+  assignCompanyStatus!: boolean;
+  assignCompanyUserId!: number;
 
   BranchRegistrationForm = new FormGroup({
     BranchName: new FormControl('', [Validators.required]),
@@ -191,21 +197,8 @@ export class HeaderComponent {
   }
 
   onRoleChecked(e: any, roleId: number) {
-    alert('Are You Sure');
-
-    let status = e.target.checked;
-    console.log(status);
-
-    if (status === true) {
-      this.roleService
-        .addToUserRole(this.selectedUserId, this.localStorageCompanyId, roleId)
-        .subscribe((res) => {
-          console.log(res);
-        });
-    }
-    if (status === false) {
-      alert('You Have Already Added This Role');
-    }
+    this.status = e.target.checked;
+    this.roleId = roleId;
   }
 
   hasRole(roleName: string) {
@@ -216,28 +209,53 @@ export class HeaderComponent {
     }
   }
 
-  onClicked() {
+  onClicked(e: any) {
+    if (this.status === true) {
+      this.roleService
+        .addToUserRole(
+          this.selectedUserId,
+          this.localStorageCompanyId,
+          this.roleId
+        )
+        .subscribe((res) => {
+          console.log(res);
+        });
+    }
+    if (this.status === false) {
+      alert('You Have Already Added This Role');
+    }
+
     window.location.reload();
   }
 
   onAssignCompanyChange(e: any, userId: number) {
-    let status = e.target.checked;
+    this.assignCompanyStatus = e.target.checked;
+    this.assignCompanyUserId = userId;
+  }
+
+  onAssignCompanySaveClicked(e: any) {
     alert('Are You Sure You Cannot Revert This');
-    if (status == true) {
+    console.log(this.assignCompanyStatus);
+    console.log(this.assignCompanyUserId);
+    if (this.assignCompanyStatus == true) {
       let companyId = this.loginService.getCompnayId();
       this.userConfigurationService
-        .assignCompanyToUser(companyId, userId)
+        .assignCompanyToUser(companyId, this.assignCompanyUserId)
         .subscribe((res) => {
           console.log(res);
         });
-      this.roleService.addToUserRole(userId, companyId, 2).subscribe((res) => {
-        console.log(res);
-      });
+      this.roleService
+        .addToUserRole(this.assignCompanyUserId, companyId, 2)
+        .subscribe((res) => {
+          console.log(res);
+        });
     }
-    if (status === false) {
-      alert('You Have Already Assigned the User');
+    if (this.assignCompanyStatus === false) {
+      alert('Please Try again');
       return;
     }
+
+    window.location.reload();
   }
 
   registerBranch() {

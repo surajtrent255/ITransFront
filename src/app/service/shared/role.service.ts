@@ -49,11 +49,9 @@ export class RoleService {
         tap({
           next: (respone) => {
             console.log(respone);
-            this.toastrService.success('Status Changed Successfully');
           },
           error: (err) => {
             console.log(err);
-            this.toastrService.error(err.error, 'Status Change Failed');
           },
         })
       );
