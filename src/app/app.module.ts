@@ -45,6 +45,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateCustomerComponent } from './components/shared/sales/create-customer/create-customer.component';
+import { SelectCustomerComponent } from './components/shared/select-customer/select-customer.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { CreateCustomerComponent } from './components/shared/sales/create-custom
     SalesBillEditComponent,
     NumberToWordTransformPipe,
     PopupComponent,
-    CreateCustomerComponent
+    CreateCustomerComponent,
+    SelectCustomerComponent
   ],
   imports: [
     BrowserModule,
