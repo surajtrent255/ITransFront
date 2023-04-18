@@ -88,9 +88,12 @@ export class CreateProductComponent {
     this.productService.addNewProduct(this.product).subscribe({
       next: (data) => {
         console.log(data.data);
+        this.toastrService.success("product has been added with id " + data.data)
+
       },
       error: (error) => {
         console.log('Error occured ');
+
       },
       complete: () => {
         this.productInfoEvent.emit(true);
@@ -98,5 +101,11 @@ export class CreateProductComponent {
     });
     console.log('product.component.ts');
     form.reset({ tax: 13, discount: 0 });
+  }
+
+  customerAdded($event) {
+    if ($event === true) {
+      this.toastrService.success("Customer Has been added ");
+    }
   }
 }

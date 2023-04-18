@@ -28,7 +28,7 @@ export class CreateCustomerComponent {
   constructor(
     private loginService: LoginService,
     private companyService: CompanyServiceService
-  ) {}
+  ) { }
 
   CompanyRegistrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
