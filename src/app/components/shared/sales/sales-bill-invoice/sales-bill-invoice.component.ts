@@ -54,8 +54,13 @@ export class SalesBillInvoiceComponent {
       },
       error: (error) => {
         console.log("error while printing bill");
+      },
+      complete: () => {
+        this.fetchSalesBillInvoice(billId);
       }
     })
+
+
   }
 
   ngOnDestroy() {

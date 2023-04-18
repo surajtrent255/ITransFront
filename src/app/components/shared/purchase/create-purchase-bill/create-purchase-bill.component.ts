@@ -22,6 +22,7 @@ export class CreatePurchaseBillComponent {
   productBarCodeId: undefined | number;
 
   companyId!: number;
+  branchId !: number;
   productsUserWantToPurchase: Product[] = [];
   purchaseBillDetailInfos: PurchaseBillDetail[] = [];
 
@@ -41,7 +42,7 @@ export class CreatePurchaseBillComponent {
       return;
     }
     this.productService
-      .getProductById(this.productBarCodeId)
+      .getProductById(this.productBarCodeId, this.companyId, this.branchId)
       .subscribe((data) => {
         if (data.data !== null) {
           this.productsUserWantToPurchase.push(data.data);
