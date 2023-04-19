@@ -1,8 +1,15 @@
 import { JsonPipe } from '@angular/common';
-import { Component, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { District } from 'src/app/models/District';
+import { Municipality } from 'src/app/models/Municipality';
 import { Province } from 'src/app/models/Province';
 import { SavedUserData } from 'src/app/models/SavedUserData';
 import { Company } from 'src/app/models/company';
@@ -14,6 +21,7 @@ import { DistrictAndProvinceService } from 'src/app/service/shared/district-and-
 import { LoginService } from 'src/app/service/shared/login.service';
 import { RoleService } from 'src/app/service/shared/role.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-select-and-create-company',
@@ -30,13 +38,17 @@ export class SelectAndCreateCompanyComponent {
   company!: Company[];
   districts!: District[];
   province!: Province[];
+  municipality!: Municipality[];
+
+  // for select  value Accquire
+  provinceId!: number;
+  districtId!: number;
 
   CompanyRegistrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     panNo: new FormControl(''),
     state: new FormControl('', [Validators.required]),
-    zone: new FormControl('', [Validators.required]),
     district: new FormControl('', [Validators.required]),
     munVdc: new FormControl('', [Validators.required]),
     wardNo: new FormControl('', [Validators.required]),
@@ -48,7 +60,8 @@ export class SelectAndCreateCompanyComponent {
     private loginService: LoginService,
     private router: Router,
     private branchService: BranchService,
-    private districtAndProvinceService: DistrictAndProvinceService
+    private districtAndProvinceService: DistrictAndProvinceService,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -117,7 +130,6 @@ export class SelectAndCreateCompanyComponent {
           description: this.CompanyRegistrationForm.value.description!,
           panNo: this.CompanyRegistrationForm.value.panNo!,
           state: this.CompanyRegistrationForm.value.state!,
-          zone: this.CompanyRegistrationForm.value.zone!,
           district: this.CompanyRegistrationForm.value.district!,
           munVdc: this.CompanyRegistrationForm.value.munVdc!,
           wardNo: this.CompanyRegistrationForm.value.wardNo!,
@@ -140,18 +152,29 @@ export class SelectAndCreateCompanyComponent {
           localStorage.setItem('BranchDetails', JSON.stringify(res.data));
         }
         if (!res.data || Object.keys(res.data).length === 0) {
-          alert('You Are Not Assigned To any Branch');
+          let branchStatus = [{ branchId: 0 }];
+          localStorage.setItem('BranchDetails', JSON.stringify(branchStatus));
         }
         this.router.navigateByUrl('/dashboard/demo');
       });
   }
 
   stateChange(data: string) {
-    const provinceId = parseInt(data, 10);
+    this.provinceId = parseInt(data, 10);
     this.districtAndProvinceService
-      .getDistrictByProvinceId(provinceId)
+      .getDistrictByProvinceId(this.provinceId)
       .subscribe((res) => {
         this.districts = res.data;
+      });
+  }
+
+  districtChange() {
+    let data = this.CompanyRegistrationForm.value.district!;
+    this.districtId = parseInt(data, 10);
+    this.districtAndProvinceService
+      .getAllmunicipality(this.provinceId, this.districtId)
+      .subscribe((res) => {
+        this.municipality = res.data;
       });
   }
 }

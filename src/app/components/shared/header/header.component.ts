@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Branch } from 'src/app/models/Branch';
 import { BranchConfig } from 'src/app/models/BranchConfig';
@@ -13,6 +13,8 @@ import { DistrictAndProvinceService } from 'src/app/service/shared/district-and-
 import { LoginService } from 'src/app/service/shared/login.service';
 import { RoleService } from 'src/app/service/shared/role.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
+import $ from 'jquery';
+import { Municipality } from 'src/app/models/Municipality';
 
 @Component({
   selector: 'app-header',
@@ -32,6 +34,7 @@ export class HeaderComponent {
   addRoleData!: Demo[];
   districts!: District[];
   province!: Province[];
+  municipality!: Municipality[];
 
   branchUsers!: BranchConfig[];
 
@@ -45,10 +48,23 @@ export class HeaderComponent {
   // Role Testing
   status!: boolean;
   roleId!: number;
+  PopupRoleId: number[] = [];
 
   // Assign Company
   assignCompanyStatus!: boolean;
   assignCompanyUserId!: number;
+
+  // for select  value Accquire
+  provinceId!: number;
+  districtId!: number;
+
+  // branch
+  branchUserId!: number;
+  branchUserTabStatus!: boolean;
+
+  // for User Configuration common tab
+  usersTabsStatus!: boolean;
+  userRoleTabStatus!: boolean;
 
   BranchRegistrationForm = new FormGroup({
     BranchName: new FormControl('', [Validators.required]),
@@ -56,7 +72,6 @@ export class HeaderComponent {
     BranchDescription: new FormControl(''),
     BranchPanNo: new FormControl(''),
     BranchState: new FormControl('', [Validators.required]),
-    BranchZone: new FormControl('', [Validators.required]),
     BranchDistrict: new FormControl('', [Validators.required]),
     BranchMunVdc: new FormControl('', [Validators.required]),
     BranchWardNo: new FormControl('', [Validators.required]),
@@ -71,6 +86,15 @@ export class HeaderComponent {
     private roleService: RoleService
   ) {}
 
+  @ViewChild('profile') profile!: ElementRef;
+  @ViewChild('profileCard') profileCard!: ElementRef;
+
+  ngAfterViewInit() {
+    $('.profile-button').on('click', function () {
+      $('.profile-card').toggleClass('active');
+    });
+  }
+
   ngOnInit() {
     const data = localStorage.getItem('companyDetails');
     const parsedData = JSON.parse(data || '{}');
@@ -78,52 +102,77 @@ export class HeaderComponent {
     this.localStorageCompanyId = companyId;
     const { name } = parsedData;
     this.companyName = name;
-    this.userConfigurationService
-      .getUserRoleDetailsBasedOnCompanyId(this.localStorageCompanyId)
-      .subscribe((res) => {
-        this.userRoleconfiguration = res.data;
-      });
 
     this.userConfigurationService.getRoles().subscribe((res) => {
       this.role = res.data;
     });
 
-    this.userConfigurationService.getAllUser().subscribe((res) => {
-      this.allUsers = res.data;
-      console.log('All Users');
-      console.log(this.allUsers);
-    });
     this.loginService.userObservable.subscribe((user) => {
       this.loggedInUser = user;
     });
 
-    this.branchService
-      .getBranchDetails(this.localStorageCompanyId)
-      .subscribe((res) => {
-        this.branch = res.data;
-      });
+    this.getAllBranchDetails();
 
-    this.userConfigurationService
-      .getUsersByCompanyId(this.localStorageCompanyId)
-      .subscribe((res) => {
-        this.UsersByCompanyId = res.data;
-      });
+    this.getBranchUsersByCompanyId();
+
+    this.getUsersByCompanyId();
+
+    this.getUserRoleDetailsBasedOnCompanyId();
+    this.getUserForAssignBranchList();
+    this.getAllUser();
 
     this.districtAndProvinceService.getAllProvince().subscribe((res) => {
       console.log(res.data);
       this.province = res.data;
     });
+  }
+  getAllUser() {
+    this.userConfigurationService
+      .getAllUser(this.localStorageCompanyId)
+      .subscribe((res) => {
+        this.allUsers = res.data;
+        console.log('All Users');
+        console.log(this.allUsers);
+      });
+  }
 
+  getUserForAssignBranchList() {
     this.branchService
       .getUserForAssignBranchList(this.localStorageCompanyId)
       .subscribe((res) => {
         this.assignUserList = res.data;
       });
+  }
 
+  getUserRoleDetailsBasedOnCompanyId() {
+    this.userConfigurationService
+      .getUserRoleDetailsBasedOnCompanyId(this.localStorageCompanyId)
+      .subscribe((res) => {
+        this.userRoleconfiguration = res.data;
+      });
+  }
+
+  getUsersByCompanyId() {
+    this.userConfigurationService
+      .getUsersByCompanyId(this.localStorageCompanyId)
+      .subscribe((res) => {
+        this.UsersByCompanyId = res.data;
+      });
+  }
+
+  getBranchUsersByCompanyId() {
     this.branchService
       .getBranchUsersByCompanyId(this.localStorageCompanyId)
       .subscribe((res) => {
         this.branchUsers = res.data;
+      });
+  }
+
+  getAllBranchDetails() {
+    this.branchService
+      .getBranchDetails(this.localStorageCompanyId)
+      .subscribe((res) => {
+        this.branch = res.data;
       });
   }
 
@@ -166,6 +215,7 @@ export class HeaderComponent {
   get phone() {
     return this.BranchRegistrationForm.get('BranchPhone');
   }
+
   onCheckboxChanged(e: any, userId: number) {
     let status = e.target.checked;
     this.userConfigurationService
@@ -177,6 +227,7 @@ export class HeaderComponent {
 
   onCompanyCheckboxChanged(e: any, userId: number) {
     let status = e.target.checked;
+    this.usersTabsStatus = status;
     this.userConfigurationService
       .updateUserCompanyStatus(status, userId)
       .subscribe((res) => {
@@ -186,19 +237,22 @@ export class HeaderComponent {
 
   onRoleInConfigurationChecked(e: any, userId: number, roleId: number) {
     let status = e.target.checked;
-    const data = localStorage.getItem('companyDetails');
-    const parsedData = JSON.parse(data || '{}');
-    const { companyId } = parsedData;
+    this.userRoleTabStatus = status;
     this.roleService
-      .updateUserRoleStatus(status, userId, companyId, roleId)
+      .updateUserRoleStatus(status, userId, this.localStorageCompanyId, roleId)
       .subscribe((res) => {
         console.log(res);
       });
   }
 
   onRoleChecked(e: any, roleId: number) {
-    this.status = e.target.checked;
+    let status = e.target.checked;
     this.roleId = roleId;
+    if (status === true) {
+      this.PopupRoleId.push(roleId);
+    } else {
+      this.PopupRoleId.pop();
+    }
   }
 
   hasRole(roleName: string) {
@@ -209,23 +263,21 @@ export class HeaderComponent {
     }
   }
 
-  onClicked(e: any) {
-    if (this.status === true) {
+  onAssignRolePopupSaveClicked() {
+    if (this.PopupRoleId !== null) {
       this.roleService
         .addToUserRole(
           this.selectedUserId,
           this.localStorageCompanyId,
-          this.roleId
+          this.PopupRoleId
         )
-        .subscribe((res) => {
-          console.log(res);
+        .subscribe({
+          next: () => {
+            this.getUserRoleDetailsBasedOnCompanyId();
+            this.PopupRoleId = [];
+          },
         });
     }
-    if (this.status === false) {
-      alert('You Have Already Added This Role');
-    }
-
-    window.location.reload();
   }
 
   onAssignCompanyChange(e: any, userId: number) {
@@ -234,28 +286,31 @@ export class HeaderComponent {
   }
 
   onAssignCompanySaveClicked(e: any) {
-    alert('Are You Sure You Cannot Revert This');
-    console.log(this.assignCompanyStatus);
-    console.log(this.assignCompanyUserId);
-    if (this.assignCompanyStatus == true) {
-      let companyId = this.loginService.getCompnayId();
-      this.userConfigurationService
-        .assignCompanyToUser(companyId, this.assignCompanyUserId)
-        .subscribe((res) => {
-          console.log(res);
-        });
-      this.roleService
-        .addToUserRole(this.assignCompanyUserId, companyId, 2)
-        .subscribe((res) => {
-          console.log(res);
-        });
+    if (this.assignCompanyStatus !== null) {
+      if (this.assignCompanyStatus == true) {
+        let companyId = this.loginService.getCompnayId();
+        this.userConfigurationService
+          .assignCompanyToUser(companyId, this.assignCompanyUserId)
+          .subscribe({
+            next: () => {
+              this.getUsersByCompanyId();
+              this.getUserForAssignBranchList();
+              this.getAllUser();
+            },
+          });
+        this.roleService
+          .addToUserRole(this.assignCompanyUserId, companyId, [2])
+          .subscribe({
+            next: () => {
+              this.getUserRoleDetailsBasedOnCompanyId();
+            },
+          });
+      }
+      if (this.assignCompanyStatus === false) {
+        alert('Please Try again');
+        return;
+      }
     }
-    if (this.assignCompanyStatus === false) {
-      alert('Please Try again');
-      return;
-    }
-
-    window.location.reload();
   }
 
   registerBranch() {
@@ -268,17 +323,17 @@ export class HeaderComponent {
         description: this.BranchRegistrationForm.value.BranchDescription!,
         panNo: this.BranchRegistrationForm.value.BranchPanNo!,
         state: this.BranchRegistrationForm.value.BranchState!,
-        zone: this.BranchRegistrationForm.value.BranchZone!,
         district: this.BranchRegistrationForm.value.BranchDistrict!,
         munVdc: this.BranchRegistrationForm.value.BranchMunVdc!,
         wardNo: this.BranchRegistrationForm.value.BranchWardNo!,
         phone: this.BranchRegistrationForm.value.BranchPhone!,
       })
-      .subscribe((res) => {
-        console.log(res);
+      .subscribe({
+        next: () => {
+          this.getAllBranchDetails();
+          this.BranchRegistrationForm.reset();
+        },
       });
-
-    window.location.reload();
   }
 
   addRole(userId: number, firstName: string, lastName: string) {
@@ -294,33 +349,30 @@ export class HeaderComponent {
       });
   }
 
-  onAssignBranchChange(e: any, userId: number) {
-    const data = localStorage.getItem('companyDetails');
-    const parsedData = JSON.parse(data || '{}');
-    const { companyId } = parsedData;
-    this.branchService
-      .AssignBranchToUser(userId, this.branchId, companyId)
-      .subscribe((res) => {
-        console.log('Data Sent From Assign Branch');
-      });
+  onAssignBranchPopupCheckBoxChange(e: any, userId: number) {
+    if (e.target.checked === true) {
+      this.branchUserId = userId;
+    }
   }
-
-  onAssinBranchButtonClick(branchId: number) {
-    this.branchId = branchId;
-  }
-
-  stateChange(data: string) {
-    const provinceId = parseInt(data, 10);
-    this.districtAndProvinceService
-      .getDistrictByProvinceId(provinceId)
-      .subscribe((res) => {
-        this.districts = res.data;
-      });
+  onBranchAssignPopupSaveButtonClicked(e: any) {
+    if (this.branchUserId !== null && e !== null) {
+      this.branchService
+        .AssignBranchToUser(
+          this.branchUserId,
+          this.branchId,
+          this.localStorageCompanyId
+        )
+        .subscribe({
+          next: () => {
+            this.getBranchUsersByCompanyId();
+          },
+        });
+    }
   }
 
   onBranchCheckboxChanged(e: any, userId: number, branchId: number) {
     let status = e.target.checked;
-    alert('Are You Sure');
+    this.branchUserTabStatus = status;
     this.branchService
       .enableDisableUser(status, userId, this.localStorageCompanyId, branchId)
       .subscribe((res) => {
@@ -328,7 +380,47 @@ export class HeaderComponent {
       });
   }
 
+  BranchConfigurationTabs() {
+    if (this.BranchConfigurationTabs !== null) {
+      this.getBranchUsersByCompanyId();
+    }
+  }
+
+  onAssinBranchButtonClick(branchId: number) {
+    this.branchId = branchId;
+  }
+
+  stateChange(data: string) {
+    this.provinceId = parseInt(data, 10);
+    this.districtAndProvinceService
+      .getDistrictByProvinceId(this.provinceId)
+      .subscribe((res) => {
+        this.districts = res.data;
+      });
+  }
+
+  districtChange() {
+    let data = this.BranchRegistrationForm.value.BranchDistrict!;
+    this.districtId = parseInt(data, 10);
+    this.districtAndProvinceService
+      .getAllmunicipality(this.provinceId, this.districtId)
+      .subscribe((res) => {
+        this.municipality = res.data;
+      });
+  }
+
   logout() {
     this.loginService.logout();
+  }
+
+  // userConfiguration Tabs logic
+  UserConfigurationTabs() {
+    if (this.usersTabsStatus !== null) {
+      this.getUsersByCompanyId();
+    }
+
+    if (this.userRoleTabStatus !== null) {
+      this.getUserRoleDetailsBasedOnCompanyId();
+    }
   }
 }

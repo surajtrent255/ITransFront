@@ -30,7 +30,7 @@
                       Pan No: {{ company.panNo }}
                     </p>
                     <p class="text-muted font-size-sm">
-                      {{ company.zone }}
+                      {{ company.district }}
                     </p>
                   </div>
                   <div class="card-footer">
@@ -76,7 +76,11 @@
   <div class="cboth"></div>
 </div>
 
-<div class="popupWrapper" id="createNewProductPopup" style="display: none">
+<div
+  class="popupWrapper PopupCloser"
+  id="createNewProductPopup"
+  style="display: none"
+>
   <div class="popupHeading">
     <h2 class="fleft">Register Company</h2>
     <a href="" class="closeButton fright"
@@ -171,23 +175,7 @@
               <td class="col3"></td>
             </tr>
             <div class="cboth"></div>
-            <tr>
-              <td class="col1">Zone:<span class="mandatorySign"></span></td>
 
-              <td class="col3">
-                <input
-                  type="text"
-                  class="inputText mandatory"
-                  title="Enter Text"
-                  formControlName="zone"
-                  id="custPartName"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid Zone.</span
-                >
-              </td>
-              <td class="col3"></td>
-            </tr>
             <tr>
               <td class="col1">District:<span class="mandatorySign"></span></td>
               <div style="padding-left: 4.5px">
@@ -197,10 +185,11 @@
                   aria-label=".form-select-sm example"
                   style="width: 300px"
                   #selected
+                  (change)="districtChange()"
                 >
                   <option
                     *ngFor="let district of districts"
-                    value="{{ district.districtName }}"
+                    value="{{ district.districtId }}"
                   >
                     {{ district.districtName }}
                   </option>
@@ -214,19 +203,22 @@
               <td class="col1">
                 Muncipality/VDC:<span class="mandatorySign"></span>
               </td>
-
-              <td class="col3">
-                <input
-                  type="text"
-                  class="inputText mandatory"
+              <div style="padding-left: 4.5px">
+                <select
                   formControlName="munVdc"
-                  title="Enter Text"
-                  id="custPartName"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid Muncipality/VDC .</span
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 300px"
+                  #selected
                 >
-              </td>
+                  <option
+                    *ngFor="let municipality of municipality"
+                    value="{{ municipality.municipalityName }}"
+                  >
+                    {{ municipality.municipalityName }}
+                  </option>
+                </select>
+              </div>
               <td class="col3"></td>
             </tr>
 
@@ -244,6 +236,7 @@
                   ><br />Please enter valid Ward no.</span
                 >
               </td>
+
               <td class="col3"></td>
             </tr>
 
@@ -277,7 +270,7 @@
         <input
           type="button"
           value="Cancel"
-          class="submit_btn cancel_btn border-rad"
+          class="submit_btn closeButton border-rad"
         />
       </div>
     </form>

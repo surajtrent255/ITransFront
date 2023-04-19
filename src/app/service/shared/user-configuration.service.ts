@@ -43,8 +43,8 @@ export class UserConfigurationService {
       );
   }
 
-  getAllUser(): Observable<any> {
-    return this.http.get(GET_ALL_USER);
+  getAllUser(companyId: number): Observable<any> {
+    return this.http.get(`${GET_ALL_USER}?companyId=${companyId}`);
   }
 
   getUsersByCompanyId(companyId: number): Observable<any> {

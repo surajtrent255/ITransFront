@@ -731,21 +731,51 @@ $(function () {
 
     return false;
   });
-  /*----- Popup scripts ----- */
 
-  $(".closeButton, .cancel_btn").live("click", function () {
+  /*----- For Popup close (register save close button )    ----- */
+
+  // $(".closeButton, .cancel_btn").live("click", function () {
+  //   $(".pageOverlay").fadeOut("fast");
+  //   $(".popupWrapper").fadeOut("fast");
+  //   $(".movable").removeClass("movable");
+  //   return false;
+  // });
+
+  $(".saveButton ").live("click", function () {
     $(".pageOverlay").fadeOut("fast");
-    $(".popupWrapper").fadeOut("fast");
+    $(".PopupCloser").fadeOut("fast");
     $(".movable").removeClass("movable");
     return false;
   });
 
-  $(".closeAlertPopperButton").live("click", function () {
+  $(".closeButton ").live("click", function () {
     $(".pageOverlay").fadeOut("fast");
-    $(".popperAlert").fadeOut("fast");
+    $(".PopupCloser").fadeOut("fast");
     $(".movable").removeClass("movable");
     return false;
   });
+
+  $(".registerButton ").live("click", function () {
+    $(".pageOverlay").fadeOut("fast");
+    $(".PopupCloser").fadeOut("fast");
+    $(".movable").removeClass("movable");
+    return false;
+  });
+
+  $(".MainPageCloseButton ").live("click", function () {
+    $(".pageOverlay").fadeOut("fast");
+    $(".MainPopupCloser").fadeOut("fast");
+    $(".movable").removeClass("movable");
+    return false;
+  });
+
+  // $(".closeButton, .AssignRolecancel_btn").live("click", function () {
+  //   $(".pageOverlay").fadeOut("fast");
+  //   $(".assignRolePopupWrapper").fadeOut("fast");
+  //   $(".movable").removeClass("movable");
+  //   return false;
+  // });
+
   $(document).bind("keydown", function (e) {
     if (e.which == 27) {
       $(".pageOverlay").fadeOut("fast");

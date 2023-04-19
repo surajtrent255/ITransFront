@@ -52,3 +52,5 @@ export const ENABLE_DISABLE_BRANCH_USER = BASE_URL + '/api/v1/branch/enable';
 
 export const GET_USER_FOR_ASSIGN_BRANCH_LIST =
   BASE_URL + '/api/v1/branch/list/assign';
+
+export const GET_MUNICIPALITY = BASE_URL + '/api/v1/municipality';

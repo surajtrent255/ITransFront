@@ -17,7 +17,7 @@ export class RoleService {
   addToUserRole(
     userId: number,
     companyId: number,
-    roleId: number
+    roleId: number[]
   ): Observable<any> {
     return this.http.post(
       `${ADD_TO_USER_ROLE_TABLE}?userId=${userId}&companyId=${companyId}&roleId=${roleId}`,

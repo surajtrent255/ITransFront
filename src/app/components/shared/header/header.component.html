@@ -1,16 +1,61 @@
 <script src="../../../../assets/resources/js/main.js"></script>
 <div id="headerWrapper" class="headerWrapper">
   <div class="logoutDiv">
-    <div class="fright" style="padding-right: 30px">
-      <a (click)="logout()" href="/login">
-        <img
-          src="../../../../assets/resources/images/logout-bg.png"
-          class="logoutImage"
-        />
-        <span> logout</span>
-      </a>
+    <div class="fright" style="padding-right: 17px">
+      <div class="profile" style="padding-right: 20px">
+        <button class="profile-button">
+          <img
+            src="../../../../assets/images/Users-Name-icon.png"
+            alt="Profile Image"
+          />
+        </button>
+        <div class="profile-card">
+          <div class="profile-card-header">
+            <img
+              src="../../../../assets/images/Users-Name-icon.png"
+              alt="Profile Image"
+            />
+            <div class="profile-card-header-info">
+              <h3>
+                {{ loggedInUser.user.firstname }}
+                {{ loggedInUser.user.lastname }}
+              </h3>
+              <p>{{ loggedInUser.user.email }}</p>
+            </div>
+          </div>
+          <div class="profile-card-body">
+            <ul>
+              <li>
+                <i
+                  class="fa-regular fa-pen-to-square fa-xl"
+                  style="color: #23592c"
+                ></i>
+                <span style="padding-left: 10px">Edit</span>
+              </li>
+              <li>
+                <i
+                  class="fa-regular fa-building fa-xl"
+                  style="color: #23592c"
+                ></i>
+                <span style="padding-left: 10px">Company</span>
+              </li>
+
+              <li>
+                <a (click)="logout()" href="/login">
+                  <img
+                    src="../../../../assets/resources/images/logout-bg.png"
+                    class="logoutImage"
+                  />
+                  <span> logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="fright" style="padding-right: 30px">
+
+    <div class="fright" style="padding-right: 30px; padding-top: 10px">
       <a href="/company">
         <img
           src="../../../../assets/resources/images/logout-bg.png"
@@ -81,10 +126,14 @@
   </div>
 
   <!--- User Configuration Popup -->
-  <div class="popupWrapper" id="configurationSettingPopup" style="width: auto">
+  <div
+    class="popupWrapper MainPopupCloser"
+    id="configurationSettingPopup"
+    style="width: auto"
+  >
     <div class="popupHeading">
       <h2 class="fleft">Configuration</h2>
-      <a href="" class="closeButton fright"
+      <a href="" class="MainPageCloseButton fright"
         ><img
           src="../../../../assets/resources/images/removetablink.png"
           alt="close"
@@ -292,13 +341,14 @@
           <input
             type="button"
             value="Save"
-            class="submit_btn border-rad"
-            id="configurationBtn"
+            (click)="UserConfigurationTabs()"
+            class="submit_btn MainPageCloseButton border-rad"
+            id=""
           />
           <input
             type="button"
             value="Cancel"
-            class="submit_btn cancel_btn border-rad"
+            class="submit_btn MainPageCloseButton border-rad"
           />
         </div>
       </form>
@@ -307,10 +357,14 @@
 
   <!-- Branch Configuration Pop -->
 
-  <div class="popupWrapper" id="pricingPreferencePopup" style="width: auto">
+  <div
+    class="popupWrapper MainPopupCloser"
+    id="pricingPreferencePopup"
+    style="width: auto"
+  >
     <div class="popupHeading">
       <h2 class="fleft">Branch</h2>
-      <a href="" class="closeButton fright"
+      <a href="" class="MainPageCloseButton fright"
         ><img
           src="../../../../assets/resources/images/removetablink.png"
           alt="close"
@@ -370,7 +424,7 @@
                       </td>
                       <td>{{ branch.abbrv }}</td>
                       <td>{{ branch.panNo }}</td>
-                      <td>{{ branch.zone }},{{ branch.district }}</td>
+                      <td>{{ branch.district }}</td>
                       <td>{{ branch.phone }}</td>
 
                       <td>
@@ -388,7 +442,7 @@
                 <div style="margin: 10px">
                   <a
                     class="register_btn border-rad register-button createNewTableRecord"
-                    id="createNewProduct"
+                    id="createNewBranch"
                     value=""
                     style="color: white"
                     >Create New branch</a
@@ -459,13 +513,14 @@
           <input
             type="button"
             value="Save"
-            class="submit_btn border-rad"
-            id="configurationBtn"
+            (click)="BranchConfigurationTabs()"
+            class="submit_btn MainPageCloseButton border-rad"
+            id=""
           />
           <input
             type="button"
             value="Cancel"
-            class="submit_btn cancel_btn border-rad"
+            class="submit_btn MainPageCloseButton border-rad"
           />
         </div>
       </form>
@@ -527,7 +582,11 @@
 
 <!-- Pop for add role-->
 
-<div class="popupWrapper" id="createNewAssignPopup" style="display: none">
+<div
+  class="popupWrapper PopupCloser"
+  id="createNewAssignPopup"
+  style="display: none"
+>
   <div class="popupHeading">
     <h2 class="fleft">Add Role</h2>
     <a href="" class="closeButton fright"
@@ -604,22 +663,26 @@
         <input
           type="submit"
           value="OK"
-          class="submit_btn border-rad"
-          (click)="onClicked($event)"
-          id="addProduct"
+          class="submit_btn border-rad saveButton"
+          (click)="onAssignRolePopupSaveClicked()"
+          id=""
         />
         <input
           type="button"
           value="Cancel"
-          class="submit_btn cancel_btn border-rad"
+          class="submit_btn closeButton order-rad"
         />
       </div>
     </form>
   </div>
 </div>
 
-<!-- popup for add User -->
-<div class="popupWrapper" id="AddNewUserPopup" style="display: none">
+<!-- popup for Assign Company To user -->
+<div
+  class="popupWrapper PopupCloser"
+  id="AddNewUserPopup"
+  style="display: none"
+>
   <div class="popupHeading">
     <h2 class="fleft">Assign Company</h2>
     <a href="" class="closeButton fright"
@@ -708,14 +771,14 @@
         <input
           type="submit"
           value="Save"
-          class="submit_btn border-rad"
+          class="submit_btn saveButton border-rad"
           (click)="onAssignCompanySaveClicked($event)"
           id=""
         />
         <input
           type="button"
           value="Cancel"
-          class="submit_btn cancel_btn border-rad"
+          class="submit_btn closeButton border-rad"
         />
       </div>
     </form>
@@ -724,7 +787,11 @@
 
 <!-- PopUp For branch -->
 
-<div class="popupWrapper" id="createNewBranchPopup" style="display: none">
+<div
+  class="popupWrapper PopupCloser"
+  id="createNewBranchPopup"
+  style="display: none"
+>
   <div class="popupHeading">
     <h2 class="fleft">Branch</h2>
     <a href="" class="closeButton fright"
@@ -833,23 +900,7 @@
               <td class="col3"></td>
             </tr>
             <div class="cboth"></div>
-            <tr>
-              <td class="col1">Zone:<span class="mandatorySign"></span></td>
 
-              <td class="col3">
-                <input
-                  type="text"
-                  class="inputText mandatory"
-                  formControlName="BranchZone"
-                  title="Enter Text"
-                  id="custPartName"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid Zone.</span
-                >
-              </td>
-              <td class="col3"></td>
-            </tr>
             <tr>
               <td class="col1">District:<span class="mandatorySign"></span></td>
 
@@ -860,10 +911,11 @@
                   aria-label=".form-select-sm example"
                   style="width: 300px"
                   #selected
+                  (change)="districtChange()"
                 >
                   <option
                     *ngFor="let district of districts"
-                    value="{{ district.districtName }}"
+                    value="{{ district.districtId }}"
                   >
                     {{ district.districtName }}
                   </option>
@@ -871,27 +923,28 @@
               </div>
               <td class="col3"></td>
             </tr>
-
             <tr>
               <td class="col1">
                 Muncipality/VDC:<span class="mandatorySign"></span>
               </td>
-
-              <td class="col3">
-                <input
-                  type="text"
-                  class="inputText mandatory"
+              <div style="padding-left: 4.5px">
+                <select
                   formControlName="BranchMunVdc"
-                  title="Enter Text"
-                  id="custPartName"
-                />
-                <span class="validationMsg"
-                  ><br />Please enter valid Muncipality/VDC .</span
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 300px"
+                  #selected
                 >
-              </td>
+                  <option
+                    *ngFor="let municipality of municipality"
+                    value="{{ municipality.municipalityName }}"
+                  >
+                    {{ municipality.municipalityName }}
+                  </option>
+                </select>
+              </div>
               <td class="col3"></td>
             </tr>
-
             <tr>
               <td class="col1">Ward no:<span class="mandatorySign">*</span></td>
               <td class="col3">
@@ -933,13 +986,13 @@
           type="submit"
           value="Register"
           class="submit_btn border-rad"
-          id="addProduct"
+          id=""
         />
 
         <input
           type="button"
           value="Cancel"
-          class="submit_btn cancel_btn border-rad"
+          class="submit_btn closeButton border-rad"
         />
       </div>
     </form>
@@ -947,7 +1000,11 @@
 </div>
 
 <!-- assign branch popup -->
-<div class="popupWrapper" id="assignNewBranchPopup" style="display: none">
+<div
+  class="popupWrapper PopupCloser"
+  id="assignNewBranchPopup"
+  style="display: none"
+>
   <div class="popupHeading">
     <h2 class="fleft">Assign Branch</h2>
     <a href="" class="closeButton fright"
@@ -1022,7 +1079,12 @@
                   <td>
                     <input
                       type="checkbox"
-                      (change)="onAssignBranchChange($event, allUser.userId)"
+                      (change)="
+                        onAssignBranchPopupCheckBoxChange(
+                          $event,
+                          allUser.userId
+                        )
+                      "
                     />
                     <label for="input"></label>
                   </td>
@@ -1035,15 +1097,15 @@
       <div class="submitDiv tCenter">
         <input
           type="submit"
-          value="OK"
-          class="submit_btn border-rad"
-          (click)="onClicked($event)"
+          value="Save"
+          class="submit_btn saveButton border-rad"
+          (click)="onBranchAssignPopupSaveButtonClicked($event)"
           id=""
         />
         <input
           type="button"
           value="Cancel"
-          class="submit_btn cancel_btn border-rad"
+          class="submit_btn closeButton border-rad"
         />
       </div>
     </form>

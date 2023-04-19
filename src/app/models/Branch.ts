@@ -6,7 +6,6 @@ export class Branch {
   description!: string;
   panNo!: string;
   state!: string;
-  zone!: string;
   district!: string;
   munVdc!: string;
   wardNo!: string;

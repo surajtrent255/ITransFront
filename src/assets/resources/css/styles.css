@@ -448,6 +448,21 @@ a.genLink {
   /* min-height: 700px; */
   min-height: auto;
 }
+
+.demoContainer {
+  clear: both;
+  padding: 7px;
+  background: #ffffff;
+  border: 1px solid #afaeac;
+  /* min-height: 700px; */
+  min-height: auto;
+  min-width: 1248px;
+  max-width: 1560px;
+  height: 560px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
 .contentRecordsTableContainer .pane-1 .recordsTableDiv,
 .contentRecordsTableContainer .pane-2 .recordsTableDiv,
 .contentRecordsTableContainer .pane-3 .recordsTableDiv {
