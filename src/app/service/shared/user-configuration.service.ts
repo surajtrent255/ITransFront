@@ -51,7 +51,7 @@ export class UserConfigurationService {
     return this.http.get(`${GET_USERS_BY_COMPANYID}?companyId=${companyId}`);
   }
 
-  assignCompanyToUser(companyId: number, userId: number): Observable<any> {
+  assignCompanyToUser(companyId: number, userId: number[]): Observable<any> {
     console.log('assign controller is hit');
     return this.http.post(
       `${ASSIGN_COMPANY_TO_USER}?companyId=${companyId}&userId=${userId}`,

@@ -20,6 +20,8 @@ export const UPDATE_USER_COMPANY_STATUS =
 // ***************************************
 export const ADD_TO_USER_ROLE_TABLE = BASE_URL + '/api/v1/userconfig/add/role';
 
+export const ADD_TO_MULTIPLE_ROLE_TABLE = BASE_URL + '/add/multiple/user/role';
+
 export const GET_ALL_ROLES = BASE_URL + '/api/v1/userconfig/role';
 
 // '''''''''''
