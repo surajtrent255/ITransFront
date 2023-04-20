@@ -264,7 +264,8 @@
           type="submit"
           value="Register"
           class="submit_btn border-rad"
-          id="addProduct"
+          [disabled]="CompanyRegistrationForm.invalid"
+          id=""
         />
 
         <input

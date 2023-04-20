@@ -52,7 +52,7 @@ export class HeaderComponent {
 
   // Assign Company
   assignCompanyStatus!: boolean;
-  assignCompanyUserId!: number;
+  assignCompanyUserId: number[] = [];
 
   // for select  value Accquire
   provinceId!: number;
@@ -282,7 +282,12 @@ export class HeaderComponent {
 
   onAssignCompanyChange(e: any, userId: number) {
     this.assignCompanyStatus = e.target.checked;
-    this.assignCompanyUserId = userId;
+    let status = e.target.checked;
+    if ((status = true)) {
+      this.assignCompanyUserId.push(userId);
+    } else {
+      this.assignCompanyUserId.pop();
+    }
   }
 
   onAssignCompanySaveClicked(e: any) {
@@ -296,10 +301,11 @@ export class HeaderComponent {
               this.getUsersByCompanyId();
               this.getUserForAssignBranchList();
               this.getAllUser();
+              this.assignCompanyUserId = [];
             },
           });
         this.roleService
-          .addToUserRole(this.assignCompanyUserId, companyId, [2])
+          .addToMultipleUserRole(this.assignCompanyUserId, companyId, 2)
           .subscribe({
             next: () => {
               this.getUserRoleDetailsBasedOnCompanyId();
@@ -329,9 +335,9 @@ export class HeaderComponent {
         phone: this.BranchRegistrationForm.value.BranchPhone!,
       })
       .subscribe({
-        next: () => {
+        next: (res) => {
           this.getAllBranchDetails();
-          this.BranchRegistrationForm.reset();
+          // this.BranchRegistrationForm.reset();
         },
       });
   }
