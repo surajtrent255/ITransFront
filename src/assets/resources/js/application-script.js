@@ -734,13 +734,6 @@ $(function () {
 
   /*----- For Popup close (register save close button )    ----- */
 
-  $(" .cancel_btn").live("click", function () {
-    $(".pageOverlay").fadeOut("fast");
-    $(".popupWrapper").fadeOut("fast");
-    $(".movable").removeClass("movable");
-    return false;
-  });
-
   $(".saveButton ").live("click", function () {
     $(".pageOverlay").fadeOut("fast");
     $(".PopupCloser").fadeOut("fast");
@@ -748,9 +741,16 @@ $(function () {
     return false;
   });
 
-  $(".closeButton ").live("click", function () {
+  $(".JoshiCloseButton ").live("click", function () {
     $(".pageOverlay").fadeOut("fast");
     $(".PopupCloser").fadeOut("fast");
+    $(".movable").removeClass("movable");
+    return false;
+  });
+
+  $(".closeButton, .cancel_btn").live("click", function () {
+    $(".pageOverlay").fadeOut("fast");
+    $(".popupWrapper").fadeOut("fast");
     $(".movable").removeClass("movable");
     return false;
   });
@@ -771,7 +771,7 @@ $(function () {
 
   $(".closeAlertPopperButton").live("click", function () {
     $(".pageOverlay").fadeOut("fast");
-    $(".PopupCloser").fadeOut("fast");
+    $(".popperAlert").fadeOut("fast");
     $(".movable").removeClass("movable");
     return false;
   });
@@ -789,13 +789,6 @@ $(function () {
     $(".movable").removeClass("movable");
     return false;
   });
-
-  // $(".closeButton, .AssignRolecancel_btn").live("click", function () {
-  //   $(".pageOverlay").fadeOut("fast");
-  //   $(".assignRolePopupWrapper").fadeOut("fast");
-  //   $(".movable").removeClass("movable");
-  //   return false;
-  // });
 
   $(document).bind("keydown", function (e) {
     if (e.which == 27) {
