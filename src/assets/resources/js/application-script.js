@@ -755,6 +755,27 @@ $(function () {
     return false;
   });
 
+  $(".Customer1CloseButton").live("click", function () {
+    $(".pageOverlay").fadeOut("fast");
+    $(".CustomerPopupWrapper1").fadeOut("fast");
+    $(".movable").removeClass("movable");
+    return false;
+  });
+
+  $(".createCustomerCloseBtn").live("click", function () {
+    $(".pageOverlay").fadeOut("fast");
+    $(".createCustomerPopUpWrapper").fadeOut("fast");
+    $(".movable").removeClass("movable");
+    return false;
+  });
+
+  $(".closeAlertPopperButton").live("click", function () {
+    $(".pageOverlay").fadeOut("fast");
+    $(".PopupCloser").fadeOut("fast");
+    $(".movable").removeClass("movable");
+    return false;
+  });
+
   $(".registerButton ").live("click", function () {
     $(".pageOverlay").fadeOut("fast");
     $(".PopupCloser").fadeOut("fast");

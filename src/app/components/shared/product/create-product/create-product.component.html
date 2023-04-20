@@ -44,11 +44,11 @@
                   />
                 </td>
                 <td class="col3">
-                  <button
+                  <i
                     class="submit_btn border-rad fas far fa-search"
                     style="margin: 0 5px"
                     (click)="fetchCustomerInfo()"
-                  ></button>
+                  ></i>
                   <button
                     id="selectCustomer"
                     class="createNewTableRecord"
@@ -84,7 +84,7 @@
                   </div>
                 </td>
               </tr>
-              <tr style="display: none">
+              <tr>
                 <td class="col1 pt-2">
                   Seller Id :<span class="mandatorySign">*</span>
                 </td>
@@ -101,13 +101,6 @@
                     [(ngModel)]="product.sellerId"
                     required="required"
                   />
-                </td>
-                <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="sellerId.valid || sellerId.untouched"
-                    >invalid sellerId</small
-                  >
                 </td>
               </tr>
               <tr>
@@ -333,19 +326,26 @@
     </div>
   </div>
 </div>
-<div class="popupWrapper" id="createNewCustomerPopup" style="display: none">
-  <div class="mb-2"></div>
-  <app-create-customer></app-create-customer>
-</div>
 <div
-  class="popupWrapper"
+  class="popupWrapper createCustomerPopUpWrapper"
+  id="createNewCustomerPopup"
+  style="display: none"
+>
+  <div class="mb-2"></div>
+  <app-create-customer
+    (customerAddedSuccessMsg)="customerAdded($event)"
+  ></app-create-customer>
+</div>
+
+<div
+  class="popupWrapper CustomerPopupWrapper1"
   id="selectCustomerPopup"
   style="display: none; width: auto"
 >
   <div class="mb-2"></div>
   <div class="popupHeading">
     <h2 class="fleft">Customers</h2>
-    <a class="closeButton fright" id="closeCustPop"
+    <a class="Customer1CloseButton fright" id="closeCustPop"
       ><img
         src="../../../assets/resources/images/removetablink.png"
         alt="close"

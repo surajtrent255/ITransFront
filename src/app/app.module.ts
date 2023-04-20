@@ -27,7 +27,6 @@ import { PricingTypesAndSequenceComponent } from './components/shared/pricing-ty
 import { SearchCreateProductsComponent } from './components/shared/search-create-products/search-create-products.component';
 import { SelectAndCreateCompanyComponent } from './components/shared/select-and-create-company/select-and-create-company.component';
 import { AuthInterceptor } from './auth/AuthInterceptor';
-import { SalesModule } from './components/shared/sales/sales.module';
 import { NumberToWordTransformPipe } from './custompipes/number-to-word-transform.pipe';
 import { PopupComponent } from './popup/popup.component';
 import { CategoryprodComponent } from './components/shared/categoryprod/categoryprod.component';
@@ -38,6 +37,15 @@ import { EditproductComponent } from './components/shared/product/editproduct/ed
 import { CreatecategoryComponent } from './components/shared/categoryprod/createcategory/createcategory.component';
 import { CreatePurchaseBillComponent } from './components/shared/purchase/create-purchase-bill/create-purchase-bill.component';
 import { StockComponent } from './components/shared/stock/stock.component';
+import { CreateSalesComponent } from './components/shared/sales/create-sales/create-sales.component';
+import { SalesBillingComponent } from './components/shared/sales/sales-billing/sales-billing.component';
+import { SalesBillInvoiceComponent } from './components/shared/sales/sales-bill-invoice/sales-bill-invoice.component';
+import { SalesBillEditComponent } from './components/shared/sales/sales-bill-edit/sales-bill-edit.component';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { CreateCustomerComponent } from './components/shared/sales/create-customer/create-customer.component';
+import { SelectCustomerComponent } from './components/shared/select-customer/select-customer.component';
 
 @NgModule({
   declarations: [
@@ -62,10 +70,17 @@ import { StockComponent } from './components/shared/stock/stock.component';
     CreatecategoryComponent,
     CreatePurchaseBillComponent,
     StockComponent,
+    CreateSalesComponent,
+    SalesBillingComponent,
+    SalesBillInvoiceComponent,
+    SalesBillEditComponent,
+    NumberToWordTransformPipe,
+    PopupComponent,
+    CreateCustomerComponent,
+    SelectCustomerComponent
   ],
   imports: [
     BrowserModule,
-    SalesModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -74,7 +89,11 @@ import { StockComponent } from './components/shared/stock/stock.component';
       headerName: 'XSRF_DEFAULT_HEADER_NAME',
     }),
     HttpClientModule,
+    CommonModule,
     FormsModule,
+    RouterModule,
+    ReactiveFormsModule,
+    NgSelectModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-center',
