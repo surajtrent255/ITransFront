@@ -10,6 +10,8 @@ import { PopupComponent } from 'src/app/popup/popup.component';
 import { RouterModule } from '@angular/router';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SelectAndCreateCompanyComponent } from '../select-and-create-company/select-and-create-company.component';
+import { SearchCreateProductsComponent } from '../search-create-products/search-create-products.component';
 
 
 
@@ -21,19 +23,20 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SalesBillEditComponent,
     NumberToWordTransformPipe,
     PopupComponent,
-    CreateCustomerComponent
+    CreateCustomerComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
 
 
   ],
   exports: [
     CreateSalesComponent,
+    CreateCustomerComponent,
     SalesBillingComponent
   ],
 })

@@ -255,7 +255,7 @@
                   Actions
                 </th>
 
-                <th class="last-child"></th>
+                <th class="last-child">print</th>
               </tr>
             </thead>
             <tbody id="prodTable">
@@ -268,7 +268,8 @@
               >
                 <td>{{ salesBill.billNo }}</td>
                 <td>
-                  {{ salesBill.draft }}
+                  <span *ngIf="salesBill.draft"> Yes </span>
+                  <span *ngIf="!salesBill.draft">No</span>
 
                   <i
                     *ngIf="salesBill.draft && salesBill.status"
@@ -334,6 +335,13 @@
                   >
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
+                </td>
+                <td>
+                  <i
+                    class="fa fa-print"
+                    aria-hidden="true"
+                    (click)="goForPrint(salesBill.id)"
+                  ></i>
                 </td>
               </tr>
             </tbody>

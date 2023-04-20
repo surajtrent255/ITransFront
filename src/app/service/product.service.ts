@@ -26,8 +26,10 @@ export class ProductService {
 
   getProductById(
     id: number,
+    compId: number,
+    branchId: number
   ): Observable<RJResponse<Product>> {
-    let url = `${BASE_URL}/product/${id}`;
+    let url = `${BASE_URL}/product/${id}?compId=${compId}&branchId=${branchId}`;
     console.log(url);
     return this.httpClient.get<RJResponse<Product>>(url);
   }

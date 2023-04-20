@@ -45,7 +45,7 @@ export class EditproductComponent {
   }
 
   getProduct(id: number) {
-    this.productService.getProductById(id).subscribe({
+    this.productService.getProductById(id, this.compId, this.branchId).subscribe({
       next: (data) => {
         this.product = data.data;
         console.log(this.product);
