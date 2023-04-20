@@ -44,7 +44,7 @@ export class ProductComponent {
   }
 
   getProduct(id: number) {
-    this.productService.getProductById(id).subscribe({
+    this.productService.getProductById(id, this.compId, this.branchId).subscribe({
       next: (data) => {
         this.productInfoForUpdate = data.data;
       },

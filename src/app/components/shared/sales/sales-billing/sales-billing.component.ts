@@ -196,5 +196,11 @@ export class SalesBillingComponent {
   createNewSaleBill() {
     this.router.navigateByUrl("dashboard/salesbill/create")
   }
+
+  goForPrint(id: number) {
+    this.router.navigateByUrl(
+      `dashboard/salesbill/invoice/${id}`
+    );
+  }
 }
 

@@ -19,7 +19,7 @@ export class CompanyServiceService {
   constructor(
     private httpClient: HttpClient,
     private toastrService: ToastrService
-  ) {}
+  ) { }
 
   getCompnayDetails(user_id: number): Observable<any> {
     console.log('get company hit');
@@ -57,4 +57,10 @@ export class CompanyServiceService {
   // addcompany(company: Company) {
   //   return this.httpClient.post(ADD_COMPANY_URL, company);
   // }
+
+  getCustomerInfoByPanOrPhone(searchMethod: number, customerPhoneOrPan: number): Observable<RJResponse<Company[]>> {
+    let url = `${COMPANY_BASE_URL}/searchBy?searchMethod=${searchMethod}&customerPhoneOrPan=${customerPhoneOrPan}`;
+    console.log(url);
+    return this.httpClient.get<RJResponse<Company[]>>(url);
+  }
 }

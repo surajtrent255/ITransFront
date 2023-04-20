@@ -77,7 +77,7 @@ import { StockComponent } from './components/shared/stock/stock.component';
     FormsModule,
     ToastrModule.forRoot({
       timeOut: 3000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-top-center',
       newestOnTop: false,
     }),
     // MatSelectModule,
@@ -93,4 +93,4 @@ import { StockComponent } from './components/shared/stock/stock.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

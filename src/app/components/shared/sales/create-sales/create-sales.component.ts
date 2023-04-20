@@ -20,6 +20,10 @@ import Swal from 'sweetalert2';
 import { SalesBillInvoice } from 'src/app/models/SalesBillInvoice';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { SalesBillDetailWithProdInfo } from 'src/app/models/SalesBillDetailWithProdInfo';
+import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @Component({
   selector: 'app-create-sales',
@@ -65,6 +69,9 @@ export class CreateSalesComponent {
   alreadyDraft: number = 0;
   selectedValueForTaxRateTypes: number = 3;
   taxApproachSelectEl: number = 2;
+  customerSearchMethod: number = 1;
+  custPhoneOrPan !: number;
+
 
   constructor(
     private salesCartService: SalesCartService,
@@ -74,8 +81,13 @@ export class CreateSalesComponent {
     private loginService: LoginService,
     private companyService: CompanyServiceService,
     private vatRateTypeService: VatRateTypesService,
-    private activatedRoute: ActivatedRoute
-  ) { }
+    private activatedRoute: ActivatedRoute,
+    private tostrService: ToastrService
+  ) {
+    const currentDateObj = new Date();
+    const datePipe = new DatePipe('en-US');
+    this.date = datePipe.transform(currentDateObj, 'yyyy-MM-dd')!;
+  }
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
@@ -101,6 +113,8 @@ export class CreateSalesComponent {
         this.date = new Date(salesBillInvoice.salesBillDTO.billDate).toISOString().substring(0, 10)
         this.customerId = salesBillInvoice.salesBillDTO.customerId;
         this.taxApproachSelectEl = salesBillInvoice.salesBillDTO.taxApproach;
+        this.customerSearchMethod = salesBillInvoice.salesBillDTO.customerSearchMethod;
+
         this.getDiscountMethod(salesBillInvoice.salesBillDTO.taxApproach);
 
         this.customerId = salesBillInvoice.salesBillDTO.customerId
@@ -127,6 +141,7 @@ export class CreateSalesComponent {
       }
     })
   }
+
   manipulateDomItemsForDraft(salesBillDetailsWithProd: SalesBillDetailWithProdInfo[]) {
     this.productsUserWantTosale.forEach((prod) => {
       const qtyEl = document.getElementById(`qtyProd${prod.id}`) as HTMLInputElement;
@@ -144,7 +159,30 @@ export class CreateSalesComponent {
   }
 
 
+  customerSearch(id: number) {
+    this.customerSearchMethod = id;
+  }
 
+  fetchCustomerInfo() {
+    if (this.custPhoneOrPan === null || this.custPhoneOrPan === undefined) {
+      this.tostrService.error(
+        `pan or phone`,
+        'invalid number'
+      );
+      return;
+      // return;
+    }
+
+    this.companyService.getCustomerInfoByPanOrPhone(this.customerSearchMethod, this.custPhoneOrPan).subscribe(({
+      next: (data) => {
+        this.selectMenusForCompanies = data.data;
+      },
+      complete: () => {
+        const custBtn = document.getElementById("selectCustomer") as HTMLButtonElement;
+        custBtn.click();
+      }
+    }));
+  }
 
   customSearchFn(term: string, item: any) {
     term = term.toLowerCase();
@@ -160,12 +198,13 @@ export class CreateSalesComponent {
     });
   }
 
-  setCustomerInfo($event: any) {
-    let a = $event.target.value;
-    let comp: Company = this.selectMenusForCompanies.find(comp => Number(comp.panNo) === Number(a))!
+  setCustomerInfo(compId: number) {
+    let comp: Company = this.selectMenusForCompanies.find(comp => Number(comp.companyId) === Number(compId))!
     this.customerId = comp.companyId;
     this.customerName = comp.name;
     this.customerPan = Number(comp.panNo);
+    const closeCustomerPopUpEl = document.getElementById("closeCustPop") as HTMLAnchorElement;
+    closeCustomerPopUpEl.click();
   }
 
   getApproach($event: any) {
@@ -224,7 +263,7 @@ export class CreateSalesComponent {
     }
 
     this.productService
-      .getProductById(this.productBarCodeId)
+      .getProductById(this.productBarCodeId, this.companyId, this.branchId)
       .subscribe({
         next: (data) => {
           console.log(data.data);
@@ -348,6 +387,17 @@ export class CreateSalesComponent {
   }
 
   saleTheProducts(draft: boolean) {
+
+    if (this.customerId === 0 || this.customerId === undefined) {
+      this.tostrService.warning("please select the customer");
+    }
+    if (this.date === undefined) {
+      this.tostrService.warning("please select date ");
+    }
+    if (this.productsUserWantTosale.length <= 0) {
+      this.tostrService.warning("please enter at least one product");
+    }
+
     if (
       this.customerId === 0 ||
       this.date === undefined ||
@@ -428,6 +478,7 @@ export class CreateSalesComponent {
     salesBill.draft = draft;
     salesBill.taxApproach = this.taxApproach;
     salesBill.discountApproach = this.discountApproachSelect;
+    salesBill.customerSearchMethod = this.customerSearchMethod;
     // salesBill.draft  = true mjremain
     salesBillMaster.salesBillDTO = salesBill;
     salesBillMaster.salesBillDetails = salesBillDetailInfos;

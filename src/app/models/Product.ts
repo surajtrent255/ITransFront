@@ -10,7 +10,7 @@ export class Product {
   sellerId !: number;
   categoryId !: number;
   barcode !: string;
-  discount !: number;
+  discount: number = 0;
   tax: number = 13;
   createDate !: Date;
   updateDate !: Date;

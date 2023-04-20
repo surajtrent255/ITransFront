@@ -28,4 +28,6 @@ export class SalesBill {
   branchId !: number;
   draft !: boolean;
   taxApproach !: number;
+  customerSearchMethod !: number;
+  printCount !: number;
 }
