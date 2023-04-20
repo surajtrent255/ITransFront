@@ -734,12 +734,12 @@ $(function () {
 
   /*----- For Popup close (register save close button )    ----- */
 
-  // $(".closeButton, .cancel_btn").live("click", function () {
-  //   $(".pageOverlay").fadeOut("fast");
-  //   $(".popupWrapper").fadeOut("fast");
-  //   $(".movable").removeClass("movable");
-  //   return false;
-  // });
+  $(" .cancel_btn").live("click", function () {
+    $(".pageOverlay").fadeOut("fast");
+    $(".popupWrapper").fadeOut("fast");
+    $(".movable").removeClass("movable");
+    return false;
+  });
 
   $(".saveButton ").live("click", function () {
     $(".pageOverlay").fadeOut("fast");
