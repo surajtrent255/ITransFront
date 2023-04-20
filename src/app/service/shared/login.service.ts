@@ -47,7 +47,7 @@ export class LoginService {
   }
 
   getBranchId(): number {
-    var branchDetail: any = JSON.parse(localStorage.getItem("BranchDetails")!);
+    var branchDetail: any = JSON.parse(localStorage.getItem('BranchDetails')!);
     var branchId = branchDetail[0].branchId;
     return branchId;
   }
