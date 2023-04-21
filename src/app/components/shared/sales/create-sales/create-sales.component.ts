@@ -66,10 +66,10 @@ export class CreateSalesComponent {
   branchId!: number;
 
   alreadyDraft: number = 0;
-  selectedValueForTaxRateTypes: number = 3;
   taxApproachSelectEl: number = 2;
   customerSearchMethod: number = 1;
   custPhoneOrPan!: number;
+  postgreDate !: Date;
 
   constructor(
     private salesCartService: SalesCartService,
@@ -105,11 +105,11 @@ export class CreateSalesComponent {
       next: (data: RJResponse<SalesBillInvoice>) => {
         // alert(data.data.salesBillDTO.draft);
         let salesBillInvoice: SalesBillInvoice = data.data;
-
         // this.date = data.data.salesBillDTO.billDate.toISOString().substring(0, 10);
         this.date = new Date(salesBillInvoice.salesBillDTO.billDate)
           .toISOString()
           .substring(0, 10);
+        this.postgreDate = salesBillInvoice.salesBillDTO.billDate;
         this.customerId = salesBillInvoice.salesBillDTO.customerId;
         this.taxApproachSelectEl = salesBillInvoice.salesBillDTO.taxApproach;
         this.customerSearchMethod =
@@ -153,10 +153,13 @@ export class CreateSalesComponent {
       const totalAmountEl = document.getElementById(
         `totalAmount${prod.id}`
       ) as HTMLElement;
+      const vatSelEl = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
 
       let salesProd: SalesBillDetailWithProdInfo =
         salesBillDetailsWithProd.find((sp) => sp.productId === prod.id)!;
-      this.selectedValueForTaxRateTypes = salesProd.taxRate;
+      // this.selectedValueForTaxRateTypes = salesProd.taxRate;
+
+      vatSelEl.value = String(salesProd.taxRate);
       qtyEl.value = String(salesProd.qty);
       discountEl.value = String(salesProd.discountPerUnit);
       totalAmountEl.innerText = String(salesProd.rowTotal);
@@ -241,7 +244,7 @@ export class CreateSalesComponent {
       error: (error) => {
         console.error(error);
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
 
@@ -274,7 +277,9 @@ export class CreateSalesComponent {
       let eachProd: Product = this.productsUserWantTosale[i];
       if (eachProd.id === Number(this.productBarCodeId)) {
         // eachProd.id is number type and this.productBarCodeId is Number | undefined type. so we need to typecast explicitly
+        this.tostrService.error("product already added ");
         return; //return doesnot work in foreach method
+
       }
     }
 
@@ -292,6 +297,9 @@ export class CreateSalesComponent {
                 this.updateTotalAmount(data.data);
               });
             });
+          }
+          if (data.data === null) {
+            this.tostrService.error("product not available");
           }
         },
       });

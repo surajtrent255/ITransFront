@@ -2,7 +2,7 @@
   <div class="recordTableWrapper">
     <div class="recordCategory">
       <h2 class="text-center" id="totalGroupCombinations">
-        Create Sales {{ customerCompany | json }}
+        Create Sales {{ postgreDate | date }}
       </h2>
       <div class="cboth"></div>
     </div>
@@ -311,8 +311,7 @@
                   </td>
                   <td>
                     <select
-                      [(ngModel)]="selectedValueForTaxRateTypes"
-                      name=""
+                      name="vattypes{{ prod.name }}"
                       id="vatRateTypes{{ prod.id }}"
                       (change)="updateTotalAmount(prod)"
                     >
@@ -508,7 +507,7 @@
                 <td>{{ cust.state }}</td>
                 <td>{{ cust.district }}</td>
                 <td>{{ cust.munVdc }}</td>
-
+                <td>---</td>
                 <td>
                   <button
                     (click)="setCustomerInfo(cust.companyId)"
