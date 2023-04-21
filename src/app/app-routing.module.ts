@@ -15,6 +15,7 @@ import { SalesBillingComponent } from './components/shared/sales/sales-billing/s
 import { CategoryProduct } from './models/CategoryProduct';
 import { CreatePurchaseBillComponent } from './components/shared/purchase/create-purchase-bill/create-purchase-bill.component';
 import { StockComponent } from './components/shared/stock/stock.component';
+import { PaymentComponent } from './components/shared/payment/payment.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -80,6 +81,10 @@ const routes: Routes = [
         path: ':id/stock',
         component: StockComponent,
       },
+      {
+        path: 'payment',
+        component: PaymentComponent,
+      },
     ],
   },
 ];
@@ -88,4 +93,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

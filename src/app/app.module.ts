@@ -47,6 +47,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateCustomerComponent } from './components/shared/sales/create-customer/create-customer.component';
 import { SelectCustomerComponent } from './components/shared/select-customer/select-customer.component';
 import { CreateCompanyComponent } from './components/shared/select-and-create-company/create-company/create-company.component';
+import { PaymentComponent } from './components/shared/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { CreateCompanyComponent } from './components/shared/select-and-create-co
     CreateCustomerComponent,
     SelectCustomerComponent,
     CreateCompanyComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
