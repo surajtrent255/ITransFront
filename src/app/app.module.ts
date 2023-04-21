@@ -46,6 +46,7 @@ import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateCustomerComponent } from './components/shared/sales/create-customer/create-customer.component';
 import { SelectCustomerComponent } from './components/shared/select-customer/select-customer.component';
+import { CreateCompanyComponent } from './components/shared/select-and-create-company/create-company/create-company.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { SelectCustomerComponent } from './components/shared/select-customer/sel
     NumberToWordTransformPipe,
     PopupComponent,
     CreateCustomerComponent,
-    SelectCustomerComponent
+    SelectCustomerComponent,
+    CreateCompanyComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,4 +114,4 @@ import { SelectCustomerComponent } from './components/shared/select-customer/sel
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
