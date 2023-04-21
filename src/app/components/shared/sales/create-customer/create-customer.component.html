@@ -14,8 +14,9 @@
       <!-- <app-popup class="m-4"></app-popup> -->
       <form
         id="createProduct"
+        #compForm
         [formGroup]="CompanyRegistrationForm"
-        (ngSubmit)="registerCompany()"
+        (ngSubmit)="registerCompany(compForm)"
       >
         <div class="chooseColoumnsWrapper">
           <div class="fieldDiv popUpFormSectionWrapper">
@@ -188,13 +189,13 @@
             [disabled]="CompanyRegistrationForm.invalid"
             id=""
           />
-
+          <!--
           <input
             type="button"
             id="createCustomerCloseBtn"
             value="Cancel"
             class="submit_btn closeButton border-rad"
-          />
+          /> -->
         </div>
       </form>
     </div>

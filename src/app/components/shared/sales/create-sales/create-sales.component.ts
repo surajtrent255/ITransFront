@@ -483,6 +483,8 @@ export class CreateSalesComponent {
     salesBill.enteredBy = this.loginService.currentUser.user.email;
     salesBill.paymentMethod = 'CashInHand';
     salesBill.billDate = new Date(this.date);
+    console.log(this.date);
+    console.log("date is above *********8")
 
     salesBill.userId = this.loginService.currentUser.user.id;
     salesBill.companyId = this.loginService.getCompnayId();

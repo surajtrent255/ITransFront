@@ -74,6 +74,7 @@ export class CreateProductComponent {
   }
 
   setSellerId(id: number) {
+    this.selectedSellerCompanyId = id;
     this.product.sellerId = id;
     const closeCustomerPopUpEl = document.getElementById("closeCustPop") as HTMLAnchorElement;
     closeCustomerPopUpEl.click();

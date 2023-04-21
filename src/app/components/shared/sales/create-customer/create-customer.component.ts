@@ -5,7 +5,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { District } from 'src/app/models/District';
 import { Municipality } from 'src/app/models/Municipality';
 import { Province } from 'src/app/models/Province';
@@ -98,7 +98,7 @@ export class CreateCustomerComponent {
   get phone() {
     return this.CompanyRegistrationForm.get('phone');
   }
-  registerCompany() {
+  registerCompany(form: any) {
     this.loginService.userObservable.subscribe((loginUser) => {
       this.user = loginUser;
       this.user_id = loginUser.user.id;
@@ -123,8 +123,7 @@ export class CreateCustomerComponent {
         this.user_id
       )
       .subscribe(() => {
-        const button = document.getElementById("createCustomerCloseBtn") as HTMLButtonElement
-        button.click();
+        form.reset();
         this.customerAddedSuccessMsg.emit(true);
       });
   }
