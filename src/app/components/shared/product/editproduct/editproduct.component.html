@@ -24,6 +24,62 @@
             <table class="" cellpadding="0" cellspacing="0">
               <tr>
                 <td class="col1 pt-2">
+                  Seller:
+                  <span class="mandatorySign">*</span>
+                </td>
+                <td class="col2 pt-2 ml-3">
+                  <input
+                    type="text"
+                    [(ngModel)]="custPhoneOrPan"
+                    class="form-control"
+                    (keydown.enter)="fetchCustomerInfo()"
+                    name="seller"
+                    ngNoForm
+                  />
+                </td>
+                <td class="col3">
+                  <i
+                    class="submit_btn border-rad fas far fa-search"
+                    style="margin: 0 5px"
+                    (click)="fetchCustomerInfo()"
+                  ></i>
+                  <button
+                    id="testselectcomp"
+                    class="createNewTableRecord"
+                    style="display: none"
+                  ></button>
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2"></td>
+                <td class="col2">
+                  <div class="ml-2 mb-2 mt-2">
+                    <span>
+                      <input
+                        type="radio"
+                        name="customerSearch"
+                        value="pan"
+                        (change)="customerSearch(1)"
+                        [checked]="customerSearchMethod === 1"
+                      />
+                      PAN
+                    </span>
+                    <span>
+                      <input
+                        type="radio"
+                        name="customerSearch"
+                        class="ml-3"
+                        value="phone"
+                        [checked]="customerSearchMethod === 2"
+                        (change)="customerSearch(2)"
+                      />
+                      PHONE</span
+                    >
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
                   Seller Id :<span class="mandatorySign">*</span>
                 </td>
                 <td class="col2">
@@ -35,6 +91,7 @@
                     #sellerId="ngModel"
                     required
                     name="sellerId"
+                    readonly
                     [(ngModel)]="product.sellerId"
                     required="required"
                   />
@@ -273,6 +330,145 @@
           />
         </div>
       </form>
+    </div>
+  </div>
+</div>
+<div
+  class="popupWrapper createCustomerPopUpWrapper"
+  id="createNewCustomerPopup"
+  style="display: none"
+>
+  <div class="mb-2"></div>
+  <app-create-customer
+    (customerAddedSuccessMsg)="customerAdded($event)"
+  ></app-create-customer>
+</div>
+
+<!-- <div class="popupWrapper" id="testselectcompPopup" style="display: none">
+  this is popup
+</div> -->
+<div
+  class="popupWrapper CustomerEditPopupWrapper"
+  id="testselectcompPopup"
+  style="display: none; width: auto"
+>
+  <div class="mb-2"></div>
+  <div class="popupHeading">
+    <h2 class="fleft">Customers</h2>
+    <a class="Customer1EditCloseButton fright" id="closeEditCustPop"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv selectCustomer">
+    <h1 class="heading">Your can select your customer here</h1>
+  </div>
+  <div class="popupContentWrapper">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="ProductsRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th>S.N</th>
+                <th
+                  class="first-child sortable"
+                  sortDir="asc"
+                  sortCol="organization_id"
+                  id="id"
+                >
+                  Name
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                  id="name"
+                >
+                  PAN NO
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="customer_name"
+                  id="costprice"
+                >
+                  Phone
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="sellingprice"
+                >
+                  State
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="barcode"
+                >
+                  District
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="discount"
+                >
+                  Mun/Vdc
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="tax"
+                >
+                  Ward
+                </th>
+
+                <th class="last-child">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <tr class="text-center" *ngIf="selectMenusForCompaniesSize === 0">
+                <td colspan="9">
+                  <span style="color: red">No records found !</span>
+                </td>
+              </tr>
+              <tr
+                *ngFor="let cust of selectMenusForCompanies; let index = index"
+                id="cust_{{ cust.companyId }}"
+              >
+                <td>{{ index + 1 }}</td>
+                <td>{{ cust.name }}</td>
+                <td>{{ cust.panNo }}</td>
+                <td>{{ cust.phone }}</td>
+                <td>{{ cust.state }}</td>
+                <td>{{ cust.district }}</td>
+                <td>{{ cust.munVdc }}</td>
+                <td>---</td>
+                <td>
+                  <button
+                    (click)="setSellerId(cust.companyId)"
+                    class="submit_btn border-rad"
+                  >
+                    Select
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
