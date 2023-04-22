@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { CategoryProductService } from 'src/app/service/category-product.service';
@@ -17,7 +18,8 @@ export class CategoryprodComponent {
   branchId !: number;
   constructor(
     private categoryProductService: CategoryProductService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -32,11 +34,10 @@ export class CategoryprodComponent {
       .subscribe((data) => {
         this.categoriesData = data.data;
         console.log(this.categoriesData);
-
-
       });
   }
 
+  //not nec
   addNewCategory() {
     const catCreateDiv = document.getElementById(
       'createCatDiv'
@@ -47,5 +48,12 @@ export class CategoryprodComponent {
     if (($event = true)) {
       this.fetchAllCategories();
     }
+  }
+
+  deleteCategory(id: number) {
+    this.categoryProductService.deleteCategory(id, this.compId, this.branchId).subscribe(data => {
+      this.toastrService.success("category has been deleted ");
+      this.fetchAllCategories();
+    })
   }
 }

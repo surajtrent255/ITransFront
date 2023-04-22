@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/Product';
 import { PurchaseBill } from 'src/app/models/PurchaseBill';
 import { PurchaseBillDetail } from 'src/app/models/PurchaseBillDetail';
@@ -31,11 +32,13 @@ export class CreatePurchaseBillComponent {
     private productService: ProductService,
     private purchaseBillService: PurchaseBillService,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
+    this.branchId = this.loginService.getBranchId();
   }
   addTheProductForPurchase() {
     if (this.productBarCodeId === undefined) {
@@ -72,8 +75,11 @@ export class CreatePurchaseBillComponent {
       this.productsUserWantToPurchase.length <= 0 ||
       this.sellerId === 0 ||
       this.sellerId === undefined
-    )
+    ) {
+      this.toastrService.error("please fill all the fields")
       return;
+    }
+
     console.log('below');
     this.productsUserWantToPurchase.forEach((prod) => {
       let purchaseBillDetail: PurchaseBillDetail = new PurchaseBillDetail();

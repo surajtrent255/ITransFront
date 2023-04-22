@@ -223,10 +223,14 @@
                 <td>{{ cat.description }}</td>
                 <td>{{ cat.parentId }}</td>
                 <td class="last-child">
-                  <a href="" class="">
+                  <a class="">
                     <img src="../../../assets/resources/images/editRow.png" />
                   </a>
-                  <a href="" class="deleteRowLink deleteGroupCombo">
+                  <a
+                    href=""
+                    (click)="deleteCategory(cat.id)"
+                    class="deleteRowLink deleteGroupCombo"
+                  >
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
                 </td>

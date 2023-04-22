@@ -55,6 +55,7 @@ export class CreateSalesComponent {
   discountReadOnly: boolean = true;
 
   discountApproachSelect: number = 2;
+  selectMenusForCompaniesSize !: number;
 
   taxApproach: number = 1;
 
@@ -185,6 +186,7 @@ export class CreateSalesComponent {
       .subscribe({
         next: (data) => {
           this.selectMenusForCompanies = data.data;
+          this.selectMenusForCompaniesSize = data.data.length;
         },
         complete: () => {
           const custBtn = document.getElementById(

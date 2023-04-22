@@ -15,7 +15,8 @@ import { LoginService } from 'src/app/service/shared/login.service';
   styleUrls: ['./editproduct.component.css'],
 })
 export class EditproductComponent {
-  @Input() product: Product = new Product();
+  @Input() productId !: number;
+  product: Product = new Product;
   @Output() updatedSuccessful = new EventEmitter<boolean>(false);
 
   compId!: number;
@@ -41,8 +42,16 @@ export class EditproductComponent {
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
-    this.product = new Product();
     this.getAllCategories();
+  }
+
+  ngOnChanges() {
+    this.getProduct(this.productId);
+  }
+  ngOnDestroy() {
+  }
+  ngAfterViewInit() {
+
   }
 
   getAllCategories() {
@@ -60,8 +69,6 @@ export class EditproductComponent {
     this.productService.getProductById(id, this.compId, this.branchId).subscribe({
       next: (data) => {
         this.product = data.data;
-        console.log(this.product);
-        console.log('init');
       },
     });
   }
@@ -97,6 +104,7 @@ export class EditproductComponent {
       next: (data) => {
         // alert("product successfully updated")
         this.getProduct(this.product.id);
+        this.toastrService.success("product has been successfully updated")
         this.updatedSuccessful.emit(true);
       },
       complete: () => {

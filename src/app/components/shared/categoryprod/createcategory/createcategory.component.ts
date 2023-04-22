@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { CategoryProductService } from 'src/app/service/category-product.service';
@@ -18,7 +19,8 @@ export class CreatecategoryComponent {
   branchId !: number;
   constructor(
     private categoryProductService: CategoryProductService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -57,6 +59,7 @@ export class CreatecategoryComponent {
         createCategoryProdForm.reset();
         this.fetchAllCategories();
         this.categorySuccessInfoEvent.emit(true);
+        this.toastrService.success("category is successfully deleted ");
       },
     });
   }
