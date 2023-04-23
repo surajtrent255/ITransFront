@@ -310,18 +310,20 @@
                     />
                   </td>
                   <td>
-                    <select
-                      name="vattypes{{ prod.name }}"
-                      id="vatRateTypes{{ prod.id }}"
-                      (change)="updateTotalAmount(prod)"
-                    >
-                      <option
-                        *ngFor="let vat of vatRateTypes"
-                        value="{{ vat.id }}"
+                    <i class="fa fa-angle-down" aria-hidden="true">
+                      <select
+                        name="vattypes{{ prod.name }}"
+                        id="vatRateTypes{{ prod.id }}"
+                        (change)="updateTotalAmount(prod)"
                       >
-                        {{ vat.vatRate }}
-                      </option>
-                    </select>
+                        <option
+                          *ngFor="let vat of vatRateTypes"
+                          value="{{ vat.id }}"
+                        >
+                          {{ vat.vatRate }}
+                        </option>
+                      </select></i
+                    >
                   </td>
                   <td id="totalAmount{{ prod.id }}">{{ prod.sellingPrice }}</td>
                   <td style="text-align: center; vertical-align: middle">
@@ -496,8 +498,10 @@
               </tr>
             </thead>
             <tbody id="prodTable">
-              <tr>
-                <span class="noProdRecord">No records found</span>
+              <tr class="text-center" *ngIf="selectMenusForCompaniesSize === 0">
+                <td colspan="9">
+                  <span style="color: red">No records found !</span>
+                </td>
               </tr>
               <!-- <c:forEach items="${products}" var="product">  -->
               <tr

@@ -9,4 +9,5 @@ export class CategoryProduct {
   createdDate !: Date;
   editedDate !: Date;
   childCategories !: CategoryProduct[];
+  showChildren !: boolean;
 }

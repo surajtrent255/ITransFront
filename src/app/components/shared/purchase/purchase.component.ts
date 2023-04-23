@@ -21,6 +21,7 @@ export class PurchaseComponent {
 
   purchaseBills: PurchaseBill[] = []
   compId !: number;
+  branchId !: number;
   purchaseBillMaster !: PurchaseBillMaster;
   constructor(private purchaseBillService: PurchaseBillService,
     private router: Router,
@@ -30,11 +31,12 @@ export class PurchaseComponent {
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
+    this.branchId = this.loginService.getBranchId();
     this.getAllPurchaseBills(this.compId);
   }
 
   getAllPurchaseBills(compId: number) {
-    this.purchaseBillService.getAllPurchaseBillByCompId(this.compId).subscribe({
+    this.purchaseBillService.getAllPurchaseBillByCompId(this.compId, this.branchId).subscribe({
       next: (data) => {
         console.log(data.data);
         this.purchaseBills = data.data
@@ -49,5 +51,7 @@ export class PurchaseComponent {
     this.router.navigateByUrl("dashboard/purchase/create")
   }
 
-
+  goToPurchBillDetail(billNo: number) {
+    this.router.navigateByUrl(`dashboard/purchasebills/${billNo}`);
+  }
 }

@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Component, Renderer2 } from '@angular/core';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { CategoryProductService } from 'src/app/service/category-product.service';
@@ -16,16 +15,25 @@ export class CategoryprodComponent {
 
   compId!: number;
   branchId !: number;
+
+  createCategoryShow: boolean = true;
   constructor(
     private categoryProductService: CategoryProductService,
     private loginService: LoginService,
-    private toastrService: ToastrService
+    private renderer: Renderer2
   ) { }
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.fetchAllCategories();
+  }
+
+  ngAfterViewInit() {
+    const createCatBtn = document.querySelector("createNewCategory") as HTMLAnchorElement;
+    this.renderer.listen(createCatBtn, 'click', () => {
+      this.createCategoryShow = true;
+    })
   }
 
   fetchAllCategories() {
@@ -37,7 +45,6 @@ export class CategoryprodComponent {
       });
   }
 
-  //not nec
   addNewCategory() {
     const catCreateDiv = document.getElementById(
       'createCatDiv'
@@ -47,13 +54,7 @@ export class CategoryprodComponent {
   createNewCategory($event: boolean) {
     if (($event = true)) {
       this.fetchAllCategories();
+      this.createCategoryShow = true;
     }
-  }
-
-  deleteCategory(id: number) {
-    this.categoryProductService.deleteCategory(id, this.compId, this.branchId).subscribe(data => {
-      this.toastrService.success("category has been deleted ");
-      this.fetchAllCategories();
-    })
   }
 }

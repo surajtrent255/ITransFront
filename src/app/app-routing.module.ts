@@ -15,6 +15,7 @@ import { SalesBillingComponent } from './components/shared/sales/sales-billing/s
 import { CategoryProduct } from './models/CategoryProduct';
 import { CreatePurchaseBillComponent } from './components/shared/purchase/create-purchase-bill/create-purchase-bill.component';
 import { StockComponent } from './components/shared/stock/stock.component';
+import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -61,8 +62,12 @@ const routes: Routes = [
         component: CreatePurchaseBillComponent,
       },
       {
-        path: ':id/purchasebills',
+        path: 'purchasebills',
         component: PurchaseComponent,
+      },
+      {
+        path: "purchasebills/:billNo",
+        component: PurchaseBillDetailComponent
       },
       {
         path: 'products',
