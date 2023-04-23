@@ -16,6 +16,7 @@ import { CategoryProduct } from './models/CategoryProduct';
 import { CreatePurchaseBillComponent } from './components/shared/purchase/create-purchase-bill/create-purchase-bill.component';
 import { StockComponent } from './components/shared/stock/stock.component';
 import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
+import { LoanComponent } from './components/shared/loan/loan.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -76,6 +77,10 @@ const routes: Routes = [
       {
         path: 'products/edit/:prodId',
         component: EditproductComponent,
+      },
+      {
+        path: 'loan/create',
+        component: LoanComponent
       },
       {
         path: 'demo',

@@ -49,6 +49,7 @@ import { SelectCustomerComponent } from './components/shared/select-customer/sel
 import { PurchaseBillDetail } from './models/PurchaseBillDetail';
 import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
 import { SelectCategoryComponent } from './components/shared/categoryprod/select-category/select-category.component';
+import { LoanComponent } from './components/shared/loan/loan.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { SelectCategoryComponent } from './components/shared/categoryprod/select
     CreateCustomerComponent,
     SelectCustomerComponent,
     PurchaseBillDetailComponent,
-    SelectCategoryComponent
+    SelectCategoryComponent,
+    LoanComponent
   ],
   imports: [
     BrowserModule,
