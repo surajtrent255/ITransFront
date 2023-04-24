@@ -1,1 +1,162 @@
-<p>payment works!</p>
+<div class="PaymentWrapper" style="margin-top: 8px" id="paymentPopup">
+  <div class="recordCategory">
+    <h2 class="text-center" id="totalGroupCombinations">Payment Flow</h2>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv paymentSubHeading">
+    <h1 class="heading">Payment</h1>
+    <div>Enter payment details.</div>
+  </div>
+  <div
+    class="paymentpopupContentWrapper configPopupWrapper paymentPopupWrapper"
+  >
+    <form>
+      <div class="tabListWrapper">
+        <ul class="tabList popupTablist" id="paymentTabList">
+          <li class="active">
+            <a href="#" class="fleft tab-1 payTab1" tab="1">Check Out</a>
+          </li>
+          <li>
+            <a href="#" class="fleft tab-2 payTab2" tab="2">Finish</a>
+          </li>
+        </ul>
+      </div>
+      <div class="PaymentFormField">
+        <div id="paymentTabList-Div">
+          <!-- ckeckout form -->
+
+          <div class="tabs-section tab-1">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4 order-md-2 mb-4">
+                  <h4
+                    class="d-flex justify-content-between align-items-center mb-3"
+                  >
+                    <span class="text-muted">Amount Details</span>
+                  </h4>
+                  <ul class="list-group mb-3">
+                    <li
+                      class="list-group-item d-flex justify-content-between lh-condensed"
+                    >
+                      <div>
+                        <h6 class="my-0">Net Amount</h6>
+                        <!-- <small class="text-muted">Brief description</small> -->
+                      </div>
+                      <span class="text-muted">12</span>
+                    </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between lh-condensed"
+                    >
+                      <div>
+                        <h6 class="my-0">TDS</h6>
+                        <!-- <small class="text-muted">Brief description</small> -->
+                      </div>
+                      <span class="text-muted" #Tds>8</span>
+                    </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between lh-condensed"
+                    >
+                      <div>
+                        <h6 class="my-0">Sub Total</h6>
+                        <!-- <small class="text-muted">Brief description</small> -->
+                      </div>
+                      <span class="text-muted">5</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between">
+                      <span>Total </span>
+                      <span #Total>20</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-8 order-md-1">
+                  <h4 class="mb-3">Checkout Form</h4>
+                  <form
+                    [formGroup]="PaymentForm"
+                    (ngSubmit)="paymentFormSubmit()"
+                  >
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="firstName">Company ID</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="companyId"
+                          id="firstName"
+                          placeholder=""
+                          value=""
+                          required
+                        />
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="lastName">Party ID</label>
+                        <input
+                          type="text"
+                          formControlName="partyId"
+                          class="form-control"
+                          id="lastName"
+                          placeholder=""
+                          value=""
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="username">Branch ID</label>
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="branchId"
+                          id="username"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-3 mb-3">
+                        <label for="cc-expiration">Payment Method</label>
+                        <select
+                          class="form-select"
+                          aria-label="Default select example"
+                          formControlName="paymentModeId"
+                        >
+                          <option selected>Select Method</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <label for="cc-cvv">PostDateCheck</label>
+                        <select
+                          class="form-select"
+                          formControlName="postCheckDate"
+                          aria-label="Default select example"
+                        >
+                          <option selected>No</option>
+                          <option value="1">Yes</option>
+                        </select>
+                      </div>
+                    </div>
+                    <hr class="mb-4" />
+                    <button class="submit_btn border-rad" type="submit">
+                      Continue to checkout
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Finish -->
+          <div class="tabs-section tab-2">
+            <app-receipt></app-receipt>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

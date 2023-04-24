@@ -48,6 +48,10 @@ import { CreateCustomerComponent } from './components/shared/sales/create-custom
 import { SelectCustomerComponent } from './components/shared/select-customer/select-customer.component';
 import { CreateCompanyComponent } from './components/shared/select-and-create-company/create-company/create-company.component';
 import { PaymentComponent } from './components/shared/payment/payment.component';
+import { ReceiptComponent } from './components/shared/receipt/receipt.component';
+import { CreateBankComponent } from './components/shared/bank/create-bank/create-bank.component';
+import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
+import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +86,10 @@ import { PaymentComponent } from './components/shared/payment/payment.component'
     SelectCustomerComponent,
     CreateCompanyComponent,
     PaymentComponent,
+    ReceiptComponent,
+    CreateBankComponent,
+    BankDepositComponent,
+    BankWithdrawComponent,
   ],
   imports: [
     BrowserModule,
