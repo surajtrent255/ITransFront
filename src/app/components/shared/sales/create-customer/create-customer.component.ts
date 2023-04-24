@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -24,6 +25,8 @@ export class CreateCustomerComponent {
   company: Company = new Company();
   user: User = new User();
   user_id!: number;
+
+  @Input() title !: string;
 
   @ViewChild('closeCustomer') closeCustomer!: ElementRef;
 
