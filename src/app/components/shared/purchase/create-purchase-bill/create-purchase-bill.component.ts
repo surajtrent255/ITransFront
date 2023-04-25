@@ -1,13 +1,17 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/Product';
 import { PurchaseBill } from 'src/app/models/PurchaseBill';
 import { PurchaseBillDetail } from 'src/app/models/PurchaseBillDetail';
 import { PurchaseBillMaster } from 'src/app/models/PurchaseBillMaster';
 import { SalesBillDetail } from 'src/app/models/SalesBillDetail';
+import { Company } from 'src/app/models/company';
 import { ProductService } from 'src/app/service/product.service';
 import { PurchaseBillService } from 'src/app/service/purchase-bill.service';
 import { SalesBillServiceService } from 'src/app/service/sales-bill-service.service';
+import { CompanyServiceService } from 'src/app/service/shared/company-service.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 import { SalesCartService } from 'src/app/service/shared/sales-cart-service.service';
 
@@ -19,7 +23,16 @@ import { SalesCartService } from 'src/app/service/shared/sales-cart-service.serv
 export class CreatePurchaseBillComponent {
   billNo: number = 0;
   sellerId: number | undefined = 0;
+  sellerName !: string;
+  sellerPan !: number;
+  sellerPanOrPhone!: number;
+  selectMenusForCompanies!: Company[];
+  selectMenusForCompaniesSize !: number;
+
+  currentBranch!: string;
+  date!: string;
   productBarCodeId: undefined | number;
+  sellerSearchMethod: number = 1;
 
   companyId!: number;
   branchId !: number;
@@ -31,11 +44,20 @@ export class CreatePurchaseBillComponent {
     private productService: ProductService,
     private purchaseBillService: PurchaseBillService,
     private router: Router,
-    private loginService: LoginService
-  ) { }
+    private loginService: LoginService,
+    private tostrService: ToastrService,
+    private companyService: CompanyServiceService
+  ) {
+    const currentDateObj = new Date();
+    const datePipe = new DatePipe('en-US');
+    this.date = datePipe.transform(currentDateObj, 'yyyy-MM-dd')!;
+  }
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
+    this.branchId = this.loginService.getBranchId();
+    this.currentBranch = 'Branch ' + this.branchId;
+
   }
   addTheProductForPurchase() {
     if (this.productBarCodeId === undefined) {
@@ -51,6 +73,22 @@ export class CreatePurchaseBillComponent {
       });
   }
 
+  getCompanyList() {
+    this.companyService.getAllCompanies().subscribe({
+      next: (data) => {
+        this.selectMenusForCompanies = data.data;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+      complete: () => { },
+    });
+  }
+
+  sellerSearch(id: number) {
+    this.sellerSearchMethod = id;
+  }
+
   updateProdQtyUserWantToPurchase($event: any, prod: Product) {
     if ($event.target.value === undefined) {
       return;
@@ -63,7 +101,55 @@ export class CreatePurchaseBillComponent {
     prodtotalAmountElement.innerText = '' + prodTotalAmount;
   }
 
-  purchaseTheProducts() {
+  setSellerInfo(compId: number) {
+    let comp: Company = this.selectMenusForCompanies.find(
+      (comp) => Number(comp.companyId) === Number(compId)
+    )!;
+    this.sellerId = comp.companyId;
+    this.sellerName = comp.name;
+    this.sellerPan = Number(comp.panNo);
+    const closePurchaserPopUpEl = document.getElementById(
+      'closePurchaserPopup'
+    ) as HTMLAnchorElement;
+    closePurchaserPopUpEl.click();
+  }
+
+
+  fetchPurchaserInfo() {
+    if (this.sellerPanOrPhone === null || this.sellerPanOrPhone === undefined) {
+      this.tostrService.error(`pan or phone`, 'invalid number');
+      return;
+      // return;
+    }
+
+
+    this.companyService
+      .getCustomerInfoByPanOrPhone(
+        this.sellerSearchMethod,
+        this.sellerPanOrPhone
+      )
+      .subscribe({
+        next: (data) => {
+          this.selectMenusForCompanies = data.data;
+          this.selectMenusForCompaniesSize = data.data.length;
+        },
+        complete: () => {
+          const custBtn = document.getElementById(
+            'selectPurchaser'
+          ) as HTMLButtonElement;
+          custBtn.click();
+        },
+      });
+  }
+
+  removeItemFromCart(id: number) {
+    this.productsUserWantToPurchase = this.productsUserWantToPurchase.filter(
+      (prod) => prod.id !== id
+    );
+  }
+
+
+  purchaseTheProducts(draftSt: boolean) {
     console.log('above');
 
     if (
@@ -72,8 +158,11 @@ export class CreatePurchaseBillComponent {
       this.productsUserWantToPurchase.length <= 0 ||
       this.sellerId === 0 ||
       this.sellerId === undefined
-    )
+    ) {
+      this.tostrService.error("please fill all the fields")
       return;
+    }
+
     console.log('below');
     this.productsUserWantToPurchase.forEach((prod) => {
       let purchaseBillDetail: PurchaseBillDetail = new PurchaseBillDetail();
@@ -110,15 +199,17 @@ export class CreatePurchaseBillComponent {
     purchaseBill.taxableAmount = taxableAmount;
     purchaseBill.taxAmount = taxAmount;
     purchaseBill.totalAmount = totalAmount;
+    purchaseBill.companyId = this.companyId;
     purchaseBill.sellerId = this.sellerId!;
-    purchaseBill.sellerName = 'xyz mohit';
-    purchaseBill.sellerPan = 'Pan#123';
+    purchaseBill.sellerName = this.sellerName;
+    purchaseBill.sellerPan = this.sellerPan;
     purchaseBill.syncWithIrd = false;
     purchaseBill.enteredBy = this.loginService.currentUser.user.email;
     purchaseBill.paymentMethod = 'CashInHand';
     purchaseBill.purchaseBillNo = this.billNo;
     purchaseBill.userId = this.loginService.currentUser.user.id;
     purchaseBill.companyId = this.companyId;
+    purchaseBill.branchId = this.branchId;
     purchaseBill.realTime = true;
     purchaseBill.billActive = true;
     purchaseBillMaster.purchaseBillDTO = purchaseBill;
@@ -131,7 +222,7 @@ export class CreatePurchaseBillComponent {
         next: (data) => {
           console.log(data.data);
           this.router.navigateByUrl(
-            `dashboard/${this.companyId}/purchasebills`
+            `dashboard/purchasebills`
           );
         },
         error: (error) => {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { CategoryProductService } from 'src/app/service/category-product.service';
@@ -15,9 +15,12 @@ export class CategoryprodComponent {
 
   compId!: number;
   branchId !: number;
+
+  createCategoryShow: boolean = true;
   constructor(
     private categoryProductService: CategoryProductService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit() {
@@ -26,14 +29,19 @@ export class CategoryprodComponent {
     this.fetchAllCategories();
   }
 
+  ngAfterViewInit() {
+    const createCatBtn = document.querySelector("createNewCategory") as HTMLAnchorElement;
+    this.renderer.listen(createCatBtn, 'click', () => {
+      this.createCategoryShow = true;
+    })
+  }
+
   fetchAllCategories() {
     this.categoryProductService
       .getAllCategories(this.compId, this.branchId)
       .subscribe((data) => {
         this.categoriesData = data.data;
         console.log(this.categoriesData);
-
-
       });
   }
 
@@ -46,6 +54,7 @@ export class CategoryprodComponent {
   createNewCategory($event: boolean) {
     if (($event = true)) {
       this.fetchAllCategories();
+      this.createCategoryShow = true;
     }
   }
 }

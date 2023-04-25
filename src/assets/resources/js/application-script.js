@@ -761,7 +761,12 @@ $(function () {
     $(".movable").removeClass("movable");
     return false;
   });
-
+  $(".Customer1EditCloseButton").live("click", function () {
+    $(".pageOverlay").fadeOut("fast");
+    $(".CustomerEditPopupWrapper").fadeOut("fast");
+    $(".movable").removeClass("movable");
+    return false;
+  });
   $(".createCustomerCloseBtn").live("click", function () {
     $(".pageOverlay").fadeOut("fast");
     $(".createCustomerPopUpWrapper").fadeOut("fast");

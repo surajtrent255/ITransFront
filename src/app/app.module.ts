@@ -52,6 +52,10 @@ import { ReceiptComponent } from './components/shared/receipt/receipt.component'
 import { CreateBankComponent } from './components/shared/bank/create-bank/create-bank.component';
 import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
 import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
+import { PurchaseBillDetail } from './models/PurchaseBillDetail';
+import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
+import { SelectCategoryComponent } from './components/shared/categoryprod/select-category/select-category.component';
+import { LoanComponent } from './components/shared/loan/loan.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +94,9 @@ import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/ba
     CreateBankComponent,
     BankDepositComponent,
     BankWithdrawComponent,
+    PurchaseBillDetailComponent,
+    SelectCategoryComponent,
+    LoanComponent
   ],
   imports: [
     BrowserModule,

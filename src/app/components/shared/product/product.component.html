@@ -290,7 +290,7 @@
                 <td class="last-child">
                   <a
                     id="editProduct"
-                    (click)="editProduct(product)"
+                    (click)="editProduct(product.id)"
                     class="createNewTableRecord"
                   >
                     <img src="../../../assets/resources/images/editRow.png" />
@@ -316,7 +316,7 @@
 
     <div class="popupWrapper" id="editProductPopup" style="display: none">
       <app-editproduct
-        [product]="productInfoForUpdate"
+        [productId]="productInfoForUpdateId"
         (updatedSuccessful)="fetchAllProductsAfterEdit()"
       ></app-editproduct>
     </div>

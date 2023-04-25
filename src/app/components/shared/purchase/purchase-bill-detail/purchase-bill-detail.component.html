@@ -1,8 +1,9 @@
 <div class="contentRecordsTableContainer MainContainer">
-  <!-- 405px -->
-  <div class="recordTableWrapper">
+  <div class="recordTableWrapper" style="height: 545px">
     <div class="recordCategory">
-      <h2 class="text-center" id="totalGroupCombinations">Category List</h2>
+      <h2 class="text-center" id="totalGroupCombinations">
+        Purchase Product List
+      </h2>
       <div class="cboth"></div>
     </div>
 
@@ -23,12 +24,12 @@
           />
           <a href="#" class="genLink">Clear searchs</a>
         </div>
-        <div class="fright" class="createCategoryDiv">
-          <a href="" id="createNewCategory" class="createNewTableRecord">
-            <img src="../../../../assets/resources/images/createProduct.png" />
-            <span> Create Category</span>
+        <!-- <div class="fright" class="createProductDiv">
+          <a href="" id="createNewProduct" class="createNewTableRecord">
+            <img src="../../../assets/resources/images/createProduct.png" />
+            <span> Create Product</span>
           </a>
-        </div>
+        </div> -->
         <div class="cboth"></div>
       </div>
       <div class="tableWrapper">
@@ -38,14 +39,14 @@
               <span class="italicText"></span>
             </div>
             <ul
-              class="fleft filtersDisplayList CategoriesTableFiltersDisplayList"
+              class="fleft filtersDisplayList purchaseBillTableFiltersDisplayList"
             ></ul>
             <div class="cboth"></div>
           </div>
           <div class="fright configNavTableWrapper">
             <div
               class="fleft configTableDiv newFilterItem"
-              dropdownId="CategoriesTableFilters"
+              dropdownId="purchaseBillTableFilters"
             >
               <a href="" class="">
                 <img
@@ -53,7 +54,7 @@
                   alt="New Filter"
                   title="Add new filter"
                 />
-                <span id="newCategoryFilter" search="off">New Filter</span>
+                <span id="newProductFilter" search="off">New Filter</span>
               </a>
             </div>
             <div class="fleft configTableDiv">
@@ -62,17 +63,17 @@
                 <span>Configure Table</span>
                 <img src="../../../assets/resources/images/th-sort-down.png" />
               </a>
-              <div class="configTableDropdown" id="CategoriesTableFilters">
-                <ul class="configOptionList" id="CategoryConfigList">
+              <div class="configTableDropdown" id="purchaseBillTableFilters">
+                <ul class="configOptionList" id="SaleBillConfigList">
                   <li class="filterItem">
                     <span>Recent Filters</span>
-                    <ul class="filterList" id="CategoryFilterList">
-                      <!-- <c:if test="${not empty CategoryFilters}"> -->
-                      <!-- <c:forEach items="${CategoryFilters}" var="filter"> -->
+                    <ul class="filterList" id="SaleBillFilterList">
+                      <!-- <c:if test="${not empty SaleBillFilters}"> -->
+                      <!-- <c:forEach items="${SaleBillFilters}" var="filter"> -->
                       <li>
                         <a
                           href=""
-                          class="filterLink CategoryFilterName"
+                          class="filterLink SaleBillFilterName"
                           style="
                             white-space: nowrap;
                             overflow: hidden;
@@ -80,11 +81,11 @@
                           "
                           >filter.name</a
                         >
-                        <span class="CategoryFilterId" style="display: none"
+                        <span class="SaleBillFilterId" style="display: none"
                           >filter.id</span
                         >
                         <div
-                          class="CategoryFilterReqData hoverData"
+                          class="SaleBillFilterReqData hoverData"
                           style="display: none"
                         >
                           filter.reqData
@@ -92,15 +93,15 @@
                       </li>
                       <!-- </c:forEach> -->
                       <!-- </c:if> -->
-                      <!-- <c:if test="${not empty CategoryFilterSeeMore}"> -->
+                      <!-- <c:if test="${not empty SaleBillFilterSeeMore}"> -->
                       <li class="seeAllFilterLink">
                         <a href="" class="seeMoreLink">See More</a>
-                        <ul class="allFiltersList CategoryAllFilterList">
-                          <!-- <c:forEach items="${CategoryFilterSeeMore}" var="filter"> -->
+                        <ul class="allFiltersList SaleBillAllFilterList">
+                          <!-- <c:forEach items="${SaleBillFilterSeeMore}" var="filter"> -->
                           <li>
                             <a
                               href=""
-                              class="filterLink CategoryFilterName"
+                              class="filterLink SaleBillFilterName"
                               style="
                                 white-space: nowrap;
                                 overflow: hidden;
@@ -108,11 +109,11 @@
                               "
                               >filter.name</a
                             >
-                            <span class="CategoryFilterId" style="display: none"
+                            <span class="SaleBillFilterId" style="display: none"
                               >filter.id</span
                             >
                             <div
-                              class="CategoryFilterReqData hoverData"
+                              class="SaleBillFilterReqData hoverData"
                               style="display: none"
                             >
                               filter.reqData
@@ -136,7 +137,7 @@
                 </ul>
               </div>
             </div>
-            <div class="fleft tableNavDiv" id="CategoriesTablePagination">
+            <div class="fleft tableNavDiv" id="purchaseBillTablePagination">
               <a href="" class="first first-page pageNumber">
                 <img src="../../../assets/resources/images/first-page.png" />
               </a>
@@ -146,17 +147,17 @@
               <span class="showingText">Page</span>
               <span class="pagedisplay"><span class="pageNum">1</span> </span>
               <!-- <c:choose>
-                          <c:when test="${(totalCategoryRecords mod 10)!=0}">
-                              <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
-                              <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
-                              <span class="totalPage">${totalPage}</span>
-                          </c:when>
-                          <c:otherwise>
-                              <c:set var="res" value="${totalCategoryRecords/10}"/>
-                              <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
-                              <span class="totalPage">${totalPage}</span>
-                          </c:otherwise>
-                        </c:choose> -->
+                              <c:when test="${(totalSaleBillRecords mod 10)!=0}">
+                                  <c:set var="res" value="${(totalSaleBillRecords - (totalSaleBillRecords mod SaleBillTableRecords))/SaleBillTableRecords + 1}"/>
+                                  <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                                  <span class="totalPage">${totalPage}</span>
+                              </c:when>
+                              <c:otherwise>
+                                  <c:set var="res" value="${totalSaleBillRecords/10}"/>
+                                  <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                                  <span class="totalPage">${totalPage}</span>
+                              </c:otherwise>
+                            </c:choose> -->
               <a href="" class="next pageNumber">
                 <img src="../../../assets/resources/images/next-page.png" />
               </a>
@@ -172,64 +173,33 @@
             cellspacing="0"
             cellpadding="0"
             class="recordsTable"
-            id="CategoriesRecordsTable"
+            id="purchaseBillRecordsTable"
           >
             <thead>
               <tr>
-                <th
-                  class="first-child sortable"
-                  sortDir="asc"
-                  sortCol="organization_id"
-                  id="id"
-                >
-                  Category Id
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="organization_name"
-                  id="name"
-                >
-                  Category Name
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="customer_name"
-                  id="costprice"
-                >
-                  Category Description
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="master_name"
-                  id="sellingprice"
-                >
-                  Parent ID
-                </th>
-
-                <th class="last-child">Actions</th>
+                <th>S.N</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Per Unit Amount(Rs)</th>
+                <th>Sold At</th>
               </tr>
             </thead>
-            <tbody id="prodTable">
+            <tbody id="saleTable">
               <tr>
                 <span class="noProdRecord">No records found</span>
               </tr>
-              <!-- <c:forEach items="${Categories}" var="Category">  -->
-              <tr *ngFor="let cat of categoriesData">
-                <td>{{ cat.id }}</td>
-                <td>{{ cat.name }}</td>
-                <td>{{ cat.description }}</td>
-                <td>{{ cat.parentId }}</td>
-                <td class="last-child">
-                  <a href="" class="">
-                    <img src="../../../assets/resources/images/editRow.png" />
-                  </a>
-                  <a href="" class="deleteRowLink deleteGroupCombo">
-                    <img src="../../../assets/resources/images/deleteRow.png" />
-                  </a>
-                </td>
+              <!-- <c:forEach items="${purchaseBill}" var="product">  -->
+              <tr
+                *ngFor="
+                  let invoice of purchaseBillInvoice.purchaseBillDetailsWithProd;
+                  let i = index
+                "
+              >
+                <td>{{ i + 1 }}</td>
+                <td>{{ invoice.productName }}</td>
+                <td>{{ invoice.qty }}</td>
+                <td>{{ invoice.rate }}</td>
+                <td>{{ invoice.date | date }}</td>
               </tr>
               <!-- </c:forEach>	 -->
             </tbody>
@@ -237,20 +207,5 @@
         </div>
       </div>
     </div>
-
-    <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-      <div class="mb-2"></div>
-
-      <app-createcategory
-        *ngIf="createCategoryShow"
-        (categorySuccessInfoEvent)="createNewCategory($event)"
-      ></app-createcategory>
-    </div>
-
-    <div
-      class="popupWrapper"
-      id="editCategoryPopup"
-      style="display: none"
-    ></div>
   </div>
 </div>

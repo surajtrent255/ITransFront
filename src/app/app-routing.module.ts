@@ -20,6 +20,8 @@ import { ReceiptComponent } from './components/shared/receipt/receipt.component'
 import { CreateBankComponent } from './components/shared/bank/create-bank/create-bank.component';
 import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
 import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
+import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
+import { LoanComponent } from './components/shared/loan/loan.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -66,8 +68,12 @@ const routes: Routes = [
         component: CreatePurchaseBillComponent,
       },
       {
-        path: ':id/purchasebills',
+        path: 'purchasebills',
         component: PurchaseComponent,
+      },
+      {
+        path: "purchasebills/:billNo",
+        component: PurchaseBillDetailComponent
       },
       {
         path: 'products',
@@ -76,6 +82,10 @@ const routes: Routes = [
       {
         path: 'products/edit/:prodId',
         component: EditproductComponent,
+      },
+      {
+        path: 'loan/create',
+        component: LoanComponent
       },
       {
         path: 'demo',

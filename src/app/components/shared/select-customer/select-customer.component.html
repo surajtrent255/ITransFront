@@ -1,1 +1,120 @@
-<p>select-customer works!</p>
+<div class="mb-2"></div>
+<div class="popupHeading">
+  <h2 class="fleft">{{ title }}</h2>
+  <a class="Customer1CloseButton fright" id="closeCompanyPop"
+    ><img src="../../../assets/resources/images/removetablink.png" alt="close"
+  /></a>
+  <div class="cboth"></div>
+</div>
+<div class="popupSubHeadingDiv selectcompanyomer">
+  <h1 class="heading">Your can select your {{ title }} here</h1>
+</div>
+<div class="popupContentWrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="recordsTableDiv">
+        <table
+          cellspacing="0"
+          cellpadding="0"
+          class="recordsTable"
+          id="ProductsRecordsTable"
+        >
+          <thead>
+            <tr>
+              <th>S.N</th>
+              <th
+                class="first-child sortable"
+                sortDir="asc"
+                sortCol="organization_id"
+                id="id"
+              >
+                Name
+              </th>
+              <th
+                class="sortable"
+                sortDir="asc"
+                sortCol="organization_name"
+                id="name"
+              >
+                PAN NO
+              </th>
+              <th
+                class="sortable"
+                sortDir="asc"
+                sortCol="companyomer_name"
+                id="costprice"
+              >
+                Phone
+              </th>
+              <th
+                class="sortable"
+                sortDir="asc"
+                sortCol="master_name"
+                id="sellingprice"
+              >
+                State
+              </th>
+              <th
+                class="sortable"
+                sortDir="asc"
+                sortCol="product_group_name"
+                id="barcode"
+              >
+                District
+              </th>
+              <th
+                class="sortable"
+                sortDir="asc"
+                sortCol="product_group_name"
+                id="discount"
+              >
+                Mun/Vdc
+              </th>
+              <th
+                class="sortable"
+                sortDir="asc"
+                sortCol="product_group_name"
+                id="tax"
+              >
+                Ward
+              </th>
+
+              <th class="last-child">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="prodTable">
+            <tr
+              class="text-center"
+              *ngIf="selectMenusForCompanies.length === 0"
+            >
+              <td colspan="9">
+                <span style="color: red">No records found !</span>
+              </td>
+            </tr>
+            <tr
+              *ngFor="let company of selectMenusForCompanies; let index = index"
+              id="company_{{ company.companyId }}"
+            >
+              <td>{{ index + 1 }}</td>
+              <td>{{ company.name }}</td>
+              <td>{{ company.panNo }}</td>
+              <td>{{ company.phone }}</td>
+              <td>{{ company.state }}</td>
+              <td>{{ company.district }}</td>
+              <td>{{ company.munVdc }}</td>
+              <td>---</td>
+              <td>
+                <button
+                  (click)="setCompanyId(company.companyId)"
+                  class="submit_btn border-rad"
+                >
+                  Select
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

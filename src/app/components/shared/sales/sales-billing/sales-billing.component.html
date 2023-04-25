@@ -338,6 +338,7 @@
                 </td>
                 <td>
                   <i
+                    *ngIf="salesBill.status && !salesBill.draft"
                     class="fa fa-print"
                     aria-hidden="true"
                     (click)="goForPrint(salesBill.id)"
