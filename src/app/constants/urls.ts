@@ -56,3 +56,9 @@ export const GET_USER_FOR_ASSIGN_BRANCH_LIST =
   BASE_URL + '/api/v1/branch/list/assign';
 
 export const GET_MUNICIPALITY = BASE_URL + '/api/v1/municipality';
+
+export const GET_ALL_BANK = BASE_URL + '/api/v1/bank/branchid';
+
+export const post_ALL_BANK=BASE_URL+'/api/v1/bank/bank';
+
+export const GET_ALL_deposite=BASE_URL+'/api/v1/bank/deposite?';
