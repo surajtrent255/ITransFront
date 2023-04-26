@@ -1,378 +1,319 @@
-<div class="contentRecordsTableContainer MainContainer" style="height: auto">
-  <div class="recordTableWrapper">
+<div class="contentRecordsTableContainer MainContainer">
+  <div class="recordTableWrapper" style="height: auto">
     <div class="recordCategory">
-      <h2 class="text-center" id="totalGroupCombinations">Create Loan</h2>
+      <h2 class="text-center" id="totalGroupCombinations">Product List</h2>
       <div class="cboth"></div>
     </div>
-    <div class="popupContentWrapper" style="background: none">
-      <div class="row">
-        <div class="col-md-12">
-          <!-- <app-popup class="m-4"></app-popup> -->
-          <form
-            class="offset-md-4"
-            #createLoanForm="ngForm"
-            name="createLoan"
-            (ngSubmit)="createLoan(createLoanForm)"
+
+    <div class="searchCreateTableDiv" style="height: 513px">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText hintText"
+            type="text"
+            search="off"
+            value="Enter CustomerPartName/MasterPartName to Search"
+          />
+          <input
+            type="image"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a href="#" class="genLink">Clear searchs</a>
+        </div>
+        <div class="fright" class="createProductDiv">
+          <a
+            href=""
+            (click)="enableLoanComponent()"
+            id="createNewLoan"
+            class="createNewTableRecord"
           >
-            <div
-              class="alert alert-warning"
-              role="alert"
-              *ngIf="createLoanForm.form.invalid && createLoanForm.form.touched"
-            >
-              Please fill all the required fields
+            <img src="../../../assets/resources/images/createProduct.png" />
+            <span> Create Loan</span>
+          </a>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fleft filterListWrapper">
+            <div class="fleft">
+              <span class="italicText"></span>
             </div>
-            <div class="chooseColoumnsWrapper">
-              <div class="fieldDiv popUpFormSectionWrapper">
-                <table class="" cellpadding="0" cellspacing="1">
-                  <tr>
-                    <td class="col1 pt-2">
-                      Bank:
-                      <span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2 pt-2 ml-3">
-                      <select
-                        id="bankId"
-                        style="width: 100%; height: 30px"
-                        name="bankId"
-                        #bankId="ngModel"
-                        [(ngModel)]="loan.bankId"
-                        [class.is-invalid]="bankId.invalid && bankId.touched"
-                        required
-                      >
-                        <option value="" disabled selected>
-                          Select an option
-                        </option>
-                        <option
-                          *ngFor="let option of banks"
-                          [value]="option.id"
+            <ul
+              class="fleft filtersDisplayList LoansTableFiltersDisplayList"
+            ></ul>
+            <div class="cboth"></div>
+          </div>
+          <div class="fright configNavTableWrapper">
+            <div
+              class="fleft configTableDiv newFilterItem"
+              dropdownId="LoansTableFilters"
+            >
+              <a href="" class="">
+                <img
+                  src="../../../assets/resources/images/newfilter-bg.png"
+                  alt="New Filter"
+                  title="Add new filter"
+                />
+                <span id="newProductFilter" search="off">New Filter</span>
+              </a>
+            </div>
+            <div class="fleft configTableDiv">
+              <a href="" class="configTableLink">
+                <img src="../../../assets/resources/images/config-bg.png" />
+                <span>Configure Table</span>
+                <img src="../../../assets/resources/images/th-sort-down.png" />
+              </a>
+              <div class="configTableDropdown" id="LoansTableFilters">
+                <ul class="configOptionList" id="ProductConfigList">
+                  <li class="filterItem">
+                    <span>Recent Filters</span>
+                    <ul class="filterList" id="ProductFilterList">
+                      <!-- <c:if test="${not empty ProductFilters}"> -->
+                      <!-- <c:forEach items="${ProductFilters}" var="filter"> -->
+                      <li>
+                        <a
+                          href=""
+                          class="filterLink ProductFilterName"
+                          style="
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          "
+                          >filter.name</a
                         >
-                          {{ option.name }}
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col1 pt-2">
-                      Lender:
-                      <span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2 pt-2 ml-3">
-                      <input
-                        type="number"
-                        [(ngModel)]="lenderPanOrPhone"
-                        class="form-control"
-                        (keydown.enter)="fetchLenderInfo()"
-                        name="seller"
-                        ngNoForm
-                      />
-                    </td>
-                    <td class="col3">
-                      <i
-                        class="submit_btn border-rad fas far fa-search"
-                        style="margin: 0 5px"
-                        (click)="fetchLenderInfo()"
-                      ></i>
-                      <button
-                        id="selectLender"
-                        class="createNewTableRecord"
-                        style="display: none"
-                      ></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col1 pt-2"></td>
-                    <td class="col2">
-                      <div class="ml-2 mb-2 mt-2">
-                        <span>
-                          <input
-                            type="radio"
-                            name="lenderSearch"
-                            value="pan"
-                            (change)="lenderSearch(1)"
-                            [checked]="lenderSearchMethod === 1"
-                          />
-                          PAN
-                        </span>
-                        <span>
-                          <input
-                            type="radio"
-                            name="lenderSearch"
-                            class="ml-3"
-                            value="phone"
-                            [checked]="lenderSearchMethod === 2"
-                            (change)="lenderSearch(2)"
-                          />
-                          PHONE</span
+                        <span class="ProductFilterId" style="display: none"
+                          >filter.id</span
                         >
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col1 pt-2">
-                      Lender Id :<span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2">
-                      <input
-                        type="number"
-                        [class.is-invalid]="
-                          lenderId.invalid && lenderId.touched
-                        "
-                        class="form-control"
-                        id="lenderId"
-                        #lenderId="ngModel"
-                        name="lenderId"
-                        required
-                        [(ngModel)]="loan.lenderId"
-                        readonly
-                        required="required"
-                      />
-                    </td>
-                    <td class="col3">
-                      <small
-                        class="text-danger"
-                        [class.d-none]="
-                          loanNumber.valid || loanNumber.untouched
-                        "
-                        >invalid loanNumber</small
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col1 pt-2">
-                      Loan Type :
-                      <span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2 pt-2 ml-3">
-                      <select
-                        id="loanType"
-                        style="width: 100%; height: 30px"
-                        name="loanType"
-                        #loanType="ngModel"
-                        [(ngModel)]="loan.loanType"
-                        [class.is-invalid]="
-                          loanType.invalid && loanType.touched
-                        "
-                        required
-                      >
-                        <option value="" disabled selected>
-                          Select an option
-                        </option>
-                        <option
-                          *ngFor="let option of loanTypes"
-                          [value]="option.loanTypeIndex"
+                        <div
+                          class="ProductFilterReqData hoverData"
+                          style="display: none"
                         >
-                          {{ option.loanType }}
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="col1 pt-2">
-                      Loan Name :
-                      <span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2 pt-2 ml-3">
-                      <select
-                        id="loanName"
-                        style="width: 100%; height: 30px"
-                        name="loanName"
-                        #loanName="ngModel"
-                        [(ngModel)]="loan.loanName"
-                        [class.is-invalid]="
-                          loanName.invalid && loanName.touched
-                        "
-                        required
-                      >
-                        <option value="" disabled selected>
-                          Select an option
-                        </option>
-                        <option
-                          *ngFor="let option of loanNames"
-                          [value]="option.loanNameIndex"
-                        >
-                          {{ option.loanName }}
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="col1 pt-2">
-                      Loan Number :<span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2">
-                      <input
-                        type="number"
-                        [class.is-invalid]="
-                          loanNumber.invalid && loanNumber.touched
-                        "
-                        class="form-control"
-                        id="loanNumber"
-                        #loanNumber="ngModel"
-                        name="loanNumber"
-                        required
-                        [(ngModel)]="loan.loanNumber"
-                        required="required"
-                      />
-                    </td>
-                    <td class="col3">
-                      <small
-                        class="text-danger"
-                        [class.d-none]="
-                          loanNumber.valid || loanNumber.untouched
-                        "
-                        >invalid loanNumber</small
-                      >
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="col1 pt-2">
-                      Amount :<span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2">
-                      <input
-                        type="number"
-                        [class.is-invalid]="amount.invalid && amount.touched"
-                        class="form-control"
-                        id="amount"
-                        #amount="ngModel"
-                        name="amount"
-                        required
-                        [(ngModel)]="loan.loanAmount"
-                        required="required"
-                      />
-                    </td>
-                    <td class="col3">
-                      <small
-                        class="text-danger"
-                        [class.d-none]="amount.valid || amount.untouched"
-                        >invalid amount</small
-                      >
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="col1 pt-2">
-                      Received Amount :<span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2">
-                      <input
-                        type="number"
-                        [class.is-invalid]="
-                          receivedAmount.invalid && receivedAmount.touched
-                        "
-                        class="form-control"
-                        id="receivedAmount"
-                        #receivedAmount="ngModel"
-                        required
-                        name="receivedAmount"
-                        [(ngModel)]="loan.receivedAmount"
-                        required="required"
-                      />
-                    </td>
-                    <td class="col3">
-                      <small
-                        class="text-danger"
-                        [class.d-none]="
-                          receivedAmount.valid || receivedAmount.untouched
-                        "
-                        >invalid receivedAmount</small
-                      >
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="col1 pt-2">
-                      Service Charge :<span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2">
-                      <input
-                        type="number"
-                        [class.is-invalid]="
-                          serviceCharge.invalid && serviceCharge.touched
-                        "
-                        class="form-control"
-                        id="serviceCharge"
-                        #serviceCharge="ngModel"
-                        name="serviceCharge"
-                        [(ngModel)]="loan.serviceCharge"
-                      />
-                    </td>
-                    <td class="col3">
-                      <small
-                        class="text-danger"
-                        [class.d-none]="
-                          serviceCharge.valid || serviceCharge.untouched
-                        "
-                        >invalid serviceCharge</small
-                      >
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td class="col1 pt-2">
-                      Other Expenses :<span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2">
-                      <input
-                        type="number"
-                        [class.is-invalid]="
-                          otherExpenses.invalid && otherExpenses.touched
-                        "
-                        class="form-control"
-                        id="otherExpenses"
-                        #otherExpenses="ngModel"
-                        name="otherExpenses"
-                        [(ngModel)]="loan.otherExpenses"
-                      />
-                    </td>
-                    <td class="col3">
-                      <small
-                        class="text-danger"
-                        [class.d-none]="
-                          otherExpenses.valid || otherExpenses.untouched
-                        "
-                        >invalid otherExpenses</small
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col1 pt-2"></td>
-                    <td class="col2">
-                      <div class="submitDiv tCenter">
-                        <input
-                          type="submit"
-                          class="submit_btn border-rad"
-                          id="submitCreateProduct"
-                          value="Add Loan"
-                          [disabled]="createLoanForm.form.invalid"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                </table>
+                          filter.reqData
+                        </div>
+                      </li>
+                      <!-- </c:forEach> -->
+                      <!-- </c:if> -->
+                      <!-- <c:if test="${not empty ProductFilterSeeMore}"> -->
+                      <li class="seeAllFilterLink">
+                        <a href="" class="seeMoreLink">See More</a>
+                        <ul class="allFiltersList ProductAllFilterList">
+                          <!-- <c:forEach items="${ProductFilterSeeMore}" var="filter"> -->
+                          <li>
+                            <a
+                              href=""
+                              class="filterLink ProductFilterName"
+                              style="
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                              "
+                              >filter.name</a
+                            >
+                            <span class="ProductFilterId" style="display: none"
+                              >filter.id</span
+                            >
+                            <div
+                              class="ProductFilterReqData hoverData"
+                              style="display: none"
+                            >
+                              filter.reqData
+                            </div>
+                          </li>
+                          <!-- </c:forEach> -->
+                        </ul>
+                      </li>
+                      <!-- </c:if> -->
+                    </ul>
+                  </li>
+                  <li class="chooseCol">
+                    <a href="">Choose Columns</a>
+                  </li>
+                  <li class="recordsPerPage">
+                    <a href="">Records Per Page</a>
+                  </li>
+                  <li class="exportTableLink">
+                    <a href="">Export Table</a>
+                  </li>
+                </ul>
               </div>
             </div>
-          </form>
+            <div class="fleft tableNavDiv" id="LoansTablePagination">
+              <a href="" class="first first-page pageNumber">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev pageNumber">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+              <!-- <c:choose>
+                              <c:when test="${(totalProductRecords mod 10)!=0}">
+                                  <c:set var="res" value="${(totalProductRecords - (totalProductRecords mod ProductTableRecords))/ProductTableRecords + 1}"/>
+                                  <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                                  <span class="totalPage">${totalPage}</span>
+                              </c:when>
+                              <c:otherwise>
+                                  <c:set var="res" value="${totalProductRecords/10}"/>
+                                  <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                                  <span class="totalPage">${totalPage}</span>
+                              </c:otherwise>
+                            </c:choose> -->
+              <a href="" class="next pageNumber">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page pageNumber">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
+            </div>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="LoansRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="first-child sortable"
+                  sortDir="asc"
+                  sortCol="organization_id"
+                  id="id"
+                >
+                  Loan Id
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                  id="name"
+                >
+                  bankId
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="customer_name"
+                  id="costprice"
+                >
+                  lenderId
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="sellingprice"
+                >
+                  loanType
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="barcode"
+                >
+                  loanNumber
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="discount"
+                >
+                  loanName
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="tax"
+                >
+                  loanAmount
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="userId"
+                >
+                  receivedAmount
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="companyId"
+                >
+                  serviceCharge
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="companyId"
+                >
+                  otherExpenses
+                </th>
+                <th class="last-child">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <tr>
+                <span class="noProdRecord">No records found</span>
+              </tr>
+              <!-- <c:forEach items="${Loans}" var="product">  -->
+              <tr *ngFor="let loan of loans" id="loan_{{ loan.id }}">
+                <td>{{ loan.id }}</td>
+                <td>{{ loan.bankId }}</td>
+                <td>{{ loan.lenderId }}</td>
+                <td>{{ loan.loanType }}</td>
+                <td>{{ loan.loanType }}</td>
+                <td>{{ loan.loanNumber }}</td>
+                <td>{{ loan.loanName }}</td>
+                <td>{{ loan.loanAmount }}</td>
+                <td>{{ loan.receivedAmount }}</td>
+                <td>{{ loan.serviceCharge }}</td>
+                <td class="last-child">
+                  <a
+                    (click)="loanForUpdate(loan.id)"
+                    id="editLoan"
+                    class="createNewTableRecord"
+                  >
+                    <img src="../../../assets/resources/images/editRow.png" />
+                  </a>
+                  <a (click)="deleteLoan(loan.id)" class="">
+                    <img src="../../../assets/resources/images/deleteRow.png" />
+                  </a>
+                </td>
+              </tr>
+              <!-- </c:forEach>	 -->
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
 
-    <div></div>
-  </div>
-</div>
+    <div class="popupWrapper" id="createNewLoanPopup" style="display: none">
+      <div class="mb-2"></div>
+      <app-create-loan
+        *ngIf="createLoanEnable"
+        (destroyCreateLoanComp)="disableLoanComponent($event)"
+      ></app-create-loan>
+    </div>
 
-<div
-  class="popupWrapper CustomerPopupWrapper1"
-  id="selectLenderPopup"
-  style="display: none; width: auto"
->
-  <app-select-customer
-    *ngIf="selectCompanyActive"
-    [selectMenusForCompanies]="lenders"
-    (compIdEvent)="setLenderId($event)"
-  >
-  </app-select-customer>
+    <div class="popupWrapper" id="editLoanPopup" style="display: none">
+      <app-edit-loan
+        *ngIf="updateLoanEnable"
+        [loanId]="loanForUpdateId"
+        (destroyEditLoanComp)="disableEditComponent($event)"
+      >
+      </app-edit-loan>
+    </div>
+  </div>
 </div>
