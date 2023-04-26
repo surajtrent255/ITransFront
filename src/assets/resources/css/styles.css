@@ -389,10 +389,11 @@ a.genLink {
 .tabListWrapper {
   padding-top: 5px;
 }
+
 .tabList {
   overflow: visible;
   height: 20px;
-  background: #c4c4c5 url(../images/content-category-header-bg.jpg);
+  background: #c4c4c5 url("../images/content-category-header-bg.jpg");
   border-top: 1px solid #afaeac;
   border-bottom: 1px solid #afaeac;
   border-right: 1px solid #afaeac;
@@ -409,7 +410,7 @@ a.genLink {
   padding: 1px 6px 0px;
   min-width: 170px;
   margin-top: 0px;
-  background: #c4c4c5 url(../images/content-category-header-bg.jpg);
+  background: #c4c4c5 url("../images/content-category-header-bg.jpg");
   border-right: 1px dotted #afaeac;
 }
 .tabList li:first-child {
@@ -419,7 +420,7 @@ a.genLink {
 .tabList li.active {
   padding: 4px 6px 3px;
   margin-top: -5px;
-  background: #f3f5f7 url(../images/active-content-category-header-bg.jpg);
+  background: #f3f5f7 url("../images/active-content-category-header-bg.jpg");
   border: 1px solid #afaeac;
   border-bottom: none;
   border-radius: 5px;
@@ -717,6 +718,41 @@ a.genLink {
   display: none;
   font-size: 12px;
 }
+
+.PaymentWrapper {
+  /* position: absolute; */
+  top: 50px;
+  width: 1248px;
+  /* height: 536px; */
+  left: 30%;
+  /* z-index: 11; */
+  border: 1px solid #828282;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-top-left-radius: 4px;
+  -moz-border-top-right-radius: 4px;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.5);
+
+  font-size: 12px;
+}
+
+.PaymentFormField {
+  padding: 12px;
+  background: rgb(246, 243, 243);
+  border: 1px solid #828282;
+  height: 453px;
+}
+
+.paymentContentWrapper {
+  background: #e3e6eb;
+  padding: 12px;
+  color: #333333;
+}
+
 .alertConfPopup {
   width: 380px;
   left: 35%;

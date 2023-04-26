@@ -46,6 +46,12 @@ import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateCustomerComponent } from './components/shared/sales/create-customer/create-customer.component';
 import { SelectCustomerComponent } from './components/shared/select-customer/select-customer.component';
+import { CreateCompanyComponent } from './components/shared/select-and-create-company/create-company/create-company.component';
+import { PaymentComponent } from './components/shared/payment/payment.component';
+import { ReceiptComponent } from './components/shared/receipt/receipt.component';
+import { CreateBankComponent } from './components/shared/bank/create-bank/create-bank.component';
+import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
+import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
 import { PurchaseBillDetail } from './models/PurchaseBillDetail';
 import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
 import { SelectCategoryComponent } from './components/shared/categoryprod/select-category/select-category.component';
@@ -82,6 +88,12 @@ import { LoanComponent } from './components/shared/loan/loan.component';
     PopupComponent,
     CreateCustomerComponent,
     SelectCustomerComponent,
+    CreateCompanyComponent,
+    PaymentComponent,
+    ReceiptComponent,
+    CreateBankComponent,
+    BankDepositComponent,
+    BankWithdrawComponent,
     PurchaseBillDetailComponent,
     SelectCategoryComponent,
     LoanComponent
@@ -119,4 +131,4 @@ import { LoanComponent } from './components/shared/loan/loan.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

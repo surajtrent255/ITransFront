@@ -1478,7 +1478,7 @@ $(function () {
   });
 
   /*----- Configur Table Scripts ----- */
-  $(".configTableLink").click(function () {
+  $(".configTableLink").live("click", function () {
     $(this).siblings(".configTableDropdown").toggle();
     return false;
   });
@@ -1737,6 +1737,16 @@ $(function () {
 
   /*--- popup tabs switching -- */
   $(".popupTablist li a").live("click", function () {
+    var tabNumber = $(this).attr("tab");
+    var parentId = $(this).parents(".popupTablist").attr("id");
+    $("#" + parentId + " li.active").removeClass("active");
+    $(this).parents("li").addClass("active");
+    $("#" + parentId + "-Div .tabs-section").hide();
+    $("#" + parentId + "-Div .tab-" + tabNumber).show();
+    return false;
+  });
+
+  $(".popupTablist li a").on("click", function () {
     var tabNumber = $(this).attr("tab");
     var parentId = $(this).parents(".popupTablist").attr("id");
     $("#" + parentId + " li.active").removeClass("active");

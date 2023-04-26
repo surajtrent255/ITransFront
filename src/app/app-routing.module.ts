@@ -15,6 +15,11 @@ import { SalesBillingComponent } from './components/shared/sales/sales-billing/s
 import { CategoryProduct } from './models/CategoryProduct';
 import { CreatePurchaseBillComponent } from './components/shared/purchase/create-purchase-bill/create-purchase-bill.component';
 import { StockComponent } from './components/shared/stock/stock.component';
+import { PaymentComponent } from './components/shared/payment/payment.component';
+import { ReceiptComponent } from './components/shared/receipt/receipt.component';
+import { CreateBankComponent } from './components/shared/bank/create-bank/create-bank.component';
+import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
+import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
 import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
 import { LoanComponent } from './components/shared/loan/loan.component';
 
@@ -90,6 +95,26 @@ const routes: Routes = [
         path: ':id/stock',
         component: StockComponent,
       },
+      {
+        path: 'payment',
+        component: PaymentComponent,
+      },
+      {
+        path: 'receipt',
+        component: ReceiptComponent,
+      },
+      {
+        path: 'create/bank',
+        component: CreateBankComponent,
+      },
+      {
+        path: 'bank/deposit',
+        component: BankDepositComponent,
+      },
+      {
+        path: 'bank/withdraw',
+        component: BankWithdrawComponent,
+      },
     ],
   },
 ];
@@ -98,4 +123,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
