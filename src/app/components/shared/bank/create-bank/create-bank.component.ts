@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { AccountType } from 'src/app/models/AccountTypes';
 import { Bank } from 'src/app/models/Bank';
+import { BankList } from 'src/app/models/BankList';
 import { Branch } from 'src/app/models/Branch';
 import { User } from 'src/app/models/user';
 import { BankService } from 'src/app/service/shared/bank/bank.service';
@@ -12,46 +15,63 @@ import { LoginService } from 'src/app/service/shared/login.service';
   styleUrls: ['./create-bank.component.css']
 })
 export class CreateBankComponent {
-  companyId!: number 
-  branchId!: number 
-  bankName!: string 
+  companyId!: number
+  branchId!: number
+  bankName!: string
   accountNumber!: string;
   initialAmount!: string;
   accountType!: string;
 
   Bank: Bank[] = [];
+  accountTypes: AccountType[] = [];
   showForm!: boolean;
-  localStorageCompanyId!:number;
+  localStorageCompanyId!: number;
   UserbranchId!: number;
- 
 
-  constructor(private bankService: BankService,private loginService:LoginService) { }
+  bankList: BankList[] = [];
+
+  bankObj: Bank = new Bank
+
+
+  constructor(private bankService: BankService, private toastrService: ToastrService, private loginService: LoginService) { }
 
   ngOnInit() {
-    
-    // const data = localStorage.getItem('companyDetails');
-    // const parsedData = JSON.parse(data || '{}');
-    // const { companyId } = parsedData;
-    // this.localStorageCompanyId = companyId;
 
-   this.localStorageCompanyId =this.loginService.getCompnayId()
+    this.localStorageCompanyId = this.loginService.getCompnayId()
 
     this.UserbranchId = this.loginService.getBranchId()
-    this.companyId =this.loginService.getCompnayId()
-    this.branchId =this.loginService.getBranchId()
+    this.companyId = this.loginService.getCompnayId()
+    this.branchId = this.loginService.getBranchId()
     this.getAllBank();
-  
-   
-  
+    this.getBankList();
+    this.getAllAccountTypes();
+
+
 
   }
 
-  getAllBank(){
-    this.bankService.getAllBanks(this.companyId,this.branchId).subscribe(res => {
+  getBankList() {
+    this.bankService.getBankList().subscribe(data => {
+      this.bankList = data.data;
+    })
+  }
+
+  getAllBank() {
+    this.bankService.getAllBanks(this.companyId, this.branchId).subscribe(res => {
       console.log(res.data)
       this.Bank = res.data;
     });
 
+  }
+
+  getAllBankNames() {
+
+  }
+
+  getAllAccountTypes() {
+    this.bankService.getAccountTypes().subscribe((data) => {
+      this.accountTypes = data.data
+    })
   }
 
   openForm() {
@@ -66,44 +86,36 @@ export class CreateBankComponent {
     this.showForm = true;
 
     // Show form
-   
+
     const bankForm = document.getElementById('bankForm');
-  if (bankForm) {
-    bankForm.style.display = 'block';
-  }
+    if (bankForm) {
+      bankForm.style.display = 'block';
+    }
   }
 
-  submitForm() {
-    if (this.bankName.trim() === '' || this.accountNumber.trim() === '' || this.initialAmount.trim() === '' || this.accountType.trim() === '') {
-      alert('Please fill in all fields');
-      return;
-    }
-  
-    // Replace this with the code that handles the form data
-    // console.log('Company ID:', this.companyId);
-    // console.log('Branch ID:', this.branchId);
-    // console.log('Bank Name:', this.bankName);
-    // console.log('Account Number:', this.accountNumber);
-    // console.log('Initial Amount:', this.initialAmount);
-    // console.log('Account Type:', this.accountType);
+  createBank(form: any) {
     this.showForm = false;
-    this.bankService.addBank({id:0,companyId:this.companyId,branchId:this.branchId,bankName:this.bankName,accountNumber:this.accountNumber,initialAmount:this.initialAmount,accountType:this.accountType}).subscribe({
-      next:()=>{
-        this.getAllBank()
-      },error:(err)=>{
-        console.log(err)
+    this.bankObj.companyId = this.companyId;
+    this.bankObj.branchId = this.branchId;
+    this.bankService.addBank(this.bankObj).subscribe({
+      next: (data) => {
+        this.toastrService.success("bank is successfully added with id " + data.data)
+        this.getAllBank();
+
+      }, error: (err) => {
+        this.toastrService.error("something went wrong")
       }
     })
-  
-  
+
+
 
     // Hide form
-  const bankForm = document.getElementById('bankForm');
-  if (bankForm) {
-    bankForm.style.display = 'none';
+    const bankForm = document.getElementById('bankForm');
+    if (bankForm) {
+      bankForm.style.display = 'none';
+    }
   }
-  }
-  cancel_btn(){
+  cancel_btn() {
     this.showForm = false;
     const bankForm = document.getElementById('bankForm');
     if (bankForm) {

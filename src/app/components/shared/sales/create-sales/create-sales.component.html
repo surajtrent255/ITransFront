@@ -150,9 +150,7 @@
             >
               <div>
                 <div style="display: inline-block">
-                  <label style="margin-top: 8px; display: inline-block"
-                    >Discount Per Unit </label
-                  ><input
+                  <input
                     type="radio"
                     style="
                       margin-top: 8px;
@@ -163,6 +161,14 @@
                     [checked]="discountApproachSelect === 1"
                     (change)="getDiscountMethod(1)"
                   />
+                  <label
+                    style="
+                      margin-top: 8px;
+                      margin-left: 3px;
+                      display: inline-block;
+                    "
+                    >Discount Per Unit
+                  </label>
                 </div>
                 <div style="display: inline-block; margin-left: 10px">
                   <input

@@ -56,6 +56,8 @@ import { PurchaseBillDetail } from './models/PurchaseBillDetail';
 import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
 import { SelectCategoryComponent } from './components/shared/categoryprod/select-category/select-category.component';
 import { LoanComponent } from './components/shared/loan/loan.component';
+import { CreateLoanComponent } from './components/shared/loan/create-loan/create-loan.component';
+import { EditLoanComponent } from './components/shared/loan/edit-loan/edit-loan.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +98,9 @@ import { LoanComponent } from './components/shared/loan/loan.component';
     BankWithdrawComponent,
     PurchaseBillDetailComponent,
     SelectCategoryComponent,
-    LoanComponent
+    LoanComponent,
+    CreateLoanComponent,
+    EditLoanComponent
   ],
   imports: [
     BrowserModule,
