@@ -1,0 +1,223 @@
+<div class="contentRecordsTableContainer MainContainer">
+  <div class="recordTableWrapper" style="height: auto">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations">Expense List</h2>
+      <div class="cboth"></div>
+    </div>
+
+    <div class="searchCreateTableDiv" style="height: 513px">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText hintText"
+            type="text"
+            search="off"
+            value="Enter CustomerPartName/MasterPartName to Search"
+          />
+          <input
+            type="image"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a href="#" class="genLink">Clear searchs</a>
+        </div>
+        <div class="fright" class="createProductDiv">
+          <a href="" id="createExpense" class="createNewTableRecord">
+            <img src="../../../assets/resources/images/createProduct.png" />
+            <span> Create Expense</span>
+          </a>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fleft filterListWrapper">
+            <div class="fleft">
+              <span class="italicText"></span>
+            </div>
+            <ul
+              class="fleft filtersDisplayList ProductsTableFiltersDisplayList"
+            ></ul>
+            <div class="cboth"></div>
+          </div>
+          <div class="fright configNavTableWrapper">
+            <div class="fleft tableNavDiv" id="ProductsTablePagination">
+              <a href="" class="first first-page pageNumber">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev pageNumber">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+
+              <a href="" class="next pageNumber">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page pageNumber">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
+            </div>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="ProductsRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th class="first-child sortable" sortDir="asc">Expense Id</th>
+                <th class="sortable" sortDir="asc">Company Id</th>
+                <th class="sortable" sortDir="asc">Branch Id</th>
+                <th class="sortable" sortDir="asc">Amount</th>
+                <th class="sortable" sortDir="asc">Topic</th>
+                <th class="sortable" sortDir="asc">Bill No</th>
+                <th class="sortable" sortDir="asc">Pay To</th>
+                <th class="sortable" sortDir="asc">Date</th>
+                <th class="sortable" sortDir="asc">Status</th>
+                <th class="last-child">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <tr>
+                <span class="noProdRecord">No records found</span>
+              </tr>
+
+              <tr *ngFor="let expense of expense">
+                <td>{{ expense.sn }}</td>
+                <td>{{ expense.companyId }}</td>
+                <td>{{ expense.branchId }}</td>
+                <td>{{ expense.amount }}</td>
+                <td>{{ expense.topic }}</td>
+                <td>{{ expense.billNo }}</td>
+                <td>{{ expense.payTo }}</td>
+                <td>{{ expense.date | date }}</td>
+                <td>{{ expense.status }}</td>
+                <td class="last-child">
+                  <a
+                    id="editExpense"
+                    class="createNewTableRecord"
+                    (click)="editExpense(expense.sn)"
+                  >
+                    <img src="../../../assets/resources/images/editRow.png" />
+                  </a>
+                  <a class="" (click)="deleteExpenseDetails(expense.sn)">
+                    <img src="../../../assets/resources/images/deleteRow.png" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div
+      class="popupWrapper PopupCloser"
+      id="editExpensePopup"
+      style="display: none"
+    >
+      <app-edit-expense
+        [ExpenseId]="expenseIdForEdit"
+        (updatedSuccessful)="getAllExpenseDetails()"
+      ></app-edit-expense>
+    </div>
+  </div>
+</div>
+
+<div
+  class="popupWrapper PopupCloser"
+  id="createExpensePopup"
+  style="display: none"
+>
+  <div class="popupHeading">
+    <h2 class="fleft">Expense Flow</h2>
+    <a href="" class="closeButton fright"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv createProduct">
+    <h1 class="heading">Create Expense Details</h1>
+    <div>Expense Details</div>
+  </div>
+  <div class="popupContentWrapper">
+    <form [formGroup]="ExpenseForm">
+      <div class="chooseColoumnsWrapper">
+        <div class="fieldDiv popUpFormSectionWrapper">
+          <table class="formSection" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="col1">Amount</td>
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText mandatory"
+                  formControlName="amount"
+                />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Topic<span class=""></span></td>
+              <td class="col3">
+                <input type="text" class="inputText" formControlName="topic" />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">BillNo</td>
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText"
+                  formControlName="billNo"
+                />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Pay To</td>
+              <td class="col3">
+                <input type="text" class="inputText" formControlName="payTo" />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Date</td>
+              <td class="col3">
+                <input type="date" class="inputText" formControlName="date" />
+              </td>
+              <td class="col3"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="submitDiv tCenter">
+        <input
+          type="submit"
+          value="Submit"
+          (click)="SubmitExpenseForm()"
+          [disabled]="ExpenseForm.invalid"
+          class="submit_btn registerButton border-rad"
+          id=""
+        />
+
+        <input
+          type="button"
+          value="Cancel"
+          class="submit_btn closeButton border-rad"
+        />
+      </div>
+    </form>
+  </div>
+</div>

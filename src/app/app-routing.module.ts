@@ -24,6 +24,8 @@ import { ExpenseComponent } from './components/shared/expense/expense.component'
 import { FixedAsstetsComponent } from './components/shared/fixed-asstets/fixed-asstets.component';
 import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
 import { LoanComponent } from './components/shared/loan/loan.component';
+import { SplitProductComponent } from './components/shared/split-product/split-product.component';
+import { MergeProductComponent } from './components/shared/merge-product/merge-product.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -124,6 +126,14 @@ const routes: Routes = [
       {
         path: 'fixedAsset',
         component: FixedAsstetsComponent,
+      },
+      {
+        path: 'split/product',
+        component: SplitProductComponent,
+      },
+      {
+        path: 'merge/product',
+        component: MergeProductComponent,
       },
     ],
   },

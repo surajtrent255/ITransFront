@@ -64,6 +64,8 @@ import { SelectCategoryComponent } from './components/shared/categoryprod/select
 import { LoanComponent } from './components/shared/loan/loan.component';
 import { CreateLoanComponent } from './components/shared/loan/create-loan/create-loan.component';
 import { EditLoanComponent } from './components/shared/loan/edit-loan/edit-loan.component';
+import { SplitProductComponent } from './components/shared/split-product/split-product.component';
+import { MergeProductComponent } from './components/shared/merge-product/merge-product.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +114,8 @@ import { EditLoanComponent } from './components/shared/loan/edit-loan/edit-loan.
     LoanComponent,
     CreateLoanComponent,
     EditLoanComponent,
+    SplitProductComponent,
+    MergeProductComponent,
   ],
   imports: [
     BrowserModule,
