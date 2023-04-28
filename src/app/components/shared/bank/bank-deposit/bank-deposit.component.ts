@@ -37,6 +37,7 @@ export class BankDepositComponent {
     this.companyId =this.loginService.getCompnayId()
     this.branchId =this.loginService.getBranchId()
     this.getAllBankDeposite();
+    alert("under construction");
   
    
   

@@ -22,6 +22,8 @@ export class CreateBankComponent {
   initialAmount!: string;
   accountType!: string;
 
+  showInput!:boolean;
+
   Bank: Bank[] = [];
   accountTypes: AccountType[] = [];
   showForm!: boolean;
@@ -92,6 +94,17 @@ export class CreateBankComponent {
       bankForm.style.display = 'block';
       this.showForm = false;
     }
+  }
+
+  SelecetBankChange(bankName:string){
+    
+  if(bankName === 'other'){
+    console.log("other")
+    this.showInput = true
+  }else{
+    console.log(bankName)
+    this.showInput = false
+  }
   }
 
   createBank(form: any) {

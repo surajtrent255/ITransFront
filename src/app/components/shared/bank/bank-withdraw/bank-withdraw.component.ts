@@ -5,6 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './bank-withdraw.component.html',
   styleUrls: ['./bank-withdraw.component.css']
 })
-export class BankWithdrawComponent {
 
+export class BankWithdrawComponent {
+  
+oninit(){
+  alert("under construction");
+}
 }
