@@ -2,14 +2,14 @@
 <div id="headerWrapper" class="headerWrapper">
   <div class="logoutDiv">
     <div class="fright" style="padding-right: 17px">
-      <div class="profile" style="padding-right: 20px">
+      <div class="profile" #profile style="padding-right: 20px">
         <button class="profile-button">
           <img
             src="../../../../assets/images/Users-Name-icon.png"
             alt="Profile Image"
           />
         </button>
-        <div class="profile-card">
+        <div class="profile-card" #profileCard>
           <div class="profile-card-header">
             <img
               src="../../../../assets/images/Users-Name-icon.png"
@@ -411,7 +411,6 @@
                     <tr>
                       <th>Name</th>
                       <th>Abbrv</th>
-                      <th>Pan No</th>
                       <th>Address</th>
                       <th>phone</th>
                       <th>Action</th>
@@ -423,7 +422,6 @@
                         {{ branch.name }}
                       </td>
                       <td>{{ branch.abbrv }}</td>
-                      <td>{{ branch.panNo }}</td>
                       <td>{{ branch.district }}</td>
                       <td>{{ branch.phone }}</td>
 
@@ -853,21 +851,6 @@
                   class="inputText"
                   formControlName="BranchDescription"
                   title="Enter Text"
-                  id="custPartName"
-                />
-              </td>
-              <td class="col3"></td>
-            </tr>
-
-            <tr>
-              <td class="col1">Pan-Number:<span class=""></span></td>
-
-              <td class="col3">
-                <input
-                  type="number"
-                  class="inputText"
-                  title="Enter Text"
-                  formControlName="BranchPanNo"
                   id="custPartName"
                 />
               </td>

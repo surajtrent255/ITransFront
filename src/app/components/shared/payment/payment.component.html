@@ -1,161 +1,275 @@
-<div class="PaymentWrapper" style="margin-top: 8px" id="paymentPopup">
-  <div class="recordCategory">
-    <h2 class="text-center" id="totalGroupCombinations">Payment Flow</h2>
-    <div class="cboth"></div>
-  </div>
-  <div class="popupSubHeadingDiv paymentSubHeading">
-    <h1 class="heading">Payment</h1>
-    <div>Enter payment details.</div>
-  </div>
-  <div
-    class="paymentpopupContentWrapper configPopupWrapper paymentPopupWrapper"
-  >
-    <form>
-      <div class="tabListWrapper">
-        <ul class="tabList popupTablist" id="paymentTabList">
-          <li class="active">
-            <a href="#" class="fleft tab-1 payTab1" tab="1">Check Out</a>
-          </li>
-          <li>
-            <a href="#" class="fleft tab-2 payTab2" tab="2">Finish</a>
-          </li>
-        </ul>
+<div class="contentRecordsTableContainer MainContainer">
+  <div class="recordTableWrapper" style="height: auto">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations">Payment List</h2>
+      <div class="cboth"></div>
+    </div>
+
+    <div class="searchCreateTableDiv" style="height: 513px">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText hintText"
+            type="text"
+            search="off"
+            value="Enter CustomerPartName/MasterPartName to Search"
+          />
+          <input
+            type="image"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a href="#" class="genLink">Clear searchs</a>
+        </div>
+        <div class="fright" class="createProductDiv">
+          <a href="" id="createPayment" class="createNewTableRecord">
+            <img src="../../../assets/resources/images/createProduct.png" />
+            <span> Create Payment</span>
+          </a>
+        </div>
+        <div class="cboth"></div>
       </div>
-      <div class="PaymentFormField">
-        <div id="paymentTabList-Div">
-          <!-- ckeckout form -->
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fleft filterListWrapper">
+            <div class="fleft">
+              <span class="italicText"></span>
+            </div>
+            <ul
+              class="fleft filtersDisplayList ProductsTableFiltersDisplayList"
+            ></ul>
+            <div class="cboth"></div>
+          </div>
+          <div class="fright configNavTableWrapper">
+            <div class="fleft tableNavDiv" id="ProductsTablePagination">
+              <a href="" class="first first-page pageNumber">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev pageNumber">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
 
-          <div class="tabs-section tab-1">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-4 order-md-2 mb-4">
-                  <h4
-                    class="d-flex justify-content-between align-items-center mb-3"
-                  >
-                    <span class="text-muted">Amount Details</span>
-                  </h4>
-                  <ul class="list-group mb-3">
-                    <li
-                      class="list-group-item d-flex justify-content-between lh-condensed"
-                    >
-                      <div>
-                        <h6 class="my-0">Net Amount</h6>
-                        <!-- <small class="text-muted">Brief description</small> -->
-                      </div>
-                      <span class="text-muted">12</span>
-                    </li>
-                    <li
-                      class="list-group-item d-flex justify-content-between lh-condensed"
-                    >
-                      <div>
-                        <h6 class="my-0">TDS</h6>
-                        <!-- <small class="text-muted">Brief description</small> -->
-                      </div>
-                      <span class="text-muted" #Tds>8</span>
-                    </li>
-                    <li
-                      class="list-group-item d-flex justify-content-between lh-condensed"
-                    >
-                      <div>
-                        <h6 class="my-0">Sub Total</h6>
-                        <!-- <small class="text-muted">Brief description</small> -->
-                      </div>
-                      <span class="text-muted">5</span>
-                    </li>
-
-                    <li class="list-group-item d-flex justify-content-between">
-                      <span>Total </span>
-                      <span #Total>20</span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-md-8 order-md-1">
-                  <h4 class="mb-3">Checkout Form</h4>
-                  <form
-                    [formGroup]="PaymentForm"
-                    (ngSubmit)="paymentFormSubmit()"
-                  >
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <label for="firstName">Company ID</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          formControlName="companyId"
-                          id="firstName"
-                          placeholder=""
-                          value=""
-                          required
-                        />
-                      </div>
-                      <div class="col-md-6 mb-3">
-                        <label for="lastName">Party ID</label>
-                        <input
-                          type="text"
-                          formControlName="partyId"
-                          class="form-control"
-                          id="lastName"
-                          placeholder=""
-                          value=""
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="username">Branch ID</label>
-                      <div class="input-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          formControlName="branchId"
-                          id="username"
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-md-3 mb-3">
-                        <label for="cc-expiration">Payment Method</label>
-                        <select
-                          class="form-select"
-                          aria-label="Default select example"
-                          formControlName="paymentModeId"
-                        >
-                          <option selected>Select Method</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                        </select>
-                      </div>
-                      <div class="col-md-3 mb-3">
-                        <label for="cc-cvv">PostDateCheck</label>
-                        <select
-                          class="form-select"
-                          formControlName="postCheckDate"
-                          aria-label="Default select example"
-                        >
-                          <option selected>No</option>
-                          <option value="1">Yes</option>
-                        </select>
-                      </div>
-                    </div>
-                    <hr class="mb-4" />
-                    <button class="submit_btn border-rad" type="submit">
-                      Continue to checkout
-                    </button>
-                  </form>
-                </div>
-              </div>
+              <a href="" class="next pageNumber">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page pageNumber">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
             </div>
           </div>
-
-          <!-- Finish -->
-          <div class="tabs-section tab-2">
-            <app-receipt></app-receipt>
-          </div>
+          <div class="cboth"></div>
         </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="ProductsRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th class="first-child sortable" sortDir="asc">Payment Id</th>
+                <th class="sortable" sortDir="asc">Company Id</th>
+                <th class="sortable" sortDir="asc">Branch Id</th>
+                <th class="sortable" sortDir="asc">Party Id</th>
+                <th class="sortable" sortDir="asc">Amount</th>
+                <th class="sortable" sortDir="asc">Payment Mode Id</th>
+                <th class="sortable" sortDir="asc">Tds Deducted</th>
+                <th class="sortable" sortDir="asc">Post Date Check</th>
+                <th class="sortable" sortDir="asc">Date</th>
+                <th class="sortable" sortDir="asc">Status</th>
+                <th class="last-child">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <tr>
+                <span class="noProdRecord">No records found</span>
+              </tr>
+
+              <tr *ngFor="let Payment of payment">
+                <td>{{ Payment.sn }}</td>
+                <td>{{ Payment.companyId }}</td>
+                <td>{{ Payment.branchId }}</td>
+                <td>{{ Payment.partyId }}</td>
+                <td>{{ Payment.amount }}</td>
+                <td>{{ Payment.paymentModeId }}</td>
+                <td>{{ Payment.tdsDeducted }}</td>
+                <td>{{ Payment.postDateCheck }}</td>
+                <td>{{ Payment.date | date }}</td>
+                <td>{{ Payment.status }}</td>
+                <td class="last-child">
+                  <a
+                    id="editPayment"
+                    (click)="editPayment(Payment.sn)"
+                    class="createNewTableRecord"
+                  >
+                    <img src="../../../assets/resources/images/editRow.png" />
+                  </a>
+                  <a (click)="deletePayment(Payment.sn)" class="">
+                    <img src="../../../assets/resources/images/deleteRow.png" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div
+      class="popupWrapper PopupCloser"
+      id="editPaymentPopup"
+      style="display: none"
+    >
+      <app-edit-payment-details
+        [PaymentId]="paymentIdForEdit"
+      ></app-edit-payment-details>
+    </div>
+  </div>
+</div>
+
+<div
+  class="popupWrapper PopupCloser"
+  id="createPaymentPopup"
+  style="display: none"
+>
+  <div class="popupHeading">
+    <h2 class="fleft">Payment Flow</h2>
+    <a href="" class="closeButton fright"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv createProduct">
+    <h1 class="heading">Create Payment Details</h1>
+    <div>Payment Details</div>
+  </div>
+  <div class="popupContentWrapper">
+    <form [formGroup]="PaymentForm">
+      <div class="chooseColoumnsWrapper">
+        <div class="fieldDiv popUpFormSectionWrapper">
+          <table class="formSection" cellpadding="0" cellspacing="0">
+            <tr>
+              <td class="col1">Party Id</td>
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText mandatory"
+                  formControlName="partyId"
+                />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">amount<span class=""></span></td>
+
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText"
+                  formControlName="amount"
+                />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">TDS</td>
+
+              <td class="col3">
+                <input type="number" class="inputText" formControlName="Tds" />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Payment Mode</td>
+              <div style="width: 285px; padding-left: 4px">
+                <select
+                  formControlName="paymentModeId"
+                  class="inputText"
+                  (change)="paymentModeChange(selected.value)"
+                  #selected
+                >
+                  <option selected disabled>Select the state</option>
+                  <option
+                    *ngFor="let mode of paymentMode"
+                    value="{{ mode.id }}"
+                  >
+                    {{ mode.modeName }}
+                  </option>
+                </select>
+              </div>
+
+              <td class="col3"></td>
+            </tr>
+
+            <tr *ngIf="cheque">
+              <td class="col1">Cheque Number<span class=""></span></td>
+
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText"
+                  formControlName="checkNo"
+                />
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">Post Check Date</td>
+              <div style="width: 285px; padding-left: 4px">
+                <select
+                  formControlName="postDateCheck"
+                  class="inputText"
+                  #selected
+                  (change)="postCheckDate($event)"
+                >
+                  <option value="false">No</option>
+                  <option value="true">Yes</option>
+                </select>
+              </div>
+
+              <td class="col3"></td>
+            </tr>
+
+            <tr *ngIf="postDateCheckEnable">
+              <td class="col1">Post Check Date<span class=""></span></td>
+              <td class="col3">
+                <!-- <np-datepicker formControlName="NepaliDate" language="en">
+                </np-datepicker> -->
+                <input
+                  type="date"
+                  formControlName="postCheckDate"
+                  class="inputText"
+                />
+              </td>
+              <td class="col3"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="submitDiv tCenter">
+        <input
+          type="submit"
+          value="Register"
+          (click)="createPaymentDetails()"
+          [disabled]="PaymentForm.invalid"
+          class="submit_btn registerButton border-rad"
+          id=""
+        />
+
+        <input
+          type="button"
+          value="Cancel"
+          class="submit_btn closeButton border-rad"
+        />
       </div>
     </form>
   </div>

@@ -20,6 +20,8 @@ import { ReceiptComponent } from './components/shared/receipt/receipt.component'
 import { CreateBankComponent } from './components/shared/bank/create-bank/create-bank.component';
 import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
 import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
+import { ExpenseComponent } from './components/shared/expense/expense.component';
+import { FixedAsstetsComponent } from './components/shared/fixed-asstets/fixed-asstets.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -104,6 +106,14 @@ const routes: Routes = [
       {
         path: 'bank/withdraw',
         component: BankWithdrawComponent,
+      },
+      {
+        path: 'expense',
+        component: ExpenseComponent,
+      },
+      {
+        path: 'fixedAsset',
+        component: FixedAsstetsComponent,
       },
     ],
   },

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { District } from 'src/app/models/District';
 import { Municipality } from 'src/app/models/Municipality';
@@ -14,6 +14,7 @@ import { LoginService } from 'src/app/service/shared/login.service';
   styleUrls: ['./create-company.component.css'],
 })
 export class CreateCompanyComponent {
+  @Output() successfullyAdded = new EventEmitter<boolean>(false);
   user_id!: number;
   districts!: District[];
   province!: Province[];
@@ -69,7 +70,7 @@ export class CreateCompanyComponent {
         this.user_id
       )
       .subscribe(() => {
-        window.location.reload();
+        this.successfullyAdded.emit(true);
       });
   }
 

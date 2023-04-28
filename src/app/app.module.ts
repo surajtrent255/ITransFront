@@ -52,6 +52,12 @@ import { ReceiptComponent } from './components/shared/receipt/receipt.component'
 import { CreateBankComponent } from './components/shared/bank/create-bank/create-bank.component';
 import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
 import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
+import { EditPaymentDetailsComponent } from './components/shared/payment/edit-payment-details/edit-payment-details.component';
+import { NpDatepickerModule } from 'angular-nepali-datepicker';
+import { ExpenseComponent } from './components/shared/expense/expense.component';
+import { FixedAsstetsComponent } from './components/shared/fixed-asstets/fixed-asstets.component';
+import { EditExpenseComponent } from './components/shared/expense/edit-expense/edit-expense.component';
+import { EditFixedAssetsComponent } from './components/shared/fixed-asstets/edit-fixed-assets/edit-fixed-assets.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +96,11 @@ import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/ba
     CreateBankComponent,
     BankDepositComponent,
     BankWithdrawComponent,
+    EditPaymentDetailsComponent,
+    ExpenseComponent,
+    FixedAsstetsComponent,
+    EditExpenseComponent,
+    EditFixedAssetsComponent,
   ],
   imports: [
     BrowserModule,
@@ -111,6 +122,7 @@ import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/ba
       positionClass: 'toast-top-center',
       newestOnTop: false,
     }),
+    NpDatepickerModule,
     // MatSelectModule,
     // MatOptionModule,
     // MatInputModule,

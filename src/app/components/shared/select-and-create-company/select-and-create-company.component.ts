@@ -18,6 +18,7 @@ import { LoginService } from 'src/app/service/shared/login.service';
 import { RoleService } from 'src/app/service/shared/role.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
 import $ from 'jquery';
+import { Roles } from 'src/app/models/Roles';
 
 @Component({
   selector: 'app-select-and-create-company',
@@ -29,8 +30,10 @@ import $ from 'jquery';
   encapsulation: ViewEncapsulation.None,
 })
 export class SelectAndCreateCompanyComponent {
+  IsAdmin!: boolean;
   user_id!: number;
   company!: Company[];
+  role!: Roles[];
 
   constructor(
     private companyService: CompanyServiceService,
@@ -42,7 +45,15 @@ export class SelectAndCreateCompanyComponent {
   ngOnInit() {
     this.loginService.userObservable.subscribe((LogggedInUser) => {
       this.user_id = LogggedInUser.user.id;
+      this.IsAdmin = LogggedInUser.user.roles.some(
+        (role) => role.role === 'ADMIN'
+      );
+      console.log(this.IsAdmin);
     });
+    this.getCompanyDetails();
+  }
+
+  getCompanyDetails() {
     this.companyService.getCompnayDetails(this.user_id).subscribe((res) => {
       this.company = res.data;
     });
@@ -62,5 +73,8 @@ export class SelectAndCreateCompanyComponent {
         }
         this.router.navigateByUrl('/dashboard/demo');
       });
+  }
+  getAllCompanyDetails() {
+    this.getCompanyDetails();
   }
 }
