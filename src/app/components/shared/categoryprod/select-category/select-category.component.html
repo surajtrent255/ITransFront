@@ -1,0 +1,15 @@
+<ul>
+  <li *ngFor="let node of nodes">
+    <i class="fa-sharp fa-solid fa-plus" (click)="selectCategory(node)"></i>
+    <span (click)="selectCategory(node)" style="font-weight: 800">
+      {{ node.name }}
+    </span>
+    <i class="fa-solid fa-caret-down" (click)="toggleNode(node)"></i>
+    <div style="margin-left: 20px; margin-top: 3px">
+      <app-select-category
+        *ngIf="node.showChildren && node.childCategories"
+        [nodes]="node.childCategories"
+      ></app-select-category>
+    </div>
+  </li>
+</ul>

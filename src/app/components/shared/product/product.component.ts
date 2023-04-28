@@ -1,5 +1,6 @@
 import { Component, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { Product } from 'src/app/models/Product';
 import { CategoryProductService } from 'src/app/service/category-product.service';
@@ -19,12 +20,13 @@ export class ProductComponent {
   constructor(
     private productService: ProductService,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private toastrService: ToastrService
   ) { }
 
   newProduct!: Product;
 
-  productInfoForUpdate!: Product;
+  productInfoForUpdateId!: number;
   compId!: number;
   branchId !: number;
   ngOnInit() {
@@ -44,15 +46,11 @@ export class ProductComponent {
   }
 
   getProduct(id: number) {
-    this.productService.getProductById(id, this.compId, this.branchId).subscribe({
-      next: (data) => {
-        this.productInfoForUpdate = data.data;
-      },
-    });
+    this.productInfoForUpdateId = id;
   }
 
-  editProduct(product: Product) {
-    this.productInfoForUpdate = product;
+  editProduct(id: number) {
+    this.productInfoForUpdateId = id;
     // this.getProduct(id);
     // this.router.navigateByUrl('dashboard/products/edit/' + id);
   }
@@ -70,6 +68,7 @@ export class ProductComponent {
     this.productService.deleteProductById(id).subscribe({
       next: (res) => {
         console.log(res);
+        this.toastrService.success("product has been deleted")
       },
       error: (error) => {
         console.log(error);

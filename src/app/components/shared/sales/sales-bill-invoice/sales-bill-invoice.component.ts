@@ -7,6 +7,7 @@ import { SalesBillServiceService } from 'src/app/service/sales-bill-service.serv
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/app/service/shared/login.service';
 import { RJResponse } from 'src/app/models/rjresponse';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-sales-bill-invoice',
   templateUrl: './sales-bill-invoice.component.html',
@@ -23,7 +24,7 @@ export class SalesBillInvoiceComponent {
   salesInvoice: SalesBillInvoice = new SalesBillInvoice;
 
 
-  constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService,
+  constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService, private tostrService: ToastrService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class SalesBillInvoiceComponent {
 
     this.salesBillService.printTheBill(billId, userId).subscribe({
       next: (data) => {
-        alert("bill is printed successfully")
+        this.tostrService.success("bill is printed successfully ")
         console.log("bill is printed Successfully");
       },
       error: (error) => {

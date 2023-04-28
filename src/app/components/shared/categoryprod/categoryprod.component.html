@@ -242,6 +242,7 @@
       <div class="mb-2"></div>
 
       <app-createcategory
+        *ngIf="createCategoryShow"
         (categorySuccessInfoEvent)="createNewCategory($event)"
       ></app-createcategory>
     </div>

@@ -1,1 +1,256 @@
-<p>bank-withdraw works!</p>
+<div class="contentRecordsTableContainer MainContainer">
+    <!-- 405px -->
+    <div class="recordTableWrapper">
+      <div class="recordCategory">
+        <h2 class="text-center" id="totalGroupCombinations">Category List</h2>
+        <div class="cboth"></div>
+      </div>
+  
+      <div class="searchCreateTableDiv">
+        <div class="searchCreateDiv">
+          <div class="fleft searchDiv" id="prodSearch">
+            <input
+              class="inputText hintText"
+              type="text"
+              search="off"
+              value="Enter CustomerPartName/MasterPartName to Search"
+            />
+            <input
+              type="image"
+              src="../../../assets/resources/images/searchButton.png"
+              class="serachButton"
+              title="Search Term"
+            />
+            <a href="#" class="genLink">Clear searchs</a>
+          </div>
+          <div class="fright" class="createCategoryDiv">
+            <a href="" id="createNewCategory" class="createNewTableRecord">
+              <img src="../../../../assets/resources/images/createProduct.png" />
+              <span> Create Category</span>
+            </a>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="tableWrapper">
+          <div class="tablesettingDiv">
+            <div class="fleft filterListWrapper">
+              <div class="fleft">
+                <span class="italicText"></span>
+              </div>
+              <ul
+                class="fleft filtersDisplayList CategoriesTableFiltersDisplayList"
+              ></ul>
+              <div class="cboth"></div>
+            </div>
+            <div class="fright configNavTableWrapper">
+              <div
+                class="fleft configTableDiv newFilterItem"
+                dropdownId="CategoriesTableFilters"
+              >
+                <a href="" class="">
+                  <img
+                    src="../../../assets/resources/images/newfilter-bg.png"
+                    alt="New Filter"
+                    title="Add new filter"
+                  />
+                  <span id="newCategoryFilter" search="off">New Filter</span>
+                </a>
+              </div>
+              <div class="fleft configTableDiv">
+                <a href="" class="configTableLink">
+                  <img src="../../../assets/resources/images/config-bg.png" />
+                  <span>Configure Table</span>
+                  <img src="../../../assets/resources/images/th-sort-down.png" />
+                </a>
+                <div class="configTableDropdown" id="CategoriesTableFilters">
+                  <ul class="configOptionList" id="CategoryConfigList">
+                    <li class="filterItem">
+                      <span>Recent Filters</span>
+                      <ul class="filterList" id="CategoryFilterList">
+                        <!-- <c:if test="${not empty CategoryFilters}"> -->
+                        <!-- <c:forEach items="${CategoryFilters}" var="filter"> -->
+                        <li>
+                          <a
+                            href=""
+                            class="filterLink CategoryFilterName"
+                            style="
+                              white-space: nowrap;
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                            "
+                            >filter.name</a
+                          >
+                          <span class="CategoryFilterId" style="display: none"
+                            >filter.id</span
+                          >
+                          <div
+                            class="CategoryFilterReqData hoverData"
+                            style="display: none"
+                          >
+                            filter.reqData
+                          </div>
+                        </li>
+                        <!-- </c:forEach> -->
+                        <!-- </c:if> -->
+                        <!-- <c:if test="${not empty CategoryFilterSeeMore}"> -->
+                        <li class="seeAllFilterLink">
+                          <a href="" class="seeMoreLink">See More</a>
+                          <ul class="allFiltersList CategoryAllFilterList">
+                            <!-- <c:forEach items="${CategoryFilterSeeMore}" var="filter"> -->
+                            <li>
+                              <a
+                                href=""
+                                class="filterLink CategoryFilterName"
+                                style="
+                                  white-space: nowrap;
+                                  overflow: hidden;
+                                  text-overflow: ellipsis;
+                                "
+                                >filter.name</a
+                              >
+                              <span class="CategoryFilterId" style="display: none"
+                                >filter.id</span
+                              >
+                              <div
+                                class="CategoryFilterReqData hoverData"
+                                style="display: none"
+                              >
+                                filter.reqData
+                              </div>
+                            </li>
+                            <!-- </c:forEach> -->
+                          </ul>
+                        </li>
+                        <!-- </c:if> -->
+                      </ul>
+                    </li>
+                    <li class="chooseCol">
+                      <a href="">Choose Columns</a>
+                    </li>
+                    <li class="recordsPerPage">
+                      <a href="">Records Per Page</a>
+                    </li>
+                    <li class="exportTableLink">
+                      <a href="">Export Table</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="fleft tableNavDiv" id="CategoriesTablePagination">
+                <a href="" class="first first-page pageNumber">
+                  <img src="../../../assets/resources/images/first-page.png" />
+                </a>
+                <a href="" class="prev pageNumber">
+                  <img src="../../../assets/resources/images/prev-page.png" />
+                </a>
+                <span class="showingText">Page</span>
+                <span class="pagedisplay"><span class="pageNum">1</span> </span>
+                <!-- <c:choose>
+                            <c:when test="${(totalCategoryRecords mod 10)!=0}">
+                                <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
+                                <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                                <span class="totalPage">${totalPage}</span>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="res" value="${totalCategoryRecords/10}"/>
+                                <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                                <span class="totalPage">${totalPage}</span>
+                            </c:otherwise>
+                          </c:choose> -->
+                <a href="" class="next pageNumber">
+                  <img src="../../../assets/resources/images/next-page.png" />
+                </a>
+                <a href="" class="last last-page pageNumber">
+                  <img src="../../../assets/resources/images/last-page.png" />
+                </a>
+              </div>
+            </div>
+            <div class="cboth"></div>
+          </div>
+          <div class="recordsTableDiv">
+            <table
+              cellspacing="0"
+              cellpadding="0"
+              class="recordsTable"
+              id="CategoriesRecordsTable"
+            >
+              <thead>
+                <tr>
+                  <th
+                    class="first-child sortable"
+                    sortDir="asc"
+                    sortCol="organization_id"
+                    id="id"
+                  >
+                    Category Id
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="organization_name"
+                    id="name"
+                  >
+                    Category Name
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="customer_name"
+                    id="costprice"
+                  >
+                    Category Description
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="master_name"
+                    id="sellingprice"
+                  >
+                    Parent ID
+                  </th>
+  
+                  <th class="last-child">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="prodTable">
+                <tr>
+                  <span class="noProdRecord">No records found</span>
+                </tr>
+                <!-- <c:forEach items="${Categories}" var="Category">  -->
+                <!-- <tr *ngFor="let cat of categoriesData">
+                  <td>{{ cat.id }}</td>
+                  <td>{{ cat.name }}</td>
+                  <td>{{ cat.description }}</td>
+                  <td>{{ cat.parentId }}</td>
+                  <td class="last-child">
+                    <a href="" class="">
+                      <img src="../../../assets/resources/images/editRow.png" />
+                    </a>
+                    <a href="" class="deleteRowLink deleteGroupCombo">
+                      <img src="../../../assets/resources/images/deleteRow.png" />
+                    </a>
+                  </td>
+                </tr> -->
+                <!-- </c:forEach>	 -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+      <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+        <div class="mb-2"></div>
+  
+        <!-- <app-createcategory
+          (categorySuccessInfoEvent)="createNewCategory($event)"
+        ></app-createcategory>
+      </div> -->
+  
+      <div
+        class="popupWrapper"
+        id="editCategoryPopup"
+        style="display: none"
+      ></div>
+    </div>
+  </div>
+  

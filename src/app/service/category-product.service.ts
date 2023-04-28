@@ -21,4 +21,9 @@ export class CategoryProductService {
     let url = `${BASE_URL}/category`;
     return this.http.post<RJResponse<number>>(url, category);
   }
+
+  deleteCategory(id: number, compId: number, branchId: number) {
+    let url = `${BASE_URL}/category/${id}?compId=${compId}&branchId=${branchId}`;
+    return this.http.delete(url);
+  }
 }

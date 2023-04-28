@@ -1,4 +1,5 @@
 export const BASE_URL = 'http://localhost:9999';
+// export const BASE_URL = `http://103.233.58.121:8888`;
 export const USER_LOGIN_URL = BASE_URL + '/api/v1/auth/authenticate';
 
 export const USER_REGISTER_URL = BASE_URL + '/api/v1/auth/register';
@@ -71,3 +72,8 @@ export const GET_FIXED_ASSETS_DETAILS = BASE_URL + '/api/v1/fixedAssets';
 export const GET_EXPENSE_DETAILS = BASE_URL + '/api/v1/expense';
 // receipts
 export const RECEIPT_URL = BASE_URL + '/api/v1/receipt';
+export const GET_ALL_BANK = BASE_URL + '/api/v1/bank/branchid';
+
+export const post_ALL_BANK = BASE_URL + '/api/v1/bank/bank';
+
+export const GET_ALL_deposite = BASE_URL + '/api/v1/bank/deposite?';

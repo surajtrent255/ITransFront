@@ -7,6 +7,7 @@ import { CategoryProductService } from 'src/app/service/category-product.service
 import { ProductService } from 'src/app/service/product.service';
 import { CompanyServiceService } from 'src/app/service/shared/company-service.service';
 import { LoginService } from 'src/app/service/shared/login.service';
+import { SelectCategoryServiceService } from '../../categoryprod/select-category-service.service';
 
 @Component({
   selector: 'app-create-product',
@@ -17,16 +18,21 @@ export class CreateProductComponent {
   @Output() productInfoEvent = new EventEmitter<boolean>();
   product: Product = new Product();
   availableCategories: CategoryProduct[] = [];
+  selectedCategory: CategoryProduct = new CategoryProduct;
+
   constructor(
     private productService: ProductService,
     private categoryProductService: CategoryProductService,
     private loginService: LoginService,
     private toastrService: ToastrService,
-    private companyService: CompanyServiceService
+    private companyService: CompanyServiceService,
+    private selectCategoryService: SelectCategoryServiceService,
+
   ) { }
 
   compId!: number;
   branchId !: number;
+  catSelected: boolean = false;
 
   customerSearchMethod: number = 1;
   custPhoneOrPan !: number;
@@ -37,15 +43,24 @@ export class CreateProductComponent {
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
-    this.categoryProductService.getAllCategories(this.compId, this.branchId).subscribe({
-      next: (data) => {
+    this.fetchAllCategories();
+  }
+
+  fetchAllCategories() {
+    this.categoryProductService
+      .getAllCategories(this.compId, this.branchId)
+      .subscribe((data) => {
         this.availableCategories = data.data;
-      },
-      error: (error) => {
-        console.log(error);
-      },
+      });
+  }
+
+  ngAfterViewInit() {
+    this.selectCategoryService.selectedCategoryForCatCreationSubject.subscribe((cat) => {
+      this.selectedCategory = cat;
+      this.product.categoryId = cat.id;
     });
   }
+
   customerSearch(id: number) {
     this.customerSearchMethod = id;
   }
@@ -74,6 +89,7 @@ export class CreateProductComponent {
   }
 
   setSellerId(id: number) {
+    this.selectedSellerCompanyId = id;
     this.product.sellerId = id;
     const closeCustomerPopUpEl = document.getElementById("closeCustPop") as HTMLAnchorElement;
     closeCustomerPopUpEl.click();
@@ -81,6 +97,10 @@ export class CreateProductComponent {
 
 
   createProduct(form: any) {
+    if (this.product.categoryId === undefined || this.product.categoryId <= 0) {
+      this.toastrService.warning("select category");
+      return;
+    }
     this.product.companyId = this.compId;
     this.product.branchId = this.branchId;
     this.product.userId = this.loginService.currentUser.user.id;
@@ -97,6 +117,7 @@ export class CreateProductComponent {
       },
       complete: () => {
         this.productInfoEvent.emit(true);
+        this.catSelected = false;
       },
     });
     console.log('product.component.ts');
@@ -107,5 +128,13 @@ export class CreateProductComponent {
     if ($event === true) {
       this.toastrService.success("Customer Has been added ");
     }
+  }
+
+  destroyComp() {
+    this.catSelected = false;
+  }
+
+  displayMainForm() {
+    this.catSelected = true;
   }
 }

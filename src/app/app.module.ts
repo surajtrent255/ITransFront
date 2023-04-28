@@ -58,6 +58,12 @@ import { ExpenseComponent } from './components/shared/expense/expense.component'
 import { FixedAsstetsComponent } from './components/shared/fixed-asstets/fixed-asstets.component';
 import { EditExpenseComponent } from './components/shared/expense/edit-expense/edit-expense.component';
 import { EditFixedAssetsComponent } from './components/shared/fixed-asstets/edit-fixed-assets/edit-fixed-assets.component';
+import { PurchaseBillDetail } from './models/PurchaseBillDetail';
+import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
+import { SelectCategoryComponent } from './components/shared/categoryprod/select-category/select-category.component';
+import { LoanComponent } from './components/shared/loan/loan.component';
+import { CreateLoanComponent } from './components/shared/loan/create-loan/create-loan.component';
+import { EditLoanComponent } from './components/shared/loan/edit-loan/edit-loan.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +107,11 @@ import { EditFixedAssetsComponent } from './components/shared/fixed-asstets/edit
     FixedAsstetsComponent,
     EditExpenseComponent,
     EditFixedAssetsComponent,
+    PurchaseBillDetailComponent,
+    SelectCategoryComponent,
+    LoanComponent,
+    CreateLoanComponent,
+    EditLoanComponent,
   ],
   imports: [
     BrowserModule,
