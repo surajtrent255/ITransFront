@@ -1,4 +1,4 @@
-export class  Bank{
+export class Bank {
 
     id!:number;
     companyId!:number;

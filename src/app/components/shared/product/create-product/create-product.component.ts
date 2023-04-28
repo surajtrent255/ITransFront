@@ -71,7 +71,10 @@ export class CreateProductComponent {
   }
 
   ngAfterViewInit() {
-    this.selectCategoryService.selectedCategoryForCatCreationSubject.subscribe(cat => this.selectedCategory = cat);
+    this.selectCategoryService.selectedCategoryForCatCreationSubject.subscribe((cat) => {
+      this.selectedCategory = cat;
+      this.product.categoryId = cat.id;
+    });
   }
 
   // customerSearch(id: number) {
@@ -121,6 +124,10 @@ export class CreateProductComponent {
   }
 
   createProduct(form: any) {
+    if (this.product.categoryId === undefined || this.product.categoryId <= 0) {
+      this.toastrService.warning("select category");
+      return;
+    }
     this.product.companyId = this.compId;
     this.product.branchId = this.branchId;
     this.product.userId = this.loginService.currentUser.user.id;

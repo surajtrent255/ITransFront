@@ -4,7 +4,11 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, tap } from 'rxjs';
 import { BASE_URL, GET_ALL_BANK, post_ALL_BANK } from 'src/app/constants/urls';
 import { AccountType } from 'src/app/models/AccountTypes';
+import { BASE_URL, GET_ALL_BANK, post_ALL_BANK } from 'src/app/constants/urls';
+import { AccountType } from 'src/app/models/AccountTypes';
 import { Bank } from 'src/app/models/Bank';
+import { BankList } from 'src/app/models/BankList';
+import { RJResponse } from 'src/app/models/rjresponse';
 import { BankList } from 'src/app/models/BankList';
 import { RJResponse } from 'src/app/models/rjresponse';
 
@@ -16,11 +20,22 @@ export class BankService {
  
 
   constructor(private http: HttpClient, private toastrService: ToastrService) { }
+  constructor(private http: HttpClient, private toastrService: ToastrService) { }
 
+  getAllBanks(companyId: number, branchId: number): Observable<any> {
   getAllBanks(companyId: number, branchId: number): Observable<any> {
     return this.http.get(`${GET_ALL_BANK}?companyid=${companyId}&branchid=${branchId}`);
   }
 
+  getBankList(): Observable<RJResponse<BankList[]>> {
+    let url = `${BASE_URL}/api/v1/bank/list`;
+    return this.http.get<RJResponse<BankList[]>>(url);
+  }
+
+  getAccountTypes(): Observable<RJResponse<AccountType[]>> {
+    let url = `${BASE_URL}/api/v1/bank/accounttype`;
+    return this.http.get<RJResponse<AccountType[]>>(url)
+  }
   getBankList(): Observable<RJResponse<BankList[]>> {
     let url = `${BASE_URL}/api/v1/bank/list`;
     return this.http.get<RJResponse<BankList[]>>(url);
@@ -51,6 +66,6 @@ export class BankService {
   }
 
 }
-  
+
 
 

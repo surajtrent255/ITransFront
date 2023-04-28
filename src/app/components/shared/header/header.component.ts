@@ -1,4 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Branch } from 'src/app/models/Branch';
 import { BranchConfig } from 'src/app/models/BranchConfig';
@@ -20,6 +26,7 @@ import { Municipality } from 'src/app/models/Municipality';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {
   userRoleconfiguration!: UserConfiguration[];
@@ -66,6 +73,8 @@ export class HeaderComponent {
   usersTabsStatus!: boolean;
   userRoleTabStatus!: boolean;
 
+  profileCardActive = false;
+
   BranchRegistrationForm = new FormGroup({
     BranchName: new FormControl('', [Validators.required]),
     BranchAbbvr: new FormControl('', [Validators.required]),
@@ -90,8 +99,15 @@ export class HeaderComponent {
   @ViewChild('profileCard') profileCard!: ElementRef;
 
   ngAfterViewInit() {
-    $('.profile-button').on('click', function () {
+    $('.profile-button').on('click', function (event) {
+      event.stopPropagation();
       $('.profile-card').toggleClass('active');
+    });
+
+    $('body').on('click', function (event) {
+      if (!$(event.target).closest('.profile').length) {
+        $('.profile-card').removeClass('active');
+      }
     });
   }
 
@@ -327,7 +343,6 @@ export class HeaderComponent {
         name: this.BranchRegistrationForm.value.BranchName!,
         abbrv: this.BranchRegistrationForm.value.BranchAbbvr!,
         description: this.BranchRegistrationForm.value.BranchDescription!,
-        panNo: this.BranchRegistrationForm.value.BranchPanNo!,
         state: this.BranchRegistrationForm.value.BranchState!,
         district: this.BranchRegistrationForm.value.BranchDistrict!,
         munVdc: this.BranchRegistrationForm.value.BranchMunVdc!,

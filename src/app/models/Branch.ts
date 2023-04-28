@@ -4,7 +4,6 @@ export class Branch {
   name!: string;
   abbrv!: string;
   description!: string;
-  panNo!: string;
   state!: string;
   district!: string;
   munVdc!: string;

@@ -20,8 +20,12 @@ import { ReceiptComponent } from './components/shared/receipt/receipt.component'
 import { CreateBankComponent } from './components/shared/bank/create-bank/create-bank.component';
 import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
 import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
+import { ExpenseComponent } from './components/shared/expense/expense.component';
+import { FixedAsstetsComponent } from './components/shared/fixed-asstets/fixed-asstets.component';
 import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
 import { LoanComponent } from './components/shared/loan/loan.component';
+import { SplitProductComponent } from './components/shared/split-product/split-product.component';
+import { MergeProductComponent } from './components/shared/merge-product/merge-product.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -72,8 +76,8 @@ const routes: Routes = [
         component: PurchaseComponent,
       },
       {
-        path: "purchasebills/:billNo",
-        component: PurchaseBillDetailComponent
+        path: 'purchasebills/:billNo',
+        component: PurchaseBillDetailComponent,
       },
       {
         path: 'products',
@@ -85,7 +89,7 @@ const routes: Routes = [
       },
       {
         path: 'loan/create',
-        component: LoanComponent
+        component: LoanComponent,
       },
       {
         path: 'demo',
@@ -114,6 +118,22 @@ const routes: Routes = [
       {
         path: 'bank/withdraw',
         component: BankWithdrawComponent,
+      },
+      {
+        path: 'expense',
+        component: ExpenseComponent,
+      },
+      {
+        path: 'fixedAsset',
+        component: FixedAsstetsComponent,
+      },
+      {
+        path: 'split/product',
+        component: SplitProductComponent,
+      },
+      {
+        path: 'merge/product',
+        component: MergeProductComponent,
       },
     ],
   },

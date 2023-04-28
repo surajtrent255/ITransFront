@@ -226,7 +226,7 @@
                     sortCol="organization_id"
                     id="id"
                   >
-                   BankId
+                    Category Id
                   </th>
                   <th
                     class="sortable"
@@ -234,7 +234,7 @@
                     sortCol="organization_name"
                     id="name"
                   >
-                    DepositeAmount
+                    Category Name
                   </th>
                   <th
                     class="sortable"
@@ -242,7 +242,7 @@
                     sortCol="customer_name"
                     id="costprice"
                   >
-                    DepositeType
+                    Category Description
                   </th>
                   <th
                     class="sortable"
@@ -250,16 +250,16 @@
                     sortCol="master_name"
                     id="sellingprice"
                   >
-                    ChequeNumber
+                    Parent ID
                   </th>
   
                   <th class="last-child">Actions</th>
                 </tr>
               </thead>
-              <!-- <tbody id="prodTable">
+              <tbody id="prodTable">
                 <tr>
                   <span class="noProdRecord">No records found</span>
-                </tr> -->
+                </tr>
                 <!-- <c:forEach items="${Categories}" var="Category">  -->
                 <!-- <tr *ngFor="let cat of categoriesData">
                   <td>{{ cat.id }}</td>
@@ -276,100 +276,19 @@
                   </td>
                 </tr> -->
                 <!-- </c:forEach>	 -->
-
-
-
-                <tbody *ngFor="let deposite of Deposite ; let i = index ; ">
-                  <tr >
-                       
-                     <td>{{deposite.bankId}}</td>
-                    <td>{{deposite.depositAmount}}</td> 
-                    <td>{{deposite.depositeType}}</td> 
-                    <td>{{deposite.chequeNumber}}</td> 
-                    <td class="last-child">
-                      <a href=" " class="">
-                        <img src="../../../assets/resources/images/editRow.png" />
-                      </a>
-                      <a href="" class="deleteRowLink deleteGroupCombo">
-                        <img src="../../../assets/resources/images/deleteRow.png" />
-                      </a>
-                    </td>
-                    
-                   </tr>
-                
               </tbody>
-            </table> 
-          <!-- </div> -->
-        <!-- </div> -->
-      <!-- </div> -->
-  
-      <!-- <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-        <div class="mb-2"></div>
-        <div class="popupContentWrapper">
-          <div class="row">
-            <div class="col-md-12">
-             <app-popup class="m-4"></app-popup> -->
-              <!-- <form
-               
-                name="createCategoryProd"
-               
-                id="createProductForm"
-              >
-                <div class="chooseColoumnsWrapper">
-                  <div class="fieldDiv popUpFormSectionWrapper">
-                    <div  class="fright" class="createCategoryDiv">
-                      <div class="popupContentWrapper" >
-                        <div class="form-container popupContentWrapper ">
-                          <h2 class="heading tCenter"  >Add Deposite</h2>
-                          <form onsubmit="return submitForm()">
-                            <div class="form-group">
-                              <label for="bankId">BankId:</label>
-                              <input type="text" id="bankId" name="bankId"   required>
-                            </div>
-                            <div class="form-group">
-                              <label for="depositAmount">DepositAmount:</label>
-                              <input type="text" id="depositAmount" name="depositAmount"  required>
-                            </div>
-                            <div class="form-group">
-                              <label for="depositType">depositType</label>
-                              <input type="text" id="depositType" name="depositType"  required>
-                            </div>
-                            <div class="form-group">
-                              <label for="chequeNumber">chequeNumber</label>
-                              <input type="text" id="chequeNumber" name="chequeNumber"  required>
-                            </div>
-                            <div> -->
-                              <!-- <button type="submit" (click)="submitForm()">Submit</button>
-                              <button  (click)="cancel_btn()">Cancel</button> -->
-                            <!-- </div>
-                          </form>
-                        </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                <div class="submitDiv tCenter">
-                  <input
-                    type="submit"
-                    class="submit_btn border-rad"
-                    id="submitCategoryPrd"
-                    value="Add Deposit"
-                   
-                  />
-        
-                  <input
-                    type="button"
-                    value="Cancel form"
-                    class="submit_btn cancel_btn border-rad ml-2"
-                    (click)="cancel_btn()"
-                  />
-                </div>
-              </form>
-            </div>
+            </table>
           </div>
         </div>
-     
-       
+      </div>
+  
+      <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+        <div class="mb-2"></div>
+  
+        <!-- <app-createcategory
+          (categorySuccessInfoEvent)="createNewCategory($event)"
+        ></app-createcategory>
+      </div> -->
   
       <div
         class="popupWrapper"
@@ -485,5 +404,5 @@
     ></div>
     </div>
     </div>
-   </div>
-   
+  </div>
+  

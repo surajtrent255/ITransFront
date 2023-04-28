@@ -50,6 +50,8 @@ export class EditproductComponent {
   ngOnChanges() {
     this.getProduct(this.productId);
   }
+
+
   ngOnDestroy() {
   }
   ngAfterViewInit() {

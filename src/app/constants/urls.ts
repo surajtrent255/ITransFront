@@ -58,9 +58,25 @@ export const GET_USER_FOR_ASSIGN_BRANCH_LIST =
 
 export const GET_MUNICIPALITY = BASE_URL + '/api/v1/municipality';
 
+// payment
+
+export const ADD_PAYMENT_DETAILS = BASE_URL + '/api/v1/payment';
+
+export const GET_PAYMENT_MODE = BASE_URL + '/api/v1/payment/mode';
+
+export const GET_PAYMENT_DETAILS = BASE_URL + '/api/v1/payment';
+
+// fixed Assets
+export const GET_FIXED_ASSETS_DETAILS = BASE_URL + '/api/v1/fixedAssets';
+// Expenses
+export const GET_EXPENSE_DETAILS = BASE_URL + '/api/v1/expense';
+// receipts
+export const RECEIPT_URL = BASE_URL + '/api/v1/receipt';
 export const GET_ALL_BANK = BASE_URL + '/api/v1/bank/branchid';
 
-export const post_ALL_BANK=BASE_URL+'/api/v1/bank/bank';
+export const post_ALL_BANK = BASE_URL + '/api/v1/bank/bank';
+
+export const GET_ALL_deposite = BASE_URL + '/api/v1/bank/deposite?';
 
 export const GET_ALL_DEPOSITE=BASE_URL+'/api/v1/bank/deposite?';
 

@@ -30,4 +30,23 @@ export class LoanService {
     return this.http.post<RJResponse<Number>>(url, loan)
   }
 
+  getLoans(compId: number, branchId: number): Observable<RJResponse<Loan[]>> {
+    let url = `${BASE_URL}/loan/all?compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<Loan[]>>(url);
+  }
+
+  getSingleLoan(id: number, compId: number, branchId: number): Observable<RJResponse<Loan>> {
+    let url = `${BASE_URL}/loan?id=${id}&compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<Loan>>(url);
+  }
+
+  deleteLoan(loanId: number, compId: number, branchId: number) {
+    let url = `${BASE_URL}/loan/${loanId}?compId=${compId}&branchId=${branchId}`;
+    return this.http.delete(url);
+  }
+
+  editLoan(loanId: number, compId: number, branchId: number, loan: Loan) {
+    let url = `${BASE_URL}/loan?id=${loanId}&compId=${compId}&branchId=${branchId}`;
+    return this.http.post('', { loan });
+  }
 }

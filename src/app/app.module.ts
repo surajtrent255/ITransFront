@@ -52,10 +52,20 @@ import { ReceiptComponent } from './components/shared/receipt/receipt.component'
 import { CreateBankComponent } from './components/shared/bank/create-bank/create-bank.component';
 import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
 import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
+import { EditPaymentDetailsComponent } from './components/shared/payment/edit-payment-details/edit-payment-details.component';
+import { NpDatepickerModule } from 'angular-nepali-datepicker';
+import { ExpenseComponent } from './components/shared/expense/expense.component';
+import { FixedAsstetsComponent } from './components/shared/fixed-asstets/fixed-asstets.component';
+import { EditExpenseComponent } from './components/shared/expense/edit-expense/edit-expense.component';
+import { EditFixedAssetsComponent } from './components/shared/fixed-asstets/edit-fixed-assets/edit-fixed-assets.component';
 import { PurchaseBillDetail } from './models/PurchaseBillDetail';
 import { PurchaseBillDetailComponent } from './components/shared/purchase/purchase-bill-detail/purchase-bill-detail.component';
 import { SelectCategoryComponent } from './components/shared/categoryprod/select-category/select-category.component';
 import { LoanComponent } from './components/shared/loan/loan.component';
+import { CreateLoanComponent } from './components/shared/loan/create-loan/create-loan.component';
+import { EditLoanComponent } from './components/shared/loan/edit-loan/edit-loan.component';
+import { SplitProductComponent } from './components/shared/split-product/split-product.component';
+import { MergeProductComponent } from './components/shared/merge-product/merge-product.component';
 
 @NgModule({
   declarations: [
@@ -94,9 +104,18 @@ import { LoanComponent } from './components/shared/loan/loan.component';
     CreateBankComponent,
     BankDepositComponent,
     BankWithdrawComponent,
+    EditPaymentDetailsComponent,
+    ExpenseComponent,
+    FixedAsstetsComponent,
+    EditExpenseComponent,
+    EditFixedAssetsComponent,
     PurchaseBillDetailComponent,
     SelectCategoryComponent,
-    LoanComponent
+    LoanComponent,
+    CreateLoanComponent,
+    EditLoanComponent,
+    SplitProductComponent,
+    MergeProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,6 +137,7 @@ import { LoanComponent } from './components/shared/loan/loan.component';
       positionClass: 'toast-top-center',
       newestOnTop: false,
     }),
+    NpDatepickerModule,
     // MatSelectModule,
     // MatOptionModule,
     // MatInputModule,

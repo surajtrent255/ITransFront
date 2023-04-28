@@ -66,7 +66,13 @@ export class CreateBankComponent {
 
   }
 
+<<<<<<< HEAD
 
+=======
+  getAllBankNames() {
+
+  }
+>>>>>>> f26f8e16471ce7485f4e68c99941e0ca122e8de4
 
   getAllAccountTypes() {
     this.bankService.getAccountTypes().subscribe((data) => {
@@ -90,6 +96,7 @@ export class CreateBankComponent {
 
     const bankForm = document.getElementById('bankForm');
     if (bankForm) {
+<<<<<<< HEAD
       
       bankForm.style.display = 'block';
       this.showForm = false;
@@ -105,6 +112,10 @@ export class CreateBankComponent {
     console.log(bankName)
     this.showInput = false
   }
+=======
+      bankForm.style.display = 'block';
+    }
+>>>>>>> f26f8e16471ce7485f4e68c99941e0ca122e8de4
   }
 
   createBank(form: any) {
@@ -115,6 +126,7 @@ export class CreateBankComponent {
       next: (data) => {
         this.toastrService.success("bank is successfully added with id " + data.data)
         this.getAllBank();
+<<<<<<< HEAD
         
       }, error: (err) => {
         this.toastrService.error("something went wrong")
@@ -128,6 +140,18 @@ export class CreateBankComponent {
 
     // Hide form
     const bankForm = document.getElementById('createNewCategoryPopup');
+=======
+
+      }, error: (err) => {
+        this.toastrService.error("something went wrong")
+      }
+    })
+
+
+
+    // Hide form
+    const bankForm = document.getElementById('bankForm');
+>>>>>>> f26f8e16471ce7485f4e68c99941e0ca122e8de4
     if (bankForm) {
       bankForm.style.display = 'none';
     }
