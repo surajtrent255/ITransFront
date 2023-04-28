@@ -4,7 +4,7 @@ export class  Bank{
     companyId!:number;
     bankName!:string;
     branchId!:number;
-    accountNumber!:string;
+    accountNumber!:number;
     initialAmount!:string;
     accountType!:string;
 

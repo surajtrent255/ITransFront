@@ -6,7 +6,8 @@
   <div class="cboth"></div>
 </div>
 <div class="popupSubHeadingDiv addNewProduct">
-  <h1 class="heading">Your can create your product here</h1>
+   
+      <h1 class="heading">Your can create your product here</h1>
 </div>
 <div class="popupContentWrapper">
   <div class="row">
@@ -51,11 +52,11 @@
           <div class="fieldDiv popUpFormSectionWrapper">
             <table class="" cellpadding="0" cellspacing="1">
               <tr>
-                <td class="col1 pt-2">
+                <!-- <td class="col1 pt-2">
                   Customer:
                   <span class="mandatorySign">*</span>
-                </td>
-                <td class="col2 pt-2 ml-3">
+                </td> -->
+                <!-- <td class="col2 pt-2 ml-3">
                   <input
                     type="text"
                     [(ngModel)]="custPhoneOrPan"
@@ -64,8 +65,8 @@
                     name="seller"
                     ngNoForm
                   />
-                </td>
-                <td class="col3">
+                </td> -->
+                <!-- <td class="col3">
                   <i
                     class="submit_btn border-rad fas far fa-search"
                     style="margin: 0 5px"
@@ -105,8 +106,8 @@
                     >
                   </div>
                 </td>
-              </tr>
-              <tr>
+              </tr> -->
+              <!-- <tr>
                 <td class="col1 pt-2">
                   Seller Id :<span class="mandatorySign">*</span>
                 </td>
@@ -124,7 +125,7 @@
                     required="required"
                   />
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="col1 pt-2">
                   Product Name:<span class="mandatorySign">*</span>
@@ -187,7 +188,7 @@
                     value="{{ selectedCategory.name }}"
                     class="form-control"
                   />
-                  <!-- <select
+                  <select
                     id="parentId"
                     style="width: 100%; height: 30px"
                     name="parnetId"
@@ -203,7 +204,7 @@
                     >
                       {{ option.name }}
                     </option>
-                  </select> -->
+                  </select>
                 </td>
               </tr>
               <tr>
@@ -236,7 +237,7 @@
                   >
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td class="col1 pt-2">
                   Cost Price:<span class="mandatorySign">*</span>
                 </td>
@@ -261,32 +262,30 @@
                     >invalid costPrice</small
                   >
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="col1 pt-2">
-                  Bar Code:<span class="mandatorySign">*</span>
+                  Bar Code:
                 </td>
                 <td class="col2">
                   <input
                     type="text"
-                    [class.is-invalid]="barcode.invalid && barcode.touched"
                     class="form-control"
                     id="barcode"
                     #barcode="ngModel"
                     name="barcode"
-                    required
                     barcode="barcode"
                     [(ngModel)]="product.barcode"
-                    required="required"
+                   
                   />
                 </td>
-                <td class="col3">
+                <!-- <td class="col3">
                   <small
                     class="text-danger"
                     [class.d-none]="barcode.valid || barcode.untouched"
                     >invalid barcode</small
                   >
-                </td>
+                </td> -->
               </tr>
               <tr>
                 <td class="col1 pt-2">
@@ -314,11 +313,37 @@
                   >
                 </td>
               </tr>
+
+
               <tr>
                 <td class="col1 pt-2">
                   Tax :<span class="mandatorySign">*</span>
                 </td>
-                <td class="col2">
+                <td>
+                  <select
+                  name="tax"
+                  id="tax"
+                  
+                  #tax="ngModel"
+                  [(ngModel)]="product.tax"
+                  required
+                  >
+                 
+                  <option
+                  [value]="ap.id"
+                  *ngFor="let ap of typerate ">
+                  {{ ap.vatRate }} --{{ap.id}}
+                  
+                  </option>
+                  
+                  </select>
+                </td>
+
+
+
+
+
+                <!-- <td class="col2">
                   <input
                     type="number"
                     [class.is-invalid]="tax.invalid && tax.touched"
@@ -328,7 +353,7 @@
                     #tax="ngModel"
                     tax="tax"
                     [(ngModel)]="product.tax"
-                    readOnly
+                   
                   />
                 </td>
                 <td class="col3">
@@ -337,7 +362,37 @@
                     [class.d-none]="tax.valid || tax.untouched"
                     >invalid tax</small
                   >
+                </td> -->
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  unit :<span class="mandatorySign">*</span>
                 </td>
+                <td>
+                  <select
+                  name="unit"
+                  id="unit"
+
+                  #unit="ngModel"
+                  [(ngModel)]="product.unit"
+                  required
+                  >
+                  <option
+                  [value]="ap.name"
+                  *ngFor="let ap of Unit ">
+                  {{ap.name}}
+                  
+                  </option>
+                  
+                  </select>
+                </td>
+                <div *ngIf="unit.errors && (unit.dirty || unit.touched)" class="alert alert-danger">
+                  <div [hidden]="!unit.errors">
+                    Please select a unit.
+                  </div>
+                </div>
+
+
               </tr>
             </table>
           </div>
@@ -456,7 +511,7 @@
                 <th class="last-child">Actions</th>
               </tr>
             </thead>
-            <tbody id="prodTable">
+            <!-- <tbody id="prodTable">
               <tr class="text-center" *ngIf="selectMenusForCompaniesSize === 0">
                 <td colspan="9">
                   <span style="color: red">No records found !</span>
@@ -483,7 +538,7 @@
                   </button>
                 </td>
               </tr>
-            </tbody>
+            </tbody> -->
           </table>
         </div>
       </div>

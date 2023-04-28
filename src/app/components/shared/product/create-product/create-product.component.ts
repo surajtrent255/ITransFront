@@ -8,6 +8,8 @@ import { ProductService } from 'src/app/service/product.service';
 import { CompanyServiceService } from 'src/app/service/shared/company-service.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 import { SelectCategoryServiceService } from '../../categoryprod/select-category-service.service';
+import { VatRateTypes } from 'src/app/models/VatRateTypes';
+import { Unit } from 'src/app/models/Unit';
 
 @Component({
   selector: 'app-create-product',
@@ -15,10 +17,18 @@ import { SelectCategoryServiceService } from '../../categoryprod/select-category
   styleUrls: ['./create-product.component.css'],
 })
 export class CreateProductComponent {
+  
   @Output() productInfoEvent = new EventEmitter<boolean>();
   product: Product = new Product();
+
   availableCategories: CategoryProduct[] = [];
   selectedCategory: CategoryProduct = new CategoryProduct;
+  typerate:VatRateTypes[]=[];
+  Unit:Unit[]=[];
+ 
+
+  
+  
 
   constructor(
     private productService: ProductService,
@@ -27,6 +37,7 @@ export class CreateProductComponent {
     private toastrService: ToastrService,
     private companyService: CompanyServiceService,
     private selectCategoryService: SelectCategoryServiceService,
+   
 
   ) { }
 
@@ -39,11 +50,16 @@ export class CreateProductComponent {
   selectMenusForCompanies !: Company[];
   selectMenusForCompaniesSize !: number;
   selectedSellerCompanyId !: number;
+  
+ 
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.fetchAllCategories();
+    this.getAllVatRateTypes();
+    this.getALLUnit();
+    
   }
 
   fetchAllCategories() {
@@ -58,51 +74,63 @@ export class CreateProductComponent {
     this.selectCategoryService.selectedCategoryForCatCreationSubject.subscribe(cat => this.selectedCategory = cat);
   }
 
-  customerSearch(id: number) {
-    this.customerSearchMethod = id;
+  // customerSearch(id: number) {
+  //   this.customerSearchMethod = id;
+  // }
+
+
+  // fetchCustomerInfo() {
+  //   if (this.custPhoneOrPan === null || this.custPhoneOrPan === undefined) {
+  //     this.toastrService.error(
+  //       `pan or phone`,
+  //       'invalid number'
+  //     );
+  //     return;
+  //     // return;
+  //   }
+
+  //   this.companyService.getCustomerInfoByPanOrPhone(this.customerSearchMethod, this.custPhoneOrPan).subscribe(({
+  //     next: (data) => {
+  //       this.selectMenusForCompanies = data.data;
+  //       this.selectMenusForCompaniesSize = data.data.length;
+  //     },
+  //     complete: () => {
+  //       const custBtn = document.getElementById("selectCustomer") as HTMLButtonElement;
+  //       custBtn.click();
+  //     }
+  //   }));
+  // }
+
+  // setSellerId(id: number) {
+  //   this.selectedSellerCompanyId = id;
+  //   this.product.sellerId = id;
+  //   const closeCustomerPopUpEl = document.getElementById("closeCustPop") as HTMLAnchorElement;
+  //   closeCustomerPopUpEl.click();
+  // }
+  getAllVatRateTypes(){
+    
+    this.productService.getAllVatRateTypes().subscribe(res => {
+      console.log(res.data)
+      this.typerate = res.data;
+    });
   }
-
-
-  fetchCustomerInfo() {
-    if (this.custPhoneOrPan === null || this.custPhoneOrPan === undefined) {
-      this.toastrService.error(
-        `pan or phone`,
-        'invalid number'
-      );
-      return;
-      // return;
-    }
-
-    this.companyService.getCustomerInfoByPanOrPhone(this.customerSearchMethod, this.custPhoneOrPan).subscribe(({
-      next: (data) => {
-        this.selectMenusForCompanies = data.data;
-        this.selectMenusForCompaniesSize = data.data.length;
-      },
-      complete: () => {
-        const custBtn = document.getElementById("selectCustomer") as HTMLButtonElement;
-        custBtn.click();
-      }
-    }));
+  getALLUnit(){
+    this.productService.getAllUnit().subscribe(res=>{
+      this.Unit =res.data;
+    })
   }
-
-  setSellerId(id: number) {
-    this.selectedSellerCompanyId = id;
-    this.product.sellerId = id;
-    const closeCustomerPopUpEl = document.getElementById("closeCustPop") as HTMLAnchorElement;
-    closeCustomerPopUpEl.click();
-  }
-
 
   createProduct(form: any) {
     this.product.companyId = this.compId;
     this.product.branchId = this.branchId;
     this.product.userId = this.loginService.currentUser.user.id;
     this.product.sellerId = this.selectedSellerCompanyId;
+    console.log(this.product.unit);
     this.productService.addNewProduct(this.product).subscribe({
       next: (data) => {
         console.log(data.data);
-        this.toastrService.success("product has been added with id " + data.data)
-
+        this.toastrService.success("product has been added with id " + data.tax)
+        console.log("next"+this.product.tax);
       },
       error: (error) => {
         console.log('Error occured ');
@@ -111,10 +139,13 @@ export class CreateProductComponent {
       complete: () => {
         this.productInfoEvent.emit(true);
         this.catSelected = false;
+        console.log("complete"+this.product.tax);
       },
     });
+    
+    console.log("functionout"+this.product.unit);
     console.log('product.component.ts');
-    form.reset({ tax: 13, discount: 0 });
+    form.reset({  discount: 0 });
   }
 
   customerAdded($event) {
