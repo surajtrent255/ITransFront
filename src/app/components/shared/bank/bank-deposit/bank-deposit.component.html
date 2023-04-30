@@ -1,4 +1,4 @@
-<!-- <div class="demoContainer" style="height: 545px; width: 100%;">
+<!-- <!-- <div class="demoContainer" style="height: 545px; width: 100%;">
     <button (click)="openForm()">Add Bank</button>
     <div class="recordTableWrapper" style="height: 545px; width: 100%;">
       <div class="recordCategory">
@@ -73,18 +73,19 @@
               <span (click)="openForm()"> Create deposite</span>
             </a>
           </div>
-          <div class="cboth"></div>
-        </div>
-        <div class="tableWrapper">
-          <div class="tablesettingDiv">
-            <div class="fleft filterListWrapper">
-              <div class="fleft">
-                <span class="italicText"></span>
-              </div>
-              <ul
-                class="fleft filtersDisplayList CategoriesTableFiltersDisplayList"
-              ></ul>
-              <div class="cboth"></div>
+          <div class="fright configNavTableWrapper">
+            <div
+              class="fleft configTableDiv newFilterItem"
+              dropdownId="CategoriesTableFilters"
+            >
+              <a href="" class="">
+                <img
+                  src="../../../assets/resources/images/newfilter-bg.png"
+                  alt="New Filter"
+                  title="Add new filter"
+                />
+                <span id="newCategoryFilter" search="off">New Filter</span>
+              </a>
             </div>
             <div class="fright configNavTableWrapper">
               <div
@@ -100,96 +101,17 @@
                   <span id="newCategoryFilter" search="on">New Filter</span>
                 </a>
               </div>
-              <div class="fleft configTableDiv">
-                <a href="" class="configTableLink">
-                  <img src="../../../assets/resources/images/config-bg.png" />
-                  <span>Configure Table</span>
-                  <img src="../../../assets/resources/images/th-sort-down.png" />
-                </a>
-                <div class="configTableDropdown" id="CategoriesTableFilters">
-                  <ul class="configOptionList" id="CategoryConfigList">
-                    <li class="filterItem">
-                      <span>Recent Filters</span>
-                      <ul class="filterList" id="CategoryFilterList">
-                        <!-- <c:if test="${not empty CategoryFilters}"> -->
-                        <!-- <c:forEach items="${CategoryFilters}" var="filter"> -->
-                        <li>
-                          <a
-                            href=""
-                            class="filterLink CategoryFilterName"
-                            style="
-                              white-space: nowrap;
-                              overflow: hidden;
-                              text-overflow: ellipsis;
-                            "
-                            >filter.name</a
-                          >
-                          <span class="CategoryFilterId" style="display: none"
-                            >filter.id</span
-                          >
-                          <div
-                            class="CategoryFilterReqData hoverData"
-                            style="display: none"
-                          >
-                            filter.reqData
-                          </div>
-                        </li>
-                        <!-- </c:forEach> -->
-                        <!-- </c:if> -->
-                        <!-- <c:if test="${not empty CategoryFilterSeeMore}"> -->
-                        <li class="seeAllFilterLink">
-                          <a href="" class="seeMoreLink">See More</a>
-                          <ul class="allFiltersList CategoryAllFilterList">
-                            <!-- <c:forEach items="${CategoryFilterSeeMore}" var="filter"> -->
-                            <li>
-                              <a
-                                href=""
-                                class="filterLink CategoryFilterName"
-                                style="
-                                  white-space: nowrap;
-                                  overflow: hidden;
-                                  text-overflow: ellipsis;
-                                "
-                                >filter.name</a
-                              >
-                              <span class="CategoryFilterId" style="display: none"
-                                >filter.id</span
-                              >
-                              <div
-                                class="CategoryFilterReqData hoverData"
-                                style="display: none"
-                              >
-                                filter.reqData
-                              </div>
-                            </li>
-                            <!-- </c:forEach> -->
-                          </ul>
-                        </li>
-                        <!-- </c:if> -->
-                      </ul>
-                    </li>
-                    <li class="chooseCol">
-                      <a href="">Choose Columns</a>
-                    </li>
-                    <li class="recordsPerPage">
-                      <a href="">Records Per Page</a>
-                    </li>
-                    <li class="exportTableLink">
-                      <a href="">Export Table</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="fleft tableNavDiv" id="CategoriesTablePagination">
-                <a href="" class="first first-page pageNumber">
-                  <img src="../../../assets/resources/images/first-page.png" />
-                </a>
-                <a href="" class="prev pageNumber">
-                  <img src="../../../assets/resources/images/prev-page.png" />
-                </a>
-                <span class="showingText">Page</span>
-                <span class="pagedisplay"><span class="pageNum">1</span> </span>
-                <!-- <c:choose>
+            </div>
+            <div class="fleft tableNavDiv" id="CategoriesTablePagination">
+              <a href="" class="first first-page pageNumber">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev pageNumber">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+              <!-- <c:choose>
                             <c:when test="${(totalCategoryRecords mod 10)!=0}">
                                 <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
                                 <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
@@ -201,15 +123,13 @@
                                 <span class="totalPage">${totalPage}</span>
                             </c:otherwise>
                           </c:choose> -->
-                <a href="" class="next pageNumber">
-                  <img src="../../../assets/resources/images/next-page.png" />
-                </a>
-                <a href="" class="last last-page pageNumber">
-                  <img src="../../../assets/resources/images/last-page.png" />
-                </a>
-              </div>
+              <a href="" class="next pageNumber">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page pageNumber">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
             </div>
-            <div class="cboth"></div>
           </div>
           <div class="recordsTableDiv">
             <table
@@ -226,7 +146,7 @@
                     sortCol="organization_id"
                     id="id"
                   >
-                    Category Id
+                   BankId
                   </th>
                   <th
                     class="sortable"
@@ -234,7 +154,7 @@
                     sortCol="organization_name"
                     id="name"
                   >
-                    Category Name
+                    DepositeAmount
                   </th>
                   <th
                     class="sortable"
@@ -242,7 +162,7 @@
                     sortCol="customer_name"
                     id="costprice"
                   >
-                    Category Description
+                    DepositeType
                   </th>
                   <th
                     class="sortable"
@@ -250,16 +170,16 @@
                     sortCol="master_name"
                     id="sellingprice"
                   >
-                    Parent ID
+                    ChequeNumber
                   </th>
   
                   <th class="last-child">Actions</th>
                 </tr>
               </thead>
-              <tbody id="prodTable">
+              <!-- <tbody id="prodTable">
                 <tr>
                   <span class="noProdRecord">No records found</span>
-                </tr>
+                </tr> -->
                 <!-- <c:forEach items="${Categories}" var="Category">  -->
                 <!-- <tr *ngFor="let cat of categoriesData">
                   <td>{{ cat.id }}</td>
@@ -276,19 +196,100 @@
                   </td>
                 </tr> -->
                 <!-- </c:forEach>	 -->
+
+
+
+                <tbody *ngFor="let deposite of Deposite ; let i = index ; ">
+                  <tr >
+                       
+                     <td>{{deposite.bankId}}</td>
+                    <td>{{deposite.depositAmount}}</td> 
+                    <td>{{deposite.depositeType}}</td> 
+                    <td>{{deposite.chequeNumber}}</td> 
+                    <td class="last-child">
+                      <a href=" " class="">
+                        <img src="../../../assets/resources/images/editRow.png" />
+                      </a>
+                      <a href="" class="deleteRowLink deleteGroupCombo">
+                        <img src="../../../assets/resources/images/deleteRow.png" />
+                      </a>
+                    </td>
+                    
+                   </tr>
+                
               </tbody>
-            </table>
+            </table> 
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+  
+      <!-- <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+        <div class="mb-2"></div>
+        <div class="popupContentWrapper">
+          <div class="row">
+            <div class="col-md-12">
+             <app-popup class="m-4"></app-popup> -->
+              <!-- <form
+               
+                name="createCategoryProd"
+               
+                id="createProductForm"
+              >
+                <div class="chooseColoumnsWrapper">
+                  <div class="fieldDiv popUpFormSectionWrapper">
+                    <div  class="fright" class="createCategoryDiv">
+                      <div class="popupContentWrapper" >
+                        <div class="form-container popupContentWrapper ">
+                          <h2 class="heading tCenter"  >Add Deposite</h2>
+                          <form onsubmit="return submitForm()">
+                            <div class="form-group">
+                              <label for="bankId">BankId:</label>
+                              <input type="text" id="bankId" name="bankId"   required>
+                            </div>
+                            <div class="form-group">
+                              <label for="depositAmount">DepositAmount:</label>
+                              <input type="text" id="depositAmount" name="depositAmount"  required>
+                            </div>
+                            <div class="form-group">
+                              <label for="depositType">depositType</label>
+                              <input type="text" id="depositType" name="depositType"  required>
+                            </div>
+                            <div class="form-group">
+                              <label for="chequeNumber">chequeNumber</label>
+                              <input type="text" id="chequeNumber" name="chequeNumber"  required>
+                            </div>
+                            <div> -->
+                              <!-- <button type="submit" (click)="submitForm()">Submit</button>
+                              <button  (click)="cancel_btn()">Cancel</button> -->
+                            <!-- </div>
+                          </form>
+                        </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="submitDiv tCenter">
+                  <input
+                    type="submit"
+                    class="submit_btn border-rad"
+                    id="submitCategoryPrd"
+                    value="Add Deposit"
+                   
+                  />
+        
+                  <input
+                    type="button"
+                    value="Cancel form"
+                    class="submit_btn cancel_btn border-rad ml-2"
+                    (click)="cancel_btn()"
+                  />
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-  
-      <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-        <div class="mb-2"></div>
-  
-        <!-- <app-createcategory
-          (categorySuccessInfoEvent)="createNewCategory($event)"
-        ></app-createcategory>
-      </div> -->
+     
+       
   
       <div
         class="popupWrapper"
@@ -345,26 +346,26 @@
     </div>
     <div class="form-group">
     <label for="depositType">depositType</label>
-    <input
+    <!-- <input
     type="text"
     id="depositType"
     name="depositType"
     #depositType="ngModel"
     [(ngModel)]="objdeposite.depositeType"
     required
-    />
+    /> -->
     </div>
     <div class="form-group">
     <label for="chequeNumber">chequeNumber:</label>
-    <input
+    <!-- <input
     type="text"
     name="chequeNumber"
     id="chequeNumber"
     #chequeNumber="ngModel"
     [(ngModel)]="objdeposite.chequeNumber"
     required
-    >
-   
+    > -->
+    
 
     </div>
     <div>
@@ -392,7 +393,7 @@
     class="submit_btn cancel_btn border-rad ml-2"
     />
     </div>
-    </form>
+    </form> 
     </div>
     </div>
     </div>
@@ -404,5 +405,5 @@
     ></div>
     </div>
     </div>
-  </div>
-  
+   </div>
+    -->

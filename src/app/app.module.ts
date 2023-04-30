@@ -53,7 +53,6 @@ import { CreateBankComponent } from './components/shared/bank/create-bank/create
 import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
 import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
 import { EditPaymentDetailsComponent } from './components/shared/payment/edit-payment-details/edit-payment-details.component';
-import { NpDatepickerModule } from 'angular-nepali-datepicker';
 import { ExpenseComponent } from './components/shared/expense/expense.component';
 import { FixedAsstetsComponent } from './components/shared/fixed-asstets/fixed-asstets.component';
 import { EditExpenseComponent } from './components/shared/expense/edit-expense/edit-expense.component';
@@ -66,6 +65,9 @@ import { CreateLoanComponent } from './components/shared/loan/create-loan/create
 import { EditLoanComponent } from './components/shared/loan/edit-loan/edit-loan.component';
 import { SplitProductComponent } from './components/shared/split-product/split-product.component';
 import { MergeProductComponent } from './components/shared/merge-product/merge-product.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -137,12 +139,12 @@ import { MergeProductComponent } from './components/shared/merge-product/merge-p
       positionClass: 'toast-top-center',
       newestOnTop: false,
     }),
-    NpDatepickerModule,
-    // MatSelectModule,
-    // MatOptionModule,
-    // MatInputModule,
-    // FormsModule,
-    // ReactiveFormsModule,
+  
+    MatSelectModule,
+    MatOptionModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [ProductComponent],
 

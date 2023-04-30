@@ -42,10 +42,10 @@
                   >
                     <option
                       *ngFor="let option of banks"
-                      [value]="option.bankId"
-                      [selected]="option.bankId === loan.bankId"
+                      [value]="option.id"
+                      [selected]="option.id === loan.bankId"
                     >
-                      {{ option.bankId }} {{ option.bankName }}
+                      {{ option.id }} {{ option.bankName }}
                     </option>
                   </select>
                 </td>

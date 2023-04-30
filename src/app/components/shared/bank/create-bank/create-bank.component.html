@@ -254,7 +254,7 @@
   </tr>
   </tbody>
   </table>
-  </div>  
+  </div>
   </div>
   </div>
  
@@ -283,7 +283,6 @@
   
   <select
   name="bankName"
-  (change)="SelecetBankChange(bankObj.bankName)"
   id="bankName"
   #bankname="ngModel"
   [(ngModel)]="bankObj.bankName"
@@ -297,9 +296,6 @@
   </option>
   
   </select>
-  <div *ngIf="showInput===true">
-    <input type="text" id="bankName">
-    </div>
   </div>
   <div class="form-group">
   <label for="accountNumber">Account Number:</label>
@@ -312,7 +308,7 @@
   required
   />
   </div>
-  <div  class="form-group">
+  <div class="form-group">
   <label for="initialAmount">Initial Amount:</label>
   <input
   type="text"
@@ -377,5 +373,5 @@
   ></div>
   </div>
   </div>
-  
-   
+ </div>
+ 

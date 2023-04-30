@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DateFormatter } from 'angular-nepali-datepicker';
+
 import { Payment } from 'src/app/models/Payment/payment';
 import { PaymentMode } from 'src/app/models/Payment/paymentMode';
 import { PaymentService } from 'src/app/service/shared/Payment/payment.service';
@@ -19,7 +19,7 @@ export class PaymentComponent {
   loggedInBranchId!: number;
   postDateCheckEnable!: boolean;
   cheque!: boolean;
-  dateFormatter!: DateFormatter;
+  
   paymentIdForEdit!: number;
 
   PaymentForm = new FormGroup({
