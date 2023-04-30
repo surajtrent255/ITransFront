@@ -17,12 +17,19 @@ export class HierarchyComponent implements OnInit {
 
   companyName!: string;
 
+  // for Role Based Rendering
+  IsStaff!: boolean;
+
   ngOnInit(): void {
     const data = localStorage.getItem('companyDetails');
     const parsedData = JSON.parse(data || '{}');
     const { name } = parsedData;
     this.companyName = name;
 
+    this.getRoleBasedRendering();
+  }
+
+  ngAfterViewInit() {
     document.querySelectorAll('.sidebar .nav-link').forEach(function (element) {
       element.addEventListener('click', function (e) {
         let nextEl = element.nextElementSibling;
@@ -40,5 +47,16 @@ export class HierarchyComponent implements OnInit {
         }
       });
     });
+
+    this.getRoleBasedRendering();
+  }
+
+  getRoleBasedRendering() {
+    const roleData = localStorage.getItem('CompanyRoles');
+    if (roleData?.includes('STAFF')) {
+      this.IsStaff = false;
+    } else {
+      this.IsStaff = true;
+    }
   }
 }

@@ -35,6 +35,10 @@ export class LoginService {
     return this.userSubject.value;
   }
 
+  getUserId(): number {
+    return this.userSubject.value.user.id;
+  }
+
   public get CurrentCompnay(): Company {
     return this.companySubject.value;
   }
@@ -118,6 +122,6 @@ export class LoginService {
     localStorage.removeItem('BranchDetails');
     localStorage.removeItem('Company');
     localStorage.removeItem(USER_TOKEN);
-    window.location.reload();
+    localStorage.removeItem('CompanyRoles');
   }
 }

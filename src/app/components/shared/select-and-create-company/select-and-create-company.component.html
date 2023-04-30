@@ -50,6 +50,7 @@
       </div>
     </div>
     <app-create-company
+      *ngIf="IsAdmin"
       (successfullyAdded)="getAllCompanyDetails()"
     ></app-create-company>
   </div>
