@@ -56,7 +56,7 @@
     </div>
 
     <div class="fright" style="padding-right: 30px; padding-top: 10px">
-      <a href="/company">
+      <a (click)="OnSwitchCompany()" href="/company">
         <img
           src="../../../../assets/resources/images/logout-bg.png"
           class="logoutImage"
@@ -76,7 +76,7 @@
     </div>
     <div class="fright mainNavWrapper">
       <ul class="mainNavList">
-        <li>
+        <li *ngIf="IsAdmin">
           <a href="" id="configurationLink">
             <img
               src="../../../../assets/resources/images/configuration-bg.png"
@@ -84,7 +84,7 @@
             <span>User Configuration</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="IsAdmin">
           <a href="" id="pricingPreferencesLink">
             <img src="../../../../assets/resources/images/pricing-bg.png" />
             <span>Branch</span>
@@ -644,7 +644,10 @@
             <span>Roles</span>
             <div style="border-bottom: 2px solid #bdbdbd"></div>
             <div style="margin: 4px" *ngFor="let role of role">
-              <div style="margin: 1px">
+              <div
+                *ngIf="role.role !== 'ADMIN' && role.role !== 'SUPER_ADMIN'"
+                style="margin: 1px"
+              >
                 <input
                   type="checkbox"
                   [checked]="hasRole(role.role)"

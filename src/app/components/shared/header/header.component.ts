@@ -21,6 +21,7 @@ import { RoleService } from 'src/app/service/shared/role.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
 import $ from 'jquery';
 import { Municipality } from 'src/app/models/Municipality';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 
 @Component({
   selector: 'app-header',
@@ -38,7 +39,7 @@ export class HeaderComponent {
   branch!: Branch[];
   companyName!: string;
   branchId!: number;
-  addRoleData!: Demo[];
+  addRoleData!: UserConfiguration[];
   districts!: District[];
   province!: Province[];
   municipality!: Municipality[];
@@ -73,7 +74,8 @@ export class HeaderComponent {
   usersTabsStatus!: boolean;
   userRoleTabStatus!: boolean;
 
-  profileCardActive = false;
+  // for role based rendering
+  IsAdmin!: boolean;
 
   BranchRegistrationForm = new FormGroup({
     BranchName: new FormControl('', [Validators.required]),
@@ -127,6 +129,22 @@ export class HeaderComponent {
       this.loggedInUser = user;
     });
 
+    // for Role Based Rendering
+    this.roleService
+      .getUserRoleDetailsBasedOnCompanyIdAndUserId(
+        this.localStorageCompanyId,
+        this.loggedInUser.user.id
+      )
+      .subscribe((res) => {
+        res.data.map((role) => {
+          if (role.role === 'ADMIN') {
+            this.IsAdmin = true;
+          } else {
+            this.IsAdmin = false;
+          }
+        });
+      });
+
     this.getAllBranchDetails();
 
     this.getBranchUsersByCompanyId();
@@ -141,6 +159,13 @@ export class HeaderComponent {
       console.log(res.data);
       this.province = res.data;
     });
+  }
+
+  //
+
+  // For role Based Rendering
+  OnSwitchCompany() {
+    localStorage.removeItem('CompanyRoles');
   }
   getAllUser() {
     this.userConfigurationService
