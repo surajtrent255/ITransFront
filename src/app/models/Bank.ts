@@ -1,6 +1,6 @@
 export class Bank {
 
-    id!:number;
+    bankId!:number;
     companyId!:number;
     bankName!:string;
     branchId!:number;

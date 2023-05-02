@@ -9,6 +9,7 @@ import { Stock } from 'src/app/models/Stock';
   providedIn: 'root'
 })
 export class StockService {
+  fetchstock: Stock[]=[];
 
   constructor(private httpClient: HttpClient) { }
 
@@ -16,10 +17,24 @@ export class StockService {
     let url = `${BASE_URL}/stock?prodId=${prodId}&compId=${compId}`;
     return this.httpClient.get<RJResponse<Stock>>(url);
   }
+  getStockWithProdId(prodId: number): Observable<RJResponse<Stock>> {
+    let url = `${BASE_URL}/stock/product/${prodId}`;
+    return this.httpClient.get<RJResponse<Stock>>(url);
+  }
 
   updateStockWithProdIdAndCompanyId(stock: Stock) {
     let url = `${BASE_URL}/stock`;
     return this.httpClient.put(url, stock);
+  }
+  updateStockWithProdId(Id:number, stock: Stock ) {
+    let url = `${BASE_URL}/stock/${Id}`;
+    return this.httpClient.put(url, stock);
+  }
+  
+  addStock(stock: Stock){
+    let url =`${BASE_URL}/stock`;
+    return this.httpClient.post(url,stock);
+
   }
 
 }

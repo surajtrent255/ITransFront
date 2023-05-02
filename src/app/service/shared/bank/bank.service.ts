@@ -49,8 +49,8 @@ export class BankService {
     );
     }
 
-  deletebank(accountNumber: number) {
-    let url = `${BASE_URL}/api/v1/bank/${accountNumber}`;
+  deletebank(bankId: number) {
+    let url = `${BASE_URL}/api/v1/bank/${bankId}`;
     return this.http.delete(url);
   }
 

@@ -15,5 +15,6 @@ export class Product {
   unit!:string;
   createDate !: Date;
   updateDate !: Date;
+  vatRate!: number;
 
 }

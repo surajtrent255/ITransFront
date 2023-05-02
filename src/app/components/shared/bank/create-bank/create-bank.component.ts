@@ -107,23 +107,26 @@ export class CreateBankComponent {
   }
 
   createBank(form: any) {
-    this.showForm = false;
+    this.showForm = true;
     this.bankObj.companyId = this.companyId;
     this.bankObj.branchId = this.branchId;
     this.bankService.addBank(this.bankObj).subscribe({
       next: (data) => {
         this.toastrService.success("bank is successfully added with id " + data.data)
         this.getAllBank();
+       
         
       }, error: (err) => {
         this.toastrService.error("something went wrong")
       }
+      
      
     }
-    )
     
+    )
+   
 
-   form.reset(this.showForm);
+    
 
     // Hide form
     const bankForm = document.getElementById('createNewCategoryPopup');
@@ -137,12 +140,13 @@ export class CreateBankComponent {
     
     if (bankForm) {
       bankForm.style.display = 'none';
+     
     }
   }
 
-  deleteBank(accountNumber: number) {
+  deleteBank(bankId: number) {
   
-    this.bankService.deletebank(accountNumber).subscribe({
+    this.bankService.deletebank(bankId).subscribe({
       next: (res) => {
         console.log(res);
         this.toastrService.success("bank has been deleted")

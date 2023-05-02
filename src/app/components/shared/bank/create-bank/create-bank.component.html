@@ -238,7 +238,10 @@
   </tbody>
  
   <tbody *ngFor="let bankData of Bank; let i = index">
+    
   <tr>
+    <!-- {{bankData[0]}}
+    <td>{{bankData.bankId}}</td> -->
   <td>{{ bankData.bankName }}</td>
   <td>{{ bankData.accountNumber }}</td>
   <td>{{ bankData.initialAmount }}</td>
@@ -247,7 +250,7 @@
   <a href="" class="">
   <img src="../../../assets/resources/images/editRow.png" />
   </a>
-  <a (click)="deleteBank(bankData.accountNumber)" class="deleteRowLink deleteGroupCombo">
+  <a (click)="deleteBank(bankData.bankId)" class="deleteRowLink deleteGroupCombo">
   <img src="../../../assets/resources/images/deleteRow.png" />
   </a>
   </td>

@@ -133,7 +133,7 @@ export class CreateProductComponent {
     this.product.userId = this.loginService.currentUser.user.id;
     this.product.sellerId = this.selectedSellerCompanyId;
     console.log(this.product.unit);
-    this.productService.addNewProduct(this.product).subscribe({
+    this.productService.addNewProduct(this.product , 0).subscribe({
       next: (data) => {
         console.log(data.data);
         this.toastrService.success("product has been added with id " + data.tax)

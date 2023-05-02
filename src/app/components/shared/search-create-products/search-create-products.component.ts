@@ -78,7 +78,7 @@ export class SearchCreateProductsComponent {
     this.product.userId = 1;
     this.product.sellerId = 1;
 
-    this.productService.addNewProduct(this.product).subscribe((data) => {
+    this.productService.addNewProduct(this.product,0).subscribe((data) => {
       Swal.fire(
         'Product Created ! ',
         'A new product has been created with id ' + data.data,
