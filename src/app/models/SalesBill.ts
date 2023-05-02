@@ -30,4 +30,5 @@ export class SalesBill {
   taxApproach !: number;
   customerSearchMethod !: number;
   printCount !: number;
+  saleType !: number;
 }

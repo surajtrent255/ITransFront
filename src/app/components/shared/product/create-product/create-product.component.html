@@ -59,7 +59,66 @@
                   Customer:
                   <span class="mandatorySign">*</span>
                 </td>
+              </tr>
+
+              <tr>
+                <td class="col1 pt-2">
+                  Lender:
+                  <span class="mandatorySign">*</span>
+                </td>
                 <td class="col2 pt-2 ml-3">
+                  <input
+                    type="number"
+                    [(ngModel)]="custPhoneOrPan"
+                    class="form-control"
+                    (keydown.enter)="fetchCustomerInfo()"
+                    name="seller"
+                    ngNoForm
+                  />
+                </td>
+                <td class="col3">
+                  <i
+                    class="submit_btn border-rad fas far fa-search"
+                    style="margin: 0 5px"
+                    (click)="fetchCustomerInfo()"
+                  ></i>
+                  <button
+                    id="selectLender"
+                    class="createNewTableRecord"
+                    style="display: none"
+                  ></button>
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2"></td>
+                <td class="col2">
+                  <div class="ml-2 mb-2 mt-2">
+                    <span> search by pan or phone</span>
+                    <!-- <span>
+                        <input
+                          type="radio"
+                          name="lenderSearch"
+                          value="pan"
+                          (change)="lenderSearch(1)"
+                          [checked]="lenderSearchMethod === 1"
+                        />
+                        PAN
+                      </span>
+                      <span>
+                        <input
+                          type="radio"
+                          name="lenderSearch"
+                          class="ml-3"
+                          value="phone"
+                          [checked]="lenderSearchMethod === 2"
+                          (change)="lenderSearch(2)"
+                        />
+                        PHONE</span
+                      > -->
+                  </div>
+                </td>
+              </tr>
+              <!-- <td class="col2 pt-2 ml-3">
                   <input
                     type="text"
                     [(ngModel)]="custPhoneOrPan"
@@ -109,7 +168,7 @@
                     >
                   </div>
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="col1 pt-2">
                   Seller Id :<span class="mandatorySign">*</span>
@@ -494,4 +553,18 @@
       </div>
     </div>
   </div>
+</div>
+<div
+  class="popupWrapper CustomerPopupWrapper1"
+  id="selectLenderPopup"
+  style="display: none; width: auto"
+>
+  <app-select-customer
+    *ngIf="selectCompanyActive"
+    [selectMenusForCompanies]="selectMenusForCompanies"
+    (compIdEvent)="setSellerId($event)"
+    (destroySelectCompEmitter)="destroySelectSellerComponent($event)"
+    (fetchCustomerEventEmitter)="fetchCustomerInfo()"
+  >
+  </app-select-customer>
 </div>

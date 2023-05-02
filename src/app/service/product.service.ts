@@ -30,8 +30,13 @@ export class ProductService {
     branchId: number
   ): Observable<RJResponse<Product>> {
     let url = `${BASE_URL}/product/${id}?compId=${compId}&branchId=${branchId}`;
-    console.log(url);
     return this.httpClient.get<RJResponse<Product>>(url);
+  }
+
+  getProductByWildCardName(name: string, compId: number, branchId: number): Observable<RJResponse<Product[]>> {
+    let url = `${BASE_URL}/product/searchByWildCard?name=${name}&compId=${compId}&branchId=${branchId}`;
+    console.log(url);
+    return this.httpClient.get<RJResponse<Product[]>>(url);
   }
 
   getAllProductsForInventory(

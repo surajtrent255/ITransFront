@@ -1,16 +1,46 @@
 <div class="contentRecordsTableContainer MainContainer" style="height: auto">
   <div class="recordTableWrapper">
     <div class="recordCategory">
-      <h2 class="text-center" id="totalGroupCombinations">
-        Create Sales {{ postgreDate | date }}
-      </h2>
+      <h2 class="text-center" id="totalGroupCombinations">Create Sales</h2>
       <div class="cboth"></div>
     </div>
+    <div class="dropdown">
+      <i
+        class="fa-solid fa-gear dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+      </i>
+      <div
+        class="dropdown-menu"
+        style="margin-left: 4px"
+        aria-labelledby="dropdownMenuButton"
+      >
+        <ul class="ml-3">
+          <input
+            type="checkbox"
+            [checked]="allowEditSellingPrice"
+            (change)="updateAllowEditSP()"
+          />
+          <span class="ml-2">Alter Price</span>
+        </ul>
+      </div>
+    </div>
+    <div class="fright" class="createProductDiv text-end">
+      <a href="" id="createNewProduct" class="createNewTableRecord">
+        <img src="../../../assets/resources/images/createProduct.png" />
+        <span class="mr-2"> Create Product</span>
+      </a>
+    </div>
+
     <div class="popupSubHeadingDiv createsalesBill">
       <h1 class="heading">Choose products for sales</h1>
     </div>
     <div class="popupContentWrapper" style="background: none">
-      <div class="row">
+      <div class="row card">
         <div class="col-md-12">
           <!-- <app-popup class="m-4"></app-popup> -->
 
@@ -20,15 +50,18 @@
               <div style="display: flex; align-items: center">
                 <input
                   type="text"
+                  id="custPanOrPhoneInput"
                   [(ngModel)]="custPhoneOrPan"
                   class="input-field"
-                  style="margin: 0 5px"
+                  style="margin: 0 4px"
+                  [readOnly]="unknownCustomer"
                   (keydown.enter)="fetchCustomerInfo()"
                 />
                 <button
                   class="ml-3"
                   class="submit_btn border-rad"
                   style="margin: 0 5px"
+                  [disabled]="unknownCustomer"
                   (click)="fetchCustomerInfo()"
                 >
                   Search
@@ -39,7 +72,14 @@
                   style="display: none"
                 ></button>
               </div>
-
+              <div class="ml-2 mt-2">
+                <span>Search By Pan or Phone</span>
+                <div>
+                  <span
+                    ><small>10 digits for phone, 9 digits for pan</small></span
+                  >
+                </div>
+              </div>
               <!-- <Select
                 style="width: 70%"
                 class="inputItems"
@@ -58,7 +98,7 @@
                   {{ company.name }}
                 </option>
               </Select> -->
-              <div class="ml-2 mt-2">
+              <!-- <div class="ml-2 mt-2">
                 <span>
                   <input
                     type="radio"
@@ -80,7 +120,7 @@
                   />
                   PHONE</span
                 >
-              </div>
+              </div> -->
             </div>
             <div
               class="col-md-3"
@@ -89,26 +129,7 @@
                 flex-direction: column;
                 justify-content: flex-end;
               "
-            >
-              <span style="text-align: left"
-                >Add Customer:
-                <button id="createNewCustomer" class="createNewTableRecord">
-                  <i
-                    class="fa-sharp fa-solid fa-user-plus"
-                    style="color: green"
-                  ></i>
-                </button>
-                <!-- <select
-                  name="taxType"
-                  class="input-field"
-                  id="taxType"
-                  (change)="getApproach($event)"
-                >
-                  <option value="1" selected>Tax Inclusive</option>
-                  <option value="2">Tax Exclusive</option>
-                </select> -->
-              </span>
-            </div>
+            ></div>
             <div class="col-md-3">
               <span class="inputItems">Date:</span>
               <input
@@ -116,11 +137,48 @@
                 id="date"
                 [(ngModel)]="date"
                 type="date"
+                readonly
               />
             </div>
             <div class="col-md-3">
-              <span class="inputItems">Invoice number:</span>
-              <input class="inputItems input-field" type="text" />
+              <div style="display: inline-block">
+                <input
+                  type="radio"
+                  style="
+                    margin-top: 8px;
+                    display: inline-block;
+                    margin-left: 3px;
+                  "
+                  name="saleType"
+                  [checked]="saleType === 1"
+                  (change)="setSaleType(1)"
+                />
+                <label
+                  style="
+                    margin-top: 8px;
+                    margin-left: 3px;
+                    display: inline-block;
+                  "
+                  >Cash sale
+                </label>
+              </div>
+              <div style="display: inline-block; margin-left: 10px">
+                <input
+                  type="radio"
+                  style="margin-top: 8px; display: inline-block"
+                  name="saleType"
+                  [checked]="saleType === 2"
+                  (change)="setSaleType(2)"
+                />
+                <label
+                  style="
+                    margin-top: 8px;
+                    margin-left: 3px;
+                    display: inline-block;
+                  "
+                  >Credit sale</label
+                >
+              </div>
             </div>
           </div>
           <hr />
@@ -188,9 +246,45 @@
                   >
                 </div>
               </div>
+              <div style="display: inline-block; margin-left: 5px">
+                <input
+                  type="checkbox"
+                  style="margin-top: 8px; display: inline-block"
+                  name="unknownCustomer"
+                  id="unknownCustomer"
+                  [checked]="unknownCustomer"
+                  (click)="getUnknownCustomer()"
+                />
+                <label
+                  style="
+                    margin-top: 8px;
+                    margin-left: 4px;
+                    display: inline-block;
+                  "
+                >
+                  Unknown Customer</label
+                >
+              </div>
             </div>
             <div
-              class="col-md-5"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+              "
+              class="col-md-2"
+            >
+              <span class="mb-1"
+                ><input
+                  type="checkbox"
+                  [checked]="export"
+                  (change)="setAllVatToZero()"
+                />
+                <i class="ml-1"> Export</i></span
+              >
+            </div>
+            <div
+              class="col-md-3"
               style="
                 display: flex;
                 flex-direction: column;
@@ -200,7 +294,7 @@
               <span style="text-align: right"
                 >Amounts are:
                 <select
-                  [(ngModel)]="taxApproachSelectEl"
+                  [(ngModel)]="taxApproach"
                   name="taxType"
                   class="input-field"
                   id="taxType"
@@ -215,7 +309,7 @@
           <hr />
           <div class="row">
             <div class="offset-md-3">
-              <div style="text-align: left">
+              <div style="text-align: left" class="mt-3">
                 <div style="display: inline-block; width: 150px">
                   Enter product Id:
                 </div>
@@ -223,7 +317,23 @@
                   <input
                     type="text"
                     class="input-field"
+                    #productBarCodeInput
                     [(ngModel)]="productBarCodeId"
+                    (keydown.enter)="goToProductQtyField()"
+                  />
+                  <!-- (keydown.enter)="addTheProductForSale()" -->
+                </div>
+              </div>
+              <div style="text-align: left" class="mt-3">
+                <div style="display: inline-block; width: 150px">
+                  Enter product Qty:
+                </div>
+                <div style="display: inline-block">
+                  <input
+                    type="text"
+                    class="input-field"
+                    #prodQtyInput
+                    [(ngModel)]="productQty"
                     (keydown.enter)="addTheProductForSale()"
                   />
                 </div>
@@ -233,10 +343,22 @@
                   Enter Product Name:
                 </div>
                 <div style="display: inline-block">
-                  <input type="text" class="input-field" />
+                  <input
+                    type="text"
+                    class="input-field"
+                    [(ngModel)]="prodWildCard"
+                    (keydown.enter)="getNameWildCard()"
+                  />
                 </div>
               </div>
               <div class="mt-3">
+                <button
+                  id="selectProduct"
+                  class="createNewTableRecord"
+                  style="display: none"
+                >
+                  Add By Name
+                </button>
                 <button
                   class="submit_btn border-rad"
                   (click)="addTheProductForSale()"
@@ -300,27 +422,43 @@
                     <input
                       type="number"
                       value="1"
+                      style="width: 50%"
                       id="qtyProd{{ prod.id }}"
-                      (change)="updateTotalAmount(prod)"
+                      (change)="updateTotalAmount(prod); updateBillSummary()"
                     />
+                    <span *ngIf="prod.stock <= 10"
+                      ><span class="badge rounded-pill bg-warning text-dark">
+                        . {{ prod.stock }} remaining !</span
+                      >
+                    </span>
                     <!-- (change)="updateProdQtyUserWantToSale($event, prod)" -->
                   </td>
-                  <td>{{ prod.sellingPrice }}</td>
+                  <td>
+                    <input
+                      class="productSellingPrice"
+                      id="prodSellingPrice{{ prod.id }}"
+                      type="number"
+                      readonly
+                      (change)="updateTotalAmount(prod); updateBillSummary()"
+                      value="{{ prod.sellingPrice }}"
+                    />
+                  </td>
                   <td>
                     <input
                       id="discountPerc{{ prod.id }}"
                       type="number"
                       value="{{ prod.discount }}"
                       [readOnly]="discountReadOnly"
-                      (change)="updateTotalAmount(prod)"
+                      (change)="updateTotalAmount(prod); updateBillSummary()"
                     />
                   </td>
                   <td>
-                    <i class="fa fa-angle-down" aria-hidden="true">
+                    <!-- <i class="fa fa-angle-down" aria-hidden="true">
                       <select
                         name="vattypes{{ prod.name }}"
                         id="vatRateTypes{{ prod.id }}"
-                        (change)="updateTotalAmount(prod)"
+                        (change)="updateTotalAmount(prod); updateBillSummary()"
+                        readonly
                       >
                         <option
                           *ngFor="let vat of vatRateTypes"
@@ -329,6 +467,17 @@
                           {{ vat.vatRate }}
                         </option>
                       </select></i
+                    > -->
+                    <span *ngFor="let vat of vatRateTypes">
+                      <span *ngIf="vat.vatRateNum === prod.tax">
+                        <input
+                          type="text"
+                          id="vatRateTypes{{ prod.id }}"
+                          hidden
+                          value="{{ vat.id }}"
+                        />
+                        {{ vat.vatRate }}</span
+                      ></span
                     >
                   </td>
                   <td id="totalAmount{{ prod.id }}">{{ prod.sellingPrice }}</td>
@@ -341,6 +490,65 @@
                 </tr>
               </tbody>
             </table>
+            <div class="row mt-2 p-3">
+              <div class="col-md-4 offset-md-8">
+                <div class="card bg-light">
+                  <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0">Billing Summary</h5>
+                  </div>
+                  <div class="card-body">
+                    <table class="">
+                      <tr class="list-group-item mt-1">
+                        <td><h3>Subtotal:</h3></td>
+                        <td>
+                          <span class="ml-4" id="subtotal"></span
+                          >{{ bsSubTotal | number : "1.0-0" }}
+                        </td>
+                      </tr>
+                      <tr class="list-group-item mt-1">
+                        <td>
+                          <h3>
+                            Includes VAT @13% on
+                            {{ bsVatTaxableAmount | number : "1.0-0" }}:
+                          </h3>
+                        </td>
+                        <td>
+                          <span class="ml-4" id="vat">{{
+                            (13 / 100) * bsVatTaxableAmount | number : "1.0-0"
+                          }}</span>
+                        </td>
+                      </tr>
+                      <tr class="list-group-item mt-1">
+                        <td><h3>Total:</h3></td>
+                        <td>
+                          <span class="ml-4" id="total">
+                            {{ bsTotal | number : "1.0-0" }}</span
+                          >
+                        </td>
+                      </tr>
+                      <tr class="list-group-item mt-1">
+                        <td><h3>Balance due:</h3></td>
+                        <td>
+                          <span class="ml-4" id="balancedue">{{
+                            bsBalanceDue | number : "1.0-0"
+                          }}</span>
+                        </td>
+                      </tr>
+                      <tr class="list-group-item mt-1">
+                        <td>
+                          <h3>Estimated FRS Amount @13% on {{ bsTotal }}:</h3>
+                        </td>
+                        <td>
+                          <span class="ml-4" id="estimatedFRS">{{
+                            bsEstimatedFRSAmount | number : "1.0-0"
+                          }}</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div style="margin-top: 20px">
             <!-- <button class="submit_btn border-rad" id="popperAlertLink">
@@ -349,7 +557,11 @@
             <button class="submit_btn" (click)="saleTheProducts(true)">
               Save as a Draft
             </button>
-            <button class="submit_btn" (click)="saleTheProducts(false)">
+            <button
+              class="submit_btn"
+              (click)="saleTheProducts(false)"
+              #saleTheProductBtn
+            >
               Sale the Product
             </button>
           </div>
@@ -398,7 +610,7 @@
     </div>
   </div>
 </div>
-<div
+<!-- <div
   class="popupWrapper createCustomerPopUpWrapper"
   id="createNewCustomerPopup"
   style="display: none"
@@ -408,7 +620,7 @@
     (customerAddedSuccessMsg)="getCompanyList()"
     [title]="'Customer'"
   ></app-create-customer>
-</div>
+</div> -->
 
 <!-- code start -->
 
@@ -418,7 +630,16 @@
   id="selectCustomerPopup"
   style="display: none; width: auto"
 >
-  <div class="mb-2"></div>
+  <app-select-customer
+    *ngIf="selectCompanyActive"
+    [selectMenusForCompanies]="selectMenusForCompanies"
+    (compIdEvent)="setCustomerInfo($event)"
+    (destroySelectCompEmitter)="destroySelectCustomerComponent($event)"
+    (fetchCustomerEventEmitter)="fetchCustomerInfo()"
+    [title]="'customer'"
+  >
+  </app-select-customer>
+  <!-- <div class="mb-2"></div>
   <div class="popupHeading">
     <h2 class="fleft">Customers</h2>
     <a class="closeButton fright" id="closeCustPop"
@@ -508,9 +729,32 @@
               <tr class="text-center" *ngIf="selectMenusForCompaniesSize === 0">
                 <td colspan="9">
                   <span style="color: red">No records found !</span>
+                  <span>
+                    Would you like to create customer ?
+                    <button
+                      #createCustomerBtn
+                      (keyup)="onButtonKeyUp($event)"
+                      class="submit_btn border-rad"
+                      (click)="displayAddCustomerPopup()"
+                    >
+                      Yes
+                    </button>
+                    <button
+                      class="submit_btn border-rad"
+                      (keyup)="onButtonKeyUp($event)"
+                      (click)="closeSelectCustomerPopUp()"
+                    >
+                      No
+                    </button></span
+                  >
+
+                  <button
+                    style="display: none"
+                    id="createNewCustomer"
+                    class="createNewTableRecord"
+                  ></button>
                 </td>
               </tr>
-              <!-- <c:forEach items="${products}" var="product">  -->
               <tr
                 *ngFor="let cust of selectMenusForCompanies; let index = index"
                 id="cust_{{ cust.companyId }}"
@@ -525,6 +769,17 @@
                 <td>---</td>
                 <td>
                   <button
+                    *ngIf="index === 0"
+                    #selectedCustomerBtn
+                    (click)="setCustomerInfo(cust.companyId)"
+                    (keyup)="onButtonKeyUp($event)"
+                    id="my-select-btn"
+                    class="submit_btn border-rad"
+                  >
+                    Select
+                  </button>
+                  <button
+                    *ngIf="index !== 0"
                     (click)="setCustomerInfo(cust.companyId)"
                     class="submit_btn border-rad"
                   >
@@ -532,11 +787,36 @@
                   </button>
                 </td>
               </tr>
-              <!-- </c:forEach>	 -->
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+</div>
+<div
+  class="popupWrapper createCustomerPopUpWrapper"
+  id="createNewCustomerPopup"
+  style="display: none"
+>
+  <div class="mb-2"></div>
+  <app-create-customer
+    *ngIf="createCustomerEnable"
+    (customerAddedSuccessMsg)="customerAdded($event)"
+  ></app-create-customer>
+</div>
+
+<div
+  class="popupWrapper"
+  id="selectProductPopup"
+  style="display: none; width: auto"
+>
+  <app-select-product
+    *ngIf="selectProductActive"
+    [selectMenusForProduct]="selectMenusForProduct"
+    (prodSelectEmitter)="setProductSelectedByName($event)"
+    (destroySelectProdEmitter)="destroySelectProductComponent($event)"
+    (fetchProductEventEmitter)="getNameWildCard()"
+  >
+  </app-select-product>
 </div>

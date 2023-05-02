@@ -16,6 +16,7 @@ import { SelectCategoryServiceService } from '../../categoryprod/select-category
 })
 export class CreateProductComponent {
   @Output() productInfoEvent = new EventEmitter<boolean>();
+  @Output() destroyCreateProd = new EventEmitter<boolean>();
   product: Product = new Product();
   availableCategories: CategoryProduct[] = [];
   selectedCategory: CategoryProduct = new CategoryProduct;
@@ -39,6 +40,11 @@ export class CreateProductComponent {
   selectMenusForCompanies !: Company[];
   selectMenusForCompaniesSize !: number;
   selectedSellerCompanyId !: number;
+  sellers: Company[] = [];
+
+
+  selectCompanyActive: boolean = false;
+
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
@@ -75,6 +81,10 @@ export class CreateProductComponent {
       return;
       // return;
     }
+    setTimeout(() => {
+      this.selectCompanyActive = true;
+
+    }, 300)
 
     this.companyService.getCustomerInfoByPanOrPhone(this.customerSearchMethod, this.custPhoneOrPan).subscribe(({
       next: (data) => {
@@ -91,10 +101,16 @@ export class CreateProductComponent {
   setSellerId(id: number) {
     this.selectedSellerCompanyId = id;
     this.product.sellerId = id;
+    this.selectCompanyActive = false;
     const closeCustomerPopUpEl = document.getElementById("closeCustPop") as HTMLAnchorElement;
     closeCustomerPopUpEl.click();
   }
 
+  destroySelectSellerComponent($event) {
+    if ($event) {
+      this.selectCompanyActive = false;
+    }
+  }
 
   createProduct(form: any) {
     if (this.product.categoryId === undefined || this.product.categoryId <= 0) {
@@ -107,6 +123,7 @@ export class CreateProductComponent {
     this.product.sellerId = this.selectedSellerCompanyId;
     this.productService.addNewProduct(this.product).subscribe({
       next: (data) => {
+        this.productInfoEvent.emit(true);
         console.log(data.data);
         this.toastrService.success("product has been added with id " + data.data)
 
@@ -136,5 +153,6 @@ export class CreateProductComponent {
 
   displayMainForm() {
     this.catSelected = true;
+    this.destroyCreateProd.emit(true);
   }
 }

@@ -31,7 +31,7 @@ export class CreateLoanComponent {
   compId !: number;
   branchId !: number;
   lenderPanOrPhone !: number;
-  selectCompanyActive: boolean = true;
+  selectCompanyActive: boolean = false;
 
 
 
@@ -75,7 +75,6 @@ export class CreateLoanComponent {
     this.lenderSearchMethod = id;
   }
   fetchLenderInfo() {
-    // this.selectCompanyActive = true;
     if (this.lenderPanOrPhone === null || this.lenderPanOrPhone === undefined) {
       this.toastrService.error(
         `pan or phone`,
@@ -84,7 +83,10 @@ export class CreateLoanComponent {
       return;
       // return;
     }
+    setTimeout(() => {
+      this.selectCompanyActive = true;
 
+    }, 300)
     this.companyService.getCustomerInfoByPanOrPhone(this.lenderSearchMethod, this.lenderPanOrPhone).subscribe(({
       next: (data) => {
         this.lenders = data.data;
@@ -119,11 +121,7 @@ export class CreateLoanComponent {
 
   setLenderId(id: number) {
     this.loan.lenderId = id;
-    this.selectCompanyActive = false;
-
-    setTimeout(() => {
-      this.selectCompanyActive = true;
-    })
+    this.destroySelectLenderComponent(true);
   }
 
   destroyComp() {
@@ -132,5 +130,10 @@ export class CreateLoanComponent {
     this.destroyCreateLoanComp.emit(true);
   }
 
+  destroySelectLenderComponent($event) {
+    if ($event) {
+      this.selectCompanyActive = false;
+    }
+  }
 
 }

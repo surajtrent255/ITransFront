@@ -14,5 +14,6 @@ export class Product {
   tax: number = 13;
   createDate !: Date;
   updateDate !: Date;
+  stock !: number;
 
 }

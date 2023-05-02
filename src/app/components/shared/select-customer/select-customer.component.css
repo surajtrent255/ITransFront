@@ -1,0 +1,10 @@
+.my-comp-select-btn:focus {
+  background-color: yellow;
+  color: black;
+}
+
+
+.select-cust-yes-btn {
+  background-color: yellow;
+  color: black;
+}
