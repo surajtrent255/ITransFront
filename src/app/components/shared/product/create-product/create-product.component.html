@@ -39,12 +39,13 @@
   <!-- <div class="row" *ngIf="catSelected"> -->
   <div class="row mt-4">
     <div class="col-md-12">
-      <span style="text-align: left"
-        >Add Customer:
-        <button id="createNewCustomer" class="createNewTableRecord">
+      <!-- <span style="text-align: left"
+        >Add lender:
+        <button id="<small
+                    class="text-danger ml-1"" class="createNewTableRecord">
           <i class="fa-sharp fa-solid fa-user-plus" style="color: green"></i>
         </button>
-      </span>
+      </span> -->
       <form
         #createProductForm="ngForm"
         name="createProduct"
@@ -54,13 +55,6 @@
         <div class="chooseColoumnsWrapper">
           <div class="fieldDiv popUpFormSectionWrapper">
             <table class="" cellpadding="0" cellspacing="1">
-              <tr>
-                <td class="col1 pt-2">
-                  Customer:
-                  <span class="mandatorySign">*</span>
-                </td>
-              </tr>
-
               <tr>
                 <td class="col1 pt-2">
                   Lender:
@@ -207,10 +201,10 @@
                 </td>
                 <td class="col3">
                   <small
-                    class="text-danger"
+                    class="text-danger ml-1"
                     [class.d-none]="name.valid || name.untouched"
-                    >invalid name</small
-                  >
+                    ><span>invalid name </span>
+                  </small>
                 </td>
               </tr>
               <tr>
@@ -234,9 +228,9 @@
                 </td>
                 <td class="col3">
                   <small
-                    class="text-danger"
+                    class="text-danger ml-1"
                     [class.d-none]="description.valid || description.untouched"
-                    >invalid description</small
+                    ><span>invalid description</span></small
                   >
                 </td>
               </tr>
@@ -292,12 +286,13 @@
                 </td>
                 <td class="col3">
                   <small
-                    class="text-danger"
+                    class="text-danger ml-1"
                     [class.d-none]="
                       sellingPrice.valid || sellingPrice.untouched
                     "
-                    >invalid selling price</small
                   >
+                    <span> invalid selling price</span>
+                  </small>
                 </td>
               </tr>
               <tr>
@@ -320,9 +315,10 @@
                 </td>
                 <td class="col3">
                   <small
-                    class="text-danger"
+                    class="text-danger ml-1"
                     [class.d-none]="costPrice.valid || costPrice.untouched"
-                    >invalid costPrice</small
+                  >
+                    <span>invalid costprice</span></small
                   >
                 </td>
               </tr>
@@ -346,9 +342,10 @@
                 </td>
                 <td class="col3">
                   <small
-                    class="text-danger"
+                    class="text-danger ml-1"
                     [class.d-none]="barcode.valid || barcode.untouched"
-                    >invalid barcode</small
+                  >
+                    <span>invalid barcode</span></small
                   >
                 </td>
               </tr>
@@ -372,10 +369,11 @@
                 </td>
                 <td class="col3">
                   <small
-                    class="text-danger"
+                    class="text-danger ml-1"
                     [class.d-none]="discount.valid || discount.untouched"
-                    >invalid discount</small
                   >
+                    <span>invalid discount</span>
+                  </small>
                 </td>
               </tr>
               <tr>
@@ -397,9 +395,10 @@
                 </td>
                 <td class="col3">
                   <small
-                    class="text-danger"
+                    class="text-danger ml-1"
                     [class.d-none]="tax.valid || tax.untouched"
-                    >invalid tax</small
+                  >
+                    <span>invalid tax</span></small
                   >
                 </td>
               </tr>
@@ -419,16 +418,17 @@
     </div>
   </div>
 </div>
-<div
+<!-- <div
   class="popupWrapper createCustomerPopUpWrapper"
-  id="createNewCustomerPopup"
+  id="<small
+                    class="text-danger ml-1"Popup"
   style="display: none"
 >
   <div class="mb-2"></div>
   <app-create-customer
     (customerAddedSuccessMsg)="customerAdded($event)"
   ></app-create-customer>
-</div>
+</div> -->
 <div
   class="popupWrapper CustomerPopupWrapper1"
   id="selectCustomerPopup"

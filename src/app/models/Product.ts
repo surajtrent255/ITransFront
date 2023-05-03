@@ -12,6 +12,7 @@ export class Product {
   barcode !: string;
   discount: number = 0;
   tax: number = 13;
+  unit!: string;
   createDate !: Date;
   updateDate !: Date;
   stock !: number;

@@ -97,10 +97,13 @@ export class CreateSalesComponent {
 
   // for bill Summary
   bsSubTotal: number = 0;
+  bsNetAmount: number = 0;
+  bsDiscountAmount: number = 0;
   bsVatTaxableAmount: number = 0;
   bsTotal: number = 0;
   bsBalanceDue: number = 0;
   bsEstimatedFRSAmount: number = 0;
+
 
   constructor(
     private salesCartService: SalesCartService,
@@ -368,8 +371,8 @@ export class CreateSalesComponent {
 
     this.productsUserWantTosale.forEach((prod) => {
       this.updateTotalAmount(prod);
-      this.updateBillSummary();
     });
+    this.updateBillSummary();
   }
   getCompanyList() {
     this.companyService.getAllCompanies().subscribe({
@@ -397,8 +400,9 @@ export class CreateSalesComponent {
         discountInputElement.value = String(prod.discount);
         this.productsUserWantTosale.forEach((prod) => {
           this.updateTotalAmount(prod);
-          this.updateBillSummary();
         })
+        this.updateBillSummary();
+
         // this.updateTotalAmount(prod);
       });
     }
@@ -446,10 +450,11 @@ export class CreateSalesComponent {
                 this.productQtyForEntryStatus = true;
                 // this.updateTotalAmount(data.data);
                 this.updateTotalAmount(prod);
-                this.updateBillSummary();
                 this.productQtyForEntryStatus = false;
                 this.productQty = 1;
               });
+              this.updateBillSummary();
+
             });
           }
           if (data.data === null) {
@@ -467,7 +472,6 @@ export class CreateSalesComponent {
     // for fetching selling price
     let prodSellingPriceEL = document.getElementById(`prodSellingPrice${prod.id}`) as HTMLInputElement
     let sellingPrice = Number(prodSellingPriceEL.value);
-    console.log('selling price = ' + sellingPrice);
 
     // for tracking quantity
     const qtyProdElement = document.getElementById(
@@ -476,21 +480,18 @@ export class CreateSalesComponent {
 
     if (this.productQtyForEntryStatus === true) {
       qtyProdElement.value = String(this.productQty);//
-
     }
     let prodQty: number = Number(qtyProdElement.value);
-    console.log('prodQty = ' + prodQty);
 
     // for tracking discount
     const discountPercElement = document.getElementById(
       `discountPerc${prod.id}`
     ) as HTMLInputElement;
     let discountPerc: number = Number(discountPercElement.value);
-    console.log('discountPerc = ' + discountPerc);
 
     const varRateTypeEl = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
     let eachVatRateId: Number = Number(varRateTypeEl.value);
-    let eachVatRateNum: Number = 0;
+    let eachVatRateNum: number = 0;
     this.vatRateTypes.forEach((vrt) => {
       if (vrt.id === eachVatRateId) {
         eachVatRateNum = vrt.vatRateNum;
@@ -502,101 +503,88 @@ export class CreateSalesComponent {
     ) as HTMLElement;
 
     if (this.taxApproach === 1) {
-      let actSp = sellingPrice - (13 / (100 + 13)) * sellingPrice;
+      let actSp = sellingPrice - (eachVatRateNum / (100 + eachVatRateNum)) * sellingPrice;
       let totalEachRow: number =
         (actSp - (discountPerc / 100) * actSp) * prodQty;
-      let totalEachRow2 = totalEachRow + (13 / 100) * totalEachRow;
+      let totalEachRow2 = totalEachRow + (eachVatRateNum / 100) * totalEachRow;
       totalAmountElement.innerText = String(Math.round(totalEachRow2));
     } else {
       let totalEachRow: number =
         (sellingPrice - (discountPerc / 100) * sellingPrice) * prodQty;
       totalAmountElement.innerText = String(Math.round(totalEachRow));
     }
-
-
   }
 
 
   updateBillSummary() {
+
     this.bsTotal = 0;
     this.bsSubTotal = 0;
     this.bsVatTaxableAmount = 0;
+    this.bsNetAmount = 0;
+    this.bsDiscountAmount = 0;
+    this.bsBalanceDue = 0;
 
     this.productsUserWantTosale.forEach(prod => {
 
-
       const pTotalElement = document.getElementById(`totalAmount${prod.id}`) as HTMLElement;
       let pTotal: number = Number(pTotalElement.innerText);
-      if (this.taxApproach === 1) {
-        // for tax inclusiveness
-        this.bsSubTotal += pTotal;
-        this.bsTotal = this.bsSubTotal;
-      }
-
 
       let prodSellingPriceEL = document.getElementById(`prodSellingPrice${prod.id}`) as HTMLInputElement
       let sellingPrice = Number(prodSellingPriceEL.value);
 
-
       const varRateTypeEl = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
       let eachVatRateId: Number = Number(varRateTypeEl.value);
-      let eachVatRateNum: Number = 0;
+
+      // for fetching vat rate number value from id
+      let eachVatRateNum: number = 0;
       this.vatRateTypes.forEach((vrt) => {
         if (vrt.id === eachVatRateId) {
           eachVatRateNum = vrt.vatRateNum;
         }
       })
-      if (this.taxApproach === 2) {
-        // for tax exclusiveness
-        this.bsSubTotal += pTotal;
-        this.bsTotal += pTotal + (Number(eachVatRateNum) / 100 * sellingPrice);//userle edit gareko sp anusar vat change hunxa.
-      }
 
-
-      // fetching rate
       const qtyProdElement = document.getElementById(
         `qtyProd${prod.id}`
       ) as HTMLInputElement;
-
       // if (this.productQtyForEntryStatus === true) {
       //   qtyProdElement.value = String(this.productQty);//
-
       // }
-
       let prodQty: number = Number(qtyProdElement.value);
-      console.log('prodQty = ' + prodQty);
 
-      // for tracking discount
       const discountPercElement = document.getElementById(
         `discountPerc${prod.id}`
       ) as HTMLInputElement;
       let discountPerc: number = Number(discountPercElement.value);
 
-      if (this.taxApproach === 1) {
-        let actSp = sellingPrice - (13 / (100 + 13)) * sellingPrice;
-        let totalEachRowTaxableAmount: number =
-          (actSp - (discountPerc / 100) * actSp) * prodQty;
-        this.bsVatTaxableAmount += totalEachRowTaxableAmount;
 
+      if (this.taxApproach === 2) {
+        // for tax exclusiveness
+        this.bsSubTotal += pTotal;
+        this.bsTotal += pTotal + (eachVatRateNum / 100 * sellingPrice);//userle edit gareko sp anusar vat change hunxa.
+        this.bsNetAmount += (sellingPrice - discountPerc / 100 * sellingPrice) * prodQty;
+        if (eachVatRateId === 3) {//taxableamount is calculated only if vatrateid is equals to 3.
+          this.bsVatTaxableAmount += (sellingPrice - discountPerc / 100 * sellingPrice) * prodQty;
+        }
       }
 
+      if (this.taxApproach === 1) {
+        // for subtotal
+        this.bsSubTotal += pTotal;
+        this.bsTotal = this.bsSubTotal;
 
+        let actSp = sellingPrice - (eachVatRateNum / (100 + eachVatRateNum)) * sellingPrice;
+        let totalEachRowTaxableAmount: number =
+          (actSp - (discountPerc / 100) * actSp) * prodQty;
+        if (eachVatRateId === 3) {//taxableamount is calculated only if vatrateid is equals to 3.
+          this.bsVatTaxableAmount += totalEachRowTaxableAmount;
+        }
+        this.bsNetAmount += totalEachRowTaxableAmount
+      }
     })
 
     this.bsBalanceDue = this.bsTotal;
     this.bsEstimatedFRSAmount = 13 / 100 * this.bsTotal;
-  }
-
-  updateProdQtyUserWantToSale($event: any, prod: Product) {
-    if ($event.target.value === undefined) {
-      return;
-    }
-    let qtyProd = $event.target.value;
-    const prodtotalAmountElement = document.getElementById(
-      'totalAmount' + prod.id
-    ) as HTMLElement;
-    let prodTotalAmount = Number(qtyProd) * prod.sellingPrice;
-    prodtotalAmountElement.innerText = '' + prodTotalAmount;
   }
 
   removeItemFromCart(id: number) {
@@ -666,7 +654,14 @@ export class CreateSalesComponent {
     let salesBill: SalesBill = new SalesBill();
     let salesBillMaster: SalesBillMaster = new SalesBillMaster();
 
-    this.calculateSubMetrics(salesBill);
+    // this.calculateSubMetrics(salesBill);
+    salesBill.amount = this.bsNetAmount;
+    salesBill.taxableAmount = this.bsVatTaxableAmount;
+    salesBill.taxAmount = 13 / 100 * this.bsVatTaxableAmount;
+    salesBill.totalAmount = this.bsTotal;
+    salesBill.discount = this.bsDiscountAmount;
+    // finished
+
     salesBill.customerId = this.customerId;
     salesBill.customerName = this.customerName;
     salesBill.customerPan = this.customerPan;
@@ -674,9 +669,11 @@ export class CreateSalesComponent {
     salesBill.billPrinted = false;
     salesBill.enteredBy = this.loginService.currentUser.user.email;
     salesBill.paymentMethod = 'CashInHand';
-    salesBill.billDate = new Date(this.date);
+    console.log("start--------------------");
     console.log(this.date);
-    console.log("date is above *********8")
+    salesBill.billDate = new Date(this.date);
+    console.log(salesBill.billDate)
+    console.log("end-----------------------")
 
     salesBill.userId = this.loginService.currentUser.user.id;
     salesBill.companyId = this.loginService.getCompnayId();
@@ -692,8 +689,6 @@ export class CreateSalesComponent {
     salesBillMaster.salesBillDTO = salesBill;
     salesBillMaster.salesBillDetails = salesBillDetailInfos;
     salesBillMaster.alreadyDraft = this.alreadyDraft;
-    console.log(salesBillMaster);
-    console.log('ales bill master **********************');
     this.salesBillService.createNewSalesBill(salesBillMaster).subscribe({
       next: (data) => {
         console.log(data);

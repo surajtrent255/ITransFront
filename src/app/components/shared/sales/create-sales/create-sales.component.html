@@ -453,7 +453,7 @@
                     />
                   </td>
                   <td>
-                    <!-- <i class="fa fa-angle-down" aria-hidden="true">
+                    <i class="fa fa-angle-down" aria-hidden="true">
                       <select
                         name="vattypes{{ prod.name }}"
                         id="vatRateTypes{{ prod.id }}"
@@ -467,8 +467,8 @@
                           {{ vat.vatRate }}
                         </option>
                       </select></i
-                    > -->
-                    <span *ngFor="let vat of vatRateTypes">
+                    >
+                    <!-- <span *ngFor="let vat of vatRateTypes">
                       <span *ngIf="vat.vatRateNum === prod.tax">
                         <input
                           type="text"
@@ -478,7 +478,7 @@
                         />
                         {{ vat.vatRate }}</span
                       ></span
-                    >
+                    > -->
                   </td>
                   <td id="totalAmount{{ prod.id }}">{{ prod.sellingPrice }}</td>
                   <td style="text-align: center; vertical-align: middle">
@@ -498,6 +498,14 @@
                   </div>
                   <div class="card-body">
                     <table class="">
+                      <tr class="list-group-item mt-1">
+                        <td><h3>Net Amount:</h3></td>
+                        <td>
+                          <span class="ml-4" id="total">
+                            {{ bsNetAmount | number : "1.0-0" }}</span
+                          >
+                        </td>
+                      </tr>
                       <tr class="list-group-item mt-1">
                         <td><h3>Subtotal:</h3></td>
                         <td>
