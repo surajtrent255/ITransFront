@@ -4,7 +4,8 @@
     branchId!:number;
     companyId!:number;
     depositAmount!:number;
-    depositeType!:string;
+    depositType!:string;
     chequeNumber!:string;
+    submiteDate!:Date;
 
 }

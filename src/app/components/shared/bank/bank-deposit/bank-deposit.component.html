@@ -1,90 +1,76 @@
-<!-- <!-- <div class="demoContainer" style="height: 545px; width: 100%;">
-    <button (click)="openForm()">Add Bank</button>
-    <div class="recordTableWrapper" style="height: 545px; width: 100%;">
-      <div class="recordCategory">
-        <h2 class="text-center" id="totalGroupCombinations">Bank</h2>
-        <div class="cboth"></div>
-      </div>
-  
-      <div>
-        <table cellspacing="0" cellpadding="0" class="recordsTable pricingPrefTable">
-          <thead>
-            <tr>
-                 <th>S.N</th> -->
-              <!-- <th>Bank Name</th>
-              <th>Account Number</th>
-              <th>Account Type</th>
-              <th>Initial Banlance</th>
-               <th>Branch Id</th>
-              <th>Company Id</th> -->
-            <!-- </tr>
-          </thead>
-  
-          <tbody *ngFor="let bankData of Bank ; let i = index ; ">
-            <tr *ngIf="bankData.branchId == UserbranchId && bankData.companyId == localStorageCompanyId">
-                 <td >{{i}}</td> -->
-              <!-- <td>{{bankData.bankName}}</td>
-              <td>{{bankData.accountNumber}}</td>
-              <td>{{bankData.accountType}}</td>
-              <td>{{bankData.initialAmount}}</td> -->
-              <!-- <td>{{bankData.branchId}}</td>
-              <td>{{bankData.companyId}}</td> -->
-            <!-- </tr>
-          </tbody>
-        </table>
-      </div>
-   -->
-      
-      
-  
-    <!-- </div>
-  </div> -->
+  <!-- <div class="demoContainer" style="height: 545px; width: 100%;">
+      <button (click)="openForm()">Add Bank</button>
+      <div class="recordTableWrapper" style="height: 545px; width: 100%;">
+        <div class="recordCategory">
+          <h2 class="text-center" id="totalGroupCombinations">Bank</h2>
+          <div class="cboth"></div>
+        </div>
+    
+        <div>
+          <table cellspacing="0" cellpadding="0" class="recordsTable pricingPrefTable">
+            <thead>
+              <tr>
+                  <th>S.N</th> -->
+                <!-- <th>Bank Name</th>
+                <th>Account Number</th>
+                <th>Account Type</th>
+                <th>Initial Banlance</th>
+                <th>Branch Id</th>
+                <th>Company Id</th> -->
+              <!-- </tr>
+            </thead>
+    
+            <tbody *ngFor="let bankData of Bank ; let i = index ; ">
+              <tr *ngIf="bankData.branchId == UserbranchId && bankData.companyId == localStorageCompanyId">
+                  <td >{{i}}</td> -->
+                <!-- <td>{{bankData.bankName}}</td>
+                <td>{{bankData.accountNumber}}</td>
+                <td>{{bankData.accountType}}</td>
+                <td>{{bankData.initialAmount}}</td> -->
+                <!-- <td>{{bankData.branchId}}</td>
+                <td>{{bankData.companyId}}</td> -->
+              <!-- </tr>
+            </tbody>
+          </table>
+        </div>
+    
+        
+        
+    
+       </div>
+    </div> -->
 
 
 
-  <div class="contentRecordsTableContainer MainContainer">
-    <!-- 405px -->
-    <div class="recordTableWrapper">
-      <div class="recordCategory">
-        <h2 class="text-center" id="totalGroupCombinations">Deposit List</h2>
-        <div class="cboth"></div>
-      </div>
-  
-      <div class="searchCreateTableDiv">
-        <div class="searchCreateDiv">
-          <div class="fleft searchDiv" id="prodSearch">
-            <input
-              class="inputText hintText"
-              type="text"
-              search="openForm"
-              value="bankName"
-            />
-            <input
-              type="image"
-              src="../../../assets/resources/images/searchButton.png"
-              class="serachButton"
-              title="Search Term"
-            />
-            <a href="#" class="genLink">Clear searchs</a>
-          </div>
-          <div class="fright" class="createCategoryDiv">
-            <a href="" id="createNewCategory" class="createNewTableRecord">
-              <img src="../../../../assets/resources/images/createProduct.png" />
-              <span (click)="openForm()"> Create deposite</span>
-            </a>
-          </div>
-          <div class="fright configNavTableWrapper">
-            <div
-              class="fleft configTableDiv newFilterItem"
-              dropdownId="CategoriesTableFilters"
-            >
-              <a href="" class="">
-                <img
-                  src="../../../assets/resources/images/newfilter-bg.png"
-                  alt="New Filter"
-                  title="Add new filter"
-                />
-                <span id="newCategoryFilter" search="off">New Filter</span>
+    <div class="contentRecordsTableContainer MainContainer">
+     
+      <div class="recordTableWrapper">
+        <div class="recordCategory">
+          <h2 class="text-center" id="totalGroupCombinations">Deposit List</h2>
+          <div class="cboth"></div>
+        </div>
+    
+        <div class="searchCreateTableDiv">
+          <div class="searchCreateDiv">
+            <div class="fleft searchDiv" id="prodSearch">
+              <input
+                class="inputText hintText"
+                type="text"
+                search="openForm"
+                value="bankName"
+              />
+              <input
+                type="image"
+                src="../../../assets/resources/images/searchButton.png"
+                class="serachButton"
+                title="Search Term"
+              />
+              <a href="#" class="genLink">Clear searchs</a>
+            </div>
+            <div class="fright" class="createCategoryDiv">
+              <a href="" id="createNewCategory" class="createNewTableRecord">
+                <img src="../../../../assets/resources/images/createProduct.png" />
+                <span (click)="openForm()"> Create deposite</span>
               </a>
             </div>
             <div class="fright configNavTableWrapper">
@@ -92,318 +78,343 @@
                 class="fleft configTableDiv newFilterItem"
                 dropdownId="CategoriesTableFilters"
               >
-                <a href="#">
+                <a href="" class="">
                   <img
                     src="../../../assets/resources/images/newfilter-bg.png"
                     alt="New Filter"
                     title="Add new filter"
                   />
-                  <span id="newCategoryFilter" search="on">New Filter</span>
+                  <span id="newCategoryFilter" search="off">New Filter</span>
+                </a>
+              </div>
+              <div class="fright configNavTableWrapper">
+                <div
+                  class="fleft configTableDiv newFilterItem"
+                  dropdownId="CategoriesTableFilters"
+                >
+                  <a href="#">
+                    <img
+                      src="../../../assets/resources/images/newfilter-bg.png"
+                      alt="New Filter"
+                      title="Add new filter"
+                    />
+                    <span id="newCategoryFilter" search="on">New Filter</span>
+                  </a>
+                </div>
+              </div>
+              <div class="fleft tableNavDiv" id="CategoriesTablePagination">
+                <a href="" class="first first-page pageNumber">
+                  <img src="../../../assets/resources/images/first-page.png" />
+                </a>
+                <a href="" class="prev pageNumber">
+                  <img src="../../../assets/resources/images/prev-page.png" />
+                </a>
+                <span class="showingText">Page</span>
+                <span class="pagedisplay"><span class="pageNum">1</span> </span>
+                <!-- <c:choose>
+                              <c:when test="${(totalCategoryRecords mod 10)!=0}">
+                                  <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
+                                  <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                                  <span class="totalPage">${totalPage}</span>
+                              </c:when>
+                              <c:otherwise>
+                                  <c:set var="res" value="${totalCategoryRecords/10}"/>
+                                  <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
+                                  <span class="totalPage">${totalPage}</span>
+                              </c:otherwise>
+                            </c:choose> -->
+                <a href="" class="next pageNumber">
+                  <img src="../../../assets/resources/images/next-page.png" />
+                </a>
+                <a href="" class="last last-page pageNumber">
+                  <img src="../../../assets/resources/images/last-page.png" />
                 </a>
               </div>
             </div>
-            <div class="fleft tableNavDiv" id="CategoriesTablePagination">
-              <a href="" class="first first-page pageNumber">
-                <img src="../../../assets/resources/images/first-page.png" />
-              </a>
-              <a href="" class="prev pageNumber">
-                <img src="../../../assets/resources/images/prev-page.png" />
-              </a>
-              <span class="showingText">Page</span>
-              <span class="pagedisplay"><span class="pageNum">1</span> </span>
-              <!-- <c:choose>
-                            <c:when test="${(totalCategoryRecords mod 10)!=0}">
-                                <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
-                                <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
-                                <span class="totalPage">${totalPage}</span>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="res" value="${totalCategoryRecords/10}"/>
-                                <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
-                                <span class="totalPage">${totalPage}</span>
-                            </c:otherwise>
-                          </c:choose> -->
-              <a href="" class="next pageNumber">
-                <img src="../../../assets/resources/images/next-page.png" />
-              </a>
-              <a href="" class="last last-page pageNumber">
-                <img src="../../../assets/resources/images/last-page.png" />
-              </a>
-            </div>
-          </div>
-          <div class="recordsTableDiv">
-            <table
-              cellspacing="0"
-              cellpadding="0"
-              class="recordsTable"
-              id="CategoriesRecordsTable"
-            >
-              <thead>
-                <tr>
-                  <th
-                    class="first-child sortable"
-                    sortDir="asc"
-                    sortCol="organization_id"
-                    id="id"
-                  >
-                   BankId
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="organization_name"
-                    id="name"
-                  >
-                    DepositeAmount
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="customer_name"
-                    id="costprice"
-                  >
-                    DepositeType
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="master_name"
-                    id="sellingprice"
-                  >
-                    ChequeNumber
-                  </th>
-  
-                  <th class="last-child">Actions</th>
-                </tr>
-              </thead>
-              <!-- <tbody id="prodTable">
-                <tr>
-                  <span class="noProdRecord">No records found</span>
-                </tr> -->
-                <!-- <c:forEach items="${Categories}" var="Category">  -->
-                <!-- <tr *ngFor="let cat of categoriesData">
-                  <td>{{ cat.id }}</td>
-                  <td>{{ cat.name }}</td>
-                  <td>{{ cat.description }}</td>
-                  <td>{{ cat.parentId }}</td>
-                  <td class="last-child">
-                    <a href="" class="">
-                      <img src="../../../assets/resources/images/editRow.png" />
-                    </a>
-                    <a href="" class="deleteRowLink deleteGroupCombo">
-                      <img src="../../../assets/resources/images/deleteRow.png" />
-                    </a>
-                  </td>
-                </tr> -->
-                <!-- </c:forEach>	 -->
-
-
-
-                <tbody *ngFor="let deposite of Deposite ; let i = index ; ">
-                  <tr >
-                       
-                     <td>{{deposite.bankId}}</td>
-                    <td>{{deposite.depositAmount}}</td> 
-                    <td>{{deposite.depositeType}}</td> 
-                    <td>{{deposite.chequeNumber}}</td> 
-                    <td class="last-child">
-                      <a href=" " class="">
-                        <img src="../../../assets/resources/images/editRow.png" />
-                      </a>
-                      <a href="" class="deleteRowLink deleteGroupCombo">
-                        <img src="../../../assets/resources/images/deleteRow.png" />
-                      </a>
-                    </td>
-                    
-                   </tr>
-                
-              </tbody>
-            </table> 
-          <!-- </div> -->
-        <!-- </div> -->
-      <!-- </div> -->
-  
-      <!-- <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-        <div class="mb-2"></div>
-        <div class="popupContentWrapper">
-          <div class="row">
-            <div class="col-md-12">
-             <app-popup class="m-4"></app-popup> -->
-              <!-- <form
-               
-                name="createCategoryProd"
-               
-                id="createProductForm"
+            <div class="recordsTableDiv">
+              <table
+                cellspacing="0"
+                cellpadding="0"
+                class="recordsTable"
+                id="CategoriesRecordsTable"
               >
-                <div class="chooseColoumnsWrapper">
-                  <div class="fieldDiv popUpFormSectionWrapper">
-                    <div  class="fright" class="createCategoryDiv">
-                      <div class="popupContentWrapper" >
-                        <div class="form-container popupContentWrapper ">
-                          <h2 class="heading tCenter"  >Add Deposite</h2>
-                          <form onsubmit="return submitForm()">
-                            <div class="form-group">
-                              <label for="bankId">BankId:</label>
-                              <input type="text" id="bankId" name="bankId"   required>
-                            </div>
-                            <div class="form-group">
-                              <label for="depositAmount">DepositAmount:</label>
-                              <input type="text" id="depositAmount" name="depositAmount"  required>
-                            </div>
-                            <div class="form-group">
-                              <label for="depositType">depositType</label>
-                              <input type="text" id="depositType" name="depositType"  required>
-                            </div>
-                            <div class="form-group">
-                              <label for="chequeNumber">chequeNumber</label>
-                              <input type="text" id="chequeNumber" name="chequeNumber"  required>
-                            </div>
-                            <div> -->
-                              <!-- <button type="submit" (click)="submitForm()">Submit</button>
-                              <button  (click)="cancel_btn()">Cancel</button> -->
-                            <!-- </div>
-                          </form>
+                <thead>
+                  <tr>
+                    <th
+                      class="first-child sortable"
+                      sortDir="asc"
+                      sortCol="organization_id"
+                      id="id"
+                    >
+                    BankId
+                    </th>
+                    <th
+                      class="sortable"
+                      sortDir="asc"
+                      sortCol="organization_name"
+                      id="name"
+                    >
+                      DepositeAmount
+                    </th>
+                    <th
+                      class="sortable"
+                      sortDir="asc"
+                      sortCol="customer_name"
+                      id="costprice"
+                    >
+                      DepositeType
+                    </th>
+                    <th
+                      class="sortable"
+                      sortDir="asc"
+                      sortCol="master_name"
+                      id="sellingprice"
+                    >
+                      ChequeNumber
+                    </th>
+                    <!-- <th
+                      class="sortable"
+                      sortDir="asc"
+                      sortCol="master_name"
+                      id="sellingprice"
+                    >
+                    submiteDate
+                    </th> -->
+    
+                    <th class="last-child">Actions</th>
+                  </tr>
+                </thead>
+                  <tbody *ngFor="let deposite of Deposite  ">
+                    <tr >
+                        <!-- {{deposite | json }} -->
+                      <td>{{deposite.bankId}}</td>
+                      <td>{{deposite.depositAmount}}</td> 
+                      <td>{{deposite.depositType}}</td> 
+                      <td>{{deposite.chequeNumber}}</td> 
+                      <!-- <td>{{ deposite.submiteDate | date: 'mediumDate' }}</td> -->
+                      <td class="last-child">
+                        <a href=" " class="">
+                          <img src="../../../assets/resources/images/editRow.png" />
+                        </a>
+                        <a (click)="deleteDeposite(deposite.branchId,deposite.depositId)" class="deleteRowLink deleteGroupCombo">
+                          <img src="../../../assets/resources/images/deleteRow.png" />
+                        </a>
+                      </td>
+                      
+                    </tr>
+                  
+                </tbody>
+              </table> 
+            </div>
+          </div> 
+        </div>
+    
+        <!-- <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+          <div class="mb-2"></div>
+          <div class="popupContentWrapper">
+            <div class="row">
+              <div class="col-md-12">
+              <app-popup class="m-4"></app-popup> -->
+                <!-- <form
+                
+                  name="createCategoryProd"
+                
+                  id="createProductForm"
+                >
+                  <div class="chooseColoumnsWrapper">
+                    <div class="fieldDiv popUpFormSectionWrapper">
+                      <div  class="fright" class="createCategoryDiv">
+                        <div class="popupContentWrapper" >
+                          <div class="form-container popupContentWrapper ">
+                            <h2 class="heading tCenter"  >Add Deposite</h2>
+                            <form onsubmit="return submitForm()">
+                              <div class="form-group">
+                                <label for="bankId">BankId:</label>
+                                <input type="text" id="bankId" name="bankId"   required>
+                              </div>
+                              <div class="form-group">
+                                <label for="depositAmount">DepositAmount:</label>
+                                <input type="text" id="depositAmount" name="depositAmount"  required>
+                              </div>
+                              <div class="form-group">
+                                <label for="depositType">depositType</label>
+                                <input type="text" id="depositType" name="depositType"  required>
+                              </div>
+                              <div class="form-group">
+                                <label for="chequeNumber">chequeNumber</label>
+                                <input type="text" id="chequeNumber" name="chequeNumber"  required>
+                              </div>
+                              <div> 
+                                 <button type="submit" (click)="submitForm()">Submit</button>
+                                <button  (click)="cancel_btn()">Cancel</button> -->
+                              <!-- </div>
+                            </form>
+                          </div>
+                          </div>
                         </div>
-                        </div>
-                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="submitDiv tCenter">
-                  <input
-                    type="submit"
-                    class="submit_btn border-rad"
-                    id="submitCategoryPrd"
-                    value="Add Deposit"
-                   
-                  />
-        
-                  <input
-                    type="button"
-                    value="Cancel form"
-                    class="submit_btn cancel_btn border-rad ml-2"
-                    (click)="cancel_btn()"
-                  />
-                </div>
-              </form>
+                  <div class="submitDiv tCenter">
+                    <input
+                      type="submit"
+                      class="submit_btn border-rad"
+                      id="submitCategoryPrd"
+                      value="Add Deposit"
+                    
+                    />
+          
+                    <input
+                      type="button"
+                      value="Cancel form"
+                      class="submit_btn cancel_btn border-rad ml-2"
+                      (click)="cancel_btn()"
+                    />
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
-     
-       
-  
-      <div
-        class="popupWrapper"
-        id="editCategoryPopup"
-        style="display: none"
-      ></div>
+      
+        
+    
+        <div
+          class="popupWrapper"
+          id="editCategoryPopup"
+          style="display: none"
+        ></div>-->
+      <!-- </div> 
     </div>  -->
-  <!-- </div> -->
-  
-
-
-  <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-    <div class="mb-2"></div>
-    <div class="popupContentWrapper">
-    <div class="row">
-    <div class="col-md-12">
-    <!-- <app-popup class="m-4"></app-popup> -->
-    <form
-    #createDepositeForm="ngForm"
-    name="createDepositeForm"
-    id="createDepositeForm"
-    (ngSubmit)="creatdepostie(createDepositeForm)"
-    >
-    <div class="chooseColoumnsWrapper">
-    <div class="fieldDiv popUpFormSectionWrapper">
-    <div class="fright" class="createCategoryDiv">
-    <div class="popupContentWrapper" *ngIf="showForm">
-    <div class="form-container popupContentWrapper">
-    <h2 class="heading tCenter">Add Bank</h2>
-    <form>
-    <div class="form-group">
-    <label for="BankId">BankId:</label>
-    
-    <input
-    type="number"
-    id="bankId"
-    name="bankId"
-    #bankId="ngModel"
-    [(ngModel)]="objdeposite.bankId"
-    required
-    />
-  
-    </div>
-    <div class="form-group">
-    <label for="depositAmount">depositAmount</label>
-    <input
-    type="number"
-    id="depositAmount"
-    name="depositAmount"
-    #depositAmount="ngModel"
-    [(ngModel)]="objdeposite.depositAmount"
-    required
-    />
-    </div>
-    <div class="form-group">
-    <label for="depositType">depositType</label>
-    <!-- <input
-    type="text"
-    id="depositType"
-    name="depositType"
-    #depositType="ngModel"
-    [(ngModel)]="objdeposite.depositeType"
-    required
-    /> -->
-    </div>
-    <div class="form-group">
-    <label for="chequeNumber">chequeNumber:</label>
-    <!-- <input
-    type="text"
-    name="chequeNumber"
-    id="chequeNumber"
-    #chequeNumber="ngModel"
-    [(ngModel)]="objdeposite.chequeNumber"
-    required
-    > -->
     
 
+
+    <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+      <div class="mb-2"></div>
+      <div class="popupContentWrapper">
+      <div class="row">
+      <div class="col-md-12">
+      <!-- <app-popup class="m-4"></app-popup> -->
+      <form
+      #createDepositeForm="ngForm"
+      name="createDepositeForm"
+      id="createDepositeForm"
+      (ngSubmit)="creatdepostie(createDepositeForm)"
+      >
+      <div class="chooseColoumnsWrapper">
+      <div class="fieldDiv popUpFormSectionWrapper">
+      <div class="fright" class="createCategoryDiv">
+      <div class="popupContentWrapper" *ngIf="showForm">
+      <div class="form-container popupContentWrapper">
+      <h2 class="heading tCenter">Add Deposite</h2>
+      <form>
+        <div class="form-group">
+        <label class="col1 pt-2">
+          Bank:
+          <span class="mandatorySign">*</span>
+        </label>
+        <div class="col2 pt-2 ml-3">
+          <select
+            id="bankId"
+            name="bankId"
+            bankId="#bankId"
+            #bankId="ngModel"
+            [(ngModel)]="objdeposite.bankId"
+            [class.is-invalid]="bankId.invalid && bankId.touched"
+            required
+          >
+            <option value="" disabled selected>Select an option</option>
+            <option
+              *ngFor="let option of banks"
+              [value]="option.bankId"
+            >
+              {{ option.bankName }}
+            </option>
+          </select>
+        </div>
+        </div>
+      <!-- <div class="form-group">
+      <label for="BankId">BankId:</label>
+      
+      <input
+      type="number"
+      id="bankId"
+      name="bankId"
+      #bankId="ngModel"
+      [(ngModel)]="objdeposite.bankId"
+      required
+      />
+    
+      </div> -->
+      <div class="form-group">
+      <label for="depositAmount">depositAmount</label>
+      <input
+      type="number"
+      id="depositAmount"
+      name="depositAmount"
+      #depositAmount="ngModel"
+      [(ngModel)]="objdeposite.depositAmount"
+      required
+      />
+      </div>
+      <div class="form-group">
+      <label for="depositType">depositType</label>
+      <input
+      type="text"
+      id="depositType"
+      name="depositType"
+      #depositType="ngModel"
+      [(ngModel)]="objdeposite.depositType"
+      required
+      />
+      </div>
+      <div class="form-group">
+      <label for="chequeNumber">chequeNumber:</label>
+      <input
+      type="text"
+      name="chequeNumber"
+      id="chequeNumber"
+      #chequeNumber="ngModel"
+      [(ngModel)]="objdeposite.chequeNumber"
+      required
+      >
+      
+
+      </div>
+      <div>
+      <!-- <button type="submit" (click)="submitForm()">Submit</button>
+      <button (click)="cancel_btn()">Cancel</button> -->
+      </div>
+      </form>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      <div class="submitDiv tCenter">
+      <input
+      type="submit"
+      class="submit_btn border-rad"
+      id="submitCategoryPrd"
+      value="Add Deposit"
+      [disabled]="createDepositeForm.form.invalid"
+      />
+    
+      <input
+      type="button"
+      value="Cancel"
+      class="submit_btn cancel_btn border-rad ml-2"
+      />
+      </div>
+      </form> 
+      </div>
+      </div>
+      </div>
+    
+      <div
+      class="popupWrapper"
+      id="editCategoryPopup"
+      style="display: none"
+      ></div>
+      </div>
+      </div>
     </div>
-    <div>
-    <!-- <button type="submit" (click)="submitForm()">Submit</button>
-    <button (click)="cancel_btn()">Cancel</button> -->
-    </div>
-    </form>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <div class="submitDiv tCenter">
-    <input
-    type="submit"
-    class="submit_btn border-rad"
-    id="submitCategoryPrd"
-    value="Add Category"
-    [disabled]="createDepositeForm.form.invalid"
-    />
    
-    <input
-    type="button"
-    value="Cancel"
-    class="submit_btn cancel_btn border-rad ml-2"
-    />
-    </div>
-    </form> 
-    </div>
-    </div>
-    </div>
-   
-    <div
-    class="popupWrapper"
-    id="editCategoryPopup"
-    style="display: none"
-    ></div>
-    </div>
-    </div>
-   </div>
-    -->

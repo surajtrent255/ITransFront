@@ -301,7 +301,7 @@
   <div class="fright" class="createCategoryDiv">
   <div class="popupContentWrapper" *ngIf="showForm">
   <div class="form-container popupContentWrapper">
-  <h2 class="heading tCenter">Split product</h2>
+  <h2 class="heading tCenter">Split product  </h2>
   <form>
   <div class="form-group">
   <!-- <label for="productId">productId:</label>
@@ -341,6 +341,7 @@
   <div class="col1 pt-2">
 
     Product ID:<span> {{ SplitProductObj.productId }}</span>
+    qty<span> {{ SplitProductObj.qty }}</span>
   </div>
 <!--   
   <div class="col1 pt-2">
@@ -367,7 +368,7 @@
   required
   /> -->
   <!-- </div> -->
-  <div class="form-group">
+  <!-- <div class="form-group">
   <label for="qty">qty</label>
   <input
   type="number"
@@ -382,23 +383,27 @@
       Please input a qty.
     </div>
   </div>
-  </div>
+  </div>-->
   <div class="form-group">
-    <label for="splitQty">splitQty</label>
+    <label for="splitQty">splitQty :you can select<p>{{fetchstock.qty|json}}</p></label>
     <input
     type="number"
     id="splitQty"
     name="splitQty"
     #splitQty="ngModel"
     [(ngModel)]="SplitProductObj.splitQty"
+    
     required
     />
     <div *ngIf="splitQty.errors && (splitQty.dirty || splitQty.touched)" class="alert alert-danger">
       <div [hidden]="!splitQty.errors">
         Please input a splitQty.
       </div>
+      <div [hidden]="!splitQty.errors['max']">
+        Please input  limited  qty.
+      </div>
     </div>
-    </div>
+    </div> 
   
   
     <div class="form-group">

@@ -45,7 +45,6 @@
       
     ) { }
     ngOnInit() {
-
       this.companyId = this.loginService.getCompnayId();
       this.branchId = this.loginService.getBranchId();
       this.compId=this.loginService.getCompnayId();
@@ -55,12 +54,14 @@
       console.log(this.companyId, this.branchId);
       
     }
+
+
     getallstock(productId:number,companyId:number){
       // console.log("productId"+this.SplitProductObj.productId);
       this.StockService.getStockWithProdId(this.SplitProductObj.productId).subscribe((data)=>{
         this.fetchstock = data.data;
         // this.updatestock=this.fetchstock;
-        console.log("get stock "+this.fetchstock.productId);
+        console.log("get stock qty atul"+JSON.stringify(this.fetchstock));
       })
     }
     getAllSplitProduct() {
@@ -79,6 +80,7 @@
       this.showForm = true;
       this.SplitProductObj.companyId= this.loginService.getCompnayId();
       this.SplitProductObj.branchId= this.branchId;
+     
       this.SplitProductObj.totalQty=this.SplitProductObj.qty*this.SplitProductObj.splitQty;
       this.createproduct.name=this.SplitProductObj.updatedProductName;
       this.createproduct.description="splited product"+`${this.SplitProductObj.productName}`;
@@ -176,12 +178,13 @@
       if (product) {
         this.SplitProductObj.productId = product.id;
         this.createproduct.tax =this.SplitProductObj.tax= product.tax;
+        this.SplitProductObj.qty=product.qtyPerUnit;
         this.createproduct.categoryId=product.categoryId;
         this.createproduct.userId=product.userId;
         console.log("tax"+this.tax);
         this.getallstock(product.id,product.companyId);
-
       }
+
     }
 
     resetForm() {

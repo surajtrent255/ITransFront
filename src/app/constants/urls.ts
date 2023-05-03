@@ -81,4 +81,4 @@ export const GET_ALL_deposite = BASE_URL + '/api/v1/bank/deposite?';
 export const GET_ALL_DEPOSITE=BASE_URL+'/api/v1/bank/deposite?';
 
 export const post_ALL_DEPOSITE=BASE_URL+'/api/v1/bank/deposite';
-export const GET_ALL_WITHDRAW=BASE_URL+'api/v1/bank/withdraw/';
+export const GET_ALL_WITHDRAW=BASE_URL+'/api/v1/bank/withdraw';

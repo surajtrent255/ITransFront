@@ -242,6 +242,35 @@
                   >
                 </td>
               </tr>
+              <tr>
+                <td class="col1 pt-2">
+                 Quatityperunit:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                    type="number"
+                    [class.is-invalid]="
+                      qtyPerUnit.invalid && qtyPerUnit.touched
+                    "
+                    class="form-control"
+                    id="qtyPerUnit"
+                    #qtyPerUnit="ngModel"
+                    name="qtyPerUnit"
+                    required
+                    [(ngModel)]="product.qtyPerUnit"
+                    required="required"
+                  />
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="
+                      qtyPerUnit.valid || qtyPerUnit.untouched
+                    "
+                    >invalid qtyPerUnit</small
+                  >
+                </td>
+              </tr>
               <!-- <tr>
                 <td class="col1 pt-2">
                   Cost Price:<span class="mandatorySign">*</span>

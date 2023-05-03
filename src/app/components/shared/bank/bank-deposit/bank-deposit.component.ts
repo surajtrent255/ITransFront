@@ -4,6 +4,8 @@ import { Deposit } from 'src/app/models/BankDeposite';
 import { ToastrService } from 'ngx-toastr';
 import { BankdepositeService } from 'src/app/service/shared/bankdeposite/bankdeposite.service';
 import { LoginService } from 'src/app/service/shared/login.service';
+import { BankService } from 'src/app/service/shared/bank/bank.service';
+import { Bank } from 'src/app/models/Bank';
 
 @Component({
   selector: 'app-bank-deposit',
@@ -20,12 +22,16 @@ export class BankDepositComponent {
   depositeType!:string;
   chequeNumber!:string;;
   Deposite:Deposit[]=[];
+  banks: Bank[] = [];
   showForm!: boolean;
   localStorageCompanyId!:string;
   UserbranchId!: string;
   objdeposite:Deposit = new Deposit;
 
-  constructor(private bankdepositeService:BankdepositeService,private loginService:LoginService , private toastrService:ToastrService){}
+  constructor(private bankdepositeService:BankdepositeService,
+    private bankService: BankService,
+    private loginService:LoginService , 
+    private toastrService:ToastrService){}
   ngOnInit() {
     
     // const data = localStorage.getItem('companyDetails');
@@ -34,14 +40,19 @@ export class BankDepositComponent {
     // this.localStorageCompanyId = companyId;
 
 
-    this.companyId =this.loginService.getCompnayId()
-    this.branchId =this.loginService.getBranchId()
+    this.companyId =this.loginService.getCompnayId();
+    this.branchId =this.loginService.getBranchId();
     this.getAllBankDeposite();
-    alert("under construction");
+   
   
    
   
 
+  }
+  fetchRelatedBanks() {
+    this.bankService.getAllBanks(this.companyId,this.branchId).subscribe((data) => {
+      this.banks = data.data
+    })
   }
   getAllBankDeposite(){
     this.bankdepositeService.getAlldeposite(this.companyId,this.branchId).subscribe(res => {
@@ -51,8 +62,10 @@ export class BankDepositComponent {
 
   }
   openForm() {
-    
+    this.resetForm();
     console.log('Opening form...');
+    this.fetchRelatedBanks();
+    // console.log(this.banks[0])
     // Reset form data
     this.companyId = this.companyId;
     this.branchId = this.branchId;
@@ -70,9 +83,11 @@ export class BankDepositComponent {
 
 creatdepostie(form:any)
 {
+  
   this.showForm=false;
   this.objdeposite.companyId=this.companyId;
   this.objdeposite.branchId=this.branchId;
+  this.objdeposite.submiteDate=new Date();
   console.log(this.objdeposite);
   this.bankdepositeService.addDeposite(this.objdeposite).subscribe({
     next:(data)=>{
@@ -119,10 +134,13 @@ creatdepostie(form:any)
 
 const bankForm = document.getElementById('createNewCategoryPopup');
 if (bankForm) {
+  
   bankForm.style.display = 'none';
+  this.resetForm();
 }
 }  
 cancel_btn(){
+  this.resetForm();
   this.showForm = false;
   const bankForm = document.getElementById('createNewCategoryPopup');
   if (bankForm) {
@@ -130,18 +148,25 @@ cancel_btn(){
   }
 }
 
-}
-
- 
-
-
-
-
-
-
-
+deleteDeposite(branchId:number,depositId: number ) {
   
+  this.bankdepositeService.deleteDeposite(branchId,depositId).subscribe({
+    next: (res) => {
+      console.log(res);
+      this.toastrService.success("deposite has been deleted" + depositId)
+      this.getAllBankDeposite();
+    },
+    error: (error) => {
+      console.log(error);
+    },
+    complete: () => {
+      this.getAllBankDeposite();
+    },
+  });
+}
+resetForm() {
+  this.objdeposite = new Deposit();
+} 
 
 
-
-
+}

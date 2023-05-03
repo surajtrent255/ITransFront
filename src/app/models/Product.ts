@@ -16,5 +16,6 @@ export class Product {
   createDate !: Date;
   updateDate !: Date;
   vatRate!: number;
+  qtyPerUnit!:number;
 
 }

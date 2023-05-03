@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, tap } from 'rxjs';
-import { GET_ALL_DEPOSITE,  post_ALL_DEPOSITE } from 'src/app/constants/urls';
+import {BASE_URL ,GET_ALL_DEPOSITE,  post_ALL_DEPOSITE } from 'src/app/constants/urls';
 import { Deposit } from 'src/app/models/BankDeposite';
 
 
@@ -35,6 +35,10 @@ export class BankdepositeService {
 }
 
 
+deleteDeposite(branchId: number,depositId:number) {
+  let url = `${BASE_URL}/api/v1/bank/deposite/${branchId}/${depositId}`;
+  return this.http.delete(url);
+}
 
 
 
