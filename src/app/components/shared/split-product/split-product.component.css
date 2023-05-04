@@ -11,3 +11,10 @@ input[type="text"] {
     box-sizing: border-box;
   }
   
+  .blue {
+    background-color: blue;
+    color: white;
+  }
+  div{
+    vertical-align: middle;
+  }

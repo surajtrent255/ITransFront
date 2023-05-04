@@ -27,13 +27,17 @@
     branchId !: number;
     compId!:number;
     tax!:number;
+    updateproductId!:number;
     // product!: any;
     showForm!: boolean;
     SplitProductObj: SplitProduct = new SplitProduct;
     createproduct : Product=new Product;
     updatedProductName!: string;
     updatestock: UpdateStock =new UpdateStock;
-
+    enableCreateMergeComp:boolean=false;
+    idForMergeComp!:number;
+    enableCreateSplitComp : boolean = false;
+    idForSplitComp !: number;
     
     constructor(
       
@@ -76,11 +80,21 @@
       });
     }
 
+    getTheProductForSplit(id:number){
+      this.enableCreateSplitComp = true;
+      this.idForSplitComp = id;
+
+    }
+    getTheProductForMerge(id:number){
+      this.enableCreateMergeComp = true;
+      this.idForMergeComp = id;
+
+    }
     addSplitProduct(form: any) {
       this.showForm = true;
       this.SplitProductObj.companyId= this.loginService.getCompnayId();
       this.SplitProductObj.branchId= this.branchId;
-     
+      
       this.SplitProductObj.totalQty=this.SplitProductObj.qty*this.SplitProductObj.splitQty;
       this.createproduct.name=this.SplitProductObj.updatedProductName;
       this.createproduct.description="splited product"+`${this.SplitProductObj.productName}`;
@@ -95,33 +109,36 @@
       this.updatestock=this.fetchstock;
       this.updatestock.createDate=this.fetchstock.createDate;
       this.updatestock.productId=this.fetchstock.productId;
-      this.updatestock.qty=this.fetchstock.qty-this.SplitProductObj.qty;
+      this.updatestock.qty=this.fetchstock.qty-this.SplitProductObj.splitQty;
       console.log("this.SplitProductObj.splitQty" +this.SplitProductObj.splitQty)
       console.log("this.updatestock.qty"+this.updatestock.qty);
-      console.log("addsplit product"+this.SplitProductObj);
-      this.SplitProductService.addSplitProduct(this.SplitProductObj).subscribe({
-        next: (data) => {
-          // this.createProduct(data);
-          this.toastrService.success("split is successfully added with id " + data.data)
-          this.getAllSplitProduct();  
-          
-        }, error: (err) => {
-          this.toastrService.error("something went wrong")
-        }
-      }  
-      )
-      this.productService.addNewProduct(this.createproduct ,this.SplitProductObj.splitQty).subscribe({
+      console.log("addsplit product"+JSON.stringify(this.SplitProductObj));
+      this.productService.addNewProduct(this.createproduct ,this.SplitProductObj.totalQty).subscribe({
         next: (data) => {
           console.log(data.data);
           this.toastrService.success("product has been added with id " + data.data)
-          
+          this.updateproductId = data.data
+          this.SplitProductObj.updatedProductId=this.updateproductId;
+              alert(JSON.stringify (this.SplitProductObj))
+              this.SplitProductService.addSplitProduct(this.SplitProductObj).subscribe({
+                next: (data) => {
+                  // this.createProduct(data);
+                  this.toastrService.success("split is successfully added with id " + data.data)
+                  this.getAllSplitProduct();  
+                  
+                }, error: (err) => {
+                  this.toastrService.error("something went wrong")
+                }
+              }  
+              );
         },
         error: (error) => {
           console.log('Error occured ');
   
         }
       });
-      this.StockService.updateStockWithProdId(this.updatestock.id,this.updatestock).subscribe({
+     
+       this.StockService.updateStockWithProdId(this.updatestock.id,this.updatestock).subscribe({
         next: (data) => {
           console.log("stock update "+this.updatestock.id);
           this.toastrService.success("stock updated")
@@ -129,9 +146,13 @@
         },
         error: (error) => {
           console.log('Error occured ');
-  
+    
         }
       });
+
+      
+     
+      
       // this.StockService.addStock(this.updatestock).subscribe({
       //   next: (data) => {
       //     console.log("add "+this.updatestock.id);
@@ -150,8 +171,11 @@
       if (bankForm) {
         bankForm.style.display = 'none';
       }
-      this.resetForm();
+     
     }
+
+   
+
     openForm() {
       this.resetForm();
       this.showForm = true;
@@ -177,6 +201,7 @@
       const product = this.availableProducts.find(p => p.name === productName);
       if (product) {
         this.SplitProductObj.productId = product.id;
+        this.SplitProductObj.unit=product.unit;
         this.createproduct.tax =this.SplitProductObj.tax= product.tax;
         this.SplitProductObj.qty=product.qtyPerUnit;
         this.createproduct.categoryId=product.categoryId;
@@ -190,6 +215,14 @@
     resetForm() {
       this.SplitProductObj = new SplitProduct();
     } 
+    // sotock(qty:number,productId:number){
+    //   this.StockService.getStockWithProdId(productId).subscribe((data)=>{
+    //     this.fetchstock = data.data;
+    //     if(this.fetchstock.qty<qty){
+    //       alert("enter valid input for stock quanty")
+    //     }
+    //   })
+    // }
 
     // createProduct(_data: any) {
     //   this.createproduct.companyId = this.companyId;
@@ -214,5 +247,14 @@
     //     }
     //   });
     // }
-
+    cancel_btn() {
+      this.showForm = false;
+      const bankForm = document.getElementById('createNewCategoryPopup');
+      
+      if (bankForm) {
+        bankForm.style.display = 'none';
+       
+      }
+    }
+  
   }
