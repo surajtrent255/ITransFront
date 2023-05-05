@@ -675,6 +675,7 @@ export class CreateSalesComponent {
     salesBill.userId = this.loginService.currentUser.user.id;
     salesBill.companyId = this.loginService.getCompnayId();
     salesBill.branchId = this.branchId; //mjremain
+    salesBill.counterId = 1;
     salesBill.realTime = true;
     salesBill.billActive = true;
     salesBill.draft = draft;
