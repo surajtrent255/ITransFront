@@ -171,6 +171,7 @@
                   <div style="display: inline-block">
                     <input
                       type="text"
+                      id="productBarCodeId"
                       class="input-field"
                       [(ngModel)]="productBarCodeId"
                       (keydown.enter)="addTheProductForPurchase()"
@@ -403,7 +404,7 @@
       (compIdEvent)="setSellerInfo($event)"
       (destroySelectCompEmitter)="destroySelectSenderComponent($event)"
       (fetchCustomerEventEmitter)="fetchPurchaserInfo()"
-      [title]="'Seller '"
+      [title]="'Seller'"
     >
     </app-select-customer>
 

@@ -73,6 +73,12 @@ export class CreatePurchaseBillComponent {
     this.currentBranch = 'Branch ' + this.branchId;
 
   }
+
+  ngAfterViewInit() {
+    const productBarCodeIdEL = document.getElementById("productBarCodeId") as HTMLButtonElement;
+    productBarCodeIdEL.focus();
+  }
+
   addTheProductForPurchase() {
     if (this.productBarCodeId === undefined) {
       return;
