@@ -1,0 +1,150 @@
+<div class="popupHeading">
+  <h2 class="fleft">Payment Flow</h2>
+  <a href="" class="closeButton fright"
+    ><img src="../../../assets/resources/images/removetablink.png" alt="close"
+  /></a>
+  <div class="cboth"></div>
+</div>
+<div class="popupSubHeadingDiv createProduct">
+  <h1 class="heading">Edit Payment Details</h1>
+  <div>Edit Details</div>
+</div>
+<div class="popupContentWrapper">
+  <form>
+    <div class="chooseColoumnsWrapper">
+      <div class="fieldDiv popUpFormSectionWrapper">
+        <table class="formSection" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="col1">Party Id</td>
+            <td class="col3">
+              <input
+                type="number"
+                #partyId="ngModel"
+                [(ngModel)]="Payment.partyId"
+                name="partyId"
+                class="inputText mandatory"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">amount<span class=""></span></td>
+
+            <td class="col3">
+              <input
+                type="number"
+                #amount="ngModel"
+                [(ngModel)]="Payment.amount"
+                name="amount"
+                class="inputText"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">TDS</td>
+
+            <td class="col3">
+              <input
+                type="number"
+                #tdsDeducted="ngModel"
+                [(ngModel)]="Payment.tdsDeducted"
+                name="tdsDeducted"
+                class="inputText"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Payment Mode</td>
+            <div style="padding-left: 5px">
+              <select
+                style="width: 300px"
+                class="inputText"
+                #paymentModeId="ngModel"
+                [(ngModel)]="Payment.paymentModeId"
+                name="paymentModeId"
+                (change)="paymentModeChange(selected.value)"
+                #selected
+              >
+                <option selected disabled>Select the state</option>
+                <option *ngFor="let mode of paymentMode" value="{{ mode.id }}">
+                  {{ mode.modeName }}
+                </option>
+              </select>
+            </div>
+
+            <td class="col3"></td>
+          </tr>
+
+          <tr *ngIf="cheque">
+            <td class="col1">Cheque Number<span class=""></span></td>
+
+            <td class="col3">
+              <input
+                type="number"
+                #checkNo="ngModel"
+                [(ngModel)]="Payment.checkNo"
+                name="checkNo"
+                class="inputText"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Post Check Date</td>
+            <div style="padding-left: 5px">
+              <select
+                style="width: 300px"
+                class="inputText"
+                #postDateCheck="ngModel"
+                [(ngModel)]="Payment.postDateCheck"
+                name="postDateCheck"
+                #selected
+                (change)="postCheckDateChange($event)"
+              >
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </div>
+
+            <td class="col3"></td>
+          </tr>
+
+          <tr *ngIf="postDateCheckEnable">
+            <td class="col1">Post Check Date<span class=""></span></td>
+            <td class="col3">
+              <input
+                type="date"
+                #postCheckDate="ngModel"
+                [(ngModel)]="Payment.postCheckDate"
+                name="postCheckDate"
+                class="inputText"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="submitDiv tCenter">
+      <input
+        type="submit"
+        value="Ok"
+        (click)="editPaymentDetails()"
+        class="submit_btn registerButton border-rad"
+        id=""
+      />
+
+      <input
+        type="button"
+        value="Cancel"
+        class="submit_btn closeButton border-rad"
+      />
+    </div>
+  </form>
+</div>

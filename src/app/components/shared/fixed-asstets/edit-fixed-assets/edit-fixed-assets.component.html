@@ -1,0 +1,140 @@
+<div class="popupHeading">
+  <h2 class="fleft">Expense Flow</h2>
+  <a href="" class="closeButton fright"
+    ><img src="../../../assets/resources/images/removetablink.png" alt="close"
+  /></a>
+  <div class="cboth"></div>
+</div>
+<div class="popupSubHeadingDiv createProduct">
+  <h1 class="heading">Edit Expense Details</h1>
+  <div>Edit Details</div>
+</div>
+<div class="popupContentWrapper">
+  <form>
+    <div class="chooseColoumnsWrapper">
+      <div class="fieldDiv popUpFormSectionWrapper">
+        <table class="formSection" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="col1">Asset Name</td>
+            <td class="col3">
+              <input
+                type="text"
+                #AssetName="ngModel"
+                name="AssetName"
+                [(ngModel)]="asset.name"
+                class="inputText mandatory"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Amount<span class=""></span></td>
+
+            <td class="col3">
+              <input
+                type="number"
+                #amount="ngModel"
+                name="amount"
+                [(ngModel)]="asset.amount"
+                class="inputText"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Bill No</td>
+
+            <td class="col3">
+              <input
+                type="number"
+                #billNo="ngModel"
+                name="billNo"
+                [(ngModel)]="asset.billNo"
+                class="inputText"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Cash</td>
+
+            <td class="col3">
+              <input
+                type="number"
+                #cash="ngModel"
+                name="cash"
+                [(ngModel)]="asset.cash"
+                class="inputText"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Loan</td>
+
+            <td class="col3">
+              <input
+                type="text"
+                #loan="ngModel"
+                name="loan"
+                [(ngModel)]="asset.loan"
+                class="inputText"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Loan Id</td>
+
+            <td class="col3">
+              <input
+                type="number"
+                #loanId="ngModel"
+                name="loanId"
+                [(ngModel)]="asset.loanId"
+                class="inputText"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Date</td>
+
+            <td class="col3">
+              <input
+                type="date"
+                #date="ngModel"
+                name="date"
+                date="loanId"
+                [(ngModel)]="asset.date"
+                class="inputText"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="submitDiv tCenter">
+      <input
+        type="submit"
+        value="Update"
+        (click)="fixedAssetEdit()"
+        class="submit_btn registerButton border-rad"
+        id=""
+      />
+
+      <input
+        type="button"
+        value="Cancel"
+        class="submit_btn closeButton border-rad"
+      />
+    </div>
+  </form>
+</div>

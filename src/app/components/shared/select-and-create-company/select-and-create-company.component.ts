@@ -18,6 +18,7 @@ import { LoginService } from 'src/app/service/shared/login.service';
 import { RoleService } from 'src/app/service/shared/role.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
 import $ from 'jquery';
+import { Roles } from 'src/app/models/Roles';
 
 @Component({
   selector: 'app-select-and-create-company',
@@ -29,26 +30,41 @@ import $ from 'jquery';
   encapsulation: ViewEncapsulation.None,
 })
 export class SelectAndCreateCompanyComponent {
+  IsAdmin!: boolean;
   user_id!: number;
+  companyId!: number;
   company!: Company[];
+  role!: Roles[];
+  roles: string[] = [];
 
   constructor(
     private companyService: CompanyServiceService,
     private loginService: LoginService,
     private router: Router,
-    private branchService: BranchService
+    private branchService: BranchService,
+    private roleService: RoleService
   ) {}
 
   ngOnInit() {
     this.loginService.userObservable.subscribe((LogggedInUser) => {
       this.user_id = LogggedInUser.user.id;
+      console.log(LogggedInUser);
+      this.IsAdmin = LogggedInUser.user.roles.some(
+        (role) => role.role === 'ADMIN'
+      );
+      console.log(this.IsAdmin);
     });
+
+    this.getCompanyDetails();
+  }
+
+  getCompanyDetails() {
     this.companyService.getCompnayDetails(this.user_id).subscribe((res) => {
       this.company = res.data;
     });
   }
 
-  proceed(company: any) {
+  proceed(company: Company) {
     localStorage.setItem('companyDetails', JSON.stringify(company));
     this.branchService
       .getBranchDetailsByCompanyAndUserId(company.companyId, this.user_id)
@@ -60,7 +76,23 @@ export class SelectAndCreateCompanyComponent {
           let branchStatus = [{ branchId: 0 }];
           localStorage.setItem('BranchDetails', JSON.stringify(branchStatus));
         }
+
+        this.roleService
+          .getUserRoleDetailsBasedOnCompanyIdAndUserId(
+            company.companyId,
+            this.user_id
+          )
+          .subscribe((res) => {
+            console.log('YVDBHDIUHIDHNKIHNIKSBHJSBJb');
+            console.log(res.data);
+            const roles = res.data.map((user) => user.role);
+            localStorage.setItem('CompanyRoles', JSON.stringify(roles));
+          });
+        console.log(this.roles);
         this.router.navigateByUrl('/dashboard/demo');
       });
+  }
+  getAllCompanyDetails() {
+    this.getCompanyDetails();
   }
 }

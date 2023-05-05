@@ -1,10 +1,11 @@
- export class BankDeposite{
-    id!:number;
-    branchid!:number;
-    companyid!:number;
-    amount!:number;
-    depositetype!:string;
+ export class Deposit{
+    depositId!:number;
+    bankId!:number;
+    branchId!:number;
+    companyId!:number;
+    depositAmount!:number;
+    depositType!:string;
+    chequeNumber!:string;
     submiteDate!:Date;
-    chequenumber!:number;
 
 }

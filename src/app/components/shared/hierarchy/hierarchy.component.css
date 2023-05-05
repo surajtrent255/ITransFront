@@ -19,3 +19,8 @@
 .sidebar .nav-link:hover {
   color: var(--bs-primary);
 }
+
+.sidebar li.disabled a.nav-link {
+  color: #ccc;
+  pointer-events: none;
+}

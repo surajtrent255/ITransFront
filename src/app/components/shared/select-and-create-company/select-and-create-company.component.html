@@ -49,7 +49,10 @@
         </div>
       </div>
     </div>
-    <app-create-company></app-create-company>
+    <app-create-company
+      *ngIf="IsAdmin"
+      (successfullyAdded)="getAllCompanyDetails()"
+    ></app-create-company>
   </div>
   <div class="cboth"></div>
 </div>

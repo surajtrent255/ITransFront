@@ -12,9 +12,11 @@ import { RJResponse } from 'src/app/models/rjresponse';
   providedIn: 'root'
 })
 export class BankService {
-
+  httpClient: any;
+ 
 
   constructor(private http: HttpClient, private toastrService: ToastrService) { }
+
 
   getAllBanks(companyId: number, branchId: number): Observable<any> {
     return this.http.get(`${GET_ALL_BANK}?companyid=${companyId}&branchid=${branchId}`);
@@ -24,6 +26,9 @@ export class BankService {
     let url = `${BASE_URL}/api/v1/bank/list`;
     return this.http.get<RJResponse<BankList[]>>(url);
   }
+
+
+
 
   getAccountTypes(): Observable<RJResponse<AccountType[]>> {
     let url = `${BASE_URL}/api/v1/bank/accounttype`;
@@ -42,7 +47,13 @@ export class BankService {
         },
       })
     );
+    }
+
+  deletebank(bankId: number) {
+    let url = `${BASE_URL}/api/v1/bank/${bankId}`;
+    return this.http.delete(url);
   }
+
 }
 
 

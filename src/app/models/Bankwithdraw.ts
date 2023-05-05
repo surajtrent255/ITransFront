@@ -1,4 +1,5 @@
 export class BankWidthdraw{
+    bankId!:number;
     withdrawId!:number;
     companyId!:number;
     branchId!:number;

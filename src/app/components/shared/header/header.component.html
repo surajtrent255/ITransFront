@@ -2,14 +2,14 @@
 <div id="headerWrapper" class="headerWrapper">
   <div class="logoutDiv">
     <div class="fright" style="padding-right: 17px">
-      <div class="profile" style="padding-right: 20px">
+      <div class="profile" #profile style="padding-right: 20px">
         <button class="profile-button">
           <img
             src="../../../../assets/images/Users-Name-icon.png"
             alt="Profile Image"
           />
         </button>
-        <div class="profile-card">
+        <div class="profile-card" #profileCard>
           <div class="profile-card-header">
             <img
               src="../../../../assets/images/Users-Name-icon.png"
@@ -56,7 +56,7 @@
     </div>
 
     <div class="fright" style="padding-right: 30px; padding-top: 10px">
-      <a href="/company">
+      <a (click)="OnSwitchCompany()" href="/company">
         <img
           src="../../../../assets/resources/images/logout-bg.png"
           class="logoutImage"
@@ -76,7 +76,7 @@
     </div>
     <div class="fright mainNavWrapper">
       <ul class="mainNavList">
-        <li>
+        <li *ngIf="IsAdmin">
           <a href="" id="configurationLink">
             <img
               src="../../../../assets/resources/images/configuration-bg.png"
@@ -84,7 +84,7 @@
             <span>User Configuration</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="IsAdmin">
           <a href="" id="pricingPreferencesLink">
             <img src="../../../../assets/resources/images/pricing-bg.png" />
             <span>Branch</span>
@@ -411,7 +411,6 @@
                     <tr>
                       <th>Name</th>
                       <th>Abbrv</th>
-                      <th>Pan No</th>
                       <th>Address</th>
                       <th>phone</th>
                       <th>Action</th>
@@ -423,7 +422,6 @@
                         {{ branch.name }}
                       </td>
                       <td>{{ branch.abbrv }}</td>
-                      <td>{{ branch.panNo }}</td>
                       <td>{{ branch.district }}</td>
                       <td>{{ branch.phone }}</td>
 
@@ -646,7 +644,10 @@
             <span>Roles</span>
             <div style="border-bottom: 2px solid #bdbdbd"></div>
             <div style="margin: 4px" *ngFor="let role of role">
-              <div style="margin: 1px">
+              <div
+                *ngIf="role.role !== 'ADMIN' && role.role !== 'SUPER_ADMIN'"
+                style="margin: 1px"
+              >
                 <input
                   type="checkbox"
                   [checked]="hasRole(role.role)"
@@ -853,21 +854,6 @@
                   class="inputText"
                   formControlName="BranchDescription"
                   title="Enter Text"
-                  id="custPartName"
-                />
-              </td>
-              <td class="col3"></td>
-            </tr>
-
-            <tr>
-              <td class="col1">Pan-Number:<span class=""></span></td>
-
-              <td class="col3">
-                <input
-                  type="number"
-                  class="inputText"
-                  title="Enter Text"
-                  formControlName="BranchPanNo"
                   id="custPartName"
                 />
               </td>

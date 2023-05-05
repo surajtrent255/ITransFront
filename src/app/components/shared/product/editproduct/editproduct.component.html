@@ -22,7 +22,7 @@
         <div class="chooseColoumnsWrapper">
           <div class="fieldDiv popUpFormSectionWrapper">
             <table class="" cellpadding="0" cellspacing="0">
-              <tr>
+              <!-- <tr>
                 <td class="col1 pt-2">
                   Seller:
                   <span class="mandatorySign">*</span>
@@ -103,7 +103,7 @@
                     >invalid sellerId</small
                   >
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="col1 pt-2">
                   Product Name:<span class="mandatorySign">*</span>
@@ -208,7 +208,7 @@
                   >
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td class="col1 pt-2">
                   Cost Price:<span class="mandatorySign">*</span>
                 </td>
@@ -233,10 +233,10 @@
                     >invalid costPrice</small
                   >
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="col1 pt-2">
-                  Bar Code:<span class="mandatorySign">*</span>
+                  Bar Code:
                 </td>
                 <td class="col2">
                   <input
@@ -246,10 +246,9 @@
                     id="barcode"
                     #barcode="ngModel"
                     name="barcode"
-                    required
                     barcode="barcode"
                     [(ngModel)]="product.barcode"
-                    required="required"
+                   
                   />
                 </td>
                 <td class="col3">
@@ -308,6 +307,31 @@
                     class="text-danger"
                     [class.d-none]="tax.valid || tax.untouched"
                     >invalid tax</small
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  unit :<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                    type="text"
+                    [class.is-invalid]="unit.invalid && unit.touched"
+                    class="form-control"
+                    id="unit"
+                    name="unit"
+                    #unit="ngModel"
+                    unit="unit"
+                    [(ngModel)]="product.unit"
+                    readOnly
+                  />
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="unit.valid || unit.untouched"
+                    >invalid unit</small
                   >
                 </td>
               </tr>
@@ -438,7 +462,7 @@
                 <th class="last-child">Actions</th>
               </tr>
             </thead>
-            <tbody id="prodTable">
+            <!-- <tbody id="prodTable">
               <tr class="text-center" *ngIf="selectMenusForCompaniesSize === 0">
                 <td colspan="9">
                   <span style="color: red">No records found !</span>
@@ -465,7 +489,7 @@
                   </button>
                 </td>
               </tr>
-            </tbody>
+            </tbody> -->
           </table>
         </div>
       </div>

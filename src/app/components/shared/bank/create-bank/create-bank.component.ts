@@ -22,6 +22,8 @@ export class CreateBankComponent {
   initialAmount!: string;
   accountType!: string;
 
+  showInput!:boolean;
+
   Bank: Bank[] = [];
   accountTypes: AccountType[] = [];
   showForm!: boolean;
@@ -64,9 +66,6 @@ export class CreateBankComponent {
 
   }
 
-  getAllBankNames() {
-
-  }
 
   getAllAccountTypes() {
     this.bankService.getAccountTypes().subscribe((data) => {
@@ -79,47 +78,86 @@ export class CreateBankComponent {
     // Reset form data
     this.companyId = this.localStorageCompanyId;
     this.branchId = this.UserbranchId;
-    this.bankName = '';
-    this.accountNumber = '';
-    this.initialAmount = '';
-    this.accountType = '';
+    // this.bankName = '';
+    // this.accountNumber = '';
+    // this.initialAmount = '';
+    // this.accountType = '';
     this.showForm = true;
+    
 
     // Show form
 
     const bankForm = document.getElementById('bankForm');
     if (bankForm) {
+      
       bankForm.style.display = 'block';
+      this.showForm = false;
     }
   }
 
+  SelecetBankChange(bankName:string){
+    
+  if(bankName === 'other'){
+    console.log("other")
+    this.showInput = true
+  }else{
+    console.log(bankName)
+    this.showInput = false
+  }
+  }
+
   createBank(form: any) {
-    this.showForm = false;
+    this.showForm = true;
     this.bankObj.companyId = this.companyId;
     this.bankObj.branchId = this.branchId;
     this.bankService.addBank(this.bankObj).subscribe({
       next: (data) => {
         this.toastrService.success("bank is successfully added with id " + data.data)
         this.getAllBank();
-
+       
+        
       }, error: (err) => {
         this.toastrService.error("something went wrong")
       }
-    })
+      
+     
+    }
+    
+    )
+   
 
-
+    
 
     // Hide form
-    const bankForm = document.getElementById('bankForm');
+    const bankForm = document.getElementById('createNewCategoryPopup');
     if (bankForm) {
       bankForm.style.display = 'none';
     }
   }
   cancel_btn() {
     this.showForm = false;
-    const bankForm = document.getElementById('bankForm');
+    const bankForm = document.getElementById('createNewCategoryPopup');
+    
     if (bankForm) {
       bankForm.style.display = 'none';
+     
     }
   }
+
+  deleteBank(bankId: number) {
+  
+    this.bankService.deletebank(bankId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.toastrService.success("bank has been deleted")
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.getAllBank();
+      },
+    });
+  }
+
 }

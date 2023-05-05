@@ -1,4 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Branch } from 'src/app/models/Branch';
 import { BranchConfig } from 'src/app/models/BranchConfig';
@@ -15,11 +21,13 @@ import { RoleService } from 'src/app/service/shared/role.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
 import $ from 'jquery';
 import { Municipality } from 'src/app/models/Municipality';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {
   userRoleconfiguration!: UserConfiguration[];
@@ -31,7 +39,7 @@ export class HeaderComponent {
   branch!: Branch[];
   companyName!: string;
   branchId!: number;
-  addRoleData!: Demo[];
+  addRoleData!: UserConfiguration[];
   districts!: District[];
   province!: Province[];
   municipality!: Municipality[];
@@ -66,6 +74,9 @@ export class HeaderComponent {
   usersTabsStatus!: boolean;
   userRoleTabStatus!: boolean;
 
+  // for role based rendering
+  IsAdmin!: boolean;
+
   BranchRegistrationForm = new FormGroup({
     BranchName: new FormControl('', [Validators.required]),
     BranchAbbvr: new FormControl('', [Validators.required]),
@@ -90,8 +101,15 @@ export class HeaderComponent {
   @ViewChild('profileCard') profileCard!: ElementRef;
 
   ngAfterViewInit() {
-    $('.profile-button').on('click', function () {
+    $('.profile-button').on('click', function (event) {
+      event.stopPropagation();
       $('.profile-card').toggleClass('active');
+    });
+
+    $('body').on('click', function (event) {
+      if (!$(event.target).closest('.profile').length) {
+        $('.profile-card').removeClass('active');
+      }
     });
   }
 
@@ -111,6 +129,22 @@ export class HeaderComponent {
       this.loggedInUser = user;
     });
 
+    // for Role Based Rendering
+    this.roleService
+      .getUserRoleDetailsBasedOnCompanyIdAndUserId(
+        this.localStorageCompanyId,
+        this.loggedInUser.user.id
+      )
+      .subscribe((res) => {
+        res.data.map((role) => {
+          if (role.role === 'ADMIN') {
+            this.IsAdmin = true;
+          } else {
+            this.IsAdmin = false;
+          }
+        });
+      });
+
     this.getAllBranchDetails();
 
     this.getBranchUsersByCompanyId();
@@ -125,6 +159,13 @@ export class HeaderComponent {
       console.log(res.data);
       this.province = res.data;
     });
+  }
+
+  //
+
+  // For role Based Rendering
+  OnSwitchCompany() {
+    localStorage.removeItem('CompanyRoles');
   }
   getAllUser() {
     this.userConfigurationService
@@ -327,7 +368,6 @@ export class HeaderComponent {
         name: this.BranchRegistrationForm.value.BranchName!,
         abbrv: this.BranchRegistrationForm.value.BranchAbbvr!,
         description: this.BranchRegistrationForm.value.BranchDescription!,
-        panNo: this.BranchRegistrationForm.value.BranchPanNo!,
         state: this.BranchRegistrationForm.value.BranchState!,
         district: this.BranchRegistrationForm.value.BranchDistrict!,
         munVdc: this.BranchRegistrationForm.value.BranchMunVdc!,
