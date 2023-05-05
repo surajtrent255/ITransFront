@@ -22,17 +22,25 @@ export class ProductComponent {
     private loginService: LoginService,
     private router: Router,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   newProduct!: Product;
+  IsAuditor!: boolean;
 
   productInfoForUpdateId!: number;
   compId!: number;
-  branchId !: number;
+  branchId!: number;
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.fetchAllProducts(this.compId, this.branchId);
+    let roles = localStorage.getItem('CompanyRoles');
+
+    if (roles?.includes('AUDITOR')) {
+      this.IsAuditor = false;
+    } else {
+      this.IsAuditor = true;
+    }
   }
 
   fetchAllProducts(compId: number, branchId: number) {
@@ -68,7 +76,7 @@ export class ProductComponent {
     this.productService.deleteProductById(id).subscribe({
       next: (res) => {
         console.log(res);
-        this.toastrService.success("product has been deleted")
+        this.toastrService.success('product has been deleted');
       },
       error: (error) => {
         console.log(error);

@@ -17,6 +17,8 @@ export class ExpenseComponent {
   LoggedInCompanyId!: number;
   LoggedInBranchId!: number;
 
+  IsAuditor!: boolean;
+
   ExpenseForm = new FormGroup({
     amount: new FormControl('', [Validators.required]),
     topic: new FormControl('', [Validators.required]),
@@ -34,6 +36,12 @@ export class ExpenseComponent {
     this.LoggedInBranchId = this.loginService.getBranchId();
     this.LoggedInCompanyId = this.loginService.getCompnayId();
     this.getExpenseDetails();
+    let roles = localStorage.getItem('CompanyRoles');
+    if (roles?.includes('AUDITOR')) {
+      this.IsAuditor = false;
+    } else {
+      this.IsAuditor = true;
+    }
   }
 
   getExpenseDetails() {

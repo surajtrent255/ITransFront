@@ -23,7 +23,12 @@
           <a href="#" class="genLink">Clear searchs</a>
         </div>
         <div class="fright" class="createProductDiv">
-          <a href="" id="createNewProduct" class="createNewTableRecord">
+          <a
+            *ngIf="IsAuditor"
+            href=""
+            id="createNewProduct"
+            class="createNewTableRecord"
+          >
             <img src="../../../assets/resources/images/createProduct.png" />
             <span> Create Product</span>
           </a>
@@ -292,12 +297,17 @@
                 <td class="last-child">
                   <a
                     id="editProduct"
+                    *ngIf="IsAuditor"
                     (click)="editProduct(product.id)"
                     class="createNewTableRecord"
                   >
                     <img src="../../../assets/resources/images/editRow.png" />
                   </a>
-                  <a (click)="deleteProduct(product.id)" class="">
+                  <a
+                    *ngIf="IsAuditor"
+                    (click)="deleteProduct(product.id)"
+                    class=""
+                  >
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
                 </td>

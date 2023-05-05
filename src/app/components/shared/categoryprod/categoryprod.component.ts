@@ -14,26 +14,36 @@ export class CategoryprodComponent {
   categoriesData: CategoryProduct[] = [];
 
   compId!: number;
-  branchId !: number;
+  branchId!: number;
+
+  IsAuditor!: boolean;
 
   createCategoryShow: boolean = true;
   constructor(
     private categoryProductService: CategoryProductService,
     private loginService: LoginService,
     private renderer: Renderer2
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.fetchAllCategories();
+    let roles = localStorage.getItem('CompanyRoles');
+    if (roles?.includes('AUDITOR')) {
+      this.IsAuditor = false;
+    } else {
+      this.IsAuditor = true;
+    }
   }
 
   ngAfterViewInit() {
-    const createCatBtn = document.querySelector("createNewCategory") as HTMLAnchorElement;
+    const createCatBtn = document.querySelector(
+      'createNewCategory'
+    ) as HTMLAnchorElement;
     this.renderer.listen(createCatBtn, 'click', () => {
       this.createCategoryShow = true;
-    })
+    });
   }
 
   fetchAllCategories() {

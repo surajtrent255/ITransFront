@@ -23,7 +23,12 @@
           <a href="#" class="genLink">Clear searchs</a>
         </div>
         <div class="fright" class="createProductDiv">
-          <a href="" id="createExpense" class="createNewTableRecord">
+          <a
+            *ngIf="IsAuditor"
+            href=""
+            id="createExpense"
+            class="createNewTableRecord"
+          >
             <img src="../../../assets/resources/images/createProduct.png" />
             <span> Create Expense</span>
           </a>
@@ -100,13 +105,18 @@
                 <td>{{ expense.status }}</td>
                 <td class="last-child">
                   <a
+                    *ngIf="IsAuditor"
                     id="editExpense"
                     class="createNewTableRecord"
                     (click)="editExpense(expense.sn)"
                   >
                     <img src="../../../assets/resources/images/editRow.png" />
                   </a>
-                  <a class="" (click)="deleteExpenseDetails(expense.sn)">
+                  <a
+                    *ngIf="IsAuditor"
+                    class=""
+                    (click)="deleteExpenseDetails(expense.sn)"
+                  >
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
                 </td>

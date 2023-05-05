@@ -70,6 +70,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { CreateSplitProductComponent } from './components/shared/split-product/create-split-product/create-split-product.component';
+import { SuperAdminComponent } from './components/shared/super-admin/super-admin.component';
+import { CreateCounterComponent } from './components/shared/header/create-counter/create-counter/create-counter.component';
+import { AssignCounterComponent } from './components/shared/header/assign-counter/assign-counter.component';
+import { CounterUserListComponent } from './components/shared/header/counter-user-list/counter-user-list.component';
+import { AssignFeatureComponent } from './components/shared/header/feature-control/assign-feature/assign-feature.component';
+import { UserFeatureListComponent } from './components/shared/header/feature-control/user-feature-list/user-feature-list.component';
 
 @NgModule({
   declarations: [
@@ -122,6 +128,12 @@ import { CreateSplitProductComponent } from './components/shared/split-product/c
     SplitProductComponent,
     MergeProductComponent,
     CreateSplitProductComponent,
+    SuperAdminComponent,
+    CreateCounterComponent,
+    AssignCounterComponent,
+    CounterUserListComponent,
+    AssignFeatureComponent,
+    UserFeatureListComponent,
   ],
   imports: [
     BrowserModule,

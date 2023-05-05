@@ -1,0 +1,195 @@
+<div class="demoContainer" style="height: 700px">
+  <div class="recordTableWrapper" style="height: 650px">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations">
+        Welcome To Super Admin Dashboard
+      </h2>
+      <div class="cboth"></div>
+    </div>
+
+    <div class="searchCreateTableDiv">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText hintText"
+            type="text"
+            search="off"
+            value="Enter CustomerPartName/MasterPartName to Search"
+          />
+          <input
+            type="image"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a href="#" class="genLink">Clear searchs</a>
+        </div>
+        <div class="fright">
+          <a (click)="logout()" href="/login">
+            <img
+              src="../../../../assets/resources/images/logout-bg.png"
+              class="logoutImage"
+            />
+            <span> logout</span>
+          </a>
+        </div>
+
+        <div class="cboth"></div>
+      </div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fleft filterListWrapper">
+            <div class="fleft">
+              <span class="italicText"></span>
+            </div>
+            <ul
+              class="fleft filtersDisplayList ProductsTableFiltersDisplayList"
+            ></ul>
+            <div class="cboth"></div>
+          </div>
+          <div class="fright configNavTableWrapper">
+            <div class="fleft tableNavDiv" id="ProductsTablePagination">
+              <a href="" class="first first-page pageNumber">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev pageNumber">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+
+              <a href="" class="next pageNumber">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page pageNumber">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
+            </div>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="ProductsRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="first-child sortable"
+                  sortDir="asc"
+                  sortCol="organization_id"
+                  id="id"
+                >
+                  Id
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                  id="name"
+                >
+                  First Name
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                  id="name"
+                >
+                  Last Name
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="customer_name"
+                  id="email"
+                >
+                  Email
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="phone"
+                >
+                  Phone
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="role"
+                >
+                  Role
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="status"
+                >
+                  Status
+                </th>
+
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="product_group_name"
+                  id="status"
+                >
+                  Assign
+                </th>
+
+                <th class="last-child">Enable/Disable</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let data of users" id="prodTable">
+              <tr>
+                <td>{{ data.userId }}</td>
+                <td>{{ data.firstName }}</td>
+                <td>{{ data.lastName }}</td>
+                <td>{{ data.email }}</td>
+                <td>{{ data.phone }}</td>
+                <td>{{ data.role }}</td>
+                <td>{{ data.roleStatus }}</td>
+
+                <td>
+                  <div class="d-flex">
+                    <input
+                      *ngIf="data.role !== 'ADMIN'"
+                      (change)="assignAdminRole(data.userId)"
+                      type="checkbox"
+                    />
+                    <label style="margin: 2px">Assign</label>
+                  </div>
+                </td>
+
+                <td class="last-child">
+                  <div class="d-flex">
+                    <input
+                      *ngIf="data.role !== 'USER'"
+                      [checked]="data.roleStatus"
+                      (change)="enableDisable(data.userId, $event)"
+                      type="checkbox"
+                    />
+                    <label style="margin: 2px">Enabled</label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div style="margin: 10px; padding-left: 700px">
+      <button type="submit" (click)="submit()" class="submit_btn border-rad">
+        OK
+      </button>
+    </div>
+  </div>
+
+  <div class="cboth"></div>
+</div>

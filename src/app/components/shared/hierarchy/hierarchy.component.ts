@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Company } from 'src/app/models/company';
 import { LoginService } from 'src/app/service/shared/login.service';
+import { RoleService } from 'src/app/service/shared/role.service';
 declare const bootstrap: any;
 
 @Component({
@@ -13,20 +14,42 @@ declare const bootstrap: any;
   encapsulation: ViewEncapsulation.None,
 })
 export class HierarchyComponent implements OnInit {
-  constructor(private loginService: LoginService) {}
+  constructor(
+    private loginService: LoginService,
+    private roleService: RoleService
+  ) {}
 
   companyName!: string;
 
   // for Role Based Rendering
   IsStaff!: boolean;
+  IsAduitor!: boolean;
 
   ngOnInit(): void {
     const data = localStorage.getItem('companyDetails');
     const parsedData = JSON.parse(data || '{}');
-    const { name } = parsedData;
+    const { name, companyId } = parsedData;
     this.companyName = name;
 
-    this.getRoleBasedRendering();
+    this.roleService
+      .getUserRoleDetailsBasedOnCompanyIdAndUserId(
+        this.loginService.getCompnayId(),
+        this.loginService.getUserId()
+      )
+      .subscribe((res) => {
+        res.data.map((role) => {
+          if (role.role === 'STAFF') {
+            this.IsStaff = false;
+          } else {
+            this.IsStaff = true;
+          }
+          if (role.role === 'AUDITOR') {
+            this.IsAduitor = false;
+          } else {
+            this.IsAduitor = true;
+          }
+        });
+      });
   }
 
   ngAfterViewInit() {
@@ -47,16 +70,14 @@ export class HierarchyComponent implements OnInit {
         }
       });
     });
-
-    this.getRoleBasedRendering();
   }
 
-  getRoleBasedRendering() {
-    const roleData = localStorage.getItem('CompanyRoles');
-    if (roleData?.includes('STAFF')) {
-      this.IsStaff = false;
-    } else {
-      this.IsStaff = true;
-    }
-  }
+  // getRoleBasedRendering() {
+  //   const roleData = localStorage.getItem('CompanyRoles');
+  //   if (roleData?.includes('STAFF')) {
+  //     this.IsStaff = false;
+  //   } else {
+  //     this.IsStaff = true;
+  //   }
+  // }
 }

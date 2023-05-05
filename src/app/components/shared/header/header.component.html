@@ -157,6 +157,11 @@
             <li>
               <a href="" class="fleft tab-3 confTab3" tab="3">Company</a>
             </li>
+            <li>
+              <a href="" class="fleft tab-4 confTab4" tab="4"
+                >User Feature Controls</a
+              >
+            </li>
           </ul>
         </div>
         <div style="min-width: 500px; width: auto" class="popupFormField">
@@ -206,29 +211,48 @@
                       <td>{{ companyName }}</td>
                       <td>
                         <div style="display: flex; padding: 2px">
-                          <input
-                            type="checkbox"
-                            id="scales"
-                            name="scales"
-                            [checked]="userconfig.companyStatus"
-                            (change)="
-                              onCheckboxChanged($event, userconfig.userId)
-                            "
-                          />
-                          <label for="scales">Enabled / </label>
-                          <a
-                            class="register_btn_addrole border-rad register-button createNewTableRecord"
-                            value="change"
-                            id="createNewAssign"
-                            (click)="
-                              addRole(
-                                userconfig.userId,
-                                userconfig.firstName,
-                                userconfig.lastName
-                              )
-                            "
-                            >Add Role</a
-                          >
+                          <div>
+                            <input
+                              type="checkbox"
+                              id="scales"
+                              name="scales"
+                              [checked]="userconfig.companyStatus"
+                              (change)="
+                                onCheckboxChanged($event, userconfig.userId)
+                              "
+                            />
+                            <label for="scales">Enabled / </label>
+                            <a
+                              class="register_btn_addrole border-rad register-button createNewTableRecord"
+                              style="
+                                color: #2868c3;
+                                font-size: 13px;
+                                text-decoration: underline;
+                              "
+                              value="change"
+                              id="createNewAssign"
+                              (click)="
+                                addRole(
+                                  userconfig.userId,
+                                  userconfig.firstName,
+                                  userconfig.lastName
+                                )
+                              "
+                              >Add Role</a
+                            >
+                            <a
+                              class="register_btn_addrole border-rad register-button createNewTableRecord"
+                              style="
+                                color: #2868c3;
+                                font-size: 13px;
+                                text-decoration: underline;
+                              "
+                              value="change"
+                              id="AssignfeatureControl"
+                              (click)="addControl(userconfig.userId)"
+                              >/Add Control
+                            </a>
+                          </div>
                         </div>
                       </td>
                     </tr>
@@ -287,6 +311,7 @@
                 </div>
               </div>
             </div>
+
             <div class="tabs-section tab-3">
               <div class="fieldDiv popUpFormSectionWrapper">
                 <div class="configListItem">
@@ -334,6 +359,14 @@
                   </table>
                 </div>
               </div>
+            </div>
+
+            <div class="tabs-section tab-4">
+              <app-user-feature-list
+                [IsTriggered]="triggerTheUserfeatureListing"
+                [headerEvent]="enableDiableFeaureTriggered"
+                (data)="enableDisableFeatureControl($event)"
+              ></app-user-feature-list>
             </div>
           </div>
         </div>
@@ -385,6 +418,12 @@
             <li>
               <a href="" class="fleft tab-2 confTab2" tab="2">Branch User</a>
             </li>
+            <li>
+              <a href="" class="fleft tab-3 confTab3" tab="3">Counter</a>
+            </li>
+            <li>
+              <a href="" class="fleft tab-4 confTab4" tab="4">Counter Users</a>
+            </li>
           </ul>
         </div>
         <div style="width: max-content; height: auto" class="popupFormField">
@@ -414,6 +453,7 @@
                       <th>Address</th>
                       <th>phone</th>
                       <th>Action</th>
+                      <th>Counter</th>
                     </tr>
                   </thead>
                   <tbody *ngFor="let branch of branch">
@@ -427,11 +467,30 @@
 
                       <td>
                         <a
-                          class="register_btn_addrole border-rad register-button createNewTableRecord"
+                          class="register_btn_addrole createNewTableRecord"
+                          style="
+                            color: #2868c3;
+                            font-size: 13px;
+                            text-decoration: underline;
+                          "
                           value="change"
                           (click)="onAssinBranchButtonClick(branch.id)"
                           id="assignNewBranch"
                           >Assign Branch</a
+                        >
+                      </td>
+                      <td>
+                        <a
+                          class="register_btn_addrole border-rad register-button createNewTableRecord"
+                          style="
+                            color: #2868c3;
+                            font-size: 13px;
+                            text-decoration: underline;
+                          "
+                          value="change"
+                          id="createNewCounter"
+                          (click)="getBranchIdForCounter(branch.id)"
+                          >Create Counter</a
                         >
                       </td>
                     </tr>
@@ -504,6 +563,82 @@
                   </table>
                 </div>
               </div>
+            </div>
+
+            <!-- Counter Tab -->
+
+            <div class="tabs-section tab-3">
+              <div class="fieldDiv popUpFormSectionWrapper">
+                <div class="configListItem">
+                  <table
+                    cellspacing="0"
+                    cellpadding="0"
+                    class="recordsTable pricingPrefTable"
+                  >
+                    <thead>
+                      <tr>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Branch Id</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let counter of counter">
+                      <tr>
+                        <td>
+                          {{ counter.id }}
+                        </td>
+                        <td>{{ counter.name }}</td>
+                        <td>{{ counter.branchId }}</td>
+                        <td>{{ counter.date | date }}</td>
+                        <td>{{ counter.status }}</td>
+                        <td>
+                          <div style="display: flex; padding: 2px">
+                            <div>
+                              <input
+                                type="checkbox"
+                                id="scales"
+                                name="scales"
+                                [checked]="counter.status"
+                                (change)="
+                                  onCounterCheckboxChanged($event, counter.id)
+                                "
+                              />
+                              <label for="scales">Enable /</label>
+                              <a
+                                (click)="
+                                  setValuesForAssignCounter(
+                                    counter.id,
+                                    counter.branchId
+                                  )
+                                "
+                                class="register_btn_addrole border-rad register-button createNewTableRecord"
+                                style="
+                                  color: #2868c3;
+                                  font-size: 13px;
+                                  text-decoration: underline;
+                                "
+                                value="change"
+                                id="AssignCounter"
+                                >Assign Counter</a
+                              >
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Counter User -->
+            <div class="tabs-section tab-4">
+              <app-counter-user-list
+                (data)="enableDisableCounterUserData($event)"
+              ></app-counter-user-list>
             </div>
           </div>
         </div>
@@ -808,7 +943,6 @@
   </div>
   <div class="popupContentWrapper">
     <form id="createProduct" [formGroup]="BranchRegistrationForm">
-      <!-- (ngSubmit)="registerBranch()" -->
       <div class="chooseColoumnsWrapper">
         <div class="fieldDiv popUpFormSectionWrapper">
           <table class="formSection" cellpadding="0" cellspacing="0">
@@ -1084,7 +1218,7 @@
           type="submit"
           value="Save"
           class="submit_btn saveButton border-rad"
-          (click)="onBranchAssignPopupSaveButtonClicked($event)"
+          (click)="onBranchAssignPopupSaveButtonClicked()"
           id=""
         />
         <input
@@ -1095,4 +1229,38 @@
       </div>
     </form>
   </div>
+</div>
+
+<div
+  class="popupWrapper PopupCloser"
+  id="createNewCounterPopup"
+  style="display: none"
+>
+  <app-create-counter
+    [branchId]="BranchIdForCounter"
+    (success)="getCounter()"
+  ></app-create-counter>
+</div>
+
+<div
+  class="popupWrapper PopupCloser"
+  id="AssignCounterPopup"
+  style="display: none"
+>
+  <app-assign-counter
+    [counterId]="counterIdForAssignCounter"
+    [branchId]="branchIdForAssignCounter"
+    (successFull)="getUsersForCounterListing()"
+  ></app-assign-counter>
+</div>
+
+<div
+  class="popupWrapper PopupCloser"
+  id="AssignfeatureControlPopup"
+  style="display: none"
+>
+  <app-assign-feature
+    [userId]="userIdForFeatureControl"
+    (ControlAssignedSuccess)="triggerTheUserFeatureList()"
+  ></app-assign-feature>
 </div>

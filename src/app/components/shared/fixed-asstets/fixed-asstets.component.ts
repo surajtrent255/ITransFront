@@ -15,6 +15,8 @@ export class FixedAsstetsComponent {
   LoggedInCompanyId!: number;
   LoggedInBranchId!: number;
 
+  IsAuditor!: boolean;
+
   FixedAssetForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     amount: new FormControl('', [Validators.required]),
@@ -35,6 +37,13 @@ export class FixedAsstetsComponent {
     this.LoggedInBranchId = this.LoginService.getBranchId();
 
     this.getFixedAssetsDetails();
+
+    let roles = localStorage.getItem('CompanyRoles');
+    if (roles?.includes('AUDITOR')) {
+      this.IsAuditor = false;
+    } else {
+      this.IsAuditor = true;
+    }
   }
 
   formatDate(timestamp: number): string {

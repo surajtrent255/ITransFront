@@ -16,6 +16,7 @@ export class EditPaymentDetailsComponent {
   postDateCheckEnable!: boolean;
   cheque!: boolean;
   Payment: Payment = new Payment();
+  datePickerEnable!: boolean;
 
   @Input() PaymentId!: number;
 
@@ -35,8 +36,13 @@ export class EditPaymentDetailsComponent {
   getPaymentDetailsById(sn: number) {
     this.paymentService.getPaymentDetailsById(sn).subscribe((res) => {
       this.Payment = res.data;
-      if (this.Payment.paymentModeId == '2') {
+      if (this.Payment.paymentModeId == 2) {
         this.cheque = true;
+      }
+      if (this.Payment.postDateCheck === 'true') {
+        this.postDateCheckEnable = true;
+      } else {
+        this.postDateCheckEnable = false;
       }
     });
   }

@@ -1,0 +1,47 @@
+<div class="fieldDiv popUpFormSectionWrapper">
+  <div class="configListItem">
+    <table
+      cellspacing="0"
+      cellpadding="0"
+      class="recordsTable pricingPrefTable"
+    >
+      <thead>
+        <tr>
+          <th>User Id</th>
+          <th>Name</th>
+          <th>User Name</th>
+          <th>User phone</th>
+          <th>Branch Id</th>
+          <th>Counter Id</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of userCounter">
+          <td>{{ data.userId }}</td>
+          <td>{{ data.firstName }} {{ data.lastName }}</td>
+          <td>{{ data.email }}</td>
+          <td>{{ data.phone }}</td>
+          <td>{{ data.branchId }}</td>
+          <td>{{ data.counterId }}</td>
+
+          <td>
+            <div style="display: flex; padding: 2px">
+              <div>
+                <input
+                  type="checkbox"
+                  [checked]="data.counterStatus"
+                  (change)="
+                    enableDisableUser($event, data.userId, data.counterId)
+                  "
+                  name="scales"
+                />
+                <label for="scales">Enable</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

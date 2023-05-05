@@ -17,6 +17,7 @@ export class ReceiptComponent {
   branchId!: number;
   postDateCheckEnable!: boolean;
   paymentMode!: PaymentMode[];
+  IsAuditor!: boolean;
 
   ReciptForm = new FormGroup({
     partyId: new FormControl('', [Validators.required]),
@@ -41,6 +42,12 @@ export class ReceiptComponent {
     this.paymentService.getPaymentModeDetails().subscribe((res) => {
       console.log(res.data);
       this.paymentMode = res.data;
+      let roles = localStorage.getItem('CompanyRoles');
+      if (roles?.includes('AUDITOR')) {
+        this.IsAuditor = false;
+      } else {
+        this.IsAuditor = true;
+      }
     });
   }
 

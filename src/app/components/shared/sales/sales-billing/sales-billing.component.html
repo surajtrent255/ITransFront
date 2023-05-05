@@ -23,7 +23,12 @@
           <a href="#" class="genLink">Clear searchs</a>
         </div>
         <div class="fright" class="createsalesBillDiv">
-          <a href="" (click)="createNewSaleBill()" class="createNewTableRecord">
+          <a
+            *ngIf="IsAuditor"
+            href=""
+            (click)="createNewSaleBill()"
+            class="createNewTableRecord"
+          >
             <img
               src="../../../../../assets/resources/images/createProduct.png "
             />
@@ -330,10 +335,13 @@
                     />
                   </a> -->
 
-                  <a routerLink="/dashboard/salesbill/{{ salesBill.id }}"
+                  <a
+                    *ngIf="IsAuditor"
+                    routerLink="/dashboard/salesbill/{{ salesBill.id }}"
                     ><i class="fa fa-info-circle" aria-hidden="true"></i
                   ></a>
                   <a
+                    *ngIf="IsAuditor"
                     href=""
                     (click)="cancelTheBill(salesBill.id)"
                     class="deleteRowLink deleteGroupCombo"

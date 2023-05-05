@@ -26,6 +26,7 @@ import { PurchaseBillDetailComponent } from './components/shared/purchase/purcha
 import { LoanComponent } from './components/shared/loan/loan.component';
 import { SplitProductComponent } from './components/shared/split-product/split-product.component';
 import { MergeProductComponent } from './components/shared/merge-product/merge-product.component';
+import { SuperAdminComponent } from './components/shared/super-admin/super-admin.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'company',
     component: SelectAndCreateCompanyComponent,
+  },
+  {
+    path: 'superAdmin',
+    component: SuperAdminComponent,
   },
 
   {
