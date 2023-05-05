@@ -4,6 +4,7 @@ export class UserConfiguration {
   email!: string;
   companyId!: number;
   userId!: number;
+  phone!: number;
   roleId!: number;
   roleStatus!: boolean;
   companyStatus!: boolean;

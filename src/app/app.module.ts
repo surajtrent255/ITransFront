@@ -66,6 +66,12 @@ import { CreateLoanComponent } from './components/shared/loan/create-loan/create
 import { EditLoanComponent } from './components/shared/loan/edit-loan/edit-loan.component';
 import { SplitProductComponent } from './components/shared/split-product/split-product.component';
 import { MergeProductComponent } from './components/shared/merge-product/merge-product.component';
+import { SuperAdminComponent } from './components/shared/super-admin/super-admin.component';
+import { CreateCounterComponent } from './components/shared/header/create-counter/create-counter/create-counter.component';
+import { AssignCounterComponent } from './components/shared/header/assign-counter/assign-counter.component';
+import { CounterUserListComponent } from './components/shared/header/counter-user-list/counter-user-list.component';
+import { AssignFeatureComponent } from './components/shared/header/feature-control/assign-feature/assign-feature.component';
+import { UserFeatureListComponent } from './components/shared/header/feature-control/user-feature-list/user-feature-list.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +122,12 @@ import { MergeProductComponent } from './components/shared/merge-product/merge-p
     EditLoanComponent,
     SplitProductComponent,
     MergeProductComponent,
+    SuperAdminComponent,
+    CreateCounterComponent,
+    AssignCounterComponent,
+    CounterUserListComponent,
+    AssignFeatureComponent,
+    UserFeatureListComponent,
   ],
   imports: [
     BrowserModule,

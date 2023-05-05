@@ -1,0 +1,48 @@
+<div class="fieldDiv popUpFormSectionWrapper">
+  <div class="configListItem">
+    <table
+      cellspacing="0"
+      cellpadding="0"
+      class="recordsTable pricingPrefTable"
+    >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>email</th>
+          <th>phone</th>
+          <th>feature</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let userControl of userFeature">
+        <tr>
+          <td>{{ userControl.firstName }} {{ userControl.lastName }}</td>
+
+          <td>{{ userControl.email }}</td>
+          <td>{{ userControl.phone }}</td>
+          <td>{{ userControl.feature }}</td>
+          <td>
+            <div style="display: flex; padding: 2px">
+              <div>
+                <input
+                  [checked]="userControl.status"
+                  (change)="
+                    onUserFeatureChange(
+                      $event,
+                      userControl.userId,
+                      userControl.featureId
+                    )
+                  "
+                  type="checkbox"
+                  id="scales"
+                  name="scales"
+                />
+                <label for="scales">Enable</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

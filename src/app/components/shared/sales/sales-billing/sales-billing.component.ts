@@ -11,37 +11,48 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-sales-billing',
   templateUrl: './sales-billing.component.html',
-  styleUrls: ['./sales-billing.component.css']
+  styleUrls: ['./sales-billing.component.css'],
 })
 export class SalesBillingComponent {
-
   activeSaleBillInvoice: boolean = false;
   activeSalesBillEntry: boolean = false;
+  IsAuditor!: boolean;
 
-  loggedUser: User = new User;
-  invoiceInfo !: SalesBillInvoice;
+  loggedUser: User = new User();
+  invoiceInfo!: SalesBillInvoice;
 
   salesBills: SalesBill[] = [];
-  customerId !: number;
+  customerId!: number;
   activeSalesBillEdit: boolean = false;
 
-  companyId !: number;
-  branchId !: number;
-  constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService, private router: Router) { }
-
+  companyId!: number;
+  branchId!: number;
+  constructor(
+    private salesBillService: SalesBillServiceService,
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    console.log("sales-billingbasecomp")
-    this.loggedUser = JSON.parse(localStorage.getItem("User")!);
+    console.log('sales-billingbasecomp');
+    this.loggedUser = JSON.parse(localStorage.getItem('User')!);
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.getSalesBillForCompanyBranch();
+    let roles = localStorage.getItem('CompanyRoles');
+    if (roles?.includes('AUDITOR')) {
+      this.IsAuditor = false;
+    } else {
+      this.IsAuditor = true;
+    }
   }
 
   getSalesBillForCompanyBranch() {
-    this.salesBillService.getAllSalesBill(this.companyId, this.branchId).subscribe(data => {
-      this.salesBills = data.data;
-    })
+    this.salesBillService
+      .getAllSalesBill(this.companyId, this.branchId)
+      .subscribe((data) => {
+        this.salesBills = data.data;
+      });
   }
   ApproveTheBill(id: number) {
     this.router.navigateByUrl(`dashboard/salesbill/create?id=${id}`);
@@ -57,7 +68,7 @@ export class SalesBillingComponent {
     this.salesBillService.cancelTheBill(id).subscribe({
       complete: () => {
         this.getSalesBillForCompanyBranch();
-      }
+      },
     });
   }
 
@@ -81,16 +92,14 @@ export class SalesBillingComponent {
   }
 
   setCustomerId($event: number) {
-    this.customerId = $event
+    this.customerId = $event;
   }
 
-
   viewSaleBillDetail(billNo: number, companyId: number) {
-    alert(companyId)
+    alert(companyId);
     this.router.navigate[`salesbill/${billNo}/${companyId}`];
   }
   saleTheProducts(saleBillDetails: SalesBillDetail[]) {
-
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -98,15 +107,15 @@ export class SalesBillingComponent {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, make sale !'
+      confirmButtonText: 'Yes, make sale !',
     }).then((result) => {
       if (result.isConfirmed) {
         continueSelling();
       }
-    })
+    });
 
     const continueSelling = () => {
-      console.log("continue selling")
+      console.log('continue selling');
       let salesBillDetailInfos = saleBillDetails;
       let amount = 0;
       let discount = 0;
@@ -118,30 +127,28 @@ export class SalesBillingComponent {
         }
       }
       let taxableAmount = amount - discount;
-      let taxAmount = 13 / 100 * taxableAmount;
+      let taxAmount = (13 / 100) * taxableAmount;
       let totalAmount = taxableAmount + taxAmount;
 
-
-      let salesBill: SalesBill = new SalesBill;
-      let salesBillMaster: SalesBillMaster = new SalesBillMaster;
+      let salesBill: SalesBill = new SalesBill();
+      let salesBillMaster: SalesBillMaster = new SalesBillMaster();
       salesBill.amount = amount;
       salesBill.discount = discount;
       salesBill.taxableAmount = taxableAmount;
       salesBill.taxAmount = taxAmount;
       salesBill.totalAmount = totalAmount;
       salesBill.customerId = this.customerId;
-      salesBill.customerName = "xyz mohit";
+      salesBill.customerName = 'xyz mohit';
       // salesBill.customerPan = this.cus
       salesBill.syncWithIrd = false;
       salesBill.enteredBy = this.loggedUser.user.email;
-      salesBill.paymentMethod = "CashInHand";
-      console.log(salesBill.customerId)
-      console.log("^^^^^^^^^^^^")
+      salesBill.paymentMethod = 'CashInHand';
+      console.log(salesBill.customerId);
+      console.log('^^^^^^^^^^^^');
       salesBill.userId = this.loggedUser.user.id;
-      salesBill.companyId = this.loginService.getCompnayId();;
+      salesBill.companyId = this.loginService.getCompnayId();
       salesBill.realTime = true;
       salesBill.billActive = true;
-
 
       salesBillMaster.salesBillDTO = salesBill;
       salesBillMaster.salesBillDetails = salesBillDetailInfos;
@@ -149,58 +156,57 @@ export class SalesBillingComponent {
         title: 'please wait ...!',
         text: 'products are being sold out !!!',
         showCancelButton: false,
-        showConfirmButton: false
-      })
-      console.log(salesBillMaster)
-      console.log("slaebillmaster above");
-      this.salesBillService.createNewSalesBill(salesBillMaster).subscribe(data => {
-        Swal.fire({
-          title: 'Produts have been sold',
-          text: 'click ok button to watch invoice',
-          icon: 'success',
-          showCancelButton: false,
-          showConfirmButton: true
-        }).then(
-          // () => {
-          //   this.salesBillService.fetchSalesBillDetailForInvoice(data.data, salesBill.companyId).subscribe(data => {
-
-          //     this.activeSalesBillEntry = false;
-          //     this.invoiceInfo = data.data;
-          //     this.activeSaleBillInvoice = true;
-
-          //   }, (error) => {
-          //     Swal.fire({
-          //       title: 'error occured',
-          //       text: 'something went wrong while creating invoice',
-          //       icon: 'error',
-          //       showCancelButton: true,
-          //       showConfirmButton: true
-          //     })
-          //   })
-          // }
-        )
-      }, (error) => {
-        Swal.fire({
-          title: 'error occured',
-          text: 'something went wrong while creating sales',
-          icon: 'error',
-          showCancelButton: true,
-          showConfirmButton: true
-        })
+        showConfirmButton: false,
       });
-    }
+      console.log(salesBillMaster);
+      console.log('slaebillmaster above');
+      this.salesBillService.createNewSalesBill(salesBillMaster).subscribe(
+        (data) => {
+          Swal.fire({
+            title: 'Produts have been sold',
+            text: 'click ok button to watch invoice',
+            icon: 'success',
+            showCancelButton: false,
+            showConfirmButton: true,
+          })
+            .then
+            // () => {
+            //   this.salesBillService.fetchSalesBillDetailForInvoice(data.data, salesBill.companyId).subscribe(data => {
+
+            //     this.activeSalesBillEntry = false;
+            //     this.invoiceInfo = data.data;
+            //     this.activeSaleBillInvoice = true;
+
+            //   }, (error) => {
+            //     Swal.fire({
+            //       title: 'error occured',
+            //       text: 'something went wrong while creating invoice',
+            //       icon: 'error',
+            //       showCancelButton: true,
+            //       showConfirmButton: true
+            //     })
+            //   })
+            // }
+            ();
+        },
+        (error) => {
+          Swal.fire({
+            title: 'error occured',
+            text: 'something went wrong while creating sales',
+            icon: 'error',
+            showCancelButton: true,
+            showConfirmButton: true,
+          });
+        }
+      );
+    };
   }
 
-
-
   createNewSaleBill() {
-    this.router.navigateByUrl("dashboard/salesbill/create")
+    this.router.navigateByUrl('dashboard/salesbill/create');
   }
 
   goForPrint(id: number) {
-    this.router.navigateByUrl(
-      `dashboard/salesbill/invoice/${id}`
-    );
+    this.router.navigateByUrl(`dashboard/salesbill/invoice/${id}`);
   }
 }
-

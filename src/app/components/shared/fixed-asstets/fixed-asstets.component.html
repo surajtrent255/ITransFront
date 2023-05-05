@@ -23,7 +23,12 @@
           <a href="#" class="genLink">Clear searchs</a>
         </div>
         <div class="fright" class="createProductDiv">
-          <a href="" id="createAssets" class="createNewTableRecord">
+          <a
+            *ngIf="IsAuditor"
+            href=""
+            id="createAssets"
+            class="createNewTableRecord"
+          >
             <img src="../../../assets/resources/images/createProduct.png" />
             <span> Create Assets</span>
           </a>
@@ -104,13 +109,18 @@
                 <td>{{ assets.status }}</td>
                 <td class="last-child">
                   <a
+                    *ngIf="IsAuditor"
                     id="editFixedAsset"
                     (click)="editFixedAsset(assets.sn)"
                     class="createNewTableRecord"
                   >
                     <img src="../../../assets/resources/images/editRow.png" />
                   </a>
-                  <a class="" (click)="deleteFixedAssetsDetails(assets.sn)">
+                  <a
+                    *ngIf="IsAuditor"
+                    class=""
+                    (click)="deleteFixedAssetsDetails(assets.sn)"
+                  >
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
                 </td>

@@ -24,6 +24,7 @@
         </div>
         <div class="fright" class="createpurchaseBillDiv">
           <a
+            *ngIf="IsAuditor"
             href=""
             (click)="createNewPurchaseBill()"
             class="createNewTableRecord"
@@ -280,7 +281,9 @@
                   }}
                 </td>
                 <td class="last-child">
-                  <a (click)="goToPurchBillDetail(purchaseBill.purchaseBillNo)"
+                  <a
+                    *ngIf="IsAuditor"
+                    (click)="goToPurchBillDetail(purchaseBill.purchaseBillNo)"
                     ><i class="fa fa-info-circle" aria-hidden="true"></i
                   ></a>
                 </td>

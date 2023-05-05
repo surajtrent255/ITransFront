@@ -22,6 +22,8 @@ export class PaymentComponent {
   dateFormatter!: DateFormatter;
   paymentIdForEdit!: number;
 
+  IsAuditor!: boolean;
+
   PaymentForm = new FormGroup({
     partyId: new FormControl('', [Validators.required]),
     amount: new FormControl('', [Validators.required]),
@@ -48,6 +50,12 @@ export class PaymentComponent {
       console.log(res.data);
       this.paymentMode = res.data;
     });
+    let roles = localStorage.getItem('CompanyRoles');
+    if (roles?.includes('AUDITOR')) {
+      this.IsAuditor = false;
+    } else {
+      this.IsAuditor = true;
+    }
   }
 
   getPaymentdetails() {
@@ -63,21 +71,20 @@ export class PaymentComponent {
     let date = new Date();
     console.log(date);
     let newdate = date.toJSON().slice(0, 10);
-    console.log(this.PaymentForm.value);
 
     this.paymentService
       .addPaymentDetails({
         sn: 0,
         companyId: this.loggedInCompanyId,
         branchId: this.loggedInBranchId,
-        partyId: this.PaymentForm.value.partyId!,
-        amount: this.PaymentForm.value.amount!,
-        paymentModeId: this.PaymentForm.value.paymentModeId!,
-        tdsDeducted: this.PaymentForm.value.Tds!,
+        partyId: Number(this.PaymentForm.value.partyId!),
+        amount: Number(this.PaymentForm.value.amount!),
+        paymentModeId: Number(this.PaymentForm.value.paymentModeId!),
+        tdsDeducted: Number(this.PaymentForm.value.Tds!),
         postDateCheck: this.PaymentForm.value.postDateCheck!,
         date: newdate,
-        postCheckDate: this.PaymentForm.value.postCheckDate!,
-        checkNo: this.PaymentForm.value.checkNo!,
+        postCheckDate: this.PaymentForm.value.postCheckDate! || '',
+        checkNo: Number(this.PaymentForm.value.checkNo!) || 0,
         status: true,
       })
       .subscribe({
@@ -106,6 +113,7 @@ export class PaymentComponent {
   }
 
   editPayment(sn: number) {
+    console.log(sn);
     this.paymentIdForEdit = sn;
   }
 

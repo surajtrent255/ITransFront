@@ -6,10 +6,13 @@ import {
   ASSIGN_COMPANY_TO_USER,
   GET_ALL_ROLES,
   GET_ALL_USER,
+  GET_ALL_USERS_FOR_SUPER_ADMIN_LISTING,
   GET_USERS_BY_COMPANYID,
   ROLE_INFO_BASED_ON_COMPANYID,
   UPDATE_USER_COMPANY_STATUS,
 } from 'src/app/constants/urls';
+import { RJResponse } from 'src/app/models/rjresponse';
+import { UserConfiguration } from 'src/app/models/user-configuration';
 
 @Injectable({
   providedIn: 'root',

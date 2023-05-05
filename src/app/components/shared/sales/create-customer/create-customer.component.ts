@@ -26,7 +26,7 @@ export class CreateCustomerComponent {
   user: User = new User();
   user_id!: number;
 
-  @Input() title !: string;
+  @Input() title!: string;
 
   @ViewChild('closeCustomer') closeCustomer!: ElementRef;
 
@@ -43,13 +43,10 @@ export class CreateCustomerComponent {
   constructor(
     private loginService: LoginService,
     private companyService: CompanyServiceService,
-    private districtAndProvinceService: DistrictAndProvinceService,
-
-  ) { }
+    private districtAndProvinceService: DistrictAndProvinceService
+  ) {}
 
   ngOnInit() {
-
-
     this.districtAndProvinceService.getAllProvince().subscribe((res) => {
       console.log(res.data);
       this.province = res.data;
@@ -57,6 +54,7 @@ export class CreateCustomerComponent {
   }
   CompanyRegistrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.email]),
     description: new FormControl(''),
     panNo: new FormControl(''),
     state: new FormControl('', [Validators.required]),
@@ -114,13 +112,14 @@ export class CreateCustomerComponent {
         {
           companyId: 0,
           name: this.CompanyRegistrationForm.value.name!,
+          email: this.CompanyRegistrationForm.value.email!,
           description: this.CompanyRegistrationForm.value.description!,
-          panNo: this.CompanyRegistrationForm.value.panNo!,
-          state: this.CompanyRegistrationForm.value.state!,
+          panNo: Number(this.CompanyRegistrationForm.value.panNo!),
+          state: Number(this.CompanyRegistrationForm.value.state!),
           district: this.CompanyRegistrationForm.value.district!,
           munVdc: this.CompanyRegistrationForm.value.munVdc!,
-          wardNo: this.CompanyRegistrationForm.value.wardNo!,
-          phone: this.CompanyRegistrationForm.value.phone!,
+          wardNo: Number(this.CompanyRegistrationForm.value.wardNo!),
+          phone: Number(this.CompanyRegistrationForm.value.phone!),
           customer: true!,
         },
         this.user_id

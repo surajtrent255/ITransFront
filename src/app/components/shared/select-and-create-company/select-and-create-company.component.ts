@@ -19,6 +19,9 @@ import { RoleService } from 'src/app/service/shared/role.service';
 import { UserConfigurationService } from 'src/app/service/shared/user-configuration.service';
 import $ from 'jquery';
 import { Roles } from 'src/app/models/Roles';
+import { FeatureControl } from 'src/app/models/Feature Control/feature-control';
+import { FeatureControlService } from 'src/app/service/shared/Feature-Control/feature-control.service';
+import { CounterService } from 'src/app/service/shared/counter/counter.service';
 
 @Component({
   selector: 'app-select-and-create-company',
@@ -42,7 +45,9 @@ export class SelectAndCreateCompanyComponent {
     private loginService: LoginService,
     private router: Router,
     private branchService: BranchService,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private featureControlService: FeatureControlService,
+    private counterService: CounterService
   ) {}
 
   ngOnInit() {
@@ -88,11 +93,40 @@ export class SelectAndCreateCompanyComponent {
             const roles = res.data.map((user) => user.role);
             localStorage.setItem('CompanyRoles', JSON.stringify(roles));
           });
-        console.log(this.roles);
+
         this.router.navigateByUrl('/dashboard/demo');
+      });
+
+    this.featureControlService
+      .getFeatureControlDetailsForLocalStorage(
+        company.companyId,
+        this.loginService.getUserId()
+      )
+      .subscribe((res) => {
+        let data = res.data.map((data) => {
+          return data.featureId;
+        });
+        localStorage.setItem('User_Features', JSON.stringify(data));
+      });
+
+    this.counterService
+      .getUserCounterDetailsForLocalStorage(
+        company.companyId,
+        this.loginService.getUserId()
+      )
+      .subscribe((res) => {
+        let data = res.data.map((counter) => {
+          return counter;
+        });
+
+        localStorage.setItem('User_Couter_Details', JSON.stringify(data));
       });
   }
   getAllCompanyDetails() {
     this.getCompanyDetails();
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 }

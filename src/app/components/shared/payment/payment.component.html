@@ -23,7 +23,12 @@
           <a href="#" class="genLink">Clear searchs</a>
         </div>
         <div class="fright" class="createProductDiv">
-          <a href="" id="createPayment" class="createNewTableRecord">
+          <a
+            *ngIf="IsAuditor"
+            href=""
+            id="createPayment"
+            class="createNewTableRecord"
+          >
             <img src="../../../assets/resources/images/createProduct.png" />
             <span> Create Payment</span>
           </a>
@@ -72,15 +77,17 @@
             <thead>
               <tr>
                 <th class="first-child sortable" sortDir="asc">Payment Id</th>
-                <th class="sortable" sortDir="asc">Company Id</th>
-                <th class="sortable" sortDir="asc">Branch Id</th>
-                <th class="sortable" sortDir="asc">Party Id</th>
-                <th class="sortable" sortDir="asc">Amount</th>
-                <th class="sortable" sortDir="asc">Payment Mode Id</th>
-                <th class="sortable" sortDir="asc">Tds Deducted</th>
-                <th class="sortable" sortDir="asc">Post Date Check</th>
-                <th class="sortable" sortDir="asc">Date</th>
-                <th class="sortable" sortDir="asc">Status</th>
+                <th>Company Id</th>
+                <th>Branch Id</th>
+                <th>Party Id</th>
+                <th>Amount</th>
+                <th>Payment Mode Id</th>
+                <th>Tds Deducted</th>
+                <th>Post Date Check</th>
+                <th>Post Check Date</th>
+                <th>Cheque No</th>
+                <th>Date</th>
+                <th>Status</th>
                 <th class="last-child">Actions</th>
               </tr>
             </thead>
@@ -98,17 +105,24 @@
                 <td>{{ Payment.paymentModeId }}</td>
                 <td>{{ Payment.tdsDeducted }}</td>
                 <td>{{ Payment.postDateCheck }}</td>
+                <td>{{ Payment.postCheckDate | date }}</td>
+                <td>{{ Payment.checkNo }}</td>
                 <td>{{ Payment.date | date }}</td>
                 <td>{{ Payment.status }}</td>
                 <td class="last-child">
                   <a
+                    *ngIf="IsAuditor"
                     id="editPayment"
                     (click)="editPayment(Payment.sn)"
                     class="createNewTableRecord"
                   >
                     <img src="../../../assets/resources/images/editRow.png" />
                   </a>
-                  <a (click)="deletePayment(Payment.sn)" class="">
+                  <a
+                    *ngIf="IsAuditor"
+                    (click)="deletePayment(Payment.sn)"
+                    class=""
+                  >
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
                 </td>
@@ -222,7 +236,7 @@
               <td class="col3"></td>
             </tr>
 
-            <tr>
+            <tr *ngIf="cheque">
               <td class="col1">Post Check Date</td>
               <div style="width: 285px; padding-left: 4px">
                 <select
@@ -239,7 +253,7 @@
               <td class="col3"></td>
             </tr>
 
-            <tr *ngIf="postDateCheckEnable">
+            <tr *ngIf="postDateCheckEnable && cheque">
               <td class="col1">Post Check Date<span class=""></span></td>
               <td class="col3">
                 <!-- <np-datepicker formControlName="NepaliDate" language="en">

@@ -24,7 +24,12 @@
           <a href="#" class="genLink">Clear searchs</a>
         </div>
         <div class="fright" class="createCategoryDiv">
-          <a href="" id="createNewCategory" class="createNewTableRecord">
+          <a
+            *ngIf="IsAuditor"
+            href=""
+            id="createNewCategory"
+            class="createNewTableRecord"
+          >
             <img src="../../../../assets/resources/images/createProduct.png" />
             <span> Create Category</span>
           </a>
@@ -223,10 +228,14 @@
                 <td>{{ cat.description }}</td>
                 <td>{{ cat.parentId }}</td>
                 <td class="last-child">
-                  <a href="" class="">
+                  <a *ngIf="IsAuditor" href="" class="">
                     <img src="../../../assets/resources/images/editRow.png" />
                   </a>
-                  <a href="" class="deleteRowLink deleteGroupCombo">
+                  <a
+                    *ngIf="IsAuditor"
+                    href=""
+                    class="deleteRowLink deleteGroupCombo"
+                  >
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
                 </td>

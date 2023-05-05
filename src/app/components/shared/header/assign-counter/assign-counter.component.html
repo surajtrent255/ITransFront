@@ -1,0 +1,98 @@
+<div class="popupHeading">
+  <h2 class="fleft">Assign Counter</h2>
+  <a href="" class="JoshiCloseButton fright"
+    ><img src="../../../assets/resources/images/removetablink.png" alt="close"
+  /></a>
+  <div class="cboth"></div>
+</div>
+<div class="popupSubHeadingDiv createProduct">
+  <h1 class="heading">Assign Counter</h1>
+</div>
+<div class="popupContentWrapper">
+  <form id="createProduct">
+    <div class="chooseColoumnsWrapper">
+      <div class="fieldDiv popUpFormSectionWrapper">
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="salesBillsRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="customer_name"
+                  style="background: darkgray"
+                >
+                  First Name
+                </th>
+                <th
+                  class="sortable"
+                  style="background: darkgray"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                >
+                  Last Name
+                </th>
+                <th
+                  class="sortable"
+                  style="background: darkgray"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                >
+                  Email
+                </th>
+                <th
+                  class="sortable"
+                  style="background: darkgray"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                >
+                  Assign
+                </th>
+              </tr>
+            </thead>
+
+            <tbody id="prodTable" *ngFor="let data of assignCounterUsers">
+              <tr *ngIf="data.userId != LoggedInUserId">
+                <td>
+                  <a> {{ data.firstName }} </a>
+                </td>
+                <td>
+                  <a> {{ data.lastName }} </a>
+                </td>
+                <td>
+                  <a>{{ data.email }} </a>
+                </td>
+                <td>
+                  <input
+                    (change)="assignCounterChange($event, data.userId)"
+                    type="checkbox"
+                  />
+                  <label for="input">Assign Counter</label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="submitDiv tCenter">
+      <input
+        type="submit"
+        (click)="onSave()"
+        value="Save"
+        class="submit_btn saveButton border-rad"
+        id=""
+      />
+      <input
+        type="button"
+        value="Cancel"
+        class="submit_btn JoshiCloseButton border-rad"
+      />
+    </div>
+  </form>
+</div>

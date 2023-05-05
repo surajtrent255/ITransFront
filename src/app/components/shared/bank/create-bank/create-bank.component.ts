@@ -8,16 +8,15 @@ import { User } from 'src/app/models/user';
 import { BankService } from 'src/app/service/shared/bank/bank.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
-
 @Component({
   selector: 'app-create-bank',
   templateUrl: './create-bank.component.html',
-  styleUrls: ['./create-bank.component.css']
+  styleUrls: ['./create-bank.component.css'],
 })
 export class CreateBankComponent {
-  companyId!: number
-  branchId!: number
-  bankName!: string
+  companyId!: number;
+  branchId!: number;
+  bankName!: string;
   accountNumber!: string;
   initialAmount!: string;
   accountType!: string;
@@ -30,48 +29,46 @@ export class CreateBankComponent {
 
   bankList: BankList[] = [];
 
-  bankObj: Bank = new Bank
+  bankObj: Bank = new Bank();
 
-
-  constructor(private bankService: BankService, private toastrService: ToastrService, private loginService: LoginService) { }
+  constructor(
+    private bankService: BankService,
+    private toastrService: ToastrService,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit() {
+    this.localStorageCompanyId = this.loginService.getCompnayId();
 
-    this.localStorageCompanyId = this.loginService.getCompnayId()
-
-    this.UserbranchId = this.loginService.getBranchId()
-    this.companyId = this.loginService.getCompnayId()
-    this.branchId = this.loginService.getBranchId()
+    this.UserbranchId = this.loginService.getBranchId();
+    this.companyId = this.loginService.getCompnayId();
+    this.branchId = this.loginService.getBranchId();
     this.getAllBank();
     this.getBankList();
     this.getAllAccountTypes();
-
-
-
   }
 
   getBankList() {
-    this.bankService.getBankList().subscribe(data => {
+    this.bankService.getBankList().subscribe((data) => {
       this.bankList = data.data;
-    })
+    });
   }
 
   getAllBank() {
-    this.bankService.getAllBanks(this.companyId, this.branchId).subscribe(res => {
-      console.log(res.data)
-      this.Bank = res.data;
-    });
-
+    this.bankService
+      .getAllBanks(this.companyId, this.branchId)
+      .subscribe((res) => {
+        console.log(res.data);
+        this.Bank = res.data;
+      });
   }
 
-  getAllBankNames() {
-
-  }
+  getAllBankNames() {}
 
   getAllAccountTypes() {
     this.bankService.getAccountTypes().subscribe((data) => {
-      this.accountTypes = data.data
-    })
+      this.accountTypes = data.data;
+    });
   }
 
   openForm() {
@@ -99,15 +96,15 @@ export class CreateBankComponent {
     this.bankObj.branchId = this.branchId;
     this.bankService.addBank(this.bankObj).subscribe({
       next: (data) => {
-        this.toastrService.success("bank is successfully added with id " + data.data)
+        this.toastrService.success(
+          'bank is successfully added with id ' + data.data
+        );
         this.getAllBank();
-
-      }, error: (err) => {
-        this.toastrService.error("something went wrong")
-      }
-    })
-
-
+      },
+      error: (err) => {
+        this.toastrService.error('something went wrong');
+      },
+    });
 
     // Hide form
     const bankForm = document.getElementById('bankForm');

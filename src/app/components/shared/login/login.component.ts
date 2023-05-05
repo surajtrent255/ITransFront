@@ -81,8 +81,19 @@ export class LoginComponent {
         email: this.loginForm.value.email!,
         password: this.loginForm.value.password!,
       })
-      .subscribe(() => {
-        this.router.navigateByUrl('company');
+      .subscribe({
+        next: () => {
+          this.loginService.userObservable.subscribe((user) => {
+            user.user.roles.forEach((role) => {
+              let data = role.role.includes('SUPER_ADMIN');
+              if (data === true) {
+                this.router.navigateByUrl('superAdmin');
+              } else {
+                this.router.navigateByUrl('company');
+              }
+            });
+          });
+        },
       });
   }
 

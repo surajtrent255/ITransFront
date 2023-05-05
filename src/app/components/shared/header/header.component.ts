@@ -1,7 +1,9 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   HostListener,
+  Output,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -22,6 +24,9 @@ import { UserConfigurationService } from 'src/app/service/shared/user-configurat
 import $ from 'jquery';
 import { Municipality } from 'src/app/models/Municipality';
 import { CommonService } from 'src/app/service/shared/common/common.service';
+import { CounterService } from 'src/app/service/shared/counter/counter.service';
+import { Counter } from 'src/app/models/counter/Counter';
+import { FeatureControlService } from 'src/app/service/shared/Feature-Control/feature-control.service';
 
 @Component({
   selector: 'app-header',
@@ -77,6 +82,29 @@ export class HeaderComponent {
   // for role based rendering
   IsAdmin!: boolean;
 
+  // counter
+  counter: Counter[] = [];
+  BranchIdForCounter!: number;
+  counterStatus!: boolean;
+  counterId!: number;
+
+  // AssignCounter
+  counterIdForAssignCounter!: number;
+  branchIdForAssignCounter!: number;
+
+  // enable/disable user from counter
+  userIdForEnableDisableCounterUser!: number;
+  counterIdForEnableDisableCounterUser!: number;
+  statusForEnableDisableCounterUser!: boolean;
+
+  // Feature Control
+  userIdForFeatureControl!: number;
+  triggerTheUserfeatureListing!: boolean;
+  SelectedUserForenableDisableFeatureControl!: number;
+  SelectedStatusForEnableDisableFeatureControl!: boolean;
+  SelectedFeatureIdForEnableDisableFeatureControl!: number;
+  enableDiableFeaureTriggered: boolean = false;
+
   BranchRegistrationForm = new FormGroup({
     BranchName: new FormControl('', [Validators.required]),
     BranchAbbvr: new FormControl('', [Validators.required]),
@@ -94,7 +122,9 @@ export class HeaderComponent {
     private loginService: LoginService,
     private branchService: BranchService,
     private districtAndProvinceService: DistrictAndProvinceService,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private counterService: CounterService,
+    private featureControlService: FeatureControlService
   ) {}
 
   @ViewChild('profile') profile!: ElementRef;
@@ -147,6 +177,7 @@ export class HeaderComponent {
 
     this.getAllBranchDetails();
 
+    // refactor
     this.getBranchUsersByCompanyId();
 
     this.getUsersByCompanyId();
@@ -159,6 +190,63 @@ export class HeaderComponent {
       console.log(res.data);
       this.province = res.data;
     });
+
+    this.getCounterDetails();
+  }
+
+  //counter
+  getCounterDetails() {
+    this.counterService
+      .getCounterDetails(this.loginService.getCompnayId())
+      .subscribe((res) => {
+        this.counter = res.data;
+      });
+  }
+
+  onCounterCheckboxChanged(e: any, id: number) {
+    this.counterStatus = e.target.checked;
+    this.counterId = id;
+  }
+
+  getBranchIdForCounter(branchId: number) {
+    this.BranchIdForCounter = branchId;
+  }
+  getCounter() {
+    this.getCounterDetails();
+  }
+
+  setValuesForAssignCounter(counterId: number, branchId: number) {
+    this.counterIdForAssignCounter = counterId;
+    this.branchIdForAssignCounter = branchId;
+  }
+
+  getUsersForCounterListing() {
+    this.counterService.getUsersForCounterListing(
+      this.loginService.getCompnayId()
+    );
+  }
+
+  enableDisableCounterUserData(e: any) {
+    this.userIdForEnableDisableCounterUser = e.userId;
+    this.counterIdForEnableDisableCounterUser = e.counterId;
+    this.statusForEnableDisableCounterUser = e.status;
+  }
+
+  //
+
+  // feature Control
+  addControl(userId: number) {
+    this.userIdForFeatureControl = userId;
+  }
+
+  triggerTheUserFeatureList() {
+    this.triggerTheUserfeatureListing = true;
+  }
+
+  enableDisableFeatureControl(e: any) {
+    this.SelectedUserForenableDisableFeatureControl = e.userId;
+    this.SelectedStatusForEnableDisableFeatureControl = e.status;
+    this.SelectedFeatureIdForEnableDisableFeatureControl = e.featureId;
   }
 
   //
@@ -172,7 +260,6 @@ export class HeaderComponent {
       .getAllUser(this.localStorageCompanyId)
       .subscribe((res) => {
         this.allUsers = res.data;
-        console.log('All Users');
         console.log(this.allUsers);
       });
   }
@@ -215,46 +302,6 @@ export class HeaderComponent {
       .subscribe((res) => {
         this.branch = res.data;
       });
-  }
-
-  get name() {
-    return this.BranchRegistrationForm.get('BranchName');
-  }
-
-  get abbvr() {
-    return this.BranchRegistrationForm.get('BranchAbbvr');
-  }
-
-  get description() {
-    return this.BranchRegistrationForm.get('BranchDescription');
-  }
-
-  get panNo() {
-    return this.BranchRegistrationForm.get('BranchPanNo');
-  }
-
-  get state() {
-    return this.BranchRegistrationForm.get('BranchState');
-  }
-
-  get zone() {
-    return this.BranchRegistrationForm.get('BranchZone');
-  }
-
-  get district() {
-    return this.BranchRegistrationForm.get('BranchDistrict');
-  }
-
-  get munVdc() {
-    return this.BranchRegistrationForm.get('BranchMunVdc');
-  }
-
-  get wardNo() {
-    return this.BranchRegistrationForm.get('BranchWardNo');
-  }
-
-  get phone() {
-    return this.BranchRegistrationForm.get('BranchPhone');
   }
 
   onCheckboxChanged(e: any, userId: number) {
@@ -400,8 +447,8 @@ export class HeaderComponent {
       this.branchUserId = userId;
     }
   }
-  onBranchAssignPopupSaveButtonClicked(e: any) {
-    if (this.branchUserId !== null && e !== null) {
+  onBranchAssignPopupSaveButtonClicked() {
+    if (this.branchUserId !== null) {
       this.branchService
         .AssignBranchToUser(
           this.branchUserId,
@@ -409,7 +456,8 @@ export class HeaderComponent {
           this.localStorageCompanyId
         )
         .subscribe({
-          next: () => {
+          next: (res) => {
+            this.getUserForAssignBranchList();
             this.getBranchUsersByCompanyId();
           },
         });
@@ -429,6 +477,31 @@ export class HeaderComponent {
   BranchConfigurationTabs() {
     if (this.BranchConfigurationTabs !== null) {
       this.getBranchUsersByCompanyId();
+    }
+    if (this.counterId) {
+      this.counterService
+        .enableDisableCounter(this.counterStatus, this.counterId)
+        .subscribe({
+          next: () => {
+            this.getCounterDetails();
+          },
+        });
+    }
+
+    if (this.userIdForEnableDisableCounterUser) {
+      this.counterService
+        .updateUserStatusInCounter(
+          this.statusForEnableDisableCounterUser,
+          this.userIdForEnableDisableCounterUser,
+          this.counterIdForEnableDisableCounterUser
+        )
+        .subscribe({
+          next: (res) => {
+            this.counterService.getUsersForCounterListing(
+              this.loginService.getCompnayId()
+            );
+          },
+        });
     }
   }
 
@@ -467,6 +540,20 @@ export class HeaderComponent {
 
     if (this.userRoleTabStatus !== null) {
       this.getUserRoleDetailsBasedOnCompanyId();
+    }
+
+    if (this.SelectedUserForenableDisableFeatureControl !== null) {
+      this.featureControlService
+        .enableDisableFeatureControlForUser(
+          this.SelectedUserForenableDisableFeatureControl,
+          this.SelectedStatusForEnableDisableFeatureControl,
+          this.SelectedFeatureIdForEnableDisableFeatureControl
+        )
+        .subscribe({
+          next: (res) => {
+            this.enableDiableFeaureTriggered = true;
+          },
+        });
     }
   }
 }

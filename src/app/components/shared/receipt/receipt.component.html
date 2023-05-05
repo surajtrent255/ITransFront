@@ -48,7 +48,12 @@
           <a href="#" class="genLink">Clear searchs</a>
         </div>
         <div class="fright" class="createProductDiv">
-          <a href="" id="createReceipt" class="createNewTableRecord">
+          <a
+            *ngIf="IsAuditor"
+            href=""
+            id="createReceipt"
+            class="createNewTableRecord"
+          >
             <img src="../../../assets/resources/images/createProduct.png" />
             <span> Create Receipt</span>
           </a>
@@ -126,10 +131,18 @@
                 <td>{{ formatDate(+receipt.date) }}</td>
                 <td>{{ receipt.status }}</td>
                 <td class="last-child">
-                  <a id="editPayment" class="createNewTableRecord">
+                  <a
+                    *ngIf="IsAuditor"
+                    id="editPayment"
+                    class="createNewTableRecord"
+                  >
                     <img src="../../../assets/resources/images/editRow.png" />
                   </a>
-                  <a (click)="deleteReceipt(receipt.sn)" class="">
+                  <a
+                    *ngIf="IsAuditor"
+                    (click)="deleteReceipt(receipt.sn)"
+                    class=""
+                  >
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
                 </td>
