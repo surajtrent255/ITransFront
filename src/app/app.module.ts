@@ -68,6 +68,7 @@ import { MergeProductComponent } from './components/shared/merge-product/merge-p
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { CreateSplitProductComponent } from './components/shared/split-product/create-split-product/create-split-product.component';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { MatInputModule } from '@angular/material/input';
     EditLoanComponent,
     SplitProductComponent,
     MergeProductComponent,
+    CreateSplitProductComponent,
   ],
   imports: [
     BrowserModule,

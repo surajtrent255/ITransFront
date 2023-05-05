@@ -15,8 +15,8 @@ const productURL = 'product';
 export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
-  addNewProduct(product: Product, splitQty:number  ): Observable<any> {
-    let url = `${BASE_URL}/${productURL}?stockqty=${splitQty}`;
+  addNewProduct(product: Product, totalQty:number  ): Observable<any> {
+    let url = `${BASE_URL}/${productURL}?stockqty=${totalQty}`;
     return this.httpClient.post(url, product);
   }
 

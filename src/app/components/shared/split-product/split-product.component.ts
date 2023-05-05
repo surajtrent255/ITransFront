@@ -81,11 +81,13 @@
     }
 
     getTheProductForSplit(id:number){
+      alert(id)
       this.enableCreateSplitComp = true;
       this.idForSplitComp = id;
 
     }
     getTheProductForMerge(id:number){
+      alert(id)
       this.enableCreateMergeComp = true;
       this.idForMergeComp = id;
 

@@ -9,6 +9,7 @@ export class SplitProduct {
     totalQty!: number;
     unit!: string;
     price!: number;
+    updatedProductId!:number;
     updatedProductName!: string;
     tax!:number;
    

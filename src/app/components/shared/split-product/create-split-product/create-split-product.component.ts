@@ -63,7 +63,7 @@ ngOnInit() {
 }
 
 ngOnChanges(){
-
+  this.getSplitProductById();
 }
 
 getSplitProductById(){
@@ -90,7 +90,7 @@ selectProductId(productName: string ) {
     this.SplitProductObj.qty=product.qtyPerUnit;
     this.createproduct.categoryId=product.categoryId;
     this.createproduct.userId=product.userId;
-
+    
     this.getallstock(product.id,product.companyId);
   }
 
@@ -109,7 +109,7 @@ getAllVatRateTypes(){
 }
 
 splitAgain(form:any){
-  alert(JSON.stringify(this.SplitProductObj));
+  // alert(JSON.stringify(this.SplitProductObj));
   this.SplitProductService.splitAgain(this.SplitProductObj).subscribe(res=>{
     
   })

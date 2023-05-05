@@ -10,6 +10,7 @@ import { SplitProduct } from 'src/app/models/SplitProduct';
   providedIn: 'root'
 })
 export class SplitProductService {
+
   
   
   
@@ -33,6 +34,18 @@ export class SplitProductService {
       })
     );
   }
+  getSplitProductById(productId:number): Observable<any> {
+    console.log(`${BASE_URL}/split/id/${productId}`);
+    return this.http.get(`${BASE_URL}`+`/split/id/${productId}`);
+  }
 
+
+  splitAgain(SplitProductObj: SplitProduct) {
+    return this.http.put(`${BASE_URL}/split/splitAgain`, SplitProductObj);
+  }
+  
+  Merge(SplitProductObj: SplitProduct) {
+    return this.http.put(`${BASE_URL}/split/merge`, SplitProductObj);
+  }
 
 }
