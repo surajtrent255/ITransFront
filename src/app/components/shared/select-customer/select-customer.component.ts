@@ -91,4 +91,6 @@ export class SelectCustomerComponent {
       this.fetchCustomerEventEmitter.emit(true);
     }
   }
+
+
 }

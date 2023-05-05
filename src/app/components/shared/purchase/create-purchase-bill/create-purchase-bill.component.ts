@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/Product';
@@ -21,6 +22,14 @@ import { SalesCartService } from 'src/app/service/shared/sales-cart-service.serv
   styleUrls: ['./create-purchase-bill.component.css'],
 })
 export class CreatePurchaseBillComponent {
+
+
+  @ViewChild('createtransportationForm') createtransportationForm !: NgForm;
+  @ViewChild('loading', { static: false }) loadingInput !: ElementRef;
+  @ViewChild('#insuranceField', { static: false }) insuranceInput !: ElementRef;
+  @ViewChild('other', { static: false }) otherInput !: ElementRef;
+  selectSenderActive: boolean = false;
+
   billNo: number = 0;
   sellerId: number | undefined = 0;
   sellerName !: string;
@@ -28,7 +37,7 @@ export class CreatePurchaseBillComponent {
   sellerPanOrPhone!: number;
   selectMenusForCompanies!: Company[];
   selectMenusForCompaniesSize !: number;
-
+  saleType: number = 1;
   currentBranch!: string;
   date!: string;
   productBarCodeId: undefined | number;
@@ -38,6 +47,11 @@ export class CreatePurchaseBillComponent {
   branchId !: number;
   productsUserWantToPurchase: Product[] = [];
   purchaseBillDetailInfos: PurchaseBillDetail[] = [];
+
+  transportation: number = 0.0;
+  insurance: number = 0.0;
+  loading: number = 0.0;
+  other: number = 0.0;
 
   constructor(
     private salesCartService: SalesCartService,
@@ -108,10 +122,7 @@ export class CreatePurchaseBillComponent {
     this.sellerId = comp.companyId;
     this.sellerName = comp.name;
     this.sellerPan = Number(comp.panNo);
-    const closePurchaserPopUpEl = document.getElementById(
-      'closePurchaserPopup'
-    ) as HTMLAnchorElement;
-    closePurchaserPopUpEl.click();
+    this.destroySelectSenderComponent(true);
   }
 
 
@@ -121,7 +132,9 @@ export class CreatePurchaseBillComponent {
       return;
       // return;
     }
-
+    this.selectSenderActive = true;
+    const selectSellerBtn = document.getElementById("selectSeller") as HTMLButtonElement;
+    selectSellerBtn.click();
 
     this.companyService
       .getCustomerInfoByPanOrPhone(
@@ -142,16 +155,39 @@ export class CreatePurchaseBillComponent {
       });
   }
 
+
   removeItemFromCart(id: number) {
     this.productsUserWantToPurchase = this.productsUserWantToPurchase.filter(
       (prod) => prod.id !== id
     );
   }
 
+  setSaleType(id: number) {
+    this.saleType = id;
 
+  }
+  goToOtherField() {
+    const insurancefiledEl = document.getElementById("other") as HTMLInputElement;
+    insurancefiledEl.focus();
+  }
+  goToLoadingField() {
+    const insurancefiledEl = document.getElementById("loading") as HTMLInputElement;
+    insurancefiledEl.focus();
+  }
+  goToInsuranceField() {
+    const insurancefiledEl = document.getElementById("insurance") as HTMLInputElement;
+    insurancefiledEl.focus();
+  }
+
+  destroySelectSenderComponent($event: boolean) {
+    this.selectSenderActive = false;
+  }
   purchaseTheProducts(draftSt: boolean) {
     console.log('above');
-
+    if (this.createtransportationForm.invalid) {
+      this.tostrService.error("please fill all the charges fields")
+      return;
+    }
     if (
       this.billNo === 0 ||
       this.billNo === undefined ||
@@ -194,6 +230,7 @@ export class CreatePurchaseBillComponent {
 
     let purchaseBill: PurchaseBill = new PurchaseBill();
     let purchaseBillMaster: PurchaseBillMaster = new PurchaseBillMaster();
+    purchaseBill.saleType = this.saleType;
     purchaseBill.amount = amount;
     purchaseBill.discount = discount;
     purchaseBill.taxableAmount = taxableAmount;
@@ -212,14 +249,21 @@ export class CreatePurchaseBillComponent {
     purchaseBill.branchId = this.branchId;
     purchaseBill.realTime = true;
     purchaseBill.billActive = true;
+
+    purchaseBill.transportation = this.transportation;
+    purchaseBill.insurance = this.insurance;
+    purchaseBill.loading = this.loading;
+    purchaseBill.other = this.other;
     purchaseBillMaster.purchaseBillDTO = purchaseBill;
     purchaseBillMaster.purchaseBillDetails = this.purchaseBillDetailInfos;
+
 
     console.log(purchaseBillMaster);
     this.purchaseBillService
       .createNewPurchaseBill(purchaseBillMaster)
       .subscribe({
         next: (data) => {
+          this.createtransportationForm.reset();
           console.log(data.data);
           this.router.navigateByUrl(
             `dashboard/purchasebills`
