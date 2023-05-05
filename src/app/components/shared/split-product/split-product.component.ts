@@ -81,13 +81,13 @@
     }
 
     getTheProductForSplit(id:number){
-      alert(id)
+      
       this.enableCreateSplitComp = true;
       this.idForSplitComp = id;
 
     }
     getTheProductForMerge(id:number){
-      alert(id)
+     
       this.enableCreateMergeComp = true;
       this.idForMergeComp = id;
 
@@ -121,7 +121,7 @@
           this.toastrService.success("product has been added with id " + data.data)
           this.updateproductId = data.data
           this.SplitProductObj.updatedProductId=this.updateproductId;
-              alert(JSON.stringify (this.SplitProductObj))
+              // alert(JSON.stringify (this.SplitProductObj))
               this.SplitProductService.addSplitProduct(this.SplitProductObj).subscribe({
                 next: (data) => {
                   // this.createProduct(data);
@@ -212,6 +212,12 @@
         this.getallstock(product.id,product.companyId);
       }
 
+    }
+    destroyCreateSplitProductComponent($event:boolean){
+      
+      if ($event)
+     
+      this.enableCreateSplitComp = false
     }
 
     resetForm() {

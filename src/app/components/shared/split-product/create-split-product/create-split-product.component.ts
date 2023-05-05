@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input,Output } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 import { SplitProduct } from 'src/app/models/SplitProduct';
 import { Unit } from 'src/app/models/Unit';
@@ -20,11 +20,13 @@ export class CreateSplitProductComponent {
 
 @Input() id !: number;
   showForm!: boolean;
-
+@Output() destroyCreatSpiltComponent=new EventEmitter<boolean>(false)
 
 
 destroyComp() {
-throw new Error('Method not implemented.');
+  
+this.destroyCreatSpiltComponent.emit(true)
+
 }
 
 Unit:Unit[]=[];
@@ -57,18 +59,19 @@ ngOnInit() {
  this.getALLUnit();
   this.getSplitProductById();
   this.getAllVatRateTypes();
-  
   console.log(this.companyId, this.branchId);
-  
+  // this.getallstock(this.SplitProductObj.productId,this.SplitProductObj.companyId);
 }
 
 ngOnChanges(){
   this.getSplitProductById();
+  // this.getallstock(this.SplitProductObj.productId,this.SplitProductObj.companyId);
 }
 
 getSplitProductById(){
   this.SplitProductService.getSplitProductById(this.id).subscribe(res=>{
     this.SplitProductObj = res.data[0];
+    this.getallstock(this.SplitProductObj.productId,this.SplitProductObj.companyId);
     // alert(JSON.stringify(this.SplitProductObj))
   })
 }
@@ -111,8 +114,14 @@ getAllVatRateTypes(){
 splitAgain(form:any){
   // alert(JSON.stringify(this.SplitProductObj));
   this.SplitProductService.splitAgain(this.SplitProductObj).subscribe(res=>{
+    // alert("stocksplitted")
+    this.toastrService.success("stock splitted")
+    console.log(this.SplitProductObj.splitQty)
     
   })
+ 
+
+
 }
 
 

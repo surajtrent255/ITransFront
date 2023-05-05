@@ -1,215 +1,197 @@
 <div class="popupHeading">
-  <h2 class="fleft">Split Product</h2>
-  <a class="closeButton fright" (click)="destroyComp()"
+  <h2 class="fleft">RE-Split Product</h2>
+  <a class="closeButton fright" id="closeEditButton" 
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
   <div class="cboth"></div>
 </div>
+<!-- {{fetchstock | json}} -->
 <div class="popupSubHeadingDiv addNewProduct">
-  <h1 class="heading">
-    You can split your product here {{ SplitProductObj.splitQty }}
-  </h1>
+  <h1 class="heading">Your can RE-Split your product Name : <h1 class="tCenter"></h1></h1>
 </div>
 <div class="popupContentWrapper">
-  <hr />
-  <div class="row mt-4">
+  <div class="row">
     <div class="col-md-12">
-      <div class="chooseColoumnsWrapper">
-        <div class="fieldDiv popUpFormSectionWrapper">
-          <div class="fright" class="createCategoryDiv">
-            <div class="popupContentWrapper">
-              <div class="form-container popupContentWrapper">
-                <form
-                  #splitproductForm="ngForm"
-                  name="splitproductForm"
-                  id="splitproductForm"
-                  (submit)="splitAgain(splitproductForm)"
-                >
-                  <div class="form-group">
-                    <div class="form-group">
-                      Product Name:<span class="mandatorySign">*</span>
-                      <input
-                        name="productName"
-                        id="productName"
-                        #productName="ngModel"
-                        readonly
-                        [(ngModel)]="SplitProductObj.productName"
-                      />
-                      
-
-                      <div
-                        *ngIf="
-                          productName.errors &&
-                          (productName.dirty || productName.touched)
-                        "
-                        class="alert alert-danger"
-                      >
-                        <div [hidden]="!productName.errors">
-                          Please input a productName.
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <!-- {{SplitProductObj| json}} -->
-                      Product ID:<span> {{ SplitProductObj.productId }}</span>
-                     
-                    </div>
-                    <div class="form-group">
-                      Spliting Ratio<span class="tCenter"> {{ SplitProductObj.qty }}</span>
-                    </div>
-                    <div class="form-group">
-                      <label for="splitQty"
-                        >Quantity Spliting
-                        <p></p
-                      ></label>
-                      <input
-                        type="number"
-                        id="splitQty"
-                        name="splitQty"
-                        #splitQty="ngModel"
-                        [(ngModel)]="SplitProductObj.splitQty"
-                        required
-                      />
-                      <div
-                        *ngIf="
-                          splitQty.errors &&
-                          (splitQty.dirty || splitQty.touched)
-                        "
-                        class="alert alert-danger"
-                      >
-                        <div [hidden]="!splitQty.errors">
-                          Please input a splitQty.
-                        </div>
-                        <div [hidden]="!splitQty.errors['max']">
-                          Please input limited qty.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="price">price :</label>
-                      <input class="tcenter"
-                        readonly
-                        type="number"
-                        id="price"
-                        name="price"
-                        #price="ngModel"
-                        [(ngModel)]="SplitProductObj.price"
-                        required
-                      />
-                      <div
-                        *ngIf="price.errors && (price.dirty || price.touched)"
-                        class="alert alert-danger"
-                      >
-                        <div [hidden]="!price.errors">
-                          Please input a price.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="updatedProductName">Splited Product Name : </label>
-                      <input
-                        readonly
-                        type="text"
-                        id="updatedProductName"
-                        name="updatedProductName"
-                        #updatedProductName="ngModel"
-                        [(ngModel)]="SplitProductObj.updatedProductName"
-                        required
-                      />
-                    </div>
-                    <div
-                      *ngIf="
-                        updatedProductName.errors &&
-                        (updatedProductName.dirty || updatedProductName.touched)
-                      "
-                      class="alert alert-danger"
-                    >
-                      <div [hidden]="!updatedProductName.errors">
-                        Please input a updatedProductName.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="totalQty">totalQty </label>
-                    <input
-                      readonly
-                      type="text"
-                      id="totalQty"
-                      name="totalQty"
-                      #totalQty="ngModel"
-                      [(ngModel)]="SplitProductObj.totalQty"
-                      required
-                    /> 
-                    <label for="totalQty">updated total : {{SplitProductObj.qty * SplitProductObj.splitQty }} </label>
-
-                  </div>
-                  <div
-                    *ngIf="
-                      totalQty.errors && (totalQty.dirty || totalQty.touched)
-                    "
-                    class="alert alert-danger"
-                  >
-                    <div [hidden]="!totalQty.errors">
-                      Please input a totalQty.
-                    </div>
-                  </div>
-                  <div>
-                    <div class="form-group">
-                      unit :<span class="mandatorySign">*</span>
-
-                      <select
-                        name="unit"
-                        id="unit"
-                        #unit="ngModel"
-                        [(ngModel)]="SplitProductObj.unit"
-                        required
-                        [disabled]="true"
-                      >
-                        <option [value]="ap.name" *ngFor="let ap of Unit">
-                          {{ ap.name }}
-                        </option>
-                      </select>
-                    </div>
-                    <div
-                      *ngIf="unit.errors && (unit.dirty || unit.touched)"
-                      class="alert alert-danger"
-                    >
-                      <div [hidden]="!unit.errors">Please select a unit.</div>
-                    </div>
-                    <div class="form-group">
-                      tax :<span class="mandatorySign">*</span>
-
-                      <select class="tCenter"
-                        [disabled]="true"
-                        name="tax"
-                        id="tax"
-                        [(ngModel)]="SplitProductObj.tax"
-                        required
-                      >
-                        <option value="" disabled selected>Select Tax</option>
-                        <ng-container *ngFor="let tax of typerate">
-                          <option [value]="tax.id">{{ tax.vatRate }}%</option>
-                        </ng-container>
-                      </select>
-                    </div>
-                    <tr>
-                      </tr>
-                  </div>
-                  <div  class="submitDiv tCenter">
-                  <button type="submit"  class="submit_btn cancel_btn border-rad ml-2 tCenter">Split again</button>
+      <!-- <app-popup class="m-4"></app-popup> -->
+      <form
+      #splitproductForm="ngForm"
+      name="splitproductForm"
+      id="splitproductForm"
+      (submit)="splitAgain(splitproductForm)"
+      >
+        <div class="chooseColoumnsWrapper">
+          <div class="fieldDiv popUpFormSectionWrapper">
+            <table class="" cellpadding="0" cellspacing="0">
+              <tr>
+                <!-- {{ SplitProductObj | json}} -->
+                <td class="col1 pt-2">
+                  Product Name:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
                   <input
-                          type="button"
-                          value="Cancel"
-                          (click)="destroyComp()"
-                          class="submit_btn cancel_btn border-rad ml-2 tCenter "
-                          /></div>
-                </form>
-              </div>
-            </div>
+                  readonly
+                   placeholder="{{ SplitProductObj.productName }}"
+                    class="form-control"
+                    id="productName"
+                    #productName="ngModel"
+                    [(ngModel)]="SplitProductObj.productName"
+                   
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  Product ID:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                  readonly
+                    type="text"
+                    placeholder="{{ SplitProductObj.productId }}"
+                    class="form-control"
+                    id="productId"
+                    #productId="ngModel"
+                    [(ngModel)]="SplitProductObj.productId"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  Spliting Ratio:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                 readonly
+                  placeholder="{{ SplitProductObj.qty }}"
+                    type="text"
+                    class="form-control"
+                    id="qty"
+                    #qty="ngModel"
+                    [(ngModel)]="SplitProductObj.qty"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  UpdatedProductName:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                 readonly
+                  placeholder="{{ SplitProductObj.updatedProductName}}"
+                    type="text"
+                    class="form-control"
+                    id="updatedProductName"
+                    #updatedProductName="ngModel"
+                    [(ngModel)]="SplitProductObj.updatedProductName"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  UpdatedProductID:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                 readonly
+                  placeholder="{{ SplitProductObj.updatedProductId}}"
+                    type="text"
+                    class="form-control"
+                    id="updatedProductId"
+                    #updatedProductId="ngModel"
+                    [(ngModel)]="SplitProductObj.updatedProductId"
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td class="col1 pt-2">
+                  splitQty :<span class="mandatorySign">* {{fetchstock.qty}}</span>
+                </td>
+                <td class="col2">
+                  <input
+                    type="number"
+                    [class.is-invalid]="splitQty.invalid && splitQty.touched"
+                    class="form-control"
+                    id="splitQty"
+                    name="splitQty"
+                    #splitQty="ngModel"
+                    [max]="fetchstock.qty"
+                    required
+                    [(ngModel)]="SplitProductObj.splitQty"
+                    required="required"
+                  />
+                 
+                </td>
+                <td class="col3">
+                  <div *ngIf="splitQty.errors && (splitQty.dirty || splitQty.touched)" class="alert alert-danger">
+                    <div [hidden]="!splitQty.errors">
+                      Please input a splitQty.
+                    </div>
+                    <div [hidden]="!splitQty.errors['max']">
+                      Please input {{fetchstock.qty}} limited  qty.
+                    </div>
+                  </div>
+                  
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  Price<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                    readonly
+                    type="text"
+                    placeholder="{{SplitProductObj.price}}"
+                    class="form-control"
+                    id="price"
+                    #price="ngModel"
+                    [(ngModel)]="SplitProductObj.price"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  Product unit:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <select
+                  class="form-control"
+                    name="unit"
+                    id="unit"
+                    #unit="ngModel"
+                    [(ngModel)]="SplitProductObj.unit"
+                    disabled="true"
+                  >
+                    <option
+                      *ngFor="let ap of Unit"
+                      [value]="ap.name"
+                    >
+                      {{ ap.name }}
+                    </option>
+                  </select>
+                </td>
+
+              </tr>
+
+
+            </table>
           </div>
         </div>
-      </div>
+        <div class="submitDiv tCenter">
+          <button type="submit"  class="submit_btn  border-rad ml-2 tCenter"  [disabled]="splitproductForm.form.invalid">Split again</button>
+         
+          <input
+          type="button"
+          value="Cancel"
+          (click)="destroyComp()"
+          class="submit_btn cancel_btn border-rad ml-2 tCenter "
+          />
+        </div>
+      </form>
     </div>
   </div>
 </div>
+
+
