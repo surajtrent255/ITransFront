@@ -198,8 +198,6 @@ export class CreateSalesComponent {
 
       }
     });
-
-
   }
 
   fetchSalesBillDraftInvoice(billId: number) {
@@ -235,6 +233,7 @@ export class CreateSalesComponent {
               this.manipulateDomItemsForDraft(
                 salesBillInvoice.salesBillDetailsWithProd
               );
+              this.updateBillSummary();
             });
           },
         });
@@ -245,20 +244,20 @@ export class CreateSalesComponent {
   manipulateDomItemsForDraft(
     salesBillDetailsWithProd: SalesBillDetailWithProdInfo[]
   ) {
-    this.productsUserWantTosale.forEach((prod) => {
+    this.productsUserWantTosale.forEach((prod, index) => {
       const qtyEl = document.getElementById(
-        `qtyProd${prod.id}`
+        `qtyProd${index}`
       ) as HTMLInputElement;
       const discountEl = document.getElementById(
-        `discountPerc${prod.id}`
+        `discountPerc${index}`
       ) as HTMLInputElement;
       const totalAmountEl = document.getElementById(
-        `totalAmount${prod.id}`
+        `totalAmount${index}`
       ) as HTMLElement;
-      const vatSelEl = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
+      const vatSelEl = document.getElementById(`vatRateTypes${index}`) as HTMLSelectElement;
 
       let salesProd: SalesBillDetailWithProdInfo =
-        salesBillDetailsWithProd.find((sp) => sp.productId === prod.id)!;
+        salesBillDetailsWithProd.find((sp, i) => i === index)!;
       // this.selectedValueForTaxRateTypes = salesProd.taxRate;
 
       vatSelEl.value = String(salesProd.taxRate);
@@ -369,8 +368,8 @@ export class CreateSalesComponent {
     this.taxApproach = Number($event.target.value);
     console.log(this.taxApproach);
 
-    this.productsUserWantTosale.forEach((prod) => {
-      this.updateTotalAmount(prod);
+    this.productsUserWantTosale.forEach((prod, index) => {
+      this.updateTotalAmount(index);
     });
     this.updateBillSummary();
   }
@@ -398,8 +397,8 @@ export class CreateSalesComponent {
           `discountPerc${prod.id}`
         ) as HTMLInputElement;
         discountInputElement.value = String(prod.discount);
-        this.productsUserWantTosale.forEach((prod) => {
-          this.updateTotalAmount(prod);
+        this.productsUserWantTosale.forEach((prod, index) => {
+          this.updateTotalAmount(index);
         })
         this.updateBillSummary();
 
@@ -446,10 +445,10 @@ export class CreateSalesComponent {
             this.productsUserWantTosale.push(data.data);
             this.productBarCodeId = undefined;
             setTimeout(() => {
-              this.productsUserWantTosale.forEach((prod) => {
+              this.productsUserWantTosale.forEach((prod, index) => {
                 this.productQtyForEntryStatus = true;
                 // this.updateTotalAmount(data.data);
-                this.updateTotalAmount(prod);
+                this.updateTotalAmount(index);
                 this.productQtyForEntryStatus = false;
                 this.productQty = 1;
               });
@@ -465,17 +464,16 @@ export class CreateSalesComponent {
       });
   }
   // advance logic for total amount updation
-  updateTotalAmount(prod: Product) {
+  updateTotalAmount(index: number) {
 
-    let prodId = prod.id;
 
     // for fetching selling price
-    let prodSellingPriceEL = document.getElementById(`prodSellingPrice${prod.id}`) as HTMLInputElement
+    let prodSellingPriceEL = document.getElementById(`prodSellingPrice${index}`) as HTMLInputElement
     let sellingPrice = Number(prodSellingPriceEL.value);
 
     // for tracking quantity
     const qtyProdElement = document.getElementById(
-      `qtyProd${prodId}`
+      `qtyProd${index}`
     ) as HTMLInputElement;
 
     if (this.productQtyForEntryStatus === true) {
@@ -485,11 +483,11 @@ export class CreateSalesComponent {
 
     // for tracking discount
     const discountPercElement = document.getElementById(
-      `discountPerc${prod.id}`
+      `discountPerc${index}`
     ) as HTMLInputElement;
     let discountPerc: number = Number(discountPercElement.value);
 
-    const varRateTypeEl = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
+    const varRateTypeEl = document.getElementById(`vatRateTypes${index}`) as HTMLSelectElement;
     let eachVatRateId: Number = Number(varRateTypeEl.value);
     let eachVatRateNum: number = 0;
     this.vatRateTypes.forEach((vrt) => {
@@ -499,7 +497,7 @@ export class CreateSalesComponent {
     })
 
     let totalAmountElement = document.getElementById(
-      `totalAmount${prod.id}`
+      `totalAmount${index}`
     ) as HTMLElement;
 
     if (this.taxApproach === 1) {
@@ -525,15 +523,15 @@ export class CreateSalesComponent {
     this.bsDiscountAmount = 0;
     this.bsBalanceDue = 0;
 
-    this.productsUserWantTosale.forEach(prod => {
+    this.productsUserWantTosale.forEach((prod, index) => {
 
-      const pTotalElement = document.getElementById(`totalAmount${prod.id}`) as HTMLElement;
+      const pTotalElement = document.getElementById(`totalAmount${index}`) as HTMLElement;
       let pTotal: number = Number(pTotalElement.innerText);
 
-      let prodSellingPriceEL = document.getElementById(`prodSellingPrice${prod.id}`) as HTMLInputElement
+      let prodSellingPriceEL = document.getElementById(`prodSellingPrice${index}`) as HTMLInputElement
       let sellingPrice = Number(prodSellingPriceEL.value);
 
-      const varRateTypeEl = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
+      const varRateTypeEl = document.getElementById(`vatRateTypes${index}`) as HTMLSelectElement;
       let eachVatRateId: Number = Number(varRateTypeEl.value);
 
       // for fetching vat rate number value from id
@@ -545,7 +543,7 @@ export class CreateSalesComponent {
       })
 
       const qtyProdElement = document.getElementById(
-        `qtyProd${prod.id}`
+        `qtyProd${index}`
       ) as HTMLInputElement;
       // if (this.productQtyForEntryStatus === true) {
       //   qtyProdElement.value = String(this.productQty);//
@@ -553,15 +551,15 @@ export class CreateSalesComponent {
       let prodQty: number = Number(qtyProdElement.value);
 
       const discountPercElement = document.getElementById(
-        `discountPerc${prod.id}`
+        `discountPerc${index}`
       ) as HTMLInputElement;
       let discountPerc: number = Number(discountPercElement.value);
 
-
+      this.bsDiscountAmount += (discountPerc / 100 * sellingPrice) * prodQty;
       if (this.taxApproach === 2) {
         // for tax exclusiveness
         this.bsSubTotal += pTotal;
-        this.bsTotal += pTotal + (eachVatRateNum / 100 * sellingPrice);//userle edit gareko sp anusar vat change hunxa.
+        this.bsTotal += pTotal + (eachVatRateNum / 100 * sellingPrice) * prodQty;//userle edit gareko sp anusar vat change hunxa.
         this.bsNetAmount += (sellingPrice - discountPerc / 100 * sellingPrice) * prodQty;
         if (eachVatRateId === 3) {//taxableamount is calculated only if vatrateid is equals to 3.
           this.bsVatTaxableAmount += (sellingPrice - discountPerc / 100 * sellingPrice) * prodQty;
@@ -587,9 +585,9 @@ export class CreateSalesComponent {
     this.bsEstimatedFRSAmount = 13 / 100 * this.bsTotal;
   }
 
-  removeItemFromCart(id: number) {
+  removeItemFromCart(i: number) {
     this.productsUserWantTosale = this.productsUserWantTosale.filter(
-      (prod) => prod.id !== id
+      (prod, index) => index !== i
     );
   }
 
@@ -609,31 +607,30 @@ export class CreateSalesComponent {
       this.tostrService.warning('please enter at least one product');
       return;
     }
-
-    this.productsUserWantTosale.forEach((prod) => {
+    this.productsUserWantTosale.forEach((prod, index) => {
       let saleBillDetail: SalesBillDetail = new SalesBillDetail();
       saleBillDetail.productId = prod.id;
       let qtyElement = document.getElementById(
-        'qtyProd' + prod.id
+        'qtyProd' + index
       ) as HTMLInputElement;
       saleBillDetail.qty = Number(qtyElement.value);
 
       const discountPercElement = document.getElementById(
-        `discountPerc${prod.id}`
+        `discountPerc${index}`
       ) as HTMLInputElement;
       let discountPerc: number = Number(discountPercElement.value);
 
       saleBillDetail.discountPerUnit = discountPerc;
 
       const totalAmountEl = document.getElementById(
-        `totalAmount${prod.id}`
+        `totalAmount${index}`
       ) as HTMLElement;
       saleBillDetail.rowTotal = Number(totalAmountEl.innerText);
       saleBillDetail.companyId = this.loginService.getCompnayId(); //backend mai set gar
 
       // for accessing tax rate type
       const vatRateTypesElement = document.getElementById(
-        `vatRateTypes${prod.id}`
+        `vatRateTypes${index}`
       ) as HTMLInputElement;
       saleBillDetail.taxRate = Number(vatRateTypesElement.value);
 
@@ -641,7 +638,7 @@ export class CreateSalesComponent {
       saleBillDetail.date = new Date(this.date); //backend ma set gar
 
       // setting sellingprice dynamically form dom because user can edit it. so we have to make it dynamic.
-      const sellingPriceEl = document.getElementById(`prodSellingPrice${prod.id}`) as HTMLInputElement;
+      const sellingPriceEl = document.getElementById(`prodSellingPrice${index}`) as HTMLInputElement;
       saleBillDetail.rate = Number(sellingPriceEl.value);
       this.salesBillDetailInfos.push(saleBillDetail);
     });

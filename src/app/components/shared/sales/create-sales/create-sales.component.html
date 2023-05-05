@@ -423,8 +423,8 @@
                       type="number"
                       value="1"
                       style="width: 50%"
-                      id="qtyProd{{ prod.id }}"
-                      (change)="updateTotalAmount(prod); updateBillSummary()"
+                      id="qtyProd{{ i }}"
+                      (change)="updateTotalAmount(i); updateBillSummary()"
                     />
                     <span *ngIf="prod.stock <= 10"
                       ><span class="badge rounded-pill bg-warning text-dark">
@@ -436,28 +436,28 @@
                   <td>
                     <input
                       class="productSellingPrice"
-                      id="prodSellingPrice{{ prod.id }}"
+                      id="prodSellingPrice{{ i }}"
                       type="number"
                       readonly
-                      (change)="updateTotalAmount(prod); updateBillSummary()"
+                      (change)="updateTotalAmount(i); updateBillSummary()"
                       value="{{ prod.sellingPrice }}"
                     />
                   </td>
                   <td>
                     <input
-                      id="discountPerc{{ prod.id }}"
+                      id="discountPerc{{ i }}"
                       type="number"
                       value="{{ prod.discount }}"
                       [readOnly]="discountReadOnly"
-                      (change)="updateTotalAmount(prod); updateBillSummary()"
+                      (change)="updateTotalAmount(i); updateBillSummary()"
                     />
                   </td>
                   <td>
                     <i class="fa fa-angle-down" aria-hidden="true">
                       <select
                         name="vattypes{{ prod.name }}"
-                        id="vatRateTypes{{ prod.id }}"
-                        (change)="updateTotalAmount(prod); updateBillSummary()"
+                        id="vatRateTypes{{ i }}"
+                        (change)="updateTotalAmount(i); updateBillSummary()"
                         readonly
                       >
                         <option
@@ -480,11 +480,11 @@
                       ></span
                     > -->
                   </td>
-                  <td id="totalAmount{{ prod.id }}">{{ prod.sellingPrice }}</td>
+                  <td id="totalAmount{{ i }}">{{ prod.sellingPrice }}</td>
                   <td style="text-align: center; vertical-align: middle">
                     <i
                       class="fa fa-remove text-danger"
-                      (click)="removeItemFromCart(prod.id)"
+                      (click)="removeItemFromCart(i)"
                     ></i>
                   </td>
                 </tr>
