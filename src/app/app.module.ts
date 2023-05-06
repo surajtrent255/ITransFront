@@ -53,7 +53,6 @@ import { CreateBankComponent } from './components/shared/bank/create-bank/create
 import { BankDepositComponent } from './components/shared/bank/bank-deposit/bank-deposit.component';
 import { BankWithdrawComponent } from './components/shared/bank/bank-withdraw/bank-withdraw.component';
 import { EditPaymentDetailsComponent } from './components/shared/payment/edit-payment-details/edit-payment-details.component';
-import { NpDatepickerModule } from 'angular-nepali-datepicker';
 import { ExpenseComponent } from './components/shared/expense/expense.component';
 import { FixedAsstetsComponent } from './components/shared/fixed-asstets/fixed-asstets.component';
 import { EditExpenseComponent } from './components/shared/expense/edit-expense/edit-expense.component';
@@ -64,8 +63,13 @@ import { SelectCategoryComponent } from './components/shared/categoryprod/select
 import { LoanComponent } from './components/shared/loan/loan.component';
 import { CreateLoanComponent } from './components/shared/loan/create-loan/create-loan.component';
 import { EditLoanComponent } from './components/shared/loan/edit-loan/edit-loan.component';
+import { SelectProductComponent } from './components/shared/select-product/select-product.component';
 import { SplitProductComponent } from './components/shared/split-product/split-product.component';
 import { MergeProductComponent } from './components/shared/merge-product/merge-product.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { CreateSplitProductComponent } from './components/shared/split-product/create-split-product/create-split-product.component';
 import { SuperAdminComponent } from './components/shared/super-admin/super-admin.component';
 import { CreateCounterComponent } from './components/shared/header/create-counter/create-counter/create-counter.component';
 import { AssignCounterComponent } from './components/shared/header/assign-counter/assign-counter.component';
@@ -120,8 +124,10 @@ import { UserFeatureListComponent } from './components/shared/header/feature-con
     LoanComponent,
     CreateLoanComponent,
     EditLoanComponent,
+    SelectProductComponent,
     SplitProductComponent,
     MergeProductComponent,
+    CreateSplitProductComponent,
     SuperAdminComponent,
     CreateCounterComponent,
     AssignCounterComponent,
@@ -149,12 +155,12 @@ import { UserFeatureListComponent } from './components/shared/header/feature-con
       positionClass: 'toast-top-center',
       newestOnTop: false,
     }),
-    NpDatepickerModule,
-    // MatSelectModule,
-    // MatOptionModule,
-    // MatInputModule,
-    // FormsModule,
-    // ReactiveFormsModule,
+
+    MatSelectModule,
+    MatOptionModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [ProductComponent],
 
@@ -163,4 +169,4 @@ import { UserFeatureListComponent } from './components/shared/header/feature-con
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

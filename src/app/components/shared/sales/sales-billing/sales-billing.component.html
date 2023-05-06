@@ -251,6 +251,7 @@
                   printedTime
                 </th>
                 <th>Status</th>
+                <th>Sale Type</th>
                 <th
                   class="sortable"
                   sortDir="asc"
@@ -321,6 +322,10 @@
                   <span *ngIf="!salesBill.status" style="color: red"
                     >CANCELED</span
                   >
+                </td>
+                <td>
+                  <span *ngIf="salesBill.saleType === 1">Cash</span>
+                  <span *ngIf="salesBill.saleType === 2"> Credit </span>
                 </td>
                 <td class="last-child">
                   <!-- <a href="" id="editSalesBill" class="createNewTableRecord">

@@ -32,7 +32,7 @@
                   Search
                 </button>
                 <button
-                  id="selectPurchaser"
+                  id="selectSeller"
                   class="createNewTableRecord"
                   style="display: none"
                 ></button>
@@ -110,14 +110,56 @@
               <input type="radio" name="discountType" value="0" ; />
               On overall basis
             </div> -->
-            <div
-              class="col-md-4"
-              style="
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-              "
-            ></div>
+            <div class="col-md-3">
+              <span class="inputItems">Date:</span>
+              <input
+                class="inputItems input-field"
+                id="date"
+                [(ngModel)]="date"
+                type="date"
+                readonly
+              />
+            </div>
+            <div class="col-md-3">
+              <div style="display: inline-block">
+                <input
+                  type="radio"
+                  style="
+                    margin-top: 8px;
+                    display: inline-block;
+                    margin-left: 3px;
+                  "
+                  name="saleType"
+                  [checked]="saleType === 1"
+                  (change)="setSaleType(1)"
+                />
+                <label
+                  style="
+                    margin-top: 8px;
+                    margin-left: 3px;
+                    display: inline-block;
+                  "
+                  >Cash sale
+                </label>
+              </div>
+              <div style="display: inline-block; margin-left: 10px">
+                <input
+                  type="radio"
+                  style="margin-top: 8px; display: inline-block"
+                  name="saleType"
+                  [checked]="saleType === 2"
+                  (change)="setSaleType(2)"
+                />
+                <label
+                  style="
+                    margin-top: 8px;
+                    margin-left: 3px;
+                    display: inline-block;
+                  "
+                  >Credit sale</label
+                >
+              </div>
+            </div>
 
             <hr />
             <div class="row">
@@ -129,6 +171,7 @@
                   <div style="display: inline-block">
                     <input
                       type="text"
+                      id="productBarCodeId"
                       class="input-field"
                       [(ngModel)]="productBarCodeId"
                       (keydown.enter)="addTheProductForPurchase()"
@@ -200,6 +243,124 @@
                   </tr>
                 </tbody>
               </table>
+              <div class="row mt-2 p-3">
+                <div class="col-md-4 offset-md-8">
+                  <div class="card">
+                    <div
+                      class="card-header text-white"
+                      style="background-color: #e3e6eb"
+                    >
+                      <h5 class="card-title mb-0 text-black">
+                        <th>Required Additional Attributes</th>
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <form
+                        #createtransportationForm="ngForm"
+                        name="createTransportation"
+                        id="createTransportationForm"
+                      >
+                        <div class="chooseColoumnsWrapper">
+                          <div class="fieldDiv popUpFormSectionWrapper">
+                            <table class="" cellpadding="0" cellspacing="1">
+                              <tr>
+                                <td class="col1 pt-2">
+                                  transportation:<span class="mandatorySign"
+                                    >*</span
+                                  >
+                                </td>
+                                <td class="col2">
+                                  <input
+                                    type="number"
+                                    [class.is-invalid]="
+                                      transportationField.invalid &&
+                                      transportationField.touched
+                                    "
+                                    class="form-control"
+                                    id="transportation"
+                                    required
+                                    name="transportation"
+                                    #transportationField="ngModel"
+                                    required="required"
+                                    [(ngModel)]="transportation"
+                                    (keydown.enter)="goToInsuranceField()"
+                                  />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="col1 pt-2">
+                                  Insurance:<span class="mandatorySign">*</span>
+                                </td>
+                                <td class="col2">
+                                  <input
+                                    type="number"
+                                    [class.is-invalid]="
+                                      insuranceField.invalid &&
+                                      insuranceField.touched
+                                    "
+                                    class="form-control"
+                                    id="insurance"
+                                    required
+                                    #insuranceField="ngModel"
+                                    name="insurance"
+                                    required="required"
+                                    [(ngModel)]="insurance"
+                                    (keydown.enter)="goToLoadingField()"
+                                  />
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td class="col1 pt-2">
+                                  loading:<span class="mandatorySign">*</span>
+                                </td>
+                                <td class="col2">
+                                  <input
+                                    [class.is-invalid]="
+                                      loadingField.invalid &&
+                                      loadingField.touched
+                                    "
+                                    type="number"
+                                    class="form-control"
+                                    id="loading"
+                                    required
+                                    #loadingField="ngModel"
+                                    name="loading"
+                                    required="required"
+                                    [(ngModel)]="loading"
+                                    (keydown.enter)="goToOtherField()"
+                                  />
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td class="col1 pt-2">
+                                  other:<span class="mandatorySign">*</span>
+                                </td>
+                                <td class="col2">
+                                  <input
+                                    type="number"
+                                    [class.is-invalid]="
+                                      otherField.invalid && otherField.touched
+                                    "
+                                    class="form-control"
+                                    id="other"
+                                    required
+                                    name="other"
+                                    #otherField="ngModel"
+                                    required="required"
+                                    [(ngModel)]="other"
+                                  />
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div style="margin-top: 20px">
               <!-- <button class="submit_btn border-rad" id="popperAlertLink">
@@ -234,137 +395,19 @@
   <!-- code end -->
   <div
     class="popupWrapper"
-    id="selectPurchaserPopup"
+    id="selectSellerPopup"
     style="display: none; width: auto"
   >
-    <div class="mb-2"></div>
-    <div class="popupHeading">
-      <h2 class="fleft">Purchasers</h2>
-      <a class="closeButton fright" id="closePurchaserPopup"
-        ><img
-          src="../../../assets/resources/images/removetablink.png"
-          alt="close"
-      /></a>
-      <div class="cboth"></div>
-    </div>
-    <div class="popupSubHeadingDiv selectPurchaser">
-      <h1 class="heading">Your can select your Purchaser here</h1>
-    </div>
-    <div class="popupContentWrapper">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="recordsTableDiv">
-            <table
-              cellspacing="0"
-              cellpadding="0"
-              class="recordsTable"
-              id="ProductsRecordsTable"
-            >
-              <thead>
-                <tr>
-                  <th>S.N</th>
-                  <th
-                    class="first-child sortable"
-                    sortDir="asc"
-                    sortCol="organization_id"
-                    id="id"
-                  >
-                    Name
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="organization_name"
-                    id="name"
-                  >
-                    PAN NO
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="Purchaser_name"
-                    id="costprice"
-                  >
-                    Phone
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="master_name"
-                    id="sellingprice"
-                  >
-                    State
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="product_group_name"
-                    id="barcode"
-                  >
-                    District
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="product_group_name"
-                    id="discount"
-                  >
-                    Mun/Vdc
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="product_group_name"
-                    id="tax"
-                  >
-                    Ward
-                  </th>
+    <app-select-customer
+      *ngIf="selectSenderActive"
+      [selectMenusForCompanies]="selectMenusForCompanies"
+      (compIdEvent)="setSellerInfo($event)"
+      (destroySelectCompEmitter)="destroySelectSenderComponent($event)"
+      (fetchCustomerEventEmitter)="fetchPurchaserInfo()"
+      [title]="'Seller'"
+    >
+    </app-select-customer>
 
-                  <th class="last-child">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="prodTable">
-                <tr
-                  class="text-center"
-                  *ngIf="selectMenusForCompaniesSize === 0"
-                >
-                  <td colspan="9">
-                    <span style="color: red">No records found !</span>
-                  </td>
-                </tr>
-                <!-- <c:forEach items="${products}" var="product">  -->
-                <tr
-                  *ngFor="
-                    let seller of selectMenusForCompanies;
-                    let index = index
-                  "
-                  id="seller_{{ seller.companyId }}"
-                >
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ seller.name }}</td>
-                  <td>{{ seller.panNo }}</td>
-                  <td>{{ seller.phone }}</td>
-                  <td>{{ seller.state }}</td>
-                  <td>{{ seller.district }}</td>
-                  <td>{{ seller.munVdc }}</td>
-                  <td>---</td>
-                  <td>
-                    <button
-                      (click)="setSellerInfo(seller.companyId)"
-                      class="submit_btn border-rad"
-                    >
-                      Select
-                    </button>
-                  </td>
-                </tr>
-                <!-- </c:forEach>	 -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- suraj -->
   </div>
-
-  <!-- suraj -->
 </div>

@@ -216,38 +216,11 @@
                 >
                   Total Amount
                 </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="purchaseBill_group_name"
-                  id="discount"
-                >
-                  Status
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="purchaseBill_group_name"
-                  id="tax"
-                >
-                  Tax
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="purchaseBill_group_name"
-                  id="tax"
-                >
-                  syncWithIrd
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="purchaseBill_group_name"
-                  id="tax"
-                >
-                  printedTime
-                </th>
+                <th>Sale Type</th>
+                <th>Transportation Charge(rs)</th>
+                <th>Insuraance Charge(rs)</th>
+                <th>Loading Charge(rs)</th>
+                <th>Other Charge(rs)</th>
                 <th
                   class="sortable"
                   sortDir="asc"
@@ -270,16 +243,24 @@
                 <td>{{ purchaseBill.fiscalYear }}</td>
                 <td>{{ purchaseBill.sellerName }}</td>
                 <td>{{ purchaseBill.taxAmount }}</td>
-                <td>{{ purchaseBill.status }}</td>
-                <td>{{ purchaseBill.taxAmount }}</td>
-                <td>{{ purchaseBill.syncWithIrd }}</td>
                 <td>
+                  <span *ngIf="purchaseBill.saleType === 1">Cash</span>
+                  <span *ngIf="purchaseBill.saleType === 2"> Credit </span>
+                </td>
+                <td>{{ purchaseBill.transportation }}</td>
+                <td>{{ purchaseBill.insurance }}</td>
+                <td>{{ purchaseBill.loading }}</td>
+                <td>{{ purchaseBill.other }}</td>
+                <!-- <td>{{ purchaseBill.status }}</td> -->
+                <!-- <td>{{ purchaseBill.taxAmount }}</td> -->
+                <!-- <td>{{ purchaseBill.syncWithIrd }}</td> -->
+                <!-- <td>
                   {{
                     purchaseBill.printedTime
                       ? (purchaseBill.printedTime | date)
                       : "not yet"
                   }}
-                </td>
+                </td> -->
                 <td class="last-child">
                   <a
                     *ngIf="IsAuditor"

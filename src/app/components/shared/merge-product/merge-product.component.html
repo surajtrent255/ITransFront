@@ -1,1 +1,215 @@
-<p>merge-product works!</p>
+<div class="popupHeading">
+    <h2 class="fleft">Split Product</h2>
+    <a class="closeButton fright" (click)="destroyComp()"
+      ><img src="../../../assets/resources/images/removetablink.png" alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv addNewProduct">
+    <h1 class="heading">
+      You can Merge your product here 
+    </h1>
+  </div>
+  <div class="popupContentWrapper">
+    <hr />
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="chooseColoumnsWrapper">
+          <div class="fieldDiv popUpFormSectionWrapper">
+            <div class="fright" class="createCategoryDiv">
+              <div class="popupContentWrapper">
+                <div class="form-container popupContentWrapper">
+                  <form
+                    #splitproductForm="ngForm"
+                    name="splitproductForm"
+                    id="splitproductForm"
+                    (submit)="Merge(splitproductForm)"
+                  >
+                    <div class="form-group">
+                      <div class="form-group">
+                        Product Name:<span class="mandatorySign">*</span>
+                        <input
+                          name="productName"
+                          id="productName"
+                          #productName="ngModel"
+                          readonly
+                          [(ngModel)]="SplitProductObj.productName"
+                        />
+                        
+  
+                        <div
+                          *ngIf="
+                            productName.errors &&
+                            (productName.dirty || productName.touched)
+                          "
+                          class="alert alert-danger"
+                        >
+                          <div [hidden]="!productName.errors">
+                            Please input a productName.
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="form-group">
+                        
+                        Product ID:<span> {{ SplitProductObj.productId }}</span>
+                      
+                      </div>
+                      <div class="form-group">
+                        Merge Ratio<span> {{ SplitProductObj.qty }}</span>
+                        </div>
+                      <div class="form-group">
+                        <label for="splitQty"
+                          >Merge Quantity
+                          <p></p
+                        ></label>
+                        <input
+                          type="number"
+                          id="splitQty"
+                          name="splitQty"
+                          #splitQty="ngModel"
+                          [(ngModel)]="SplitProductObj.splitQty"
+                          required
+                        />
+                        <label for="totalQty">parent total:<span> cant be in point</span> {{ SplitProductObj.splitQty / SplitProductObj.qty  }}</label>
+    
+                        <div
+                          *ngIf="
+                            splitQty.errors &&
+                            (splitQty.dirty || splitQty.touched)
+                          "
+                          class="alert alert-danger"
+                        >
+                          <div [hidden]="!splitQty.errors">
+                            Please input a splitQty.
+                          </div>
+                          <div [hidden]="!splitQty.errors['max']">
+                            Please input limited qty.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="price">price</label>
+                        <input
+                          readonly
+                          type="number"
+                          id="price"
+                          name="price"
+                          #price="ngModel"
+                          [(ngModel)]="SplitProductObj.price"
+                          required
+                        />
+                        <div
+                          *ngIf="price.errors && (price.dirty || price.touched)"
+                          class="alert alert-danger"
+                        >
+                          <div [hidden]="!price.errors">
+                            Please input a price.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="updatedProductName">updatedProductName</label>
+                        <input
+                          readonly
+                          type="text"
+                          id="updatedProductName"
+                          name="updatedProductName"
+                          #updatedProductName="ngModel"
+                          [(ngModel)]="SplitProductObj.updatedProductName"
+                          required
+                        />
+                      </div>
+                      <div
+                        *ngIf="
+                          updatedProductName.errors &&
+                          (updatedProductName.dirty || updatedProductName.touched)
+                        "
+                        class="alert alert-danger"
+                      >
+                        <div [hidden]="!updatedProductName.errors">
+                          Please input a updatedProductName.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="totalQty">totalQty </label>
+                      <input
+                        readonly
+                        type="text"
+                        id="totalQty"
+                        name="totalQty"
+                        #totalQty="ngModel"
+                        [(ngModel)]="SplitProductObj.totalQty"
+                        required
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        totalQty.errors && (totalQty.dirty || totalQty.touched)
+                      "
+                      class="alert alert-danger"
+                    >
+                      <div [hidden]="!totalQty.errors">
+                        Please input a totalQty.
+                      </div>
+                    </div>
+                    <div>
+                      <div class="col1 pt-2">
+                        unit :<span class="mandatorySign">*</span>
+  
+                        <select
+                          name="unit"
+                          id="unit"
+                          #unit="ngModel"
+                          [(ngModel)]="SplitProductObj.unit"
+                          required
+                          [disabled]="true"
+                        >
+                          <option [value]="ap.name" *ngFor="let ap of Unit">
+                            {{ ap.name }}
+                          </option>
+                        </select>
+                      </div>
+                      <div
+                        *ngIf="unit.errors && (unit.dirty || unit.touched)"
+                        class="alert alert-danger"
+                      >
+                        <div [hidden]="!unit.errors">Please select a unit.</div>
+                      </div>
+                      <div class="col1 pt-2">
+                        tax :<span class="mandatorySign">*</span>
+  
+                        <select
+                          [disabled]="true"
+                          name="tax"
+                          id="tax"
+                          [(ngModel)]="SplitProductObj.tax"
+                          required
+                        >
+                          <option value="" disabled selected>Select Tax</option>
+                          <ng-container *ngFor="let tax of typerate">
+                            <option [value]="tax.id">{{ tax.vatRate }}%</option>
+                          </ng-container>
+                        </select>
+                      </div>
+                    </div>
+                    <div  class="submitDiv tCenter">
+                    <button type="submit" class="submit_btn cancel_btn border-rad ml-2 tCenter">Merge</button>
+                    
+                    <input
+                          type="button"
+                          value="Cancel"
+                          (click)="destroyComp()"
+                          class="submit_btn cancel_btn border-rad ml-2 tCenter "
+                          /></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

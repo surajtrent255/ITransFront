@@ -64,3 +64,29 @@
   background-color: #b9e1dc; /* Set the background color of the option field */
   color: #333; /* Set the text color of the option field */
 }
+
+#my-select-btn:focus {
+  background-color: yellow;
+  color: black;
+}
+
+
+#select-cust-yes-btn {
+  background-color: yellow;
+  color: black;
+}
+
+.select-option {
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.select-option option {
+  background-color: #fff;
+  color: #333;
+}

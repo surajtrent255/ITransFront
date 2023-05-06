@@ -78,6 +78,10 @@ export const post_ALL_BANK = BASE_URL + '/api/v1/bank/bank';
 
 export const GET_ALL_deposite = BASE_URL + '/api/v1/bank/deposite?';
 
+export const GET_ALL_DEPOSITE = BASE_URL + '/api/v1/bank/deposite?';
+
+export const post_ALL_DEPOSITE = BASE_URL + '/api/v1/bank/deposite';
+export const GET_ALL_WITHDRAW = BASE_URL + '/api/v1/bank/withdraw';
 // For Super Admin
 export const GET_ALL_USERS_FOR_SUPER_ADMIN_LISTING =
   BASE_URL + '/api/v1/userconfig/superAdmin';

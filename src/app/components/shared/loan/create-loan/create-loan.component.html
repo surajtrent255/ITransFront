@@ -5,8 +5,8 @@
   /></a>
   <div class="cboth"></div>
 </div>
-<div class="popupSubHeadingDiv addNewProduct">
-  <h1 class="heading">Your can create your product here</h1>
+<div class="popupSubHeadingDiv addNewLoan">
+  <h1 class="heading">Your can create your Loan here</h1>
 </div>
 <div class="popupContentWrapper">
   <div class="row">
@@ -83,7 +83,8 @@
                 <td class="col1 pt-2"></td>
                 <td class="col2">
                   <div class="ml-2 mb-2 mt-2">
-                    <span>
+                    <span> search by pan or phone</span>
+                    <!-- <span>
                       <input
                         type="radio"
                         name="lenderSearch"
@@ -103,7 +104,7 @@
                         (change)="lenderSearch(2)"
                       />
                       PHONE</span
-                    >
+                    > -->
                   </div>
                 </td>
               </tr>
@@ -355,6 +356,8 @@
     *ngIf="selectCompanyActive"
     [selectMenusForCompanies]="lenders"
     (compIdEvent)="setLenderId($event)"
+    (destroySelectCompEmitter)="destroySelectLenderComponent($event)"
+    (fetchCustomerEventEmitter)="fetchLenderInfo()"
   >
   </app-select-customer>
 </div>

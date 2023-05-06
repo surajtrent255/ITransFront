@@ -5,6 +5,8 @@ import { BASE_URL } from '../constants/urls';
 import { InventoryProducts } from '../models/InventoryProducts';
 import { Product } from '../models/Product';
 import { RJResponse } from '../models/rjresponse';
+import { VatRateTypes } from '../models/VatRateTypes';
+import { Unit } from '../models/Unit';
 const productURL = 'product';
 
 @Injectable({
@@ -13,8 +15,8 @@ const productURL = 'product';
 export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
-  addNewProduct(product: Product): Observable<any> {
-    let url = `${BASE_URL}/${productURL}`;
+  addNewProduct(product: Product, totalQty:number  ): Observable<any> {
+    let url = `${BASE_URL}/${productURL}?stockqty=${totalQty}`;
     return this.httpClient.post(url, product);
   }
 
@@ -30,8 +32,13 @@ export class ProductService {
     branchId: number
   ): Observable<RJResponse<Product>> {
     let url = `${BASE_URL}/product/${id}?compId=${compId}&branchId=${branchId}`;
-    console.log(url);
     return this.httpClient.get<RJResponse<Product>>(url);
+  }
+
+  getProductByWildCardName(name: string, compId: number, branchId: number): Observable<RJResponse<Product[]>> {
+    let url = `${BASE_URL}/product/searchByWildCard?name=${name}&compId=${compId}&branchId=${branchId}`;
+    console.log(url);
+    return this.httpClient.get<RJResponse<Product[]>>(url);
   }
 
   getAllProductsForInventory(
@@ -54,5 +61,20 @@ export class ProductService {
   getProductsByProductIds(productsIds: number[]): Observable<RJResponse<Product[]>> {
     let url = `${BASE_URL}/product/getProductsByIds?productsIds=${productsIds}`;
     return this.httpClient.get<RJResponse<Product[]>>(url);
+  }
+
+ 
+  getAllVatRateTypes(): Observable<RJResponse<VatRateTypes[]>> {
+   
+    let url = `${BASE_URL}/vatRateType`;
+    // console.log("url = " + url)
+    // console.log(this.httpClient.get<RJResponse<VatRateTypes[]>>(url));
+    return this.httpClient.get<RJResponse<VatRateTypes[]>>(url);
+    
+  }
+  getAllUnit():Observable<RJResponse<Unit[]>>{
+    let url =`${BASE_URL}/unit`;
+    return this.httpClient.get<RJResponse<Unit[]>>(url);
+
   }
 }

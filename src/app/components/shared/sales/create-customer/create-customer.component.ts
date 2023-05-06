@@ -126,6 +126,7 @@ export class CreateCustomerComponent {
       )
       .subscribe(() => {
         form.reset();
+        this.closeCustomer.nativeElement.click();
         this.customerAddedSuccessMsg.emit(true);
       });
   }
