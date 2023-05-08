@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
 import { IUserRegistration } from 'src/app/interfaces/iuser-registration';
 import { Company } from 'src/app/models/company';
+import { UserFeature } from 'src/app/models/UserFeatures';
 
 const USER_KEY = 'User';
 const USER_TOKEN = 'UserToken';
@@ -124,4 +125,15 @@ export class LoginService {
     localStorage.removeItem(USER_TOKEN);
     localStorage.removeItem('CompanyRoles');
   }
+
+  getCounterId() {
+    const userCounter = JSON.parse(localStorage.getItem("User_Couter_Details")!);
+    return userCounter[0].counterId;
+  }
+
+  getFeatureObjs(): UserFeature[] {
+    const featureObjs: UserFeature[] = JSON.parse(localStorage.getItem("User_Features")!);
+    return featureObjs;
+  }
+
 }

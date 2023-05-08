@@ -23,6 +23,7 @@ import { SalesBillDetailWithProdInfo } from 'src/app/models/SalesBillDetailWithP
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { MatSelectModule } from '@angular/material/select';
+import { UserFeature } from 'src/app/models/UserFeatures';
 
 @Component({
   selector: 'app-create-sales',
@@ -80,6 +81,7 @@ export class CreateSalesComponent {
   // alertboxshowable: boolean = true;
   companyId!: number;
   branchId!: number;
+  counterId!: number;
 
   alreadyDraft: number = 0;
   taxApproachSelectEl: number = 2;
@@ -104,6 +106,8 @@ export class CreateSalesComponent {
   bsBalanceDue: number = 0;
   bsEstimatedFRSAmount: number = 0;
 
+  featureObjs: UserFeature[] = [];
+  searchByBarCode: boolean = false;
 
   constructor(
     private salesCartService: SalesCartService,
@@ -124,6 +128,13 @@ export class CreateSalesComponent {
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
+    this.counterId = this.loginService.getCounterId();
+    this.featureObjs = this.loginService.getFeatureObjs();
+    this.featureObjs.forEach(fo => {
+      if (fo.featureId === 2) {
+        this.searchByBarCode = true;
+      }
+    })
     this.currentBranch = 'Branch ' + this.branchId;
     let billId: number = this.activatedRoute.snapshot.queryParams['id'];
     if (billId > 0) {
@@ -414,7 +425,7 @@ export class CreateSalesComponent {
   }
 
   goToProductQtyField() {
-    if (this.productBarCodeId! > 0) {
+    if (this.productBarCodeId!.toString().length > 0) {
       this.prodQtyInput.nativeElement.focus();
     }
   }
@@ -436,7 +447,7 @@ export class CreateSalesComponent {
     // }
 
     this.productService
-      .getProductById(this.productBarCodeId, this.companyId, this.branchId)
+      .getProductById(this.productBarCodeId, this.companyId, this.branchId, this.searchByBarCode)
       .subscribe({
         next: (data) => {
           console.log(data.data);
@@ -675,7 +686,7 @@ export class CreateSalesComponent {
     salesBill.userId = this.loginService.currentUser.user.id;
     salesBill.companyId = this.loginService.getCompnayId();
     salesBill.branchId = this.branchId; //mjremain
-    salesBill.counterId = 1;
+    salesBill.counterId = this.counterId;
     salesBill.realTime = true;
     salesBill.billActive = true;
     salesBill.draft = draft;

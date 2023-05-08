@@ -15,7 +15,7 @@ const productURL = 'product';
 export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
-  addNewProduct(product: Product, totalQty:number  ): Observable<any> {
+  addNewProduct(product: Product, totalQty: number): Observable<any> {
     let url = `${BASE_URL}/${productURL}?stockqty=${totalQty}`;
     return this.httpClient.post(url, product);
   }
@@ -29,9 +29,10 @@ export class ProductService {
   getProductById(
     id: number,
     compId: number,
-    branchId: number
+    branchId: number,
+    searchByBarCode: boolean
   ): Observable<RJResponse<Product>> {
-    let url = `${BASE_URL}/product/${id}?compId=${compId}&branchId=${branchId}`;
+    let url = `${BASE_URL}/product/${id}?compId=${compId}&branchId=${branchId}&searchByBarCode=${searchByBarCode}`;
     return this.httpClient.get<RJResponse<Product>>(url);
   }
 
@@ -63,17 +64,17 @@ export class ProductService {
     return this.httpClient.get<RJResponse<Product[]>>(url);
   }
 
- 
+
   getAllVatRateTypes(): Observable<RJResponse<VatRateTypes[]>> {
-   
+
     let url = `${BASE_URL}/vatRateType`;
     // console.log("url = " + url)
     // console.log(this.httpClient.get<RJResponse<VatRateTypes[]>>(url));
     return this.httpClient.get<RJResponse<VatRateTypes[]>>(url);
-    
+
   }
-  getAllUnit():Observable<RJResponse<Unit[]>>{
-    let url =`${BASE_URL}/unit`;
+  getAllUnit(): Observable<RJResponse<Unit[]>> {
+    let url = `${BASE_URL}/unit`;
     return this.httpClient.get<RJResponse<Unit[]>>(url);
 
   }

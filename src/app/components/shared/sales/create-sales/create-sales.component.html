@@ -19,14 +19,16 @@
         style="margin-left: 4px"
         aria-labelledby="dropdownMenuButton"
       >
-        <ul class="ml-3">
-          <input
-            type="checkbox"
-            [checked]="allowEditSellingPrice"
-            (change)="updateAllowEditSP()"
-          />
-          <span class="ml-2">Alter Price</span>
-        </ul>
+        <span *ngFor="let feature of featureObjs">
+          <ul class="ml-3" *ngIf="feature.featureId === 1">
+            <input
+              type="checkbox"
+              [checked]="allowEditSellingPrice"
+              (change)="updateAllowEditSP()"
+            />
+            <span class="ml-2">Alter Price</span>
+          </ul>
+        </span>
       </div>
     </div>
     <div class="fright" class="createProductDiv text-end">
@@ -426,7 +428,7 @@
                       id="qtyProd{{ i }}"
                       (change)="updateTotalAmount(i); updateBillSummary()"
                     />
-                    <span> {{ prod.unit }}</span>
+                    <!-- <span> {{ prod.unit }}</span> -->
                     <span *ngIf="prod.stock <= 10"
                       ><span
                         class="badge rounded-pill bg-warning text-dark ml-1"
