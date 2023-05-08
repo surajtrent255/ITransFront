@@ -413,13 +413,14 @@
                     <td class="col2">
                       <input
                         name="splitQty"
-                        
+                        title="check your stock "
                         [(ngModel)]=" SplitProductObj.splitQty"
                         required
                         #splitQty="ngModel"
                         [class.is-invalid]="
                         splitQty.invalid && splitQty.touched
                         "
+                        min="0"
                         class="form-control"
                         id="splitQty"
                       >
@@ -432,6 +433,7 @@
                         "
                         >invalid Spliting QUANTUITY</small
                       >
+                      
                     </td>
                   </tr>
                   <tr>
@@ -440,6 +442,7 @@
                     </td>
                     <td class="col2">
                       <input
+                      title="updated price pre {{SplitProductObj.unit}}"
                         name="price"
                         
                         [(ngModel)]=" SplitProductObj.price"
@@ -468,9 +471,10 @@
                     </td>
                     <td class="col2">
                       <input
+                      title="{{SplitProductObj.productName + SplitProductObj.unit}}"
                         name="updatedProductName"
                         
-                        [(ngModel)]=" SplitProductObj.updatedProductName"
+                        [(ngModel)]=" SplitProductObj.updatedProductName "
                         required
                         #updatedProductName="ngModel"
                         [class.is-invalid]="
@@ -478,15 +482,18 @@
                         "
                         class="form-control"
                         id="updatedProductName"
+                      
                       >
+                      
                     </td>
                     <td class="col3">
+                      
                       <small
                         class="text-danger"
                         [class.d-none]="
                         updatedProductName.valid || updatedProductName.untouched
                         "
-                        >invalid updatedProductName</small
+                        >invalid updatedProductName </small
                       >
                     </td>
                   </tr>
@@ -595,7 +602,7 @@
   <div class="mb-2"></div>
 
   <app-merge-product *ngIf="enableCreateMergeComp" [id]="idForMergeComp"
-    
+  (enableMergeComp)="destroyCreateMergeProductComponent($event)"
   ></app-merge-product>
 </div>
 

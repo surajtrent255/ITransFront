@@ -81,7 +81,7 @@ getallstock(productId:number,companyId:number){
   this.StockService.getStockWithProdId(this.SplitProductObj.productId).subscribe((data)=>{
     this.fetchstock = data.data;
     // this.updatestock=this.fetchstock;
-    console.log("get stock qty atul"+JSON.stringify(this.fetchstock));
+    // console.log("get stock qty atul"+JSON.stringify(this.fetchstock));
   })
 }
   
@@ -116,7 +116,7 @@ splitAgain(form:any){
   this.SplitProductService.splitAgain(this.SplitProductObj).subscribe(res=>{
     // alert("stocksplitted")
     this.toastrService.success("stock splitted")
-    console.log(this.SplitProductObj.splitQty)
+    // console.log(this.SplitProductObj.splitQty)
     
   })
  

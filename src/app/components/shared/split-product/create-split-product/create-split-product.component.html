@@ -106,7 +106,7 @@
 
               <tr>
                 <td class="col1 pt-2">
-                  splitQty :<span class="mandatorySign">* {{fetchstock.qty}}</span>
+                  splitQty :<span class="mandatorySign">* {{fetchstock.qty - SplitProductObj.splitQty}}</span>
                 </td>
                 <td class="col2">
                   <input
@@ -117,6 +117,7 @@
                     name="splitQty"
                     #splitQty="ngModel"
                     [max]="fetchstock.qty"
+                    [min]="0"
                     required
                     [(ngModel)]="SplitProductObj.splitQty"
                     required="required"
@@ -125,11 +126,14 @@
                 </td>
                 <td class="col3">
                   <div *ngIf="splitQty.errors && (splitQty.dirty || splitQty.touched)" class="alert alert-danger">
-                    <div [hidden]="!splitQty.errors">
+                    <div [hidden]="!splitQty.errors['dirty']">
                       Please input a splitQty.
                     </div>
                     <div [hidden]="!splitQty.errors['max']">
                       Please input {{fetchstock.qty}} limited  qty.
+                    </div>
+                    <div [hidden]="!splitQty.errors['min']">
+                      Please input in range 0 to {{fetchstock.qty}}  qty.
                     </div>
                   </div>
                   

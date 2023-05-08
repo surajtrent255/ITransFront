@@ -37,6 +37,8 @@
     enableCreateMergeComp:boolean=false;
     idForMergeComp!:number;
     enableCreateSplitComp : boolean = false;
+    enableMergeComp:boolean=false;
+
     idForSplitComp !: number;
     
     constructor(
@@ -58,7 +60,11 @@
       console.log(this.companyId, this.branchId);
       
     }
-
+    ngOnChanges(){
+      // this.getSplitProductById();
+      this.getallstock(this.SplitProductObj.productId,this.SplitProductObj.companyId);
+      this.resetForm();
+    }
 
     getallstock(productId:number,companyId:number){
       // console.log("productId"+this.SplitProductObj.productId);
@@ -71,6 +77,7 @@
     getAllSplitProduct() {
       this.SplitProductService.getAllSplitProduct(this.companyId, this.branchId).subscribe((data) => {
         this.splitProducts = data.data;
+       
       });
     }
 
@@ -81,13 +88,13 @@
     }
 
     getTheProductForSplit(id:number){
-      
+      this.resetForm();
       this.enableCreateSplitComp = true;
       this.idForSplitComp = id;
 
     }
     getTheProductForMerge(id:number){
-     
+      this.resetForm();
       this.enableCreateMergeComp = true;
       this.idForMergeComp = id;
 
@@ -208,7 +215,7 @@
         this.SplitProductObj.qty=product.qtyPerUnit;
         this.createproduct.categoryId=product.categoryId;
         this.createproduct.userId=product.userId;
-        console.log("tax"+this.tax);
+        // console.log("tax"+this.tax);
         this.getallstock(product.id,product.companyId);
       }
 
@@ -219,6 +226,13 @@
      
       this.enableCreateSplitComp = false
     }
+    destroyCreateMergeProductComponent($event:boolean){
+      
+      if ($event)
+     
+      this.enableMergeComp = false
+    }
+
 
     resetForm() {
       this.SplitProductObj = new SplitProduct();
