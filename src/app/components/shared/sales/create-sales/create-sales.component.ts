@@ -128,7 +128,7 @@ export class CreateSalesComponent {
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
-    this.counterId = this.loginService.getCounterId();
+    this.counterId =1;
     this.featureObjs = this.loginService.getFeatureObjs();
     this.featureObjs.forEach(fo => {
       if (fo.featureId === 2) {
