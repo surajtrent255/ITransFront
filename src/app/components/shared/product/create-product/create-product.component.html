@@ -336,7 +336,7 @@
                     name="tax"
                     id="tax"
                     #tax="ngModel"
-                    class="form-control"
+                    style="width: 100%"
                     [(ngModel)]="product.tax"
                     required
                   >
@@ -345,6 +345,12 @@
                     </option>
                   </select>
                 </td>
+                <div
+                  *ngIf="tax.errors && (tax.dirty || tax.touched)"
+                  class="alert alert-danger"
+                >
+                  <div [hidden]="!tax.errors">Please select tax.</div>
+                </div>
 
                 <!-- <td class="col2">
                   <input
@@ -377,6 +383,7 @@
                     id="unit"
                     #unit="ngModel"
                     [(ngModel)]="product.unit"
+                    style="width: 100%"
                     required
                   >
                     <option [value]="ap.name" *ngFor="let ap of Unit">
