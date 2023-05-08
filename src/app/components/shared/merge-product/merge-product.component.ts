@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component,EventEmitter,Input,Output } from '@angular/core';
 import { MergeProduct } from 'src/app/models/MergeProduct';
 import { LoginService } from 'src/app/service/shared/login.service';
 import{MergeProductService} from'src/app/service/shared/MergeProduct/merge-product.service';
@@ -20,9 +20,10 @@ import { Stock } from 'src/app/models/Stock';
 })
 export class MergeProductComponent {
   @Input() id !: number;
-  
+  @Output() enableMergeComp=new EventEmitter<boolean>(false)
+
   destroyComp() {
-    throw new Error('Method not implemented.');
+   this.enableMergeComp.emit(true)
     }
 Unit:Unit[]=[];
 availableProducts: Product[] = [];
@@ -43,7 +44,7 @@ constructor(
   private StockService:StockService,
   ){}
 ngOnInit() {
- 
+  this.resetForm();
   this.companyId = this.loginService.getCompnayId();
   this.branchId = this.loginService.getBranchId();
   this.compId=this.loginService.getCompnayId();
@@ -51,24 +52,31 @@ ngOnInit() {
   this.getSplitProductById();
   this.getAllVatRateTypes();
   
+  
   console.log(this.companyId, this.branchId);
 
   }
  
   ngOnChanges(){
     this.getSplitProductById();
+    this.getallstock(this.SplitProductObj.updatedProductId,this.SplitProductObj.companyId);
+    
   }
 
   getSplitProductById(){
+    
     this.SplitProductService.getSplitProductById(this.id).subscribe(res=>{
       this.SplitProductObj = res.data[0];
+
+      this.getallstock(this.SplitProductObj.updatedProductId,this.SplitProductObj.companyId);
+      
       // alert(JSON.stringify(this.SplitProductObj))
     })
   }
   
   getallstock(productId:number,companyId:number){
-    // console.log("productId"+this.SplitProductObj.productId);
-    this.StockService.getStockWithProdId(this.SplitProductObj.productId).subscribe((data)=>{
+    console.log("productId"+this.SplitProductObj.updatedProductId);
+    this.StockService.getStockWithProdId(this.SplitProductObj.updatedProductId).subscribe((data)=>{
       this.fetchstock = data.data;
       // this.updatestock=this.fetchstock;
       // console.log("get stock qty atul"+JSON.stringify(this.fetchstock));
@@ -102,14 +110,24 @@ ngOnInit() {
   }
   
   Merge(form:any){
-    alert(JSON.stringify(this.SplitProductObj));
+    
+    // alert(JSON.stringify(this.SplitProductObj));
     this.SplitProductService.Merge(this.SplitProductObj).subscribe(res=>{
-      
+      this.toastrService.success("stock Mearge "  )
+      this.getallstock(this.SplitProductObj.updatedProductId,this.SplitProductObj.companyId);
     })
+   
+   
+   
     
   }
+  cancle(){
+    this.getallstock(this.SplitProductObj.updatedProductId,this.SplitProductObj.companyId);
 
-
+  }
+  resetForm() {
+    this.SplitProductObj = new SplitProduct();
+  } 
 
 
 
