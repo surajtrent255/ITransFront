@@ -35,7 +35,6 @@
                         readonly
                         [(ngModel)]="SplitProductObj.productName"
                       />
-                      
 
                       <div
                         *ngIf="
@@ -53,10 +52,11 @@
                     <div class="form-group">
                       <!-- {{SplitProductObj| json}} -->
                       Product ID:<span> {{ SplitProductObj.productId }}</span>
-                     
                     </div>
                     <div class="form-group">
-                      Spliting Ratio<span class="tCenter"> {{ SplitProductObj.qty }}</span>
+                      Spliting Ratio<span class="tCenter">
+                        {{ SplitProductObj.qty }}</span
+                      >
                     </div>
                     <div class="form-group">
                       <label for="splitQty"
@@ -88,7 +88,8 @@
                     </div>
                     <div class="form-group">
                       <label for="price">price :</label>
-                      <input class="tcenter"
+                      <input
+                        class="tcenter"
                         readonly
                         type="number"
                         id="price"
@@ -107,7 +108,9 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="updatedProductName">Splited Product Name : </label>
+                      <label for="updatedProductName"
+                        >Splited Product Name :
+                      </label>
                       <input
                         readonly
                         type="text"
@@ -140,9 +143,11 @@
                       #totalQty="ngModel"
                       [(ngModel)]="SplitProductObj.totalQty"
                       required
-                    /> 
-                    <label for="totalQty">updated total : {{SplitProductObj.qty * SplitProductObj.splitQty }} </label>
-
+                    />
+                    <label for="totalQty"
+                      >updated total :
+                      {{ SplitProductObj.qty * SplitProductObj.splitQty }}
+                    </label>
                   </div>
                   <div
                     *ngIf="
@@ -180,7 +185,8 @@
                     <div class="form-group">
                       tax :<span class="mandatorySign">*</span>
 
-                      <select class="tCenter"
+                      <select
+                        class="tCenter"
                         [disabled]="true"
                         name="tax"
                         id="tax"
@@ -193,17 +199,22 @@
                         </ng-container>
                       </select>
                     </div>
-                    <tr>
-                      </tr>
+                    <tr></tr>
                   </div>
-                  <div  class="submitDiv tCenter">
-                  <button type="submit"  class="submit_btn cancel_btn border-rad ml-2 tCenter">Split again</button>
-                  <input
-                          type="button"
-                          value="Cancel"
-                          (click)="destroyComp()"
-                          class="submit_btn cancel_btn border-rad ml-2 tCenter "
-                          /></div>
+                  <div class="submitDiv tCenter">
+                    <button
+                      type="submit"
+                      class="submit_btn cancel_btn border-rad ml-2 tCenter"
+                    >
+                      Split again
+                    </button>
+                    <input
+                      type="button"
+                      value="Cancel"
+                      (click)="destroyComp()"
+                      class="submit_btn cancel_btn border-rad ml-2 tCenter"
+                    />
+                  </div>
                 </form>
               </div>
             </div>

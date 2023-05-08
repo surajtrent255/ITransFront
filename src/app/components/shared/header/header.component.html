@@ -1,4 +1,4 @@
-<script src="../../../../assets/resources/js/main.js"></script>
+<!-- <script src="../../../../assets/resources/js/main.js"></script> -->
 <div id="headerWrapper" class="headerWrapper">
   <div class="logoutDiv">
     <div class="fright" style="padding-right: 17px">
@@ -637,6 +637,7 @@
             <!-- Counter User -->
             <div class="tabs-section tab-4">
               <app-counter-user-list
+                [reloadList]="triggerCounterList"
                 (data)="enableDisableCounterUserData($event)"
               ></app-counter-user-list>
             </div>

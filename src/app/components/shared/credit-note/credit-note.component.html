@@ -1,0 +1,63 @@
+<div class="contentRecordsTableContainer MainContainer" style="height: 650px">
+  <div class="recordTableWrapper" style="height: auto">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations">
+        Credit Note Details
+      </h2>
+      <div class="cboth"></div>
+    </div>
+    <div class="searchCreateTableDiv" style="height: 600px">
+      <section>
+        <div>
+          <p>
+            S N:
+            <input type="number" value="10" disabled class="inputText" />
+          </p>
+          <p style="text-align: right">Date: [Enter Date]</p>
+        </div>
+        <div>
+          <h2 style="font-size: 16px">Bill To:</h2>
+          <p>Customer Name: <input type="text" value="Nabin" disabled /></p>
+          <p>
+            Customer Address: <input type="text" disabled value="Baneshwor" />
+          </p>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="ProductsRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Product Name</th>
+                <th>Credit Reason</th>
+                <th>QTY</th>
+                <th>Discount</th>
+                <th>Credit Amount</th>
+                <th>Tax Amount</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <td><input type="checkbox" /></td>
+              <td>Electronic</td>
+              <td><input type="number" class="inputText" /></td>
+              <td>Discount</td>
+              <td>cr AMt</td>
+              <td>Total Tax</td>
+              <td>Total</td>
+            </tbody>
+          </table>
+        </div>
+        <div class="subtotal">Subtotal: [Enter Subtotal Amount]</div>
+        <p style="text-align: right">Tax: [Enter Tax Amount]</p>
+        <p style="text-align: right">Shipping: [Enter Shipping Amount]</p>
+        <p style="text-align: right">Discount: [Enter Discount Amount]</p>
+        <div class="total">Total: [Enter Total Amount]</div>
+      </section>
+    </div>
+  </div>
+</div>

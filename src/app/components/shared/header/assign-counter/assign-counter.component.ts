@@ -19,6 +19,7 @@ export class AssignCounterComponent {
   SelectedUserForAssignCounter!: number;
 
   BranchId!: number;
+  companyId!: number;
 
   constructor(
     private counterService: CounterService,
@@ -27,6 +28,7 @@ export class AssignCounterComponent {
 
   ngOnInit() {
     this.LoggedInUserId = this.loginService.getUserId();
+    this.companyId = this.loginService.getCompnayId();
   }
 
   ngOnChanges() {
@@ -65,6 +67,7 @@ export class AssignCounterComponent {
           this.getUsersForAssignCounter();
           this.successFull.emit(true);
         },
+        complete() {},
       });
   }
 }

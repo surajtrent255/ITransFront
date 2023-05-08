@@ -12,6 +12,8 @@ import { LoginService } from 'src/app/service/shared/login.service';
 export class CounterUserListComponent {
   userCounter!: UserCounter[];
 
+  @Input() reloadList!: boolean;
+
   @Output() data = new EventEmitter<{
     userId: number;
     counterId: number;
@@ -33,6 +35,12 @@ export class CounterUserListComponent {
       .subscribe((res) => {
         this.userCounter = res.data;
       });
+  }
+
+  ngOnChanges() {
+    if (this.reloadList === true) {
+      this.getAllUsersForCounterListing();
+    }
   }
 
   enableDisableUser(e: any, userId: number, counterId: number) {
