@@ -27,6 +27,7 @@
           <a
             *ngIf="IsAuditor"
             href=""
+            (click)="enableCreateCategory()"
             id="createNewCategory"
             class="createNewTableRecord"
           >
@@ -253,6 +254,7 @@
       <app-createcategory
         *ngIf="createCategoryShow"
         (categorySuccessInfoEvent)="createNewCategory($event)"
+        (disbaleShowCreateCategory)="disableCreateCategoryComp($event)"
       ></app-createcategory>
     </div>
 

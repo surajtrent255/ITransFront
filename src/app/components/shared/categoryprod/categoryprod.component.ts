@@ -18,12 +18,12 @@ export class CategoryprodComponent {
 
   IsAuditor!: boolean;
 
-  createCategoryShow: boolean = true;
+  createCategoryShow: boolean = false;
   constructor(
     private categoryProductService: CategoryProductService,
     private loginService: LoginService,
     private renderer: Renderer2
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
@@ -64,7 +64,17 @@ export class CategoryprodComponent {
   createNewCategory($event: boolean) {
     if (($event = true)) {
       this.fetchAllCategories();
-      this.createCategoryShow = true;
+      this.createCategoryShow = false;
+    }
+  }
+
+  enableCreateCategory() {
+    this.createCategoryShow = true;
+  }
+
+  disableCreateCategoryComp($event: boolean) {
+    if ($event === true) {
+      this.createCategoryShow = false;
     }
   }
 }

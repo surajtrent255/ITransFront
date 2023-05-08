@@ -18,3 +18,60 @@ input[type="text"] {
 div {
   vertical-align: middle;
 }
+/* #createSplit:hover::after {
+    content: " REsplit";
+    position: fixed;
+    transform: translate(-50%, -50%);
+    color: rgb(10, 216, 24);
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  #createMerge:hover::after {
+    content: " Merge";
+    position: fixed;
+    transform: translate(-50%, -50%);
+    color: rgb(4, 4, 5);
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+  } */
+/* #createMerge {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(237, 238, 244);
+    background-color: rgba(10, 240, 40, 0.5);
+    padding: 5px 10px;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 0 0 50% 50%;
+    text-align: center;
+    width: 150px;
+    height: 75px;
+    line-height: 75px;
+    cursor: pointer;
+  }
+
+  #createMerge::before {
+    content: attr(title);
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1;
+  }
+
+  #createMerge:hover::before {
+    opacity: 1;
+    visibility: visible;
+  } */

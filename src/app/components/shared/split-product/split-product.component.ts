@@ -37,6 +37,8 @@
     enableCreateMergeComp:boolean=false;
     idForMergeComp!:number;
     enableCreateSplitComp : boolean = false;
+    enableMergeComp:boolean=false;
+
     idForSplitComp !: number;
     
     constructor(
@@ -58,7 +60,11 @@
       console.log(this.companyId, this.branchId);
       
     }
-
+    ngOnChanges(){
+      // this.getSplitProductById();
+      this.getallstock(this.SplitProductObj.productId,this.SplitProductObj.companyId);
+      this.resetForm();
+    }
 
     getallstock(productId:number,companyId:number){
       // console.log("productId"+this.SplitProductObj.productId);
@@ -71,6 +77,7 @@
     getAllSplitProduct() {
       this.SplitProductService.getAllSplitProduct(this.companyId, this.branchId).subscribe((data) => {
         this.splitProducts = data.data;
+       
       });
     }
 
@@ -81,13 +88,13 @@
     }
 
     getTheProductForSplit(id:number){
-      alert(id)
+      this.resetForm();
       this.enableCreateSplitComp = true;
       this.idForSplitComp = id;
 
     }
     getTheProductForMerge(id:number){
-      alert(id)
+      this.resetForm();
       this.enableCreateMergeComp = true;
       this.idForMergeComp = id;
 
@@ -121,7 +128,7 @@
           this.toastrService.success("product has been added with id " + data.data)
           this.updateproductId = data.data
           this.SplitProductObj.updatedProductId=this.updateproductId;
-              alert(JSON.stringify (this.SplitProductObj))
+              // alert(JSON.stringify (this.SplitProductObj))
               this.SplitProductService.addSplitProduct(this.SplitProductObj).subscribe({
                 next: (data) => {
                   // this.createProduct(data);
@@ -208,11 +215,24 @@
         this.SplitProductObj.qty=product.qtyPerUnit;
         this.createproduct.categoryId=product.categoryId;
         this.createproduct.userId=product.userId;
-        console.log("tax"+this.tax);
+        // console.log("tax"+this.tax);
         this.getallstock(product.id,product.companyId);
       }
 
     }
+    destroyCreateSplitProductComponent($event:boolean){
+      
+      if ($event)
+     
+      this.enableCreateSplitComp = false
+    }
+    destroyCreateMergeProductComponent($event:boolean){
+      
+      if ($event)
+     
+      this.enableMergeComp = false
+    }
+
 
     resetForm() {
       this.SplitProductObj = new SplitProduct();

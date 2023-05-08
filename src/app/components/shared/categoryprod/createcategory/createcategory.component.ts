@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CreatecategoryComponent {
   @Output() categorySuccessInfoEvent = new EventEmitter<boolean>();
+  @Output() disbaleShowCreateCategory = new EventEmitter<boolean>(false);
   categoryProd: CategoryProduct = new CategoryProduct();
   categoriesData: CategoryProduct[] = [];
 
@@ -60,10 +61,14 @@ export class CreatecategoryComponent {
   }
 
   createCategoryProd(createCategoryProdForm: any) {
+
     this.categoryProd.companyId = this.companyId;
     this.categoryProd.branchId = this.branchId;
     this.categoryProd.parentId = this.selectedCategory.id;
+    this.selectedCategory = new CategoryProduct;
     this.categoryProd.userId = this.loginService.currentUser.user.id;
+    this.selectCategoryService.resetSelectedCategoryForCatCreation();
+
     this.categoryProductService.addNewCategory(this.categoryProd).subscribe({
       next: (data: RJResponse<number>) => {
         createCategoryProdForm.reset();
@@ -89,11 +94,13 @@ export class CreatecategoryComponent {
   selectTheCategory($event: number) {
     // this.catSelected = true;
     // this.selectedCategory = $event;
-    alert("createcat" + JSON.stringify($event))
     this.categoryProd.parentId = $event;
   }
 
   destroyComp() {
     this.catSelected = false;
+    this.disbaleShowCreateCategory.emit(true)
+    this.selectCategoryService.resetSelectedCategoryForCatCreation();
+
   }
 }

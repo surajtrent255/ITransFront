@@ -12,7 +12,7 @@ import { UserConfiguration } from 'src/app/models/user-configuration';
   providedIn: 'root',
 })
 export class CounterService {
-  constructor(private http: HttpClient, private toastrService: ToastrService) {}
+  constructor(private http: HttpClient, private toastrService: ToastrService) { }
 
   getCounterDetails(companyId): Observable<RJResponse<Counter[]>> {
     return this.http.get<RJResponse<Counter[]>>(
@@ -104,4 +104,5 @@ export class CounterService {
       `${COUNTER_DETAILS}/for/localStorage?companyId=${companyId}&userId=${userId}`
     );
   }
+
 }

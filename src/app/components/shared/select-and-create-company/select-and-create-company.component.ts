@@ -48,7 +48,7 @@ export class SelectAndCreateCompanyComponent {
     private roleService: RoleService,
     private featureControlService: FeatureControlService,
     private counterService: CounterService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginService.userObservable.subscribe((LogggedInUser) => {
@@ -104,7 +104,8 @@ export class SelectAndCreateCompanyComponent {
       )
       .subscribe((res) => {
         let data = res.data.map((data) => {
-          return data.featureId;
+
+          return { featureId: data.featureId, featureName: data.feature };
         });
         localStorage.setItem('User_Features', JSON.stringify(data));
       });

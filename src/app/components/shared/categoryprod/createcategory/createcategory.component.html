@@ -6,7 +6,9 @@
   <div class="cboth"></div>
 </div>
 <div class="popupSubHeadingDiv addNewProduct">
-  <h1 class="heading">Your can create your category here</h1>
+  <h1 class="heading">
+    Your can create your category here {{ createCategoryProdForm.form.errors }}
+  </h1>
 </div>
 <div class="popupContentWrapper">
   <div class="row">
@@ -17,23 +19,13 @@
       ></app-select-category>
     </div>
     <div class="col-md-6">
-      <span
-        *ngIf="selectedCategory"
-        id="showSelectCat"
-        [style.display]="catSelected ? 'none' : 'block'"
+      <span id="showSelectCat" [style.display]="catSelected ? 'none' : 'block'"
         >Category under {{ selectedCategory.name }}</span
       >
-      <button
-        *ngIf="!catSelected"
-        (click)="displayMainForm()"
-        [disabled]="!selectedCategory.id ? true : null"
-      >
-        Next
-      </button>
     </div>
   </div>
 
-  <div class="row" *ngIf="catSelected">
+  <div class="row">
     <div class="col-md-12">
       <!-- <app-popup class="m-4"></app-popup> -->
       <form
@@ -51,7 +43,9 @@
                   <input
                     type="text"
                     readOnly
-                    value="{{ selectedCategory.name }}"
+                    value="{{
+                      selectedCategory.name ? selectedCategory.name : 'None'
+                    }}"
                     class="form-control"
                   />
                   <!-- <select

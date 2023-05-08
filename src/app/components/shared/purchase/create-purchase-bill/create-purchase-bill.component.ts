@@ -8,6 +8,7 @@ import { PurchaseBill } from 'src/app/models/PurchaseBill';
 import { PurchaseBillDetail } from 'src/app/models/PurchaseBillDetail';
 import { PurchaseBillMaster } from 'src/app/models/PurchaseBillMaster';
 import { SalesBillDetail } from 'src/app/models/SalesBillDetail';
+import { UserFeature } from 'src/app/models/UserFeatures';
 import { Company } from 'src/app/models/company';
 import { ProductService } from 'src/app/service/product.service';
 import { PurchaseBillService } from 'src/app/service/purchase-bill.service';
@@ -47,6 +48,8 @@ export class CreatePurchaseBillComponent {
   branchId !: number;
   productsUserWantToPurchase: Product[] = [];
   purchaseBillDetailInfos: PurchaseBillDetail[] = [];
+  featureObjs: UserFeature[] = [];
+  searchByBarCode: boolean = false;
 
   transportation: number = 0.0;
   insurance: number = 0.0;
@@ -70,6 +73,12 @@ export class CreatePurchaseBillComponent {
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
+    this.featureObjs = this.loginService.getFeatureObjs();
+    this.featureObjs.forEach(fo => {
+      if (fo.featureId === 2) {
+        this.searchByBarCode = true;
+      }
+    })
     this.currentBranch = 'Branch ' + this.branchId;
 
   }
@@ -84,7 +93,7 @@ export class CreatePurchaseBillComponent {
       return;
     }
     this.productService
-      .getProductById(this.productBarCodeId, this.companyId, this.branchId)
+      .getProductById(this.productBarCodeId, this.companyId, this.branchId, this.searchByBarCode)
       .subscribe((data) => {
         if (data.data !== null) {
           this.productsUserWantToPurchase.push(data.data);
