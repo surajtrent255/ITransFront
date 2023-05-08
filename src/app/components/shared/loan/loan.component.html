@@ -24,6 +24,7 @@
         </div>
         <div class="fright" class="createProductDiv">
           <a
+            *ngIf="IsAuditor"
             href=""
             (click)="enableLoanComponent()"
             id="createNewLoan"
@@ -281,13 +282,14 @@
                 <td>{{ loan.serviceCharge }}</td>
                 <td class="last-child">
                   <a
+                    *ngIf="IsAuditor"
                     (click)="loanForUpdate(loan.id)"
                     id="editLoan"
                     class="createNewTableRecord"
                   >
                     <img src="../../../assets/resources/images/editRow.png" />
                   </a>
-                  <a (click)="deleteLoan(loan.id)" class="">
+                  <a *ngIf="IsAuditor" (click)="deleteLoan(loan.id)" class="">
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
                 </td>

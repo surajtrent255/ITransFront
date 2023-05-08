@@ -46,15 +46,18 @@ export class SearchCreateProductsComponent {
     private elRef: ElementRef,
     private renderer: Renderer2,
     private loginService: LoginService
-  ) { }
+  ) {}
 
   companyId!: number;
-  branchId !: number;
+  branchId!: number;
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
-    this.productService.getAllProducts(this.companyId, this.branchId).subscribe((data) => {
-      this.availableProducts = data.data;
-    });
+    this.productService
+      .getAllProducts(this.companyId, this.branchId)
+      .subscribe((data) => {
+        debugger;
+        this.availableProducts = data.data;
+      });
     this.categoryProductService
       .getAllCategories(this.companyId, this.branchId)
       .subscribe((data) => {
@@ -90,7 +93,7 @@ export class SearchCreateProductsComponent {
   }
 
   @ViewChild('container', { static: true }) container!: ElementRef;
-  letsAdd(catId: number, parentId: number, catName: string) { }
+  letsAdd(catId: number, parentId: number, catName: string) {}
 
   selCategoryName!: string;
   selectCategory(categoryId: number, catName: string) {

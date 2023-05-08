@@ -19,11 +19,9 @@ export class CompanyServiceService {
   constructor(
     private httpClient: HttpClient,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   getCompnayDetails(user_id: number): Observable<any> {
-    console.log('get company hit');
-    console.log(`this is from get request ${user_id}`);
     return this.httpClient.get(`${USER_COMPANY_URL}/${user_id}`);
   }
 
@@ -58,7 +56,10 @@ export class CompanyServiceService {
   //   return this.httpClient.post(ADD_COMPANY_URL, company);
   // }
 
-  getCustomerInfoByPanOrPhone(searchMethod: number, customerPhoneOrPan: number): Observable<RJResponse<Company[]>> {
+  getCustomerInfoByPanOrPhone(
+    searchMethod: number,
+    customerPhoneOrPan: number
+  ): Observable<RJResponse<Company[]>> {
     let url = `${COMPANY_BASE_URL}/searchBy?searchMethod=${searchMethod}&customerPhoneOrPan=${customerPhoneOrPan}`;
     console.log(url);
     return this.httpClient.get<RJResponse<Company[]>>(url);

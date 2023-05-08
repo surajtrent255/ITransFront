@@ -422,12 +422,15 @@
                     <input
                       type="number"
                       value="1"
-                      style="width: 50%"
+                      style="width: 20%"
                       id="qtyProd{{ i }}"
                       (change)="updateTotalAmount(i); updateBillSummary()"
                     />
+                    <span> {{ prod.unit }}</span>
                     <span *ngIf="prod.stock <= 10"
-                      ><span class="badge rounded-pill bg-warning text-dark">
+                      ><span
+                        class="badge rounded-pill bg-warning text-dark ml-1"
+                      >
                         . {{ prod.stock }} remaining !</span
                       >
                     </span>
@@ -453,21 +456,20 @@
                     />
                   </td>
                   <td>
-                    <i class="fa fa-angle-down" aria-hidden="true">
-                      <select
-                        name="vattypes{{ prod.name }}"
-                        id="vatRateTypes{{ i }}"
-                        (change)="updateTotalAmount(i); updateBillSummary()"
-                        readonly
-                      >
-                        <option
-                          *ngFor="let vat of vatRateTypes"
-                          value="{{ vat.id }}"
-                        >
-                          {{ vat.vatRate }}
-                        </option>
-                      </select></i
+                    <select
+                      name="vattypes{{ prod.name }}"
+                      id="vatRateTypes{{ i }}"
+                      (change)="updateTotalAmount(i); updateBillSummary()"
+                      disabled
                     >
+                      <option
+                        *ngFor="let vat of vatRateTypes"
+                        value="{{ vat.id }}"
+                        [selected]="prod.tax === vat.id"
+                      >
+                        {{ vat.vatRate }}
+                      </option>
+                    </select>
                     <!-- <span *ngFor="let vat of vatRateTypes">
                       <span *ngIf="vat.vatRateNum === prod.tax">
                         <input

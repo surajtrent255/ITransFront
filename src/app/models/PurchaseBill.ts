@@ -24,4 +24,11 @@ export class PurchaseBill {
   vatRefundAmount !: number;//imp if any
   transactionId !: string;//imp if any
   status: boolean = true;
+  saleType !: number;
+
+  transportation !: number;
+  insurance !: number;
+  loading !: number;
+  other !: number;
+
 }

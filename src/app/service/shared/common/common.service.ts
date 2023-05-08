@@ -6,10 +6,7 @@ import { LoginService } from '../login.service';
   providedIn: 'root',
 })
 export class CommonService {
-  constructor(
-    private roleService: RoleService,
-    private LoginService: LoginService
-  ) {}
+  constructor() {}
 
   // for millisecond to date (UTC Nepal)
   formatDate(timestamp: number): string {
@@ -22,11 +19,5 @@ export class CommonService {
 
   addZeroPadding(num: number): string {
     return num < 10 ? `0${num}` : `${num}`;
-  }
-
-  // For role Based Rendering
-
-  getroles() {
-    this.roleService.getUserRoleDetailsBasedOnCompanyIdAndUserId;
   }
 }

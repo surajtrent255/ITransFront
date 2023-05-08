@@ -26,6 +26,7 @@ export class SalesBill {
   transactionId !: string;//imp if any
   status: boolean = true;
   branchId !: number;
+  counterId !: number;
   draft !: boolean;
   taxApproach !: number;
   customerSearchMethod !: number;

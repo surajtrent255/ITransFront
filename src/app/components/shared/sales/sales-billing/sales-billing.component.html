@@ -23,7 +23,12 @@
           <a href="#" class="genLink">Clear searchs</a>
         </div>
         <div class="fright" class="createsalesBillDiv">
-          <a href="" (click)="createNewSaleBill()" class="createNewTableRecord">
+          <a
+            *ngIf="IsAuditor"
+            href=""
+            (click)="createNewSaleBill()"
+            class="createNewTableRecord"
+          >
             <img
               src="../../../../../assets/resources/images/createProduct.png "
             />
@@ -246,6 +251,7 @@
                   printedTime
                 </th>
                 <th>Status</th>
+                <th>Sale Type</th>
                 <th
                   class="sortable"
                   sortDir="asc"
@@ -317,6 +323,10 @@
                     >CANCELED</span
                   >
                 </td>
+                <td>
+                  <span *ngIf="salesBill.saleType === 1">Cash</span>
+                  <span *ngIf="salesBill.saleType === 2"> Credit </span>
+                </td>
                 <td class="last-child">
                   <!-- <a href="" id="editSalesBill" class="createNewTableRecord">
                     <img
@@ -325,10 +335,13 @@
                     />
                   </a> -->
 
-                  <a routerLink="/dashboard/salesbill/{{ salesBill.id }}"
+                  <a
+                    *ngIf="IsAuditor"
+                    routerLink="/dashboard/salesbill/{{ salesBill.id }}"
                     ><i class="fa fa-info-circle" aria-hidden="true"></i
                   ></a>
                   <a
+                    *ngIf="IsAuditor"
                     href=""
                     (click)="cancelTheBill(salesBill.id)"
                     class="deleteRowLink deleteGroupCombo"

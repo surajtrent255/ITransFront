@@ -12,7 +12,7 @@ export class SelectCustomerComponent {
   @Input() selectMenusForCompanies !: Company[];
   @Output() compIdEvent = new EventEmitter<number>();
 
-  title: string = "Lenders";
+  title: string = "";
 
   @ViewChild('selectedCustomerBtn', { static: false })
   selectCompanyCustOrSth!: ElementRef;
@@ -91,4 +91,6 @@ export class SelectCustomerComponent {
       this.fetchCustomerEventEmitter.emit(true);
     }
   }
+
+
 }

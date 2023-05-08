@@ -1,12 +1,13 @@
 export class Company {
   companyId!: number;
   name!: string;
+  email!: string;
   description!: string;
-  panNo!: string;
-  state!: string;
+  panNo!: number;
+  state!: number;
   district!: string;
   munVdc!: string;
-  wardNo!: string;
-  phone!: string;
+  wardNo!: number;
+  phone!: number;
   customer!: boolean;
 }
