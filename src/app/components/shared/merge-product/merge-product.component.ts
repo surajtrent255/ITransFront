@@ -113,7 +113,7 @@ ngOnInit() {
     
     // alert(JSON.stringify(this.SplitProductObj));
     this.SplitProductService.Merge(this.SplitProductObj).subscribe(res=>{
-      this.toastrService.success("stock Mearge "  )
+      this.toastrService.success("stock Mearge " )
       this.getallstock(this.SplitProductObj.updatedProductId,this.SplitProductObj.companyId);
     })
    
