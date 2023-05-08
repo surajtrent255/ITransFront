@@ -15,4 +15,8 @@ export class SelectCategoryServiceService {
   changeSelectedCategoryForCatCreation(cat: CategoryProduct) {
     this.selectedCategoryForCatCreationSubject.next(cat);
   }
+
+  resetSelectedCategoryForCatCreation() {
+    this.selectedCategoryForCatCreationSubject.next(new CategoryProduct);
+  }
 }

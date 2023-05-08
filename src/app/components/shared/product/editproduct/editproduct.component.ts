@@ -70,7 +70,7 @@ export class EditproductComponent {
   }
 
   getProduct(id: number) {
-    this.productService.getProductById(id, this.compId, this.branchId).subscribe({
+    this.productService.getProductById(id, this.compId, this.branchId, false).subscribe({
       next: (data) => {
         this.product = data.data;
       },
@@ -151,7 +151,7 @@ export class EditproductComponent {
   // }
 
   // getAllVatRateTypes(){
-    
+
   //   this.productService.getAllVatRateTypes().subscribe(res => {
   //     console.log(res.data)
   //     this.typerate = res.data;
