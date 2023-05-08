@@ -41,7 +41,7 @@ export class CreateBankComponent {
 
   ngOnInit() {
     this.localStorageCompanyId = this.loginService.getCompnayId();
-
+   
     this.UserbranchId = this.loginService.getBranchId();
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
@@ -75,6 +75,7 @@ export class CreateBankComponent {
 
   openForm() {
     console.log('Opening form...');
+    this.resetForm();
     // Reset form data
     this.companyId = this.localStorageCompanyId;
     this.branchId = this.UserbranchId;
@@ -155,5 +156,8 @@ export class CreateBankComponent {
       },
     });
   }
+  resetForm() {
+    this.bankObj = new Bank();
+  } 
 
 }

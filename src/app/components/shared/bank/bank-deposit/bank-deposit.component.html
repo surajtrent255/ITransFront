@@ -284,137 +284,170 @@
         ></div>-->
       <!-- </div> 
     </div>  -->
-    
 
 
     <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-      <div class="mb-2"></div>
-      <div class="popupContentWrapper">
+      <!-- <div class="popupContentWrapper"> -->
+      <div class="popupHeading  ">
+        <h2 class="fleft">Create deposite</h2>
+        <a class="closeButton fright" id="closeEditButton"
+          ><img
+            src="../../../assets/resources/images/removetablink.png"
+            alt="close"
+        /></a>
+        <div class="cboth"></div>
+        </div>
+    <div class="popupContentWrapper" *ngIf="showForm">
       <div class="row">
-      <div class="col-md-12">
-      <!-- <app-popup class="m-4"></app-popup> -->
-      <form
-      #createDepositeForm="ngForm"
-      name="createDepositeForm"
-      id="createDepositeForm"
-      (ngSubmit)="creatdepostie(createDepositeForm)"
-      >
-      <div class="chooseColoumnsWrapper">
-      <div class="fieldDiv popUpFormSectionWrapper">
-      <div class="fright" class="createCategoryDiv">
-      <div class="popupContentWrapper" *ngIf="showForm">
-      <div class="form-container popupContentWrapper">
-      <h2 class="heading tCenter">Add Deposite</h2>
-      <form>
-        <div class="form-group">
-        <label class="col1 pt-2">
-          Bank:
-          <span class="mandatorySign">*</span>
-        </label>
-        <div class="col2 pt-2 ml-3">
-          <select
-            id="bankId"
-            name="bankId"
-            bankId="#bankId"
-            #bankId="ngModel"
-            [(ngModel)]="objdeposite.bankId"
-            [class.is-invalid]="bankId.invalid && bankId.touched"
-            required
+        <div class="col-md-12">
+          <form
+          #createDepositeForm="ngForm"
+          name="createDepositeForm"
+          id="createDepositeForm"
+          (ngSubmit)="creatdepostie(createDepositeForm)"
           >
-            <option value="" disabled selected>Select an option</option>
-            <option
-              *ngFor="let option of banks"
-              [value]="option.bankId"
-            >
-              {{ option.bankName }}
-            </option>
-          </select>
-        </div>
-        </div>
-      <!-- <div class="form-group">
-      <label for="BankId">BankId:</label>
-      
-      <input
-      type="number"
-      id="bankId"
-      name="bankId"
-      #bankId="ngModel"
-      [(ngModel)]="objdeposite.bankId"
-      required
-      />
-    
-      </div> -->
-      <div class="form-group">
-      <label for="depositAmount">depositAmount</label>
-      <input
-      type="number"
-      id="depositAmount"
-      name="depositAmount"
-      #depositAmount="ngModel"
-      [(ngModel)]="objdeposite.depositAmount"
-      required
-      />
-      </div>
-      <div class="form-group">
-      <label for="depositType">depositType</label>
-      <input
-      type="text"
-      id="depositType"
-      name="depositType"
-      #depositType="ngModel"
-      [(ngModel)]="objdeposite.depositType"
-      required
-      />
-      </div>
-      <div class="form-group">
-      <label for="chequeNumber">chequeNumber:</label>
-      <input
-      type="text"
-      name="chequeNumber"
-      id="chequeNumber"
-      #chequeNumber="ngModel"
-      [(ngModel)]="objdeposite.chequeNumber"
-      required
-      >
-      
+            <div class="chooseColoumnsWrapper">
+              <div class="fieldDiv popUpFormSectionWrapper">
+                <table class="" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="col1 pt-2">
+                     Bank Name:<span class="mandatorySign">*</span>
+                    </td>
+                    <td class="col2">
+                      <select
+                      class="form-control"
+                        name="bankId"
+                        id="bankId"
+                        name="bankId"
+                        #bankId="ngModel"
+                        [(ngModel)]="objdeposite.bankId"
+                        [class.is-invalid]="
+                        bankId.invalid && bankId.touched
+                        "
+                      ><option value="" selected disabled>select Bank Name</option>
+                        <option
+                          *ngFor="let option of banks"
+                          [value]="option.bankId"
+                        >
+                          {{ option.bankName }}
+                        </option>
+                      </select>
+                    </td>
+                    <td class="col3">
+                      <small
+                        class="text-danger"
+                        [class.d-none]="
+                          bankId.valid || bankId.untouched
+                        "
+                        >invalid name</small
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col1 pt-2">
+                      Deposit Amount:<span class="mandatorySign">*</span>
+                    </td>
+                    <td class="col2">
+                      <input
+                      type="number"
+                        name="depositAmount"
+                        
+                        [(ngModel)]="objdeposite.depositAmount"
+                        required
+                        #depositAmount="ngModel"
+                        [class.is-invalid]="
+                        depositAmount.invalid && depositAmount.touched
+                        "
+                        class="form-control"
+                        id="depositAmount"
+                      >
+                    </td>
+                    <td class="col3">
+                      <small
+                        class="text-danger"
+                        [class.d-none]="
+                        depositAmount.valid || depositAmount.untouched
+                        "
+                        >invalid anount</small
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col1 pt-2">
+                      DepositType:<span class="mandatorySign">*</span>
+                    </td>
+                    <td class="col2">
+                      <input
+                        name="depositType"
+                        
+                        [(ngModel)]=" objdeposite.depositType"
+                        required
+                        #depositType="ngModel"
+                        [class.is-invalid]="
+                        depositType.invalid && depositType.touched
+                        "
+                        class="form-control"
+                        id="depositType"
+                      >
+                    </td>
+                    <td class="col3">
+                      <small
+                        class="text-danger"
+                        [class.d-none]="
+                        depositType.valid || depositType.untouched
+                        "
+                        >invalid depositType</small
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col1 pt-2">
+                      chequeNumber:
+                    </td>
+                    <td class="col2">
+                      <input
+                        name="chequeNumber"
+                        title="check your stock "
+                        [(ngModel)]=" objdeposite.chequeNumber"
+                        #chequeNumber="ngModel"
+                        class="form-control"
+                        id="chequeNumber"
+                      >
+                    </td>
+                    
+                  </tr>
+                
+                  
+                  
+   
+                
+                </table>
+              </div>
+            </div>
+            <div class="submitDiv tCenter">
+              <input 
+              type="submit"
+              class="submit_btn border-rad"
+              id="submitCategoryPrd"
+              value="Add Deposit"
+              [disabled]="createDepositeForm.form.invalid"
+               
+              />
 
-      </div>
-      <div>
-      <!-- <button type="submit" (click)="submitForm()">Submit</button>
-      <button (click)="cancel_btn()">Cancel</button> -->
-      </div>
-      </form>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      <div class="submitDiv tCenter">
-      <input
-      type="submit"
-      class="submit_btn border-rad"
-      id="submitCategoryPrd"
-      value="Add Deposit"
-      [disabled]="createDepositeForm.form.invalid"
-      />
-    
-      <input
-      type="button"
-      value="Cancel"
-      class="submit_btn cancel_btn border-rad ml-2"
-      />
-      </div>
-      </form> 
-      </div>
-      </div>
-      </div>
-    
-      <div
-      class="popupWrapper"
-      id="editCategoryPopup"
-      style="display: none"
-      ></div>
-      </div>
+              <input
+                type="button"
+                value="Cancel"
+                class="submit_btn cancel_btn border-rad ml-2"
+              />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+  </div>
+</div>
+</div>
+    
+
+
    

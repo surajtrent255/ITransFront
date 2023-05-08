@@ -14,18 +14,18 @@ import { Bank } from 'src/app/models/Bank';
 })
 export class BankDepositComponent {
 
-  depositId!:string;
-  bankId!:string;
+  depositId!:number;
+  bankId!:number;
   branchId!:number;
   companyId!:number;
-  depositAmount!:string;
+  depositAmount!:number;
   depositeType!:string;
   chequeNumber!:string;;
   Deposite:Deposit[]=[];
   banks: Bank[] = [];
   showForm!: boolean;
   localStorageCompanyId!:string;
-  UserbranchId!: string;
+
   objdeposite:Deposit = new Deposit;
 
   constructor(private bankdepositeService:BankdepositeService,

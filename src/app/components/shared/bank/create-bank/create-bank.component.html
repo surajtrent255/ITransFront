@@ -262,119 +262,189 @@
   </div>
  
   <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-  <div class="mb-2"></div>
-  <div class="popupContentWrapper">
-  <div class="row">
-  <div class="col-md-12">
-  <!-- <app-popup class="m-4"></app-popup> -->
-  <form
-  #createBankForm="ngForm"
-  name="createBank"
-  id="createBank"
-  (ngSubmit)="createBank(createBankForm)"
-  >
-  <div class="chooseColoumnsWrapper">
-  <div class="fieldDiv popUpFormSectionWrapper">
-  <div class="fright" class="createCategoryDiv">
+    <!-- <div class="popupContentWrapper"> -->
+    <div class="popupHeading  ">
+      <h2 class="fleft">Create New Bank</h2>
+      <a class="closeButton fright" id="closeEditButton"
+        ><img
+          src="../../../assets/resources/images/removetablink.png"
+          alt="close"
+      /></a>
+      <div class="cboth"></div>
+      </div>
   <div class="popupContentWrapper" *ngIf="showForm">
-  <div class="form-container popupContentWrapper">
-  <h2 class="heading tCenter">Add Bank</h2>
-  <form>
-  <div class="form-group">
-  <label for="bankName">Bank Name:</label>
-  
-  
-  <select
-  name="bankName"
-  id="bankName"
-  #bankname="ngModel"
-  [(ngModel)]="bankObj.bankName"
-  required
-  >
+    <div class="row">
+      <div class="col-md-12">
+        <form
+        #createBankForm="ngForm"
+        name="createBank"
+        id="createBank"
+        (ngSubmit)="createBank(createBankForm)"
+        >
+          <div class="chooseColoumnsWrapper">
+            <div class="fieldDiv popUpFormSectionWrapper">
+              <table class="" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="col1 pt-2">
+                    BankName:<span class="mandatorySign">*</span>
+                  </td>
+                  <td class="col2"   class="form-control">
+                    
+                    <!-- <i class=" fas fa-thin fa-circle-chevron-down"></i> -->
+                    
+                    
+                    <select
+                  
+                    name="bankName"
+                    id="bankName"
+                    name="bankName"
+                    #bankName="ngModel"
+                    style="width: 100%; max-height: fit-content;"
+                    [(ngModel)]="bankObj.bankName"
+                    required
+                    placeholder="Select bank"
+                    
+                  >
+                   
+                      <option
+                      
+                        *ngFor="let ap of bankList"
+                        [value]="ap.name"
+                      >
+                     
+                        {{ ap.name }} 
+                      </option>
+                      
+                    </select>
+                    
+                  </td>
+                  <td class="col3">
+                    <small
+                      class="text-danger"
+                      [class.d-none]="
+                      bankName.valid || bankName.untouched
+                      "
+                      >invalid bankName</small
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col1 pt-2">
+                    Account Number:<span class="mandatorySign">*</span>
+                  </td>
+                  <td class="col2">
+                    <input
+                    type="number"
+                      name="accountNumber"
+                      [(ngModel)]="bankObj.accountNumber"
+                      required
+                      #accountNumber="ngModel"
+                      [class.is-invalid]="
+                      accountNumber.invalid && accountNumber.touched
+                      "
+                      class="form-control"
+                      id="accountNumber"
+                      max="99999999999999999999"
+                    >
+                  </td>
+                  <td class="col3">
+                    <small
+                      class="text-danger"
+                      [class.d-none]="
+                      accountNumber.valid || accountNumber.untouched
+                      "
+                      >invalid Account Number:</small
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col1 pt-2">
+                    InitialAmount:<span class="mandatorySign">*</span>
+                  </td>
+                  <td class="col2">
+                    <input
+                    type="number"
+                      name="initialAmount"
+                      [(ngModel)]=" bankObj.initialAmount"
+                      required
+                      #initialAmount="ngModel"
+                      [class.is-invalid]="
+                      initialAmount.invalid && initialAmount.touched
+                      "
+                      class="form-control"
+                      id="initialAmount"
+                      required
+                    >
+                  </td>
+                  <td class="col3">
+                    <small
+                      class="text-danger"
+                      [class.d-none]="
+                      initialAmount.valid || initialAmount.untouched
+                      "
+                      >invalid  initialAmount</small
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col1 pt-2">
+                    Account Type:<span class="mandatorySign">*</span>
+                  </td>
+                  <td class="col2">
+                    <select
+                    class="form-control"
+                      name="accountType"
+                      id="accountType"
+                      #accountType="ngModel"
+                      [(ngModel)]="bankObj.accountType"
+                      
+                    >
+                      <option
+                        *ngFor="let ap of accountTypes"
+                        [value]="ap.name"
+                      >
+                        {{ ap.name }}
+                      </option>
+                    </select>
+                  </td>
+                  <td class="col3">
+                    <small
+                      class="text-danger"
+                      [class.d-none]="
+                      accountType.valid || accountType.untouched
+                      "
+                      >invalid accountType</small
+                    >
+                  </td>
+                </tr>
+               
+                
+                
  
-  <option
-  [value]="bk.name"
-  *ngFor="let bk of bankList">
-  {{ bk.name }}
-  </option>
-  
-  </select>
-  </div>
-  <div class="form-group">
-  <label for="accountNumber">Account Number:</label>
-  <input
-  type="text"
-  id="accountNumber"
-  name="accountNumber"
-  #accountNumber="ngModel"
-  [(ngModel)]="bankObj.accountNumber"
-  required
-  />
-  </div>
-  <div class="form-group">
-  <label for="initialAmount">Initial Amount:</label>
-  <input
-  type="text"
-  id="initialAmount"
-  name="initialAmount"
-  #initialAmount="ngModel"
-  [(ngModel)]="bankObj.initialAmount"
-  required
-  />
-  </div>
-  <div class="form-group">
-  <label for="accountType">Account Type:</label>
-  <select
-  name="accountType"
-  id="accountType"
-  [(ngModel)]="bankObj.accountType"
-  required
-  >
-  <option
-  [value]="ac.name"
-  *ngFor="let ac of accountTypes"
-  >
-  {{ ac.name }}
-  </option>
-  </select>
-  <!-- <input type="text" id="accountType" name="accountType" [(ngModel)]="accountType" required> -->
-  </div>
-  <div>
-  <!-- <button type="submit" (click)="submitForm()">Submit</button>
-  <button (click)="cancel_btn()">Cancel</button> -->
-  </div>
-  </form>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  <div class="submitDiv tCenter">
-  <input
-  type="submit"
+              
+              </table>
+            </div>
+          </div>
+          <div class="submitDiv tCenter">
+            <input 
+            type="submit"
   class="submit_btn border-rad"
   id="submitCategoryPrd"
-  value="Add Bank"
+  value="create Bank"
   [disabled]="createBankForm.form.invalid"
-  />
- 
-  <input
-  type="button"
-  value="Cancel"
-  class="submit_btn cancel_btn border-rad ml-2"
-  />
+             
+            />
+
+            <input
+              type="button"
+              value="Cancel"
+              class="submit_btn cancel_btn border-rad ml-2"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  </form>
-  </div>
-  </div>
-  </div>
- 
-  <div
-  class="popupWrapper"
-  id="editCategoryPopup"
-  style="display: none"
-  ></div>
-  </div>
-  </div>
- </div>
- 
+</div>
+</div>
+</div>

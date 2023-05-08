@@ -240,133 +240,163 @@
   <!-- </div> 
 </div>  -->
 
-
-
 <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-  <div class="mb-2"></div>
-  <div class="popupContentWrapper">
+  <!-- <div class="popupContentWrapper"> -->
+  <div class="popupHeading  ">
+    <h2 class="fleft"> ADD Withdraw </h2>
+    <a class="closeButton fright" id="closeEditButton"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+    </div>
+<div class="popupContentWrapper" *ngIf="showForm">
   <div class="row">
-  <div class="col-md-12">
-  <!-- <app-popup class="m-4"></app-popup> -->
-  <form
-  #createWithdrawForm="ngForm"
-  name="createWithdrawForm"
-  id="createWithdrawForm"
-  (ngSubmit)="creatwithdraw(createWithdrawForm)"
-  >
-  <div class="chooseColoumnsWrapper">
-  <div class="fieldDiv popUpFormSectionWrapper">
-  <div class="fright" class="createCategoryDiv">
-  <div class="popupContentWrapper" *ngIf="showForm">
-  <div class="form-container popupContentWrapper">
-  <h2 class="heading tCenter">Add withdraw</h2>
-  <form>
-    <div class="form-group">
-      <label class="col1 pt-2">
-        Bank:
-        <span class="mandatorySign">*</span>
-      </label>
-      <div class="col2 pt-2 ml-3">
-        <select
-          id="bankId"
-          name="bankId"
-          bankId="#bankId"
-          #bankId="ngModel"
-          [(ngModel)]="objwidthdraw.bankId"
-          [class.is-invalid]="bankId.invalid && bankId.touched"
-          required
-        >
-          <option value="" disabled selected>Select an option</option>
-          <option
-            *ngFor="let option of banks"
-            [value]="option.bankId"
-          >
-            {{ option.bankName }}
-          </option>
-        </select>
-      </div>
-      </div>
-  <!-- <div class="form-group">
-  <label for="BankId">BankId:</label>
-  
-  <input
-  type="number"
-  id="bankId"
-  name="bankId"
-  #bankId="ngModel"
-  [(ngModel)]="objwidthdraw.bankId"
-  required
-  />
+    <div class="col-md-12">
+      <form
+      #createWithdrawForm="ngForm"
+      name="createWithdrawForm"
+      id="createWithdrawForm"
+      (ngSubmit)="creatwithdraw(createWithdrawForm)"
+      >
+        <div class="chooseColoumnsWrapper">
+          <div class="fieldDiv popUpFormSectionWrapper">
+            <table class="" cellpadding="0" cellspacing="0">
+              <tr>
+                <td class="col1 pt-2">
+                 Bank Name:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <select
+                  class="form-control"
+                    name="bankId"
+                    id="bankId"
+                    name="bankId"
+                    #bankId="ngModel"
+                    [(ngModel)]="objwidthdraw.bankId"
+                    [class.is-invalid]="
+                    bankId.invalid && bankId.touched
+                    "
+                  ><option value="" selected disabled>select Bank Name</option>
+                    <option
+                      *ngFor="let option of banks"
+                      [value]="option.bankId"
+                    >
+                      {{ option.bankName }}
+                    </option>
+                  </select>
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="
+                      bankId.valid || bankId.untouched
+                    "
+                    >invalid name</small
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  WithdrawAmount:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                  type="number"
+                    name="withdrawAmount"
+                    
+                    [(ngModel)]="objwidthdraw.withdrawAmount"
+                    required
+                    #withdrawAmount="ngModel"
+                    [class.is-invalid]="
+                    withdrawAmount.invalid && withdrawAmount.touched
+                    "
+                    class="form-control"
+                    id="withdrawAmount"
+                  >
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="
+                    withdrawAmount.valid || withdrawAmount.untouched
+                    "
+                    >invalid withdrawAmount</small
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  WidthType:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                    name="withdrawType"
+                    
+                    [(ngModel)]=" objwidthdraw.withdrawType"
+                    required
+                    #withdrawType="ngModel"
+                    [class.is-invalid]="
+                    withdrawType.invalid && withdrawType.touched
+                    "
+                    class="form-control"
+                    id="withdrawType"
+                  >
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="
+                    withdrawType.valid || withdrawType.untouched
+                    "
+                    >invalid withdrawType</small
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  chequeNumber:
+                </td>
+                <td class="col2">
+                  <input
+                    name="chequeNumber"
+                    title="check your stock "
+                    [(ngModel)]=" objwidthdraw.chequeNumber"
+                    #chequeNumber="ngModel"
+                    class="form-control"
+                    id="chequeNumber"
+                  >
+                </td>
+                
+              </tr>
+            
+            </table>
+          </div>
+        </div>
+        <div class="submitDiv tCenter">
+          <input 
+          type="submit"
+          class="submit_btn border-rad"
+          id="submitCategoryPrd"
+          value="Add withdraw"
+          [disabled]="createWithdrawForm.form.invalid"
+           
+          />
 
-  </div> -->
-  <div class="form-group">
-  <label for="withdrawAmount">WidthDrawAmount</label>
-  <input
-  type="number"
-  id="withdrawAmount"
-  name="withdrawAmount"
-  #withdrawAmount="ngModel"
-  [(ngModel)]="objwidthdraw.withdrawAmount"
-  required
-  />
+          <input
+            type="button"
+            value="Cancel"
+            class="submit_btn cancel_btn border-rad ml-2"
+          />
+        </div>
+      </form>
+    </div>
   </div>
-  <div class="form-group">
-  <label for="withdrawType">widthType</label>
-  <input
-  type="text"
-  id="withdrawType"
-  name="withdrawType"
-  #withdrawType="ngModel"
-  [(ngModel)]="objwidthdraw.withdrawType"
-  required
-  />
-  </div>
-  <div class="form-group">
-  <label for="chequeNumber">chequeNumber:</label>
-  <input
-  type="text"
-  name="chequeNumber"
-  id="chequeNumber"
-  #chequeNumber="ngModel"
-  [(ngModel)]="objwidthdraw.chequeNumber"
-  required
-  >
-  
-
-  </div>
-  <div>
-  <!-- <button type="submit" (click)="submitForm()">Submit</button>
-  <button (click)="cancel_btn()">Cancel</button> -->
-  </div>
-  </form>
-  
-
-
-
-  <div class="submitDiv tCenter">
-  <input
-  type="submit"
-  class="submit_btn border-rad"
-  id="submitCategoryPrd"
-  value="Add withdraw"
-  [disabled]="createWithdrawForm.form.invalid"
-  />
-
-  <input
-  type="button"
-  value="Cancel"
-  class="submit_btn cancel_btn border-rad ml-2"
-  />
-  </div>
-  
-
-
-
-  <div
-  class="popupWrapper"
-  id="editCategoryPopup"
-  style="display: none"
-  ></div>
+</div>
+</div>
+</div>
+</div>
  
 
 
