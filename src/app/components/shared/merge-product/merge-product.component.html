@@ -64,7 +64,7 @@
                             <tr>
                                 <td class="col1 pt-2">
                                     Merge:<span class="mandatorySign">*
-                                        {{ (fetchstock.qty/SplitProductObj.qty) - SplitProductObj.splitQty }}</span>
+                                        {{ ((fetchstock.qty/SplitProductObj.qty) - SplitProductObj.splitQty ).toFixed(0) }}</span>
                                 </td>
                                 <td class="col2">
                                     <input type="number" [class.is-invalid]="splitQty.invalid && splitQty.touched" class="form-control" name="splitQty" id="splitQty" #splitQty="ngModel" [max]="fetchstock.qty / SplitProductObj.qty" [min]="0" required [(ngModel)]="SplitProductObj.splitQty" required="required"/>
