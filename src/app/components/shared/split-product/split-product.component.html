@@ -412,6 +412,7 @@
                     </td>
                     <td class="col2">
                       <input
+                      type="number"
                         name="splitQty"
                         title="check your stock "
                         [(ngModel)]=" SplitProductObj.splitQty"
@@ -444,7 +445,7 @@
                       <input
                       title="updated price pre {{SplitProductObj.unit}}"
                         name="price"
-                        
+                        type="number"
                         [(ngModel)]=" SplitProductObj.price"
                         required
                         #price="ngModel"
@@ -573,7 +574,7 @@
               class="submit_btn border-rad"
               id="submitCategoryPrd"
               value="Split Product"
-               
+              [disabled]="splitproductForm.form.invalid"
               />
 
               <input
