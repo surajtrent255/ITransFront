@@ -98,6 +98,7 @@ textarea {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  background-blend-mode:luminosity;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -208,10 +209,12 @@ body {
   width: 1180px;
   margin: 0 auto;
   padding-bottom: 90px;
+  background-color: #d6d3ce;
 }
 .pageWrapperCompany {
   width: 1180px;
   margin: 0 auto;
+  
   height: 600px;
   padding-bottom: 90px;
 }
@@ -268,13 +271,15 @@ body {
   padding: 3px;
 }
 a.genLink {
-  color: #2868c3;
+  color: #21cf4f;
   font-size: 13px;
   text-decoration: underline;
 }
 
 .logoutDiv {
   padding: 10px 0px;
+  background-color: #b9c5d5;
+  background-blend-mode: luminosity;
   /*overflow: auto*/
 }
 .logoutDiv a img,
@@ -287,7 +292,7 @@ a.genLink {
 .headerNav {
   padding: 4px 12px;
   /*overflow: auto;*/
-  background: #b4b5b6 url("../../resources/images/main-header.jpg") repeat-x;
+  background: #3c4858 url("../../resources/images/main-header.jpg") repeat-x;
   margin-top: 14px;
 }
 .mainNavWrapper {
@@ -306,7 +311,7 @@ a.genLink {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  background: #7c7c7c url("../images/main-nav-bg.jpg") repeat-x;
+  background: #548dd7 url("../images/main-nav-bg.jpg") repeat-x;
   color: #ffffff;
 }
 .mainNavList li a img {
@@ -330,7 +335,7 @@ a.genLink {
   font-size: 12px;
   color: #000;
   display: block;
-  background: #e2e1e0;
+  background: #3c4858;
   border: 1px solid #afaeac;
 }
 .selectViewTab .viewTabSelect span {
@@ -383,7 +388,7 @@ a.genLink {
   width: 910px;
 }
 .recordCategoryListWrapper {
-  /*background: #e5e8ed;*/
+  background: #bfcbdb;
   /*padding-bottom: 4px*/
 }
 .tabListWrapper {
@@ -393,10 +398,10 @@ a.genLink {
 .tabList {
   overflow: visible;
   height: 20px;
-  background: #c4c4c5 url("../images/content-category-header-bg.jpg");
-  border-top: 1px solid #afaeac;
-  border-bottom: 1px solid #afaeac;
-  border-right: 1px solid #afaeac;
+  background: #3c4858 url("../images/content-category-header-bg.jpg");
+  border-top: 1px solid #385375;
+  border-bottom: 1px solid #3c4858;
+  border-right: 1px solid #3c4858;
   -moz-border-top-right-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
@@ -410,18 +415,19 @@ a.genLink {
   padding: 1px 6px 0px;
   min-width: 170px;
   margin-top: 0px;
-  background: #c4c4c5 url("../images/content-category-header-bg.jpg");
+  background: #3c4858 url("../images/content-category-header-bg.jpg");
   border-right: 1px dotted #afaeac;
 }
 .tabList li:first-child {
   border-top-left-radius: 4px;
-  border-left: 1px solid #afaeac;
+  border-left: 1px solid #ccefef;
+
 }
 .tabList li.active {
   padding: 4px 6px 3px;
   margin-top: -5px;
-  background: #f3f5f7 url("../images/active-content-category-header-bg.jpg");
-  border: 1px solid #afaeac;
+  background: #3c4858 url("../images/active-content-category-header-bg.jpg");
+  border: 1px solid #3c4858;
   border-bottom: none;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -436,16 +442,17 @@ a.genLink {
 }
 .tabsBottomDiv {
   height: 6px;
-  background: #e5e8ed;
-  border-left: 1px solid #afaeac;
-  border-right: 1px solid #afaeac;
+  background: #b4d1f3;
+  /* border-left: 1px solid #3c4858;
+  border-right: 1px solid #3c4858; */
 }
 
 .contentRecordsTableContainer {
   clear: both;
   padding: 7px;
-  background: #ffffff;
-  border: 1px solid #afaeac;
+  background: #dee2e6;
+  border: 1px solid #3c4858;
+  border-radius: 3px;
   /* min-height: 700px; */
   min-height: auto;
 }
@@ -454,7 +461,7 @@ a.genLink {
   clear: both;
   padding: 7px;
   background: #ffffff;
-  border: 1px solid #afaeac;
+  /* border: 1px solid #afaeac; */
   /* min-height: 700px; */
   min-height: auto;
   min-width: 1248px;
@@ -532,6 +539,7 @@ a.genLink {
 .tableWrapper {
   clear: both;
   font-size: 12px;
+  
 }
 .tablesettingDiv {
   /*overflow: auto;*/
@@ -640,7 +648,7 @@ a.genLink {
   margin: 4px 0px;
 }
 .recordsTable tr.whitespaceRow {
-  background: #fff;
+  background: #ffffff;
   height: 3px;
 }
 .recordsTable tr.whitespaceRow td {
@@ -779,7 +787,7 @@ a.genLink {
 .popupHeading {
   background: url("../images/popheading-bg.jpg") repeat-x;
   padding: 4px 10px;
-  color: #333333;
+  color: #3c4858;
   font-size: 13px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
