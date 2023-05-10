@@ -112,8 +112,10 @@
                   Merge:<span class="mandatorySign"
                     >*
                     {{
-                      fetchstock.qty / SplitProductObj.qty -
+                      (
+                        fetchstock.qty / SplitProductObj.qty -
                         SplitProductObj.splitQty
+                      ).toFixed(0)
                     }}</span
                   >
                 </td>
