@@ -15,32 +15,31 @@
           <div>
             <p>
               S N:
-              <input
-                type="number"
-                value="{{ serialNumber }}"
-                disabled
-                class="inputText"
-              />
+              <span>
+                <input
+                  type="number"
+                  value="{{ serialNumber }}"
+                  disabled
+                  class="inputText"
+                />
+              </span>
             </p>
           </div>
-          <span>Bill Number: {{ salesInvoice.salesBillDTO.billNo }}</span
+          <span>Bill Number:</span>
+          <span> {{ salesInvoice.salesBillDTO.billNo }}</span
           ><br />
-          <span>Seller PAN: {{ salesInvoice.sellerCompany.panNo }}</span
+
+          <span>Customer Name: </span
+          ><span>{{ salesInvoice.salesBillDTO.customerName }}</span
           ><br />
-          <span>Seller Name: {{ salesInvoice.sellerCompany.name }}</span
+          <span>Customer Address: </span
+          ><span>{{ salesInvoice.customerAddress }}</span
           ><br />
-          <span
-            >Address: {{ salesInvoice.sellerCompany.district }}
-            {{ salesInvoice.sellerCompany.munVdc }}</span
-          ><br />
-          <span
-            >Customer Name: {{ salesInvoice.salesBillDTO.customerName }}</span
-          ><br />
-          <span>Customer Address: {{ salesInvoice.customerAddress }} </span
-          ><br />
-          <span>Customer PAN: {{ salesInvoice.salesBillDTO.customerPan }} </span
+          <span>Customer PAN: </span>
+          <span> {{ salesInvoice.salesBillDTO.customerPan }}</span
           ><br />
         </div>
+
         <div class="col-md-6">
           <p style="text-align: right">
             Date: <input type="text" disabled [ngModel]="date" />
@@ -61,51 +60,16 @@
               <tbody>
                 <tr *ngFor="let product of SelectedProduct; let i = index">
                   <td>{{ product.productName }}</td>
-                  <td *ngFor="let data of Reason">
-                    <span *ngIf="product.id === data.productId">{{
-                      data.reason
-                    }}</span>
-                  </td>
-                  <!-- conditional ceheck for QTY -->
-                  <td *ngIf="QTY.length !== 0">
-                    <span *ngFor="let data of QTY">
-                      <span *ngIf="product.id === data.productId">
-                        <span>{{ data.qty }}</span></span
-                      >
-                    </span>
-                  </td>
-
-                  <td *ngIf="QTY.length === 0">
-                    <span
-                      *ngFor="let data of salesInvoice.salesBillDetailsWithProd"
-                    >
-                      <span *ngIf="data.productId === product.id">
-                        <span>
-                          {{ data.qty }}
-                        </span>
-                      </span>
-                    </span>
-                  </td>
-                  <!-- END -->
-
+                  <td>{{ product.creditReason }}</td>
+                  <td>{{ product.qty }}</td>
                   <td>{{ product.discountPerUnit }}</td>
+                  <td>{{ product.rate }}</td>
+                  <td>{{ (product.rate * product.taxRate) / 100 }}</td>
                   <td>
-                    <span>{{ product.rate }}</span>
-                  </td>
-                  <td>
-                    <span>{{ product.rate * (product.taxRate / 100) }}</span>
-                  </td>
-                  <td *ngIf="QTY.length === 0">
-                    {{ product.qty * (product.rate + product.taxRate / 100) }}
-                  </td>
-                  <td *ngIf="QTY.length !== 0">
-                    <span *ngFor="let data of QTY">
-                      <span *ngIf="product.id === data.productId">
-                        <span>{{
-                          data.qty * (product.rate + product.taxRate / 100)
-                        }}</span></span
-                      >
-                    </span>
+                    {{
+                      ((product.rate * product.taxRate) / 100 + product.rate) *
+                        product.qty
+                    }}
                   </td>
                 </tr>
                 <tr></tr>
@@ -117,45 +81,26 @@
                   <td><span class="text text-bg">Total:</span></td>
                   <td></td>
 
-                  <td></td>
+                  <td>{{ TotalTax }}</td>
 
                   <td>
-                    {{
-                      salesInvoice.salesBillDTO.totalAmount | number : "1.0-0"
-                    }}
+                    {{ totalAmount | number : "1.0-0" }}
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+      </div>
+      <div class="container" style="margin: 20px; padding-top: 20px">
         <div class="row">
           <div class="col-md-12">
-            (In Words:
-            {{ salesInvoice.salesBillDTO.totalAmount | numberToWords }})
+            <button class="submit_btn border-rad" (click)="submit()">OK</button>
+            <button class="submit_btn border-rad" (click)="cancel()">
+              Cancel
+            </button>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12 text-end">
-            <div class="row">
-              <span>.................................</span>
-            </div>
-            <div class="row">
-              <b>Authorized Signature </b>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button
-        class="submit_btn border-rad"
-        (click)="printTheBill(salesInvoice.salesBillDTO.id)"
-      >
-        Print
-      </button>
-      <div class="row text-center">
-        <span *ngIf="salesInvoice.salesBillDTO.billPrinted"
-          >This is second invoice
-        </span>
       </div>
     </div>
   </div>

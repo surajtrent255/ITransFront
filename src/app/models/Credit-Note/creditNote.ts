@@ -1,5 +1,5 @@
 export class CreditNote {
-  sn!: number;
+  id!: number;
   panNumber!: number;
   customerName!: string;
   customerAddress!: string;
@@ -7,4 +7,5 @@ export class CreditNote {
   date!: Date;
   totalAmount!: number;
   totalTax!: number;
+  companyId!: number;
 }

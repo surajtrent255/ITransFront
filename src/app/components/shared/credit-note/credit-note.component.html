@@ -26,13 +26,15 @@
 
           <p>
             Bill No:
-            <input
-              type="number"
-              class="inputText"
-              name="billNo"
-              [(ngModel)]="billNo"
-              (keyup.enter)="onEnter($event)"
-            />
+            <span>
+              <input
+                type="number"
+                class="inputText"
+                name="billNo"
+                [(ngModel)]="billNo"
+                (keyup.enter)="onEnter($event)"
+              />
+            </span>
           </p>
           <p>VAT No: {{ salesBillDetails.sellerCompany.panNo }}</p>
           <p>Customer Name: {{ salesBillDetails.salesBillDTO.customerName }}</p>
@@ -68,10 +70,9 @@
                 <td>{{ data.productName }}</td>
                 <td>
                   <input
-                    type="text"
-                    [ngModel]="data.creditReason"
-                    (change)="reasonchange(data.productId, $event)"
+                    [(ngModel)]="data.creditReason"
                     class="inputText"
+                    type="text"
                   />
                 </td>
                 <td>
@@ -93,8 +94,6 @@
             </tbody>
           </table>
         </div>
-        <!-- <p style="text-align: right">Total Tax Amount: [Enter Tax Amount]</p>
-        <div class="total">Total Amount: [Enter Total Amount]</div> -->
       </section>
       <div>
         <button

@@ -5,4 +5,5 @@ export class CreditNoteDetails {
   creditReason!: string;
   creditAmount!: number;
   creditTaxAmount!: number;
+  companyId!: number;
 }

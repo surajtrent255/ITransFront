@@ -11,4 +11,5 @@ export class SalesBillDetailWithProdInfo {
   rowTotal!: number;
   taxRate!: number;
   creditReason: string = '';
+  total!: number;
 }
