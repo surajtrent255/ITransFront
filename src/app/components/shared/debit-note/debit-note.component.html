@@ -9,39 +9,104 @@
     <div class="searchCreateTableDiv" style="height: 600px">
       <section>
         <div>
-          <p>Invoice Number: [Enter Invoice Number]</p>
-          <p style="text-align: right">Date: [Enter Date]</p>
+          <p>
+            S N:
+            <input
+              type="number"
+              name="SN"
+              #topic="ngModel"
+              [ngModel]="serialNumber"
+              disabled
+              class="inputText"
+            />
+          </p>
+          <p style="text-align: right">
+            Date: <input type="text" disabled [ngModel]="date" />
+          </p>
+
+          <p>
+            Bill No:
+            <input
+              type="number"
+              class="inputText"
+              name="billNo"
+              [(ngModel)]="billNo"
+              (keyup.enter)="onEnter($event)"
+            />
+          </p>
+          <p>VAT No: {{ PurchaseBillDetails.purchaseBillDTO.sellerPan }}</p>
+          <p>
+            Receiver Name: {{ PurchaseBillDetails.purchaseBillDTO.sellerName }}
+          </p>
         </div>
-        <div>
-          <h2>Bill To:</h2>
-          <p>[Enter Customer Name]</p>
-          <p>[Enter Customer Address]</p>
-          <p>[Enter Customer Phone Number]</p>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="ProductsRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Product Name</th>
+                <th>Debit Reason</th>
+                <th>QTY</th>
+                <th>Discount</th>
+                <th>Debit Amount</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let data of productDetails" id="prodTable">
+              <tr>
+                <td>
+                  <input
+                    type="checkbox"
+                    (change)="selectedProduct($event, data)"
+                  />
+                </td>
+                <td>{{ data.productName }}</td>
+                <td>
+                  <input
+                    type="text"
+                    [ngModel]="data.debitReason"
+                    (change)="reasonchange(data.productId, $event)"
+                    class="inputText"
+                  />
+                </td>
+                <td>
+                  <input
+                    [(ngModel)]="data.qty"
+                    type="number"
+                    class="inputText"
+                  />
+                </td>
+                <td>{{ data.discountPerUnit }}</td>
+                <td>{{ data.rate }}</td>
+
+                <td>
+                  <span>{{ data.rate * data.qty }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Description of Goods/Services</th>
-              <th>Quantity</th>
-              <th>Unit Price</th>
-              <th>Total Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>[Enter Description]</td>
-              <td>[Enter Quantity]</td>
-              <td>[Enter Unit Price]</td>
-              <td>[Enter Total Amount]</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="subtotal">Subtotal: [Enter Subtotal Amount]</div>
-        <p style="text-align: right">Tax: [Enter Tax Amount]</p>
-        <p style="text-align: right">Shipping: [Enter Shipping Amount]</p>
-        <p style="text-align: right">Discount: [Enter Discount Amount]</p>
-        <div class="total">Total: [Enter Total Amount]</div>
+        <!-- <p style="text-align: right">
+          Total Tax Amount: {{ PurchaseBillDetails.purchaseBillDTO.taxAmount }}
+        </p>
+        <div class="total">
+          Total Amount: {{ PurchaseBillDetails.purchaseBillDTO.totalAmount }}
+        </div> -->
       </section>
+      <div>
+        <button
+          type="submit"
+          (click)="onSubmit()"
+          class="submit_btn border-rad"
+        >
+          Submit
+        </button>
+      </div>
     </div>
   </div>
 </div>

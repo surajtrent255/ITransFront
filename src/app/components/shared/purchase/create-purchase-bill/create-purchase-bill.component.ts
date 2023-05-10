@@ -23,21 +23,19 @@ import { SalesCartService } from 'src/app/service/shared/sales-cart-service.serv
   styleUrls: ['./create-purchase-bill.component.css'],
 })
 export class CreatePurchaseBillComponent {
-
-
-  @ViewChild('createtransportationForm') createtransportationForm !: NgForm;
-  @ViewChild('loading', { static: false }) loadingInput !: ElementRef;
-  @ViewChild('#insuranceField', { static: false }) insuranceInput !: ElementRef;
-  @ViewChild('other', { static: false }) otherInput !: ElementRef;
+  @ViewChild('createtransportationForm') createtransportationForm!: NgForm;
+  @ViewChild('loading', { static: false }) loadingInput!: ElementRef;
+  @ViewChild('#insuranceField', { static: false }) insuranceInput!: ElementRef;
+  @ViewChild('other', { static: false }) otherInput!: ElementRef;
   selectSenderActive: boolean = false;
 
   billNo: number = 0;
   sellerId: number | undefined = 0;
-  sellerName !: string;
-  sellerPan !: number;
+  sellerName!: string;
+  sellerPan!: number;
   sellerPanOrPhone!: number;
   selectMenusForCompanies!: Company[];
-  selectMenusForCompaniesSize !: number;
+  selectMenusForCompaniesSize!: number;
   saleType: number = 1;
   currentBranch!: string;
   date!: string;
@@ -45,7 +43,7 @@ export class CreatePurchaseBillComponent {
   sellerSearchMethod: number = 1;
 
   companyId!: number;
-  branchId !: number;
+  branchId!: number;
   productsUserWantToPurchase: Product[] = [];
   purchaseBillDetailInfos: PurchaseBillDetail[] = [];
   featureObjs: UserFeature[] = [];
@@ -74,17 +72,18 @@ export class CreatePurchaseBillComponent {
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.featureObjs = this.loginService.getFeatureObjs();
-    this.featureObjs.forEach(fo => {
+    this.featureObjs.forEach((fo) => {
       if (fo.featureId === 2) {
         this.searchByBarCode = true;
       }
-    })
+    });
     this.currentBranch = 'Branch ' + this.branchId;
-
   }
 
   ngAfterViewInit() {
-    const productBarCodeIdEL = document.getElementById("productBarCodeId") as HTMLButtonElement;
+    const productBarCodeIdEL = document.getElementById(
+      'productBarCodeId'
+    ) as HTMLButtonElement;
     productBarCodeIdEL.focus();
   }
 
@@ -93,7 +92,12 @@ export class CreatePurchaseBillComponent {
       return;
     }
     this.productService
-      .getProductById(this.productBarCodeId, this.companyId, this.branchId, this.searchByBarCode)
+      .getProductById(
+        this.productBarCodeId,
+        this.companyId,
+        this.branchId,
+        this.searchByBarCode
+      )
       .subscribe((data) => {
         if (data.data !== null) {
           this.productsUserWantToPurchase.push(data.data);
@@ -110,7 +114,7 @@ export class CreatePurchaseBillComponent {
       error: (error) => {
         console.error(error);
       },
-      complete: () => { },
+      complete: () => {},
     });
   }
 
@@ -140,15 +144,18 @@ export class CreatePurchaseBillComponent {
     this.destroySelectSenderComponent(true);
   }
 
-
   fetchPurchaserInfo() {
     if (this.sellerPanOrPhone === null || this.sellerPanOrPhone === undefined) {
       this.tostrService.error(`pan or phone`, 'invalid number');
       return;
       // return;
     }
-    this.selectSenderActive = true;
-    const selectSellerBtn = document.getElementById("selectSeller") as HTMLButtonElement;
+    setTimeout(() => {
+      this.selectSenderActive = true;
+    }, 400);
+    const selectSellerBtn = document.getElementById(
+      'selectSeller'
+    ) as HTMLButtonElement;
     selectSellerBtn.click();
 
     this.companyService
@@ -170,7 +177,6 @@ export class CreatePurchaseBillComponent {
       });
   }
 
-
   removeItemFromCart(id: number) {
     this.productsUserWantToPurchase = this.productsUserWantToPurchase.filter(
       (prod) => prod.id !== id
@@ -179,18 +185,23 @@ export class CreatePurchaseBillComponent {
 
   setSaleType(id: number) {
     this.saleType = id;
-
   }
   goToOtherField() {
-    const insurancefiledEl = document.getElementById("other") as HTMLInputElement;
+    const insurancefiledEl = document.getElementById(
+      'other'
+    ) as HTMLInputElement;
     insurancefiledEl.focus();
   }
   goToLoadingField() {
-    const insurancefiledEl = document.getElementById("loading") as HTMLInputElement;
+    const insurancefiledEl = document.getElementById(
+      'loading'
+    ) as HTMLInputElement;
     insurancefiledEl.focus();
   }
   goToInsuranceField() {
-    const insurancefiledEl = document.getElementById("insurance") as HTMLInputElement;
+    const insurancefiledEl = document.getElementById(
+      'insurance'
+    ) as HTMLInputElement;
     insurancefiledEl.focus();
   }
 
@@ -200,7 +211,7 @@ export class CreatePurchaseBillComponent {
   purchaseTheProducts(draftSt: boolean) {
     console.log('above');
     if (this.createtransportationForm.invalid) {
-      this.tostrService.error("please fill all the charges fields")
+      this.tostrService.error('please fill all the charges fields');
       return;
     }
     if (
@@ -210,7 +221,7 @@ export class CreatePurchaseBillComponent {
       this.sellerId === 0 ||
       this.sellerId === undefined
     ) {
-      this.tostrService.error("please fill all the fields")
+      this.tostrService.error('please fill all the fields');
       return;
     }
 
@@ -272,7 +283,6 @@ export class CreatePurchaseBillComponent {
     purchaseBillMaster.purchaseBillDTO = purchaseBill;
     purchaseBillMaster.purchaseBillDetails = this.purchaseBillDetailInfos;
 
-
     console.log(purchaseBillMaster);
     this.purchaseBillService
       .createNewPurchaseBill(purchaseBillMaster)
@@ -280,9 +290,7 @@ export class CreatePurchaseBillComponent {
         next: (data) => {
           this.createtransportationForm.reset();
           console.log(data.data);
-          this.router.navigateByUrl(
-            `dashboard/purchasebills`
-          );
+          this.router.navigateByUrl(`dashboard/purchasebills`);
         },
         error: (error) => {
           console.log(error.error.description);
@@ -290,7 +298,7 @@ export class CreatePurchaseBillComponent {
       });
   }
 
-  createNewProduct($event: any) { }
+  createNewProduct($event: any) {}
 }
 
 interface InputEvent extends Event {

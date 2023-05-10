@@ -76,6 +76,10 @@ import { AssignCounterComponent } from './components/shared/header/assign-counte
 import { CounterUserListComponent } from './components/shared/header/counter-user-list/counter-user-list.component';
 import { AssignFeatureComponent } from './components/shared/header/feature-control/assign-feature/assign-feature.component';
 import { UserFeatureListComponent } from './components/shared/header/feature-control/user-feature-list/user-feature-list.component';
+import { DebitNoteComponent } from './components/shared/debit-note/debit-note.component';
+import { CreditNoteComponent } from './components/shared/credit-note/credit-note.component';
+import { DebitNoteInvoiceComponent } from './components/shared/debit-note/debit-note-invoice/debit-note-invoice.component';
+import { CreditNoteInvoiceComponent } from './components/shared/credit-note/credit-note-invoice/credit-note-invoice.component';
 
 @NgModule({
   declarations: [
@@ -134,6 +138,10 @@ import { UserFeatureListComponent } from './components/shared/header/feature-con
     CounterUserListComponent,
     AssignFeatureComponent,
     UserFeatureListComponent,
+    DebitNoteComponent,
+    CreditNoteComponent,
+    DebitNoteInvoiceComponent,
+    CreditNoteInvoiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -169,4 +177,4 @@ import { UserFeatureListComponent } from './components/shared/header/feature-con
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

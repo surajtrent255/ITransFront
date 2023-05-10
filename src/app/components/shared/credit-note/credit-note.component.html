@@ -11,16 +11,32 @@
         <div>
           <p>
             S N:
-            <input type="number" value="10" disabled class="inputText" />
+            <input
+              type="number"
+              name="SN"
+              #topic="ngModel"
+              [ngModel]="serialNumber"
+              disabled
+              class="inputText"
+            />
           </p>
-          <p style="text-align: right">Date: [Enter Date]</p>
-        </div>
-        <div>
-          <h2 style="font-size: 16px">Bill To:</h2>
-          <p>Customer Name: <input type="text" value="Nabin" disabled /></p>
+          <p style="text-align: right">
+            Date: <input type="text" disabled [ngModel]="date" />
+          </p>
+
           <p>
-            Customer Address: <input type="text" disabled value="Baneshwor" />
+            Bill No:
+            <input
+              type="number"
+              class="inputText"
+              name="billNo"
+              [(ngModel)]="billNo"
+              (keyup.enter)="onEnter($event)"
+            />
           </p>
+          <p>VAT No: {{ salesBillDetails.sellerCompany.panNo }}</p>
+          <p>Customer Name: {{ salesBillDetails.salesBillDTO.customerName }}</p>
+          <p>Customer Address: {{ salesBillDetails.customerAddress }}</p>
         </div>
         <div class="recordsTableDiv">
           <table
@@ -41,23 +57,54 @@
                 <th>Total</th>
               </tr>
             </thead>
-            <tbody id="prodTable">
-              <td><input type="checkbox" /></td>
-              <td>Electronic</td>
-              <td><input type="number" class="inputText" /></td>
-              <td>Discount</td>
-              <td>cr AMt</td>
-              <td>Total Tax</td>
-              <td>Total</td>
+            <tbody *ngFor="let data of productDetails" id="prodTable">
+              <tr>
+                <td>
+                  <input
+                    type="checkbox"
+                    (change)="selectedProduct($event, data)"
+                  />
+                </td>
+                <td>{{ data.productName }}</td>
+                <td>
+                  <input
+                    type="text"
+                    [ngModel]="data.creditReason"
+                    (change)="reasonchange(data.productId, $event)"
+                    class="inputText"
+                  />
+                </td>
+                <td>
+                  <input
+                    [(ngModel)]="data.qty"
+                    type="number"
+                    class="inputText"
+                  />
+                </td>
+                <td>{{ data.discountPerUnit }}</td>
+                <td>{{ data.rate }}</td>
+                <td>{{ data.rate * (data.taxRate / 100) }}</td>
+                <td>
+                  <span>{{
+                    data.qty * (data.rate + (data.rate * data.taxRate) / 100)
+                  }}</span>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
-        <div class="subtotal">Subtotal: [Enter Subtotal Amount]</div>
-        <p style="text-align: right">Tax: [Enter Tax Amount]</p>
-        <p style="text-align: right">Shipping: [Enter Shipping Amount]</p>
-        <p style="text-align: right">Discount: [Enter Discount Amount]</p>
-        <div class="total">Total: [Enter Total Amount]</div>
+        <!-- <p style="text-align: right">Total Tax Amount: [Enter Tax Amount]</p>
+        <div class="total">Total Amount: [Enter Total Amount]</div> -->
       </section>
+      <div>
+        <button
+          type="submit"
+          (click)="onSubmit()"
+          class="submit_btn border-rad"
+        >
+          Submit
+        </button>
+      </div>
     </div>
   </div>
 </div>
