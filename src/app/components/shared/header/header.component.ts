@@ -87,6 +87,7 @@ export class HeaderComponent {
   BranchIdForCounter!: number;
   counterStatus!: boolean;
   counterId!: number;
+  triggerCounterList!: boolean;
 
   // AssignCounter
   counterIdForAssignCounter!: number;
@@ -221,9 +222,7 @@ export class HeaderComponent {
   }
 
   getUsersForCounterListing() {
-    this.counterService.getUsersForCounterListing(
-      this.loginService.getCompnayId()
-    );
+    this.triggerCounterList = true;
   }
 
   enableDisableCounterUserData(e: any) {

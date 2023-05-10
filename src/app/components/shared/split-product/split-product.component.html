@@ -1,5 +1,3 @@
-<!-- View TABLE OF SPLIT QUANTUITY
-  -->
 <div class="contentRecordsTableContainer MainContainer">
   <div class="recordTableWrapper">
     <div class="recordCategory">
@@ -259,35 +257,23 @@
                 <td>{{ splitProduct.price }}</td>
                 <td>{{ splitProduct.unit }}</td>
                 <td class="last-child">
-                  <a
+                  <button
                     id="createSplit"
                     (click)="getTheProductForSplit(splitProduct.id)"
-                    class="createNewTableRecord"
+                    class="createNewTableRecord blue"
+                    style="margin: 5px"
                   >
-                    <i
-                      id="createSplit"  title=" split product"
-                      class="fas fa-sharp fa-light fa-arrows-split-up-and-left fa-xl"
-                      style="color: #34e00d; padding: auto"
-                    ></i>
-                  </a>
-                  <a
-                    id="createMerge" title="mearge product"
+                    Re-split
+                  </button>
+                  <button
+                    id="createMerge"
                     (click)="getTheProductForMerge(splitProduct.id)"
-                    class="createNewTableRecord"
+                    class="createNewTableRecord blue"
+                    style="margin: 5px"
                   >
-                    <i
-                    id="createMerge" 
-                      class="fas fa-regular fa-code-merge fa-xl"
-                      style="color: #165eda; padding-left: 15%"
-                    ></i>
-                  </a>
+                    Merge
+                  </button>
                 </td>
-
-                <!-- <td class="last-child">
-      <button id="createSplit" (click)="getTheProductForSplit(splitProduct.id)" class="createNewTableRecord blue" style="margin: 5px;">Re-split</button>
-      <button id="createMerge" (click)="getTheProductForMerge(splitProduct.id)" class="createNewTableRecord blue" style="margin: 5px;">Merge</button>
-    
-    </td> -->
               </tr>
             </tbody>
           </table>
@@ -577,33 +563,39 @@
               [disabled]="splitproductForm.form.invalid"
               />
 
-              <input
-                type="button"
-                value="Cancel"
-                class="submit_btn cancel_btn border-rad ml-2"
-              />
-            </div>
-          </form>
+                <input
+                  type="button"
+                  value="Cancel"
+                  class="submit_btn cancel_btn border-rad ml-2"
+                />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
+
+      <div
+        class="popupWrapper"
+        id="editCategoryPopup"
+        style="display: none"
+      ></div>
     </div>
   </div>
 </div>
-</div>
-<!-- </div> -->
 
 <div class="popupWrapper" id="createSplitPopup" style="display: none">
   <div class="mb-2"></div>
-  <app-create-split-product *ngIf="enableCreateSplitComp" [id]="idForSplitComp"
-  (destroyCreatSpiltComponent)="destroyCreateSplitProductComponent($event)"
+  <app-create-split-product
+    *ngIf="enableCreateSplitComp"
+    [id]="idForSplitComp"
   ></app-create-split-product>
 </div>
 
 <div class="popupWrapper" id="createMergePopup" style="display: none">
   <div class="mb-2"></div>
 
-  <app-merge-product *ngIf="enableCreateMergeComp" [id]="idForMergeComp"
-  (enableMergeComp)="destroyCreateMergeProductComponent($event)"
+  <app-merge-product
+    *ngIf="enableCreateMergeComp"
+    [id]="idForMergeComp"
   ></app-merge-product>
 </div>
-

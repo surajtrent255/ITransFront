@@ -1,24 +1,24 @@
-td{
-    vertical-align: middle;
-  }
-  select{
-    min-width: 80%;
-    background-color: white;
-  }
-  
+td {
+  vertical-align: middle;
+}
+select {
+  min-width: 80%;
+  background-color: white;
+}
+
 input[type="text"] {
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .blue {
-    background-color: blue;
-    color: white;
-  }
-  div{
-    vertical-align: middle;
-  }
-  /* #createSplit:hover::after {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.blue {
+  background-color: blue;
+  color: white;
+}
+div {
+  vertical-align: middle;
+}
+/* #createSplit:hover::after {
     content: " REsplit";
     position: fixed;
     transform: translate(-50%, -50%);
@@ -36,7 +36,7 @@ input[type="text"] {
     font-size: 15px;
     font-weight: bold;
   } */
-  /* #createMerge {
+/* #createMerge {
     position: fixed;
     top: 50%;
     left: 50%;

@@ -1,12 +1,25 @@
 import { Injectable } from '@angular/core';
 import { RoleService } from '../role.service';
 import { LoginService } from '../login.service';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommonService {
   constructor() {}
+
+  private dataSubject = new BehaviorSubject<any>(null);
+  public data$ = this.dataSubject.asObservable();
+
+  setData(data: any) {
+    console.log('Setting data:', data);
+    this.dataSubject.next(data);
+  }
+
+  clearData() {
+    this.dataSubject.next(null);
+  }
 
   // for millisecond to date (UTC Nepal)
   formatDate(timestamp: number): string {

@@ -91,3 +91,9 @@ export const COUNTER_DETAILS = BASE_URL + '/api/v1/counter';
 
 // for Feature Control
 export const FEATURE_CONTROL = BASE_URL + '/api/v1/feature/control';
+
+// for debit note
+export const DEBIT_NOTE = BASE_URL + '/ap1/v1/debitNote';
+
+// for credit note
+export const CREDIT_NOTE = BASE_URL + '/api/v1/creditNote';

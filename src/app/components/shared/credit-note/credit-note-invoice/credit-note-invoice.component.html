@@ -1,0 +1,162 @@
+<div class="contentRecordsTableContainer MainContainer">
+  <div class="recordTableWrapper" style="height: 545px">
+    <div class="recordCategory">
+      <h2 class="text-center" id="">Invoice here</h2>
+      <div class="cboth"></div>
+    </div>
+
+    <div class="popupSubHeadingDiv">
+      <h1 class="heading">Invoice of Credit Note</h1>
+    </div>
+    <div class="popupContentWrapper">
+      <div class="row">
+        <h5 class="text-center">Credit Note Invoice</h5>
+        <div class="col-md-6">
+          <div>
+            <p>
+              S N:
+              <input
+                type="number"
+                value="{{ serialNumber }}"
+                disabled
+                class="inputText"
+              />
+            </p>
+          </div>
+          <span>Bill Number: {{ salesInvoice.salesBillDTO.billNo }}</span
+          ><br />
+          <span>Seller PAN: {{ salesInvoice.sellerCompany.panNo }}</span
+          ><br />
+          <span>Seller Name: {{ salesInvoice.sellerCompany.name }}</span
+          ><br />
+          <span
+            >Address: {{ salesInvoice.sellerCompany.district }}
+            {{ salesInvoice.sellerCompany.munVdc }}</span
+          ><br />
+          <span
+            >Customer Name: {{ salesInvoice.salesBillDTO.customerName }}</span
+          ><br />
+          <span>Customer Address: {{ salesInvoice.customerAddress }} </span
+          ><br />
+          <span>Customer PAN: {{ salesInvoice.salesBillDTO.customerPan }} </span
+          ><br />
+        </div>
+        <div class="col-md-6">
+          <p style="text-align: right">
+            Date: <input type="text" disabled [ngModel]="date" />
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-striped">
+              <thead>
+                <th>Product Name</th>
+                <th>Credit Reason</th>
+                <th>QTY</th>
+                <th>Discount</th>
+                <th>Credit Amount</th>
+                <th>Tax Amount</th>
+                <th>Total</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of SelectedProduct; let i = index">
+                  <td>{{ product.productName }}</td>
+                  <td *ngFor="let data of Reason">
+                    <span *ngIf="product.id === data.productId">{{
+                      data.reason
+                    }}</span>
+                  </td>
+                  <!-- conditional ceheck for QTY -->
+                  <td *ngIf="QTY.length !== 0">
+                    <span *ngFor="let data of QTY">
+                      <span *ngIf="product.id === data.productId">
+                        <span>{{ data.qty }}</span></span
+                      >
+                    </span>
+                  </td>
+
+                  <td *ngIf="QTY.length === 0">
+                    <span
+                      *ngFor="let data of salesInvoice.salesBillDetailsWithProd"
+                    >
+                      <span *ngIf="data.productId === product.id">
+                        <span>
+                          {{ data.qty }}
+                        </span>
+                      </span>
+                    </span>
+                  </td>
+                  <!-- END -->
+
+                  <td>{{ product.discountPerUnit }}</td>
+                  <td>
+                    <span>{{ product.rate }}</span>
+                  </td>
+                  <td>
+                    <span>{{ product.rate * (product.taxRate / 100) }}</span>
+                  </td>
+                  <td *ngIf="QTY.length === 0">
+                    {{ product.qty * (product.rate + product.taxRate / 100) }}
+                  </td>
+                  <td *ngIf="QTY.length !== 0">
+                    <span *ngFor="let data of QTY">
+                      <span *ngIf="product.id === data.productId">
+                        <span>{{
+                          data.qty * (product.rate + product.taxRate / 100)
+                        }}</span></span
+                      >
+                    </span>
+                  </td>
+                </tr>
+                <tr></tr>
+
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><span class="text text-bg">Total:</span></td>
+                  <td></td>
+
+                  <td></td>
+
+                  <td>
+                    {{
+                      salesInvoice.salesBillDTO.totalAmount | number : "1.0-0"
+                    }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            (In Words:
+            {{ salesInvoice.salesBillDTO.totalAmount | numberToWords }})
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-end">
+            <div class="row">
+              <span>.................................</span>
+            </div>
+            <div class="row">
+              <b>Authorized Signature </b>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        class="submit_btn border-rad"
+        (click)="printTheBill(salesInvoice.salesBillDTO.id)"
+      >
+        Print
+      </button>
+      <div class="row text-center">
+        <span *ngIf="salesInvoice.salesBillDTO.billPrinted"
+          >This is second invoice
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

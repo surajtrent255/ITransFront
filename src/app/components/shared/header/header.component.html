@@ -637,6 +637,7 @@
             <!-- Counter User -->
             <div class="tabs-section tab-4">
               <app-counter-user-list
+                [reloadList]="triggerCounterList"
                 (data)="enableDisableCounterUserData($event)"
               ></app-counter-user-list>
             </div>
