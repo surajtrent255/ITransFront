@@ -102,6 +102,8 @@ export class CreatePurchaseBillComponent {
         if (data.data !== null) {
           this.productsUserWantToPurchase.push(data.data);
           this.productBarCodeId = undefined;
+        } else if (data.data === null) {
+          this.tostrService.error('product not available');
         }
       });
   }
@@ -114,7 +116,7 @@ export class CreatePurchaseBillComponent {
       error: (error) => {
         console.error(error);
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
 
@@ -298,7 +300,7 @@ export class CreatePurchaseBillComponent {
       });
   }
 
-  createNewProduct($event: any) {}
+  createNewProduct($event: any) { }
 }
 
 interface InputEvent extends Event {

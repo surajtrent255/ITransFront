@@ -4,33 +4,6 @@
       <h2 class="text-center" id="totalGroupCombinations">Create Sales</h2>
       <div class="cboth"></div>
     </div>
-    <div class="dropdown">
-      <i
-        class="fa-solid fa-gear dropdown-toggle"
-        type="button"
-        id="dropdownMenuButton"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-      </i>
-      <div
-        class="dropdown-menu"
-        style="margin-left: 4px"
-        aria-labelledby="dropdownMenuButton"
-      >
-        <span *ngFor="let feature of featureObjs">
-          <ul class="ml-3" *ngIf="feature.featureId === 1">
-            <input
-              type="checkbox"
-              [checked]="allowEditSellingPrice"
-              (change)="updateAllowEditSP()"
-            />
-            <span class="ml-2">Alter Price</span>
-          </ul>
-        </span>
-      </div>
-    </div>
     <div class="fright" class="createProductDiv text-end">
       <a href="" id="createNewProduct" class="createNewTableRecord">
         <img src="../../../assets/resources/images/createProduct.png" />
@@ -47,6 +20,33 @@
           <!-- <app-popup class="m-4"></app-popup> -->
 
           <div class="row">
+            <div class="dropdown mt-1">
+              <i
+                class="fa-solid fa-gear dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+              </i>
+              <div
+                class="dropdown-menu"
+                style="margin-left: 4px"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <span *ngFor="let feature of featureObjs">
+                  <ul class="ml-3" *ngIf="feature.featureId === 1">
+                    <input
+                      type="checkbox"
+                      [checked]="allowEditSellingPrice"
+                      (change)="updateAllowEditSP()"
+                    />
+                    <span class="ml-2">Alter Price</span>
+                  </ul>
+                </span>
+              </div>
+            </div>
             <div class="col-md-3">
               <span class="inputItems">To: {{ customerName }}</span>
               <div style="display: flex; align-items: center">
@@ -732,7 +732,7 @@
   >
   Ward
   </th>
- 
+
   <th class="last-child">Actions</th>
   </tr>
   </thead>
@@ -758,7 +758,7 @@
   No
   </button></span
   >
- 
+
   <button
   style="display: none"
   id="createNewCustomer"

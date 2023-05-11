@@ -14,7 +14,7 @@
 
           <div class="row">
             <div class="col-md-3">
-              <span class="inputItems">Seller Name: {{ sellerName }}</span>
+              <!-- <span class="inputItems">Seller Name: {{ sellerName }}</span>
               <div style="display: flex; align-items: center">
                 <input
                   type="text"
@@ -59,6 +59,37 @@
                   />
                   PHONE</span
                 >
+              </div> -->
+              <span class="inputItems">Seller Name:: {{ sellerName }}</span>
+              <div style="display: flex; align-items: center">
+                <input
+                  type="text"
+                  [(ngModel)]="sellerPanOrPhone"
+                  class="input-field"
+                  style="margin: 0 4px"
+                  (keydown.enter)="fetchPurchaserInfo()"
+                />
+                <button
+                  class="ml-3"
+                  class="submit_btn border-rad"
+                  style="margin: 0 5px"
+                  (click)="fetchPurchaserInfo()"
+                >
+                  Search
+                </button>
+                <button
+                  id="selectSeller"
+                  class="createNewTableRecord"
+                  style="display: none"
+                ></button>
+              </div>
+              <div class="ml-2 mt-2">
+                <span>Search By Pan or Phone</span>
+                <div>
+                  <span
+                    ><small>10 digits for phone, 9 digits for pan</small></span
+                  >
+                </div>
               </div>
             </div>
             <div
@@ -110,16 +141,7 @@
               <input type="radio" name="discountType" value="0" ; />
               On overall basis
             </div> -->
-            <div class="col-md-3">
-              <span class="inputItems">Date:</span>
-              <input
-                class="inputItems input-field"
-                id="date"
-                [(ngModel)]="date"
-                type="date"
-                readonly
-              />
-            </div>
+
             <div class="col-md-3">
               <div style="display: inline-block">
                 <input
@@ -229,6 +251,13 @@
                         id="qtyProd{{ prod.id }}"
                         (change)="updateProdQtyUserWantToPurchase($event, prod)"
                       />
+                      <span *ngIf="prod.stock <= 10"
+                        ><span
+                          class="badge rounded-pill bg-warning text-dark ml-1"
+                        >
+                          . {{ prod.stock }} remaining !</span
+                        >
+                      </span>
                     </td>
                     <td>{{ prod.sellingPrice }}</td>
                     <td id="totalAmount{{ prod.id }}">
@@ -366,11 +395,11 @@
               <!-- <button class="submit_btn border-rad" id="popperAlertLink">
               Sale the product
             </button> -->
-              <button class="submit_btn" (click)="purchaseTheProducts(true)">
+              <!-- <button class="submit_btn" (click)="purchaseTheProducts(true)">
                 Save as a Draft
-              </button>
+              </button> -->
               <button class="submit_btn" (click)="purchaseTheProducts(false)">
-                Sale the Product
+                Purchase the Product
               </button>
             </div>
           </div>
