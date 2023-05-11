@@ -22,7 +22,7 @@ export class ProductComponent {
     private loginService: LoginService,
     private router: Router,
     private toastrService: ToastrService
-  ) {}
+  ) { }
 
   newProduct!: Product;
   IsAuditor!: boolean;
@@ -67,8 +67,8 @@ export class ProductComponent {
     this.fetchAllProducts(this.compId, this.branchId);
   }
 
-  createNewProduct($event: boolean) {
-    if ($event == true) {
+  createNewProduct($event: number) {
+    if ($event > 0) {
       this.fetchAllProducts(this.compId, this.branchId);
     }
   }

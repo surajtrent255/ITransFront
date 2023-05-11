@@ -1,7 +1,9 @@
 <div class="contentRecordsTableContainer MainContainer" style="height: auto">
   <div class="recordTableWrapper">
     <div class="recordCategory">
-      <h2 class="text-center" id="totalGroupCombinations">Create Sales</h2>
+      <h2 class="text-center" id="totalGroupCombinations">
+        Create Sales {{ selectCompanyActive }}
+      </h2>
       <div class="cboth"></div>
     </div>
     <div class="fright" class="createProductDiv text-end">
@@ -646,175 +648,10 @@
     [selectMenusForCompanies]="selectMenusForCompanies"
     (compIdEvent)="setCustomerInfo($event)"
     (destroySelectCompEmitter)="destroySelectCustomerComponent($event)"
-    (fetchCustomerEventEmitter)="fetchCustomerInfo()"
+    (fetchCustomerEventEmitter)="fetchCustomerInfoOnlyForNameDisplay($event)"
     [title]="'customer'"
   >
   </app-select-customer>
-  <!-- <div class="mb-2"></div>
-  <div class="popupHeading">
-  <h2 class="fleft">Customers</h2>
-  <a class="closeButton fright" id="closeCustPop"
-  ><img
-  src="../../../assets/resources/images/removetablink.png"
-  alt="close"
-  /></a>
-  <div class="cboth"></div>
-  </div>
-  <div class="popupSubHeadingDiv selectCustomer">
-  <h1 class="heading">Your can select your customer here</h1>
-  </div>
-  <div class="popupContentWrapper">
-  <div class="row">
-  <div class="col-md-12">
-  <div class="recordsTableDiv">
-  <table
-  cellspacing="0"
-  cellpadding="0"
-  class="recordsTable"
-  id="ProductsRecordsTable"
-  >
-  <thead>
-  <tr>
-  <th>S.N</th>
-  <th
-  class="first-child sortable"
-  sortDir="asc"
-  sortCol="organization_id"
-  id="id"
-  >
-  Name
-  </th>
-  <th
-  class="sortable"
-  sortDir="asc"
-  sortCol="organization_name"
-  id="name"
-  >
-  PAN NO
-  </th>
-  <th
-  class="sortable"
-  sortDir="asc"
-  sortCol="customer_name"
-  id="costprice"
-  >
-  Phone
-  </th>
-  <th
-  class="sortable"
-  sortDir="asc"
-  sortCol="master_name"
-  id="sellingprice"
-  >
-  State
-  </th>
-  <th
-  class="sortable"
-  sortDir="asc"
-  sortCol="product_group_name"
-  id="barcode"
-  >
-  District
-  </th>
-  <th
-  class="sortable"
-  sortDir="asc"
-  sortCol="product_group_name"
-  id="discount"
-  >
-  Mun/Vdc
-  </th>
-  <th
-  class="sortable"
-  sortDir="asc"
-  sortCol="product_group_name"
-  id="tax"
-  >
-  Ward
-  </th>
-
-  <th class="last-child">Actions</th>
-  </tr>
-  </thead>
-  <tbody id="prodTable">
-  <tr class="text-center" *ngIf="selectMenusForCompaniesSize === 0">
-  <td colspan="9">
-  <span style="color: red">No records found !</span>
-  <span>
-  Would you like to create customer ?
-  <button
-  #createCustomerBtn
-  (keyup)="onButtonKeyUp($event)"
-  class="submit_btn border-rad"
-  (click)="displayAddCustomerPopup()"
-  >
-  Yes
-  </button>
-  <button
-  class="submit_btn border-rad"
-  (keyup)="onButtonKeyUp($event)"
-  (click)="closeSelectCustomerPopUp()"
-  >
-  No
-  </button></span
-  >
-
-  <button
-  style="display: none"
-  id="createNewCustomer"
-  class="createNewTableRecord"
-  ></button>
-  </td>
-  </tr>
-  <tr
-  *ngFor="let cust of selectMenusForCompanies; let index = index"
-  id="cust_{{ cust.companyId }}"
-  >
-  <td>{{ index + 1 }}</td>
-  <td>{{ cust.name }}</td>
-  <td>{{ cust.panNo }}</td>
-  <td>{{ cust.phone }}</td>
-  <td>{{ cust.state }}</td>
-  <td>{{ cust.district }}</td>
-  <td>{{ cust.munVdc }}</td>
-  <td>---</td>
-  <td>
-  <button
-  *ngIf="index === 0"
-  #selectedCustomerBtn
-  (click)="setCustomerInfo(cust.companyId)"
-  (keyup)="onButtonKeyUp($event)"
-  id="my-select-btn"
-  class="submit_btn border-rad"
-  >
-  Select
-  </button>
-  <button
-  *ngIf="index !== 0"
-  (click)="setCustomerInfo(cust.companyId)"
-  class="submit_btn border-rad"
-  >
-  Select
-  </button>
-  </td>
-  </tr>
-  </tbody>
-  </table>
-  </div>
-  </div>
-  </div>
-  </div> -->
-</div>
-<div
-  class="popupWrapper createCustomerPopUpWrapper"
-  id="createNewCustomerPopup"
-  style="display: none"
->
-  <div class="mb-2"></div>
-  <app-create-customer
-    *ngIf="createCustomerEnable"
-    (customerAddedSuccessMsg)="customerAdded($event)"
-  ></app-create-customer>
 </div>
 
 <div

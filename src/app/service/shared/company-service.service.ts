@@ -19,7 +19,7 @@ export class CompanyServiceService {
   constructor(
     private httpClient: HttpClient,
     private toastrService: ToastrService
-  ) {}
+  ) { }
 
   getCompnayDetails(user_id: number): Observable<any> {
     return this.httpClient.get(`${USER_COMPANY_URL}/${user_id}`);
@@ -38,7 +38,6 @@ export class CompanyServiceService {
       tap({
         next: (respone) => {
           console.log(respone);
-          this.toastrService.success('Company Added Successfully');
         },
         error: (err) => {
           console.log(err);

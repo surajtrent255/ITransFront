@@ -1,21 +1,24 @@
-<div class="mb-2"></div>
-<div class="popupHeading" *ngIf="selectMenusForCompanies.length > 0">
-  <h2 class="fleft">{{ title }}</h2>
+<div
+  class="popupHeading"
+  *ngIf="selectMenusForCompanies.length > 0 && showableALertPopup"
+>
   <a
     class="Customer1CloseButton fright"
     id="closeCompanyPop"
     (click)="destroySelectCustomer()"
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
-  <div class="cboth"></div>
 </div>
 <div
   class="popupSubHeadingDiv selectcompanyomer"
-  *ngIf="selectMenusForCompanies.length > 0"
+  *ngIf="selectMenusForCompanies.length > 0 && showableALertPopup"
 >
   <h1 class="heading">Your can select your {{ title }} here</h1>
 </div>
-<tr class="text-center" *ngIf="selectMenusForCompanies.length === 0">
+<tr
+  class="text-center"
+  *ngIf="selectMenusForCompanies.length === 0 && showableALertPopup"
+>
   <td colspan="9">
     <!--  -->
     <div class="popupSubHeadingDiv createsalesBill">
@@ -203,9 +206,9 @@
   id="createNewCustomerPopup"
   style="display: none"
 >
-  <div class="mb-2"></div>
   <app-create-customer
     *ngIf="createCustomerEnable"
     (customerAddedSuccessMsg)="customerAdded($event)"
+    [title]="'customer'"
   ></app-create-customer>
 </div>

@@ -205,8 +205,20 @@
                     Enter Product Name:
                   </div>
                   <div style="display: inline-block">
-                    <input type="text" class="input-field" />
+                    <input
+                      type="text"
+                      class="input-field"
+                      [(ngModel)]="prodWildCard"
+                      (keydown.enter)="getNameWildCard()"
+                    />
                   </div>
+                  <button
+                    id="selectProduct"
+                    class="createNewTableRecord"
+                    style="display: none"
+                  >
+                    Add By Name
+                  </button>
                 </div>
                 <div class="mt-3">
                   <button
@@ -245,11 +257,12 @@
                     </td>
                     <td>
                       <input
+                        #prodQtyInput
                         class="input-field"
                         type="number"
                         value="1"
-                        id="qtyProd{{ prod.id }}"
-                        (change)="updateProdQtyUserWantToPurchase($event, prod)"
+                        id="qtyProd{{ i }}"
+                        (change)="updateProdQtyUserWantToPurchase($event, i)"
                       />
                       <span *ngIf="prod.stock <= 10"
                         ><span
@@ -259,14 +272,21 @@
                         >
                       </span>
                     </td>
-                    <td>{{ prod.sellingPrice }}</td>
-                    <td id="totalAmount{{ prod.id }}">
+                    <td>
+                      <input
+                        type="number"
+                        id="unitPrice{{ i }}"
+                        readonly
+                        value="{{ prod.sellingPrice }}"
+                      />
+                    </td>
+                    <td id="totalAmount{{ i }}">
                       {{ prod.sellingPrice }}
                     </td>
                     <td style="text-align: center; vertical-align: middle">
                       <i
                         class="fa fa-remove text-danger"
-                        (click)="removeItemFromCart(prod.id)"
+                        (click)="removeItemFromCart(i)"
                       ></i>
                     </td>
                   </tr>
@@ -432,11 +452,25 @@
       [selectMenusForCompanies]="selectMenusForCompanies"
       (compIdEvent)="setSellerInfo($event)"
       (destroySelectCompEmitter)="destroySelectSenderComponent($event)"
-      (fetchCustomerEventEmitter)="fetchPurchaserInfo()"
+      (fetchCustomerEventEmitter)="fetchSellerInfoOnlyForNameDisplay($event)"
       [title]="'Seller'"
     >
     </app-select-customer>
 
     <!-- suraj -->
   </div>
+</div>
+<div
+  class="popupWrapper"
+  id="selectProductPopup"
+  style="display: none; width: auto"
+>
+  <app-select-product
+    *ngIf="selectProductActive"
+    [selectMenusForProduct]="selectMenusForProduct"
+    (prodSelectEmitter)="setProductSelectedByName($event)"
+    (destroySelectProdEmitter)="destroySelectProductComponent($event)"
+    (fetchProductEventEmitter)="getNameWildCard()"
+  >
+  </app-select-product>
 </div>
