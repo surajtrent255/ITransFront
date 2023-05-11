@@ -7,4 +7,5 @@ export class DebitNote {
   date!: Date;
   totalAmount!: number;
   totalTax!: number;
+  companyId!: number;
 }

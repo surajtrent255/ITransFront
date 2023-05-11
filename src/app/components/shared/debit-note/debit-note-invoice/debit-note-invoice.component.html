@@ -6,149 +6,92 @@
     </div>
 
     <div class="popupSubHeadingDiv">
-      <h1 class="heading">Invoice of the sold products</h1>
+      <h1 class="heading">Invoice of Credit Note</h1>
     </div>
     <div class="popupContentWrapper">
       <div class="row">
-        <h5 class="text-center">Tax Invoice</h5>
+        <h5 class="text-center">Credit Note Invoice</h5>
         <div class="col-md-6">
-          <span>Bill Number: {{ salesInvoice.salesBillDTO.billNo }}</span
+          <div>
+            <p>
+              S N:
+              <span>
+                <input
+                  type="number"
+                  value="{{ serialNumber }}"
+                  disabled
+                  class="inputText"
+                />
+              </span>
+            </p>
+          </div>
+          <span>Bill Number:</span>
+          <span> {{ purchaseInvoice.purchaseBillDTO.purchaseBillNo }}</span
           ><br />
-          <span>Seller PAN: {{ salesInvoice.sellerCompany.panNo }}</span
+
+          <span>Seller Name: </span
+          ><span>{{ purchaseInvoice.purchaseBillDTO.sellerName }}</span
           ><br />
-          <span>Seller Name: {{ salesInvoice.sellerCompany.name }}</span
-          ><br />
-          <span
-            >Address: {{ salesInvoice.sellerCompany.district }}
-            {{ salesInvoice.sellerCompany.munVdc }}</span
-          ><br />
-          <span
-            >Purchaser's Name:
-            {{ salesInvoice.salesBillDTO.customerName }}</span
-          ><br />
-          <span>Address: {{ salesInvoice.customerAddress }} </span><br />
-          <span
-            >Purchaser’s PAN: {{ salesInvoice.salesBillDTO.customerPan }} </span
+
+          <span>Seller PAN: </span>
+          <span> {{ purchaseInvoice.purchaseBillDTO.sellerPan }}</span
           ><br />
         </div>
+
         <div class="col-md-6">
-          <span
-            >Transaction Date:
-            {{ salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd" }}</span
-          ><br />
-          <span
-            >Invoice issue Date:
-            {{ salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd" }}</span
-          ><br />
-          <span
-            >MethodOfPayment:
-            {{ salesInvoice.salesBillDTO.paymentMethod }}</span
-          ><br />
+          <p style="text-align: right">
+            Date: <input type="text" disabled [ngModel]="date" />
+          </p>
         </div>
         <div class="row">
           <div class="col-md-12">
             <table class="table table-striped">
               <thead>
-                <th>S.No</th>
                 <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Per Unit Amount(Rs)</th>
-                <th>Total Amount(Rs)</th>
+                <th>Debit Reason</th>
+                <th>QTY</th>
+                <th>Discount</th>
+                <th>Debit Amount</th>
+                <th>Total</th>
               </thead>
               <tbody>
-                <tr
-                  *ngFor="
-                    let invoice of salesInvoice.salesBillDetailsWithProd;
-                    let i = index
-                  "
-                >
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ invoice.productName }}</td>
-                  <td>{{ invoice.qty }}</td>
-                  <td>{{ invoice.rate }}</td>
-                  <td>{{ invoice.rowTotal }}</td>
+                <tr *ngFor="let product of SelectedProduct; let i = index">
+                  <td>{{ product.productName }}</td>
+                  <td>{{ product.debitReason }}</td>
+                  <td>{{ product.qty }}</td>
+                  <td>{{ product.discountPerUnit }}</td>
+                  <td>{{ product.rate }}</td>
+                  <td>
+                    {{ product.rate * product.qty }}
+                  </td>
                 </tr>
                 <tr></tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>Net Amount:</td>
-                  <td>
-                    {{ salesInvoice.salesBillDTO.amount | number : "1.0-0" }}
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td><span class="text text-bg">Discount%: </span></td>
-                  <td>
-                    {{ salesInvoice.salesBillDTO.discount | number : "1.0-0" }}
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td><span class="text text-bg">Taxable Amount</span></td>
-                  <td>
-                    {{
-                      salesInvoice.salesBillDTO.taxableAmount | number : "1.0-0"
-                    }}
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td><span class="text text-bg">VAT 13%</span></td>
-                  <td>
-                    {{ salesInvoice.salesBillDTO.taxAmount | number : "1.0-0" }}
-                  </td>
-                </tr>
+
                 <tr>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td><span class="text text-bg">Total:</span></td>
+                  <td></td>
+
                   <td>
-                    {{
-                      salesInvoice.salesBillDTO.totalAmount | number : "1.0-0"
-                    }}
+                    {{ totalAmount | number : "1.0-0" }}
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+      </div>
+      <div class="container" style="margin: 20px; padding-top: 20px">
         <div class="row">
           <div class="col-md-12">
-            (In Words:
-            {{ salesInvoice.salesBillDTO.totalAmount | numberToWords }})
+            <button class="submit_btn border-rad" (click)="submit()">OK</button>
+            <button class="submit_btn border-rad" (click)="cancel()">
+              Cancel
+            </button>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12 text-end">
-            <div class="row">
-              <span>.................................</span>
-            </div>
-            <div class="row">
-              <b>Authorized Signature </b>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button
-        class="submit_btn border-rad"
-        (click)="printTheBill(salesInvoice.salesBillDTO.id)"
-      >
-        Print
-      </button>
-      <div class="row text-center">
-        <span *ngIf="salesInvoice.salesBillDTO.billPrinted"
-          >This is second invoice
-        </span>
       </div>
     </div>
   </div>

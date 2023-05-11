@@ -35,6 +35,7 @@
                     readonly
                     placeholder="{{ SplitProductObj.productName }}"
                     class="form-control"
+                    name="productName"
                     id="productName"
                     #productName="ngModel"
                     [(ngModel)]="SplitProductObj.productName"
@@ -51,6 +52,7 @@
                     type="text"
                     placeholder="{{ SplitProductObj.productId }}"
                     class="form-control"
+                    name="productId"
                     id="productId"
                     #productId="ngModel"
                     [(ngModel)]="SplitProductObj.productId"
@@ -68,6 +70,7 @@
                     type="text"
                     class="form-control"
                     id="qty"
+                    name="qty"
                     #qty="ngModel"
                     [(ngModel)]="SplitProductObj.qty"
                   />
@@ -84,6 +87,7 @@
                     type="text"
                     class="form-control"
                     id="updatedProductName"
+                    name="updatedProductName"
                     #updatedProductName="ngModel"
                     [(ngModel)]="SplitProductObj.updatedProductName"
                   />
@@ -100,6 +104,7 @@
                     type="text"
                     class="form-control"
                     id="updatedProductId"
+                    name="updatedProductId"
                     #updatedProductId="ngModel"
                     [(ngModel)]="SplitProductObj.updatedProductId"
                   />
@@ -156,6 +161,7 @@
                     type="text"
                     placeholder="{{ SplitProductObj.price }}"
                     class="form-control"
+                    name="price"
                     id="price"
                     #price="ngModel"
                     [(ngModel)]="SplitProductObj.price"

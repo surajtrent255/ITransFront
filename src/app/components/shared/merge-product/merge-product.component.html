@@ -84,6 +84,7 @@
                     placeholder="{{ SplitProductObj.updatedProductName }}"
                     type="text"
                     class="form-control"
+                    name="updatedProductName"
                     id="updatedProductName"
                     #updatedProductName="ngModel"
                     [(ngModel)]="SplitProductObj.updatedProductName"
@@ -100,6 +101,7 @@
                     type="text"
                     placeholder="{{ SplitProductObj.updatedProductId }}"
                     class="form-control"
+                    name="updatedProductId"
                     id="updatedProductId"
                     #updatedProductId="ngModel"
                     [(ngModel)]="SplitProductObj.updatedProductId"
@@ -166,6 +168,7 @@
                     class="form-control"
                     readonly
                     type="text"
+                    name="price"
                     placeholder="{{ SplitProductObj.price }}"
                     id="price"
                     #price="ngModel"

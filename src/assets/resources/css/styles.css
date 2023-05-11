@@ -98,7 +98,7 @@ textarea {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  background-blend-mode:luminosity;
+  background-blend-mode: luminosity;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -198,7 +198,7 @@ a span {
 /****----- PAge Generic Styles ------ */
 
 body {
-  background: #d6d3ce;
+  background: #9fb8d8;
   font-size: 14px;
   font-family: "PT Sans", sans-serif;
   line-height: 18px;
@@ -209,12 +209,11 @@ body {
   width: 1180px;
   margin: 0 auto;
   padding-bottom: 90px;
-  background-color: #d6d3ce;
+  background-color: #9fb8d8;
 }
 .pageWrapperCompany {
   width: 1180px;
   margin: 0 auto;
-  
   height: 600px;
   padding-bottom: 90px;
 }
@@ -222,7 +221,7 @@ body {
   width: 1000px;
   margin: 60px auto 20px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
-  background: #f4f4f4 url("../../resources/images/loginWrapper-bg.png")
+  background: #9fc9d2 url("../../resources/images/loginWrapper-bg.png")
     no-repeat;
   min-height: 440px;
 }
@@ -230,7 +229,7 @@ body {
   width: 1000px;
   margin: 60px auto 20px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
-  background: #f4f4f4 url("../../resources/images/loginWrapper-bg.png")
+  background: #9fc9d2 url("../../resources/images/loginWrapper-bg.png")
     no-repeat;
   min-height: 100%;
 }
@@ -246,9 +245,10 @@ body {
 }
 .loginBox {
   padding: 28px;
-  background: #f4f4f3;
+  background: #bfebf3;
   border: 1px solid #edeceb;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
+  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
   -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   -webki-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
@@ -278,7 +278,7 @@ a.genLink {
 
 .logoutDiv {
   padding: 10px 0px;
-  background-color: #b9c5d5;
+  background-color: #9fb8d8;
   background-blend-mode: luminosity;
   /*overflow: auto*/
 }
@@ -292,7 +292,8 @@ a.genLink {
 .headerNav {
   padding: 4px 12px;
   /*overflow: auto;*/
-  background: #3c4858 url("../../resources/images/main-header.jpg") repeat-x;
+  background: #50637c url("../../resources/images/main-header.jpg") repeat-x;
+
   margin-top: 14px;
 }
 .mainNavWrapper {
@@ -388,7 +389,7 @@ a.genLink {
   width: 910px;
 }
 .recordCategoryListWrapper {
-  background: #bfcbdb;
+  background: #9fb8d8;
   /*padding-bottom: 4px*/
 }
 .tabListWrapper {
@@ -399,7 +400,7 @@ a.genLink {
   overflow: visible;
   height: 20px;
   background: #3c4858 url("../images/content-category-header-bg.jpg");
-  border-top: 1px solid #385375;
+  /* border-top: 1px solid #385375; */
   border-bottom: 1px solid #3c4858;
   border-right: 1px solid #3c4858;
   -moz-border-top-right-radius: 5px;
@@ -421,7 +422,6 @@ a.genLink {
 .tabList li:first-child {
   border-top-left-radius: 4px;
   border-left: 1px solid #ccefef;
-
 }
 .tabList li.active {
   padding: 4px 6px 3px;
@@ -450,9 +450,10 @@ a.genLink {
 .contentRecordsTableContainer {
   clear: both;
   padding: 7px;
-  background: #dee2e6;
+  background: #aec2d6;
   border: 1px solid #3c4858;
   border-radius: 3px;
+  border-radius: 8px;
   /* min-height: 700px; */
   min-height: auto;
 }
@@ -483,10 +484,13 @@ a.genLink {
 .recordTableWrapper {
   margin-bottom: 8px;
   border: 1px solid #afaeac;
+  border-radius: 8px;
 }
 .recordCategory {
-  background: #d8d9dd url("../images/recordCategory-bg.jpg") repeat-x;
+  background: #3c4858 url("../images/recordCategory-bg.jpg") repeat-x;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   padding: 6px 10px;
+  border-radius: 8px;
   /*overflow: auto*/
 }
 .recordCategory h2 {
@@ -500,6 +504,8 @@ a.genLink {
   background: #ffffff;
 }
 .searchCreateTableDiv {
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
+  border-radius: 6px;
   clear: both;
 }
 .searchCreateTableDiv {
@@ -539,7 +545,6 @@ a.genLink {
 .tableWrapper {
   clear: both;
   font-size: 12px;
-  
 }
 .tablesettingDiv {
   /*overflow: auto;*/
@@ -682,6 +687,7 @@ a.genLink {
 }
 .hierarchyContainer {
   background: #f8f8f8;
+  border-radius: 8px;
 }
 .hierarachy-Div {
   /* height: 500px; */

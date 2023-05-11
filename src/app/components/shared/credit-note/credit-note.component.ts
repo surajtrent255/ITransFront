@@ -20,12 +20,6 @@ export class CreditNoteComponent {
   serialNumber!: number;
   date!: string;
   billNo!: number;
-  total!: number;
-  selectedProductIds: number[] = [];
-  selectedProductReasons: { productId: number; reason: string }[] = [];
-  selectedProductQTY!: { productId: number; qty: number };
-  qty!: number;
-  reason!: string;
 
   //
   totalTaxAmount!: number;
@@ -48,17 +42,13 @@ export class CreditNoteComponent {
     this.serialNumber = Number(serialNumber);
     let date = new Date();
     this.date = this.commonService.formatDate(Number(date));
-
-    // this.fetchSalesBillDetailForInvoice(1);
   }
 
   selectedProduct(e: any, data: SalesBillDetailWithProdInfo) {
     if (e.target.checked === true) {
       this.SelectedProductDetails.push(data);
-      this.selectedProductIds.push(data.productId);
     } else {
       this.SelectedProductDetails.pop();
-      this.selectedProductIds.pop();
     }
     console.log(this.SelectedProductDetails);
   }
@@ -79,15 +69,19 @@ export class CreditNoteComponent {
   }
 
   onSubmit() {
-    let data = this.SelectedProductDetails;
-    let billNo = this.billNo;
-    let SN = this.serialNumber;
-    this.commonService.setData({
-      data,
-      billNo,
-      SN,
-    });
-    this.router.navigateByUrl('/dashboard/creditnoteInvoice');
+    if (this.SelectedProductDetails.length === 0) {
+      this.toasterService.error('Please Select Atleast Product');
+    } else {
+      let data = this.SelectedProductDetails;
+      let billNo = this.billNo;
+      let SN = this.serialNumber;
+      this.commonService.setData({
+        data,
+        billNo,
+        SN,
+      });
+      this.router.navigateByUrl('/dashboard/creditnoteInvoice');
+    }
   }
   onEnter(e: any) {
     let billNo = e.target.value;

@@ -5,4 +5,5 @@ export class DebitNoteDetails {
   debitReason!: string;
   debitAmount!: number;
   debitTaxAmount!: number;
+  companyId!: number;
 }

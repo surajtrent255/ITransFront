@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PurchaseBillDetailWithProdInfo } from 'src/app/models/PurchaseBillDetailWithProdInfo';
 import { PurchaseBillInvoice } from 'src/app/models/PurchaseBillInvoice';
@@ -18,10 +19,8 @@ import { LoginService } from 'src/app/service/shared/login.service';
 export class DebitNoteComponent {
   salesBillDetails!: SalesBillInvoice;
   productDetails!: PurchaseBillDetailWithProdInfo[];
-  SelectedProductDetails!: PurchaseBillDetailWithProdInfo[];
-  selectedProductReasons: { productId: number; reason: string }[] = [];
+  SelectedProductDetails: PurchaseBillDetailWithProdInfo[] = [];
   PurchaseBillDetails = new PurchaseBillInvoice();
-  selectedProductIds: number[] = [];
   serialNumber!: number;
   date!: string;
   billNo!: number;
@@ -33,7 +32,8 @@ export class DebitNoteComponent {
     private loginService: LoginService,
     private commonService: CommonService,
     private tosterService: ToastrService,
-    private DebitService: DebitNoteService
+    private DebitService: DebitNoteService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -65,14 +65,11 @@ export class DebitNoteComponent {
 
   selectedProduct(e: any, data: any) {
     if (e.target.checked === true) {
-      this.trigger = true;
       this.SelectedProductDetails.push(data);
-      this.selectedProductIds.push(data.productId);
     } else {
-      this.trigger = false;
       this.SelectedProductDetails.pop();
-      this.selectedProductIds.pop();
     }
+    console.log(this.SelectedProductDetails);
   }
 
   onEnter(e: any) {
@@ -80,63 +77,20 @@ export class DebitNoteComponent {
     this.fetchPurchaseBillDetailForInvoice(billNo);
   }
 
-  reasonchange(productId: number, e: any) {
-    const index = this.selectedProductReasons.findIndex(
-      (item) => item.productId === productId
-    );
-    if (index === -1) {
-      this.selectedProductReasons.push({
-        productId: productId,
-        reason: e.target.value,
-      });
-    } else {
-      this.selectedProductReasons[index].reason = e.target.value;
-    }
-  }
-
   onSubmit() {
-    console.log(this.selectedProductReasons);
-
-    if (this.trigger) {
-      this.DebitService.addDebitNote({
-        billNumber: String(
-          this.billNo + this.PurchaseBillDetails.purchaseBillDTO.fiscalYear
-        ),
-        date: new Date(),
-        id: this.serialNumber,
-        panNumber: this.PurchaseBillDetails.purchaseBillDTO.sellerPan,
-        receiverAddress: this.PurchaseBillDetails.purchaseBillDTO.sellerName,
-        receiverName: this.PurchaseBillDetails.purchaseBillDTO.sellerName,
-        totalAmount: 1929202,
-        totalTax: 3982983,
-      }).subscribe({
-        next: (res) => {
-          this.selectedProductReasons = [];
-
-          this.SelectedProductDetails.map((data) => {
-            this.DebitService.addDebitNoteDetails({
-              debitAmount: this.PurchaseBillDetails.purchaseBillDTO.totalAmount,
-              debitReason: 'nkjsksdklsd',
-              debitTaxAmount:
-                this.PurchaseBillDetails.purchaseBillDTO.taxAmount,
-              productId: data.productId,
-              productName: data.productName,
-              SN: this.serialNumber,
-            }).subscribe({
-              next: (res) => {
-                this.SelectedProductDetails = [];
-                this.selectedProductIds = [];
-              },
-            });
-          });
-        },
+    console.log(this.SelectedProductDetails);
+    if (this.SelectedProductDetails.length === 0) {
+      this.tosterService.error('Please Select Atleast Product');
+    } else {
+      let data = this.SelectedProductDetails;
+      let billNo = this.billNo;
+      let SN = this.serialNumber;
+      this.commonService.setData({
+        data,
+        billNo,
+        SN,
       });
-    }
-    if (this.trigger === false) {
-      this.tosterService.error('Please select the product');
+      this.router.navigateByUrl('/dashboard/debitnoteInvoice');
     }
   }
-
-  // getProductsByProductIds
-  // fetchSalesBillDetailForInvoice
 }

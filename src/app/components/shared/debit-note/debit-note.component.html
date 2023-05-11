@@ -68,10 +68,9 @@
                 <td>{{ data.productName }}</td>
                 <td>
                   <input
-                    type="text"
-                    [ngModel]="data.debitReason"
-                    (change)="reasonchange(data.productId, $event)"
+                    [(ngModel)]="data.debitReason"
                     class="inputText"
+                    type="text"
                   />
                 </td>
                 <td>
