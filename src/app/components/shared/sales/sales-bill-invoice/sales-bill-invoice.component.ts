@@ -4,7 +4,7 @@ import { SalesBillMaster } from 'src/app/models/SalesBillMaster';
 import Swal from 'sweetalert2';
 import { NumberToWordTransformPipe } from 'src/app/custompipes/number-to-word-transform.pipe';
 import { SalesBillServiceService } from 'src/app/service/sales-bill-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/service/shared/login.service';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +25,7 @@ export class SalesBillInvoiceComponent {
 
 
   constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService, private tostrService: ToastrService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     let billId: number = this.activatedRoute.snapshot.params['billId'];
@@ -57,7 +57,8 @@ export class SalesBillInvoiceComponent {
         console.log("error while printing bill");
       },
       complete: () => {
-        this.fetchSalesBillInvoice(billId);
+        // this.fetchSalesBillInvoice(billId);
+        this.router.navigateByUrl(`dashboard/salesbill`);
       }
     })
 

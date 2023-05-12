@@ -1,7 +1,9 @@
 <div class="contentRecordsTableContainer MainContainer">
-  <div class="recordTableWrapper" style="height: 545px">
+  <div class="recordTableWrapper" style="height: auto">
     <div class="recordCategory">
-      <h2 class="text-center" id="">Invoice here</h2>
+      <h2 class="text-center" id="" style="font-weight: bold !important">
+        Invoice here
+      </h2>
       <div class="cboth"></div>
     </div>
 
@@ -10,38 +12,52 @@
     </div>
     <div class="popupContentWrapper">
       <div class="row">
-        <h5 class="text-center">Tax Invoice</h5>
+        <h5 class="text-center" style="font-weight: bold !important">
+          Tax Invoice
+        </h5>
         <div class="col-md-6">
-          <span>Bill Number: {{ salesInvoice.salesBillDTO.billNo }}</span
+          <span>
+            <span style="font-weight: bold !important">Bill Number:</span>
+            {{ salesInvoice.salesBillDTO.billNo }}</span
           ><br />
-          <span>Seller PAN: {{ salesInvoice.sellerCompany.panNo }}</span
+          <span>
+            <span style="font-weight: bold !important"> Seller PAN:</span>
+            {{ salesInvoice.sellerCompany.panNo }}</span
           ><br />
-          <span>Seller Name: {{ salesInvoice.sellerCompany.name }}</span
+          <span>
+            <span style="font-weight: bold !important"> Seller Name:</span>
+            {{ salesInvoice.sellerCompany.name }}</span
           ><br />
-          <span
-            >Address: {{ salesInvoice.sellerCompany.district }}
+          <span>
+            <span style="font-weight: bold !important">Seller Address: </span
+            >{{ salesInvoice.sellerCompany.district }}
             {{ salesInvoice.sellerCompany.munVdc }}</span
           ><br />
-          <span
-            >Purchaser's Name:
+          <span>
+            <span style="font-weight: bold !important">Purchaser's Name:</span>
             {{ salesInvoice.salesBillDTO.customerName }}</span
           ><br />
-          <span>Address: {{ salesInvoice.customerAddress }} </span><br />
-          <span
+          <span>
+            <span style="font-weight: bold !important">Purchaser Address:</span>
+            {{ salesInvoice.customerAddress }} </span
+          ><br />
+          <span style="font-weight: bold !important"
             >Purchaser’s PAN: {{ salesInvoice.salesBillDTO.customerPan }} </span
           ><br />
         </div>
         <div class="col-md-6">
-          <span
-            >Transaction Date:
+          <span>
+            <span style="font-weight: bold !important">Transaction Date:</span>
             {{ salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd" }}</span
           ><br />
-          <span
-            >Invoice issue Date:
+          <span>
+            <span style="font-weight: bold !important"
+              >Invoice issue Date:</span
+            >
             {{ salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd" }}</span
           ><br />
-          <span
-            >MethodOfPayment:
+          <span>
+            <span style="font-weight: bold !important"> MethodOfPayment:</span>
             {{ salesInvoice.salesBillDTO.paymentMethod }}</span
           ><br />
         </div>
@@ -49,11 +65,13 @@
           <div class="col-md-12">
             <table class="table table-striped">
               <thead>
-                <th>S.No</th>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Per Unit Amount(Rs)</th>
-                <th>Total Amount(Rs)</th>
+                <th style="font-weight: bold !important">S.No</th>
+                <th style="font-weight: bold !important">Product Name</th>
+                <th style="font-weight: bold !important">Quantity</th>
+                <th style="font-weight: bold !important">
+                  Per Unit Amount(Rs)
+                </th>
+                <th style="font-weight: bold !important">Total Amount(Rs)</th>
               </thead>
               <tbody>
                 <tr
