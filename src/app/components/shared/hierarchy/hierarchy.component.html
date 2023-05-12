@@ -79,7 +79,10 @@
       </ul>
     </div>
     <div class="hierarchyContainer" id="organizationContainer">
-      <div class="hierarachy-Div recordTableWrapper">
+      <div
+        class="hierarachy-Div recordTableWrapper"
+        style="border-radius: 5px; background-color: #9fb8d8"
+      >
         <header class="section-header py-3">
           <div class="container">
             <h2
@@ -100,7 +103,7 @@
             <aside class="col-lg-3">
               <nav
                 class="sidebar card py-2 mb-4"
-                style="width: 233px; background-color: #f8f8f8; border: none"
+                style="width: 233px; background-color: #c2ccd5; border: none"
               >
                 <ul class="nav flex-column" id="nav_accordion">
                   <li class="nav-item">
@@ -171,6 +174,11 @@
                       <li *ngIf="IsStaff">
                         <a class="nav-link"> Customers </a>
                       </li>
+                      <li *ngIf="IsStaff">
+                        <a class="nav-link" routerLink="/dashboard/creditnote">
+                          Credit Note
+                        </a>
+                      </li>
                     </ul>
                   </li>
 
@@ -209,6 +217,11 @@
                       <li>
                         <a class="nav-link" routerLink="/dashboard/receipt"
                           >Receipts
+                        </a>
+                      </li>
+                      <li>
+                        <a class="nav-link" routerLink="/dashboard/debitnote"
+                          >Debit Note
                         </a>
                       </li>
                     </ul>

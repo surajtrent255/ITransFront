@@ -1,5 +1,5 @@
 export const BASE_URL = 'http://localhost:9999';
-// export const BASE_URL = `http://103.233.58.121:8888`;
+// export const BASE_URL = `http://103.233.58.121:9999`;
 export const USER_LOGIN_URL = BASE_URL + '/api/v1/auth/authenticate';
 
 export const USER_REGISTER_URL = BASE_URL + '/api/v1/auth/register';
@@ -91,3 +91,9 @@ export const COUNTER_DETAILS = BASE_URL + '/api/v1/counter';
 
 // for Feature Control
 export const FEATURE_CONTROL = BASE_URL + '/api/v1/feature/control';
+
+// for debit note
+export const DEBIT_NOTE = BASE_URL + '/ap1/v1/debitNote';
+
+// for credit note
+export const CREDIT_NOTE = BASE_URL + '/api/v1/creditNote';

@@ -22,9 +22,7 @@ export class MergeProductComponent {
   @Input() id !: number;
   @Output() enableMergeComp=new EventEmitter<boolean>(false)
 
-  destroyComp() {
-   this.enableMergeComp.emit(true)
-    }
+
 Unit:Unit[]=[];
 availableProducts: Product[] = [];
 typerate:VatRateTypes[]=[];
@@ -119,6 +117,9 @@ ngOnInit() {
     this.SplitProductService.Merge(this.SplitProductObj).subscribe(res=>{
       this.toastrService.success("stock Mearge " )
       this.getallstock(this.SplitProductObj.updatedProductId,this.SplitProductObj.companyId);
+      
+      const closeBtnEl = document.getElementById("closeBtn") as HTMLButtonElement;
+      closeBtnEl.click();
     })
    
    
@@ -133,8 +134,14 @@ ngOnInit() {
     this.SplitProductObj = new SplitProduct();
   } 
 
+  destroyCancelComp() {
+    const closeBtnEl = document.getElementById("closeBtn") as HTMLButtonElement;
+    closeBtnEl.click();
+    }
 
-
+    destroyComp() {
+      this.enableMergeComp.emit(true);
+      }
 
 
 

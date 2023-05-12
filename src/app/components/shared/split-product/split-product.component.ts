@@ -93,13 +93,13 @@
         this.availableProducts = data.data;
       });
     }
-    setProductSelectedByName(prod: Product) {
+    setProductSelectedByName(prodId: number) {
     //  const productNameEL = document.getElementById("productName") as HTMLSelectElement;
     //  productNameEL.value = prod.name;
     //  this.SplitProductObj.productName = prod.name;
     //  this.SplitProductObj.id = prod.id;
-     this.selectProductId(prod.id)
-     alert(JSON.stringify(this.SplitProductObj))
+     this.selectProductId(prodId)
+    //  alert(JSON.stringify(this.SplitProductObj))
     }
     destroySelectProductComponent($event: boolean) {
       this.selectProductActive = false;
@@ -224,15 +224,17 @@
       });
     }
 
-    selectProductId(productId: any ) {
+    selectProductId(productId: number ) {
       // alert(productName)
       console.log("selected producted by it " + productId )
       const product = this.availableProducts.find(p => p.id === productId);
+     
       console.log("selected product " + product)
       if (product) {
         console.log(product);
         this.SplitProductObj.productId = product.id;
         this.SplitProductObj.unit=product.unit;
+        this.SplitProductObj.productName=product.name;
         this.createproduct.tax =this.SplitProductObj.tax= product.tax;
         this.SplitProductObj.qty=product.qtyPerUnit;
         this.createproduct.categoryId=product.categoryId;
@@ -249,10 +251,11 @@
       this.enableCreateSplitComp = false
     }
     destroyCreateMergeProductComponent($event:boolean){
-      
+  
       if ($event)
      
-      this.enableMergeComp = false
+      this.enableCreateMergeComp = false
+      // alert(this.enableMergeComp)
     }
 
     resetForm() {
@@ -302,7 +305,7 @@
     
     getNameWildCard(prodName: string) {
       // alert(JSON.stringify(prodName));
-      alert(JSON.stringify(this.SplitProductObj))
+      // alert(JSON.stringify(this.SplitProductObj))
     setTimeout(()=>{
       this.selectProductActive = true;
       const selectProductPopUpEl = document.getElementById("selectProduct") as HTMLButtonElement;

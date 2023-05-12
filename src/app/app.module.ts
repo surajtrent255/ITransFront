@@ -78,6 +78,10 @@ import { AssignFeatureComponent } from './components/shared/header/feature-contr
 import { UserFeatureListComponent } from './components/shared/header/feature-control/user-feature-list/user-feature-list.component';
 import { SearchPipe } from './components/shared/split-product/search.pipe';
 import { SearchProductComponent } from './components/shared/search-product/search-product.component';
+import { DebitNoteComponent } from './components/shared/debit-note/debit-note.component';
+import { CreditNoteComponent } from './components/shared/credit-note/credit-note.component';
+import { DebitNoteInvoiceComponent } from './components/shared/debit-note/debit-note-invoice/debit-note-invoice.component';
+import { CreditNoteInvoiceComponent } from './components/shared/credit-note/credit-note-invoice/credit-note-invoice.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +142,10 @@ import { SearchProductComponent } from './components/shared/search-product/searc
     UserFeatureListComponent,
     SearchPipe,
     SearchProductComponent,
+    DebitNoteComponent,
+    CreditNoteComponent,
+    DebitNoteInvoiceComponent,
+    CreditNoteInvoiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -173,4 +181,4 @@ import { SearchProductComponent } from './components/shared/search-product/searc
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

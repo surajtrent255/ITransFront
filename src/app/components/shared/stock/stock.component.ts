@@ -40,7 +40,7 @@ export class StockComponent {
 
 
 
-  createNewProduct($event: boolean) {
+  createNewProduct(event: number) {
     this.getAllProducts();
   }
 

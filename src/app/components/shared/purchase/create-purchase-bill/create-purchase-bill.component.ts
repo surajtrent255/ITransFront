@@ -23,38 +23,41 @@ import { SalesCartService } from 'src/app/service/shared/sales-cart-service.serv
   styleUrls: ['./create-purchase-bill.component.css'],
 })
 export class CreatePurchaseBillComponent {
-
-
-  @ViewChild('createtransportationForm') createtransportationForm !: NgForm;
-  @ViewChild('loading', { static: false }) loadingInput !: ElementRef;
-  @ViewChild('#insuranceField', { static: false }) insuranceInput !: ElementRef;
-  @ViewChild('other', { static: false }) otherInput !: ElementRef;
+  @ViewChild('createtransportationForm') createtransportationForm!: NgForm;
+  @ViewChild('loading', { static: false }) loadingInput!: ElementRef;
+  @ViewChild('prodQtyInput', { static: false }) prodQtyInput !: ElementRef;
+  @ViewChild('#insuranceField', { static: false }) insuranceInput!: ElementRef;
+  @ViewChild('other', { static: false }) otherInput!: ElementRef;
   selectSenderActive: boolean = false;
 
   billNo: number = 0;
   sellerId: number | undefined = 0;
-  sellerName !: string;
-  sellerPan !: number;
+  sellerName!: string;
+  sellerPan!: number;
   sellerPanOrPhone!: number;
   selectMenusForCompanies!: Company[];
-  selectMenusForCompaniesSize !: number;
+  selectMenusForCompaniesSize!: number;
   saleType: number = 1;
   currentBranch!: string;
   date!: string;
   productBarCodeId: undefined | number;
   sellerSearchMethod: number = 1;
+  selectMenusForProduct: Product[] = [];
 
   companyId!: number;
-  branchId !: number;
+  branchId!: number;
   productsUserWantToPurchase: Product[] = [];
   purchaseBillDetailInfos: PurchaseBillDetail[] = [];
   featureObjs: UserFeature[] = [];
   searchByBarCode: boolean = false;
-
+  selectProductActive: boolean = false;
   transportation: number = 0.0;
   insurance: number = 0.0;
   loading: number = 0.0;
   other: number = 0.0;
+
+  prodWildCard!: string;
+
 
   constructor(
     private salesCartService: SalesCartService,
@@ -74,17 +77,18 @@ export class CreatePurchaseBillComponent {
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.featureObjs = this.loginService.getFeatureObjs();
-    this.featureObjs.forEach(fo => {
+    this.featureObjs.forEach((fo) => {
       if (fo.featureId === 2) {
         this.searchByBarCode = true;
       }
-    })
+    });
     this.currentBranch = 'Branch ' + this.branchId;
-
   }
 
   ngAfterViewInit() {
-    const productBarCodeIdEL = document.getElementById("productBarCodeId") as HTMLButtonElement;
+    const productBarCodeIdEL = document.getElementById(
+      'productBarCodeId'
+    ) as HTMLButtonElement;
     productBarCodeIdEL.focus();
   }
 
@@ -93,11 +97,18 @@ export class CreatePurchaseBillComponent {
       return;
     }
     this.productService
-      .getProductById(this.productBarCodeId, this.companyId, this.branchId, this.searchByBarCode)
+      .getProductById(
+        this.productBarCodeId,
+        this.companyId,
+        this.branchId,
+        this.searchByBarCode
+      )
       .subscribe((data) => {
         if (data.data !== null) {
           this.productsUserWantToPurchase.push(data.data);
           this.productBarCodeId = undefined;
+        } else if (data.data === null) {
+          this.tostrService.error('product not available');
         }
       });
   }
@@ -118,15 +129,20 @@ export class CreatePurchaseBillComponent {
     this.sellerSearchMethod = id;
   }
 
-  updateProdQtyUserWantToPurchase($event: any, prod: Product) {
+  updateProdQtyUserWantToPurchase($event: any, prodIndex: number) {
     if ($event.target.value === undefined) {
       return;
     }
     let qtyProd = $event.target.value;
     const prodtotalAmountElement = document.getElementById(
-      'totalAmount' + prod.id
+      'totalAmount' + prodIndex
     ) as HTMLElement;
-    let prodTotalAmount = Number(qtyProd) * prod.sellingPrice;
+
+    const unitPriceEl = document.getElementById(
+      'unitPrice' + prodIndex
+    ) as HTMLInputElement;
+    let sp: number = Number(unitPriceEl.value)
+    let prodTotalAmount = Number(qtyProd) * sp;
     prodtotalAmountElement.innerText = '' + prodTotalAmount;
   }
 
@@ -139,7 +155,32 @@ export class CreatePurchaseBillComponent {
     this.sellerPan = Number(comp.panNo);
     this.destroySelectSenderComponent(true);
   }
+  getNameWildCard() {
+    setTimeout(() => {
+      this.selectProductActive = true;
+    }, 200);
+    const selectProductBtn = document.getElementById(
+      'selectProduct'
+    ) as HTMLButtonElement;
+    selectProductBtn.click();
+    this.productService
+      .getProductByWildCardName(
+        this.prodWildCard,
+        this.companyId,
+        this.branchId
+      )
+      .subscribe({
+        next: (data) => {
+          this.selectMenusForProduct = data.data;
+        },
+      });
+  }
 
+  setProductSelectedByName(prodId: number) {
+    this.productBarCodeId = prodId;
+    this.prodQtyInput.nativeElement.focus();
+    this.selectProductActive = false;
+  }
 
   fetchPurchaserInfo() {
     if (this.sellerPanOrPhone === null || this.sellerPanOrPhone === undefined) {
@@ -147,8 +188,12 @@ export class CreatePurchaseBillComponent {
       return;
       // return;
     }
-    this.selectSenderActive = true;
-    const selectSellerBtn = document.getElementById("selectSeller") as HTMLButtonElement;
+    setTimeout(() => {
+      this.selectSenderActive = true;
+    }, 400);
+    const selectSellerBtn = document.getElementById(
+      'selectSeller'
+    ) as HTMLButtonElement;
     selectSellerBtn.click();
 
     this.companyService
@@ -170,37 +215,62 @@ export class CreatePurchaseBillComponent {
       });
   }
 
-
   removeItemFromCart(id: number) {
     this.productsUserWantToPurchase = this.productsUserWantToPurchase.filter(
-      (prod) => prod.id !== id
+      (prod, index) => index !== id
     );
   }
 
   setSaleType(id: number) {
     this.saleType = id;
-
   }
   goToOtherField() {
-    const insurancefiledEl = document.getElementById("other") as HTMLInputElement;
+    const insurancefiledEl = document.getElementById(
+      'other'
+    ) as HTMLInputElement;
     insurancefiledEl.focus();
   }
   goToLoadingField() {
-    const insurancefiledEl = document.getElementById("loading") as HTMLInputElement;
+    const insurancefiledEl = document.getElementById(
+      'loading'
+    ) as HTMLInputElement;
     insurancefiledEl.focus();
   }
   goToInsuranceField() {
-    const insurancefiledEl = document.getElementById("insurance") as HTMLInputElement;
+    const insurancefiledEl = document.getElementById(
+      'insurance'
+    ) as HTMLInputElement;
     insurancefiledEl.focus();
   }
 
   destroySelectSenderComponent($event: boolean) {
     this.selectSenderActive = false;
   }
+
+
+  destroySelectProductComponent($event: boolean) {
+    this.selectProductActive = false;
+  }
+
+  fetchSellerInfoOnlyForNameDisplay($event: number) {
+    this.companyService
+      .getCustomerInfoByPanOrPhone(
+        this.sellerSearchMethod,
+        this.sellerPanOrPhone
+      )
+      .subscribe({
+        next: (data) => {
+          this.selectMenusForCompanies = data.data;
+          this.selectMenusForCompaniesSize = data.data.length;
+          this.setSellerInfo($event)
+        },
+      });
+  }
+
   purchaseTheProducts(draftSt: boolean) {
     console.log('above');
     if (this.createtransportationForm.invalid) {
-      this.tostrService.error("please fill all the charges fields")
+      this.tostrService.error('please fill all the charges fields');
       return;
     }
     if (
@@ -210,7 +280,7 @@ export class CreatePurchaseBillComponent {
       this.sellerId === 0 ||
       this.sellerId === undefined
     ) {
-      this.tostrService.error("please fill all the fields")
+      this.tostrService.error('please fill all the fields');
       return;
     }
 
@@ -272,7 +342,6 @@ export class CreatePurchaseBillComponent {
     purchaseBillMaster.purchaseBillDTO = purchaseBill;
     purchaseBillMaster.purchaseBillDetails = this.purchaseBillDetailInfos;
 
-
     console.log(purchaseBillMaster);
     this.purchaseBillService
       .createNewPurchaseBill(purchaseBillMaster)
@@ -280,9 +349,7 @@ export class CreatePurchaseBillComponent {
         next: (data) => {
           this.createtransportationForm.reset();
           console.log(data.data);
-          this.router.navigateByUrl(
-            `dashboard/purchasebills`
-          );
+          this.router.navigateByUrl(`dashboard/purchasebills`);
         },
         error: (error) => {
           console.log(error.error.description);

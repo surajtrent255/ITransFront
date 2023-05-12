@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { District } from 'src/app/models/District';
 import { Municipality } from 'src/app/models/Municipality';
 import { Province } from 'src/app/models/Province';
@@ -39,8 +40,9 @@ export class CreateCompanyComponent {
   constructor(
     private companyService: CompanyServiceService,
     private loginService: LoginService,
-    private districtAndProvinceService: DistrictAndProvinceService
-  ) {}
+    private districtAndProvinceService: DistrictAndProvinceService,
+    private toastrService: ToastrService
+  ) { }
 
   ngOnInit() {
     this.districtAndProvinceService.getAllProvince().subscribe((res) => {
@@ -73,6 +75,8 @@ export class CreateCompanyComponent {
       )
       .subscribe(() => {
         this.successfullyAdded.emit(true);
+        this.toastrService.success('Company Added Successfully');
+
       });
   }
 

@@ -1,5 +1,5 @@
 <script src="../../../../assets/resources/js/main.js"></script>
-<div id="headerWrapper" class="headerWrapper" style="background-color: #b9c5d5;">
+<div id="headerWrapper" class="headerWrapper" style="background-color: #9fb8d8">
   <div class="logoutDiv">
     <div class="fright" style="padding-right: 17px">
       <div class="profile" #profile style="padding-right: 20px">
@@ -131,7 +131,7 @@
     id="configurationSettingPopup"
     style="width: auto"
   >
-    <div class="popupHeading">
+    <div class="popupHeading" style="background-color: #3c4858">
       <h2 class="fleft">Configuration</h2>
       <a href="" class="MainPageCloseButton fright"
         ><img
@@ -395,7 +395,7 @@
     id="pricingPreferencePopup"
     style="width: auto"
   >
-    <div class="popupHeading">
+    <div class="popupHeading" style="background-color: #3c4858">
       <h2 class="fleft">Branch</h2>
       <a href="" class="MainPageCloseButton fright"
         ><img
@@ -637,6 +637,7 @@
             <!-- Counter User -->
             <div class="tabs-section tab-4">
               <app-counter-user-list
+                [reloadList]="triggerCounterList"
                 (data)="enableDisableCounterUserData($event)"
               ></app-counter-user-list>
             </div>
@@ -665,7 +666,7 @@
     id="administratorPopup"
     style="display: none"
   >
-    <div class="popupHeading">
+    <div class="popupHeading" style="background-color: #3c4858">
       <h2 class="fleft">Administrator</h2>
       <a href="" class="JoshiCloseButton fright"
         ><img
@@ -720,7 +721,7 @@
   id="createNewAssignPopup"
   style="display: none"
 >
-  <div class="popupHeading">
+  <div class="popupHeading" style="background-color: #3c4858">
     <h2 class="fleft">Add Role</h2>
     <a href="" class="JoshiCloseButton fright"
       ><img
@@ -819,7 +820,7 @@
   id="AddNewUserPopup"
   style="display: none"
 >
-  <div class="popupHeading">
+  <div class="popupHeading" style="background-color: #3c4858">
     <h2 class="fleft">Assign Company</h2>
     <a href="" class="JoshiCloseButton fright"
       ><img
@@ -928,7 +929,7 @@
   id="createNewBranchPopup"
   style="display: none"
 >
-  <div class="popupHeading">
+  <div class="popupHeading" style="background-color: #3c4858">
     <h2 class="fleft">Branch</h2>
     <a href="" class="JoshiCloseButton fright"
       ><img
@@ -1124,7 +1125,7 @@
   id="assignNewBranchPopup"
   style="display: none"
 >
-  <div class="popupHeading">
+  <div class="popupHeading" style="background-color: #3c4858">
     <h2 class="fleft">Assign Branch</h2>
     <a href="" class="JoshiCloseButton fright"
       ><img

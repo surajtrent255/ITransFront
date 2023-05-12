@@ -18,7 +18,7 @@ import { Unit } from 'src/app/models/Unit';
 })
 export class CreateProductComponent {
 
-  @Output() productInfoEvent = new EventEmitter<boolean>();
+  @Output() productInfoEvent = new EventEmitter<number>();
   @Output() destroyCreateProd = new EventEmitter<boolean>(false);
   product: Product = new Product();
 
@@ -139,7 +139,9 @@ export class CreateProductComponent {
     this.productService.addNewProduct(this.product, 0).subscribe({
       next: (data) => {
         console.log(data.data);
-        this.toastrService.success("product has been added with id " + data.tax)
+        this.toastrService.success("product has been added with id " + data.data)
+        this.productInfoEvent.emit(data.data);
+
         console.log("next" + this.product.tax);
       },
       error: (error) => {
@@ -147,7 +149,6 @@ export class CreateProductComponent {
 
       },
       complete: () => {
-        this.productInfoEvent.emit(true);
         this.catSelected = false;
         console.log("complete" + this.product.tax);
       },

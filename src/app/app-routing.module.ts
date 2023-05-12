@@ -27,6 +27,10 @@ import { LoanComponent } from './components/shared/loan/loan.component';
 import { SplitProductComponent } from './components/shared/split-product/split-product.component';
 import { MergeProductComponent } from './components/shared/merge-product/merge-product.component';
 import { SuperAdminComponent } from './components/shared/super-admin/super-admin.component';
+import { DebitNoteComponent } from './components/shared/debit-note/debit-note.component';
+import { CreditNoteComponent } from './components/shared/credit-note/credit-note.component';
+import { CreditNoteInvoiceComponent } from './components/shared/credit-note/credit-note-invoice/credit-note-invoice.component';
+import { DebitNoteInvoiceComponent } from './components/shared/debit-note/debit-note-invoice/debit-note-invoice.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -139,6 +143,22 @@ const routes: Routes = [
       {
         path: 'merge/product',
         component: MergeProductComponent,
+      },
+      {
+        path: 'debitnote',
+        component: DebitNoteComponent,
+      },
+      {
+        path: 'debitnoteInvoice',
+        component: DebitNoteInvoiceComponent,
+      },
+      {
+        path: 'creditnote',
+        component: CreditNoteComponent,
+      },
+      {
+        path: 'creditnoteInvoice',
+        component: CreditNoteInvoiceComponent,
       },
     ],
   },

@@ -1,18 +1,93 @@
-<div class="mb-2"></div>
-<div class="popupHeading">
-  <h2 class="fleft">{{ title }}</h2>
+<div
+  class="popupHeading"
+  *ngIf="selectMenusForCompanies.length > 0 && showableALertPopup"
+>
   <a
     class="Customer1CloseButton fright"
     id="closeCompanyPop"
     (click)="destroySelectCustomer()"
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
-  <div class="cboth"></div>
 </div>
-<div class="popupSubHeadingDiv selectcompanyomer">
+<div
+  class="popupSubHeadingDiv selectcompanyomer"
+  *ngIf="selectMenusForCompanies.length > 0 && showableALertPopup"
+>
   <h1 class="heading">Your can select your {{ title }} here</h1>
 </div>
-<div class="popupContentWrapper">
+<tr
+  class="text-center"
+  *ngIf="selectMenusForCompanies.length === 0 && showableALertPopup"
+>
+  <td colspan="9">
+    <!--  -->
+    <div class="popupSubHeadingDiv createsalesBill">
+      <h1 class="heading">
+        <i class="fa-solid fa-circle-exclamation"></i> No record found. Would
+        you like to create customer ? ?
+      </h1>
+    </div>
+    <div class="popupContentWrapper">
+      <div class="row">
+        <div class="col-md-4">
+          <button class="submit_btn border-rad">
+            <input
+              #createCustomerBtn
+              type="radio"
+              name="createCustDecs"
+              value="1"
+              checked
+              (keyup)="onButtonKeyUpForDispalyAddCustomerPopup($event)"
+            />
+            Yes
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button class="submit_btn border-rad">
+            <input
+              class="btn"
+              type="radio"
+              name="createCustDecs"
+              value="0"
+              (keyup)="onButtonKeyUpForDispalyAddCustomerPopup($event)"
+            />
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- end -->
+    <!-- <span style="color: red">No records found !</span>
+  <span>
+    Would you like to create customer ?
+    <input
+      #createCustomerBtn
+      type="radio"
+      name="createCustDecs"
+      value="1"
+      checked
+      (keyup)="onButtonKeyUpForDispalyAddCustomerPopup($event)"
+    />
+    Yes
+
+    <input
+      type="radio"
+      name="createCustDecs"
+      value="0"
+      (keyup)="onButtonKeyUpForDispalyAddCustomerPopup($event)"
+    />
+    No
+  </span> -->
+
+    <button
+      style="display: none"
+      id="createNewCustomer"
+      class="createNewTableRecord"
+    ></button>
+  </td>
+</tr>
+<div class="popupContentWrapper" *ngIf="selectMenusForCompanies.length > 0">
   <div class="row">
     <div class="col-md-12">
       <div class="recordsTableDiv">
@@ -86,40 +161,6 @@
           </thead>
           <tbody id="prodTable">
             <tr
-              class="text-center"
-              *ngIf="selectMenusForCompanies.length === 0"
-            >
-              <td colspan="9">
-                <span style="color: red">No records found !</span>
-                <span>
-                  Would you like to create customer ?
-                  <input
-                    #createCustomerBtn
-                    type="radio"
-                    name="createCustDecs"
-                    value="1"
-                    checked
-                    (keyup)="onButtonKeyUpForDispalyAddCustomerPopup($event)"
-                  />
-                  Yes
-
-                  <input
-                    type="radio"
-                    name="createCustDecs"
-                    value="0"
-                    (keyup)="onButtonKeyUpForDispalyAddCustomerPopup($event)"
-                  />
-                  No
-                </span>
-
-                <button
-                  style="display: none"
-                  id="createNewCustomer"
-                  class="createNewTableRecord"
-                ></button>
-              </td>
-            </tr>
-            <tr
               *ngFor="let company of selectMenusForCompanies; let index = index"
               id="company_{{ company.companyId }}"
             >
@@ -165,9 +206,9 @@
   id="createNewCustomerPopup"
   style="display: none"
 >
-  <div class="mb-2"></div>
   <app-create-customer
     *ngIf="createCustomerEnable"
     (customerAddedSuccessMsg)="customerAdded($event)"
+    [title]="'customer'"
   ></app-create-customer>
 </div>

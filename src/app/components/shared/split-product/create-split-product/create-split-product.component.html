@@ -1,23 +1,26 @@
 <div class="popupHeading">
   <h2 class="fleft">RE-Split Product</h2>
-  <a class="closeButton fright" id="closeEditButton" 
+  <a class="closeButton fright" id="closeBtn" (click)="destoryComp()"
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
   <div class="cboth"></div>
 </div>
 <!-- {{fetchstock | json}} -->
 <div class="popupSubHeadingDiv addNewProduct">
-  <h1 class="heading">Your can RE-Split your product Name : <h1 class="tCenter"></h1></h1>
+  <h1 class="heading">
+    Your can RE-Split your product Name :
+    <h1 class="tCenter"></h1>
+  </h1>
 </div>
 <div class="popupContentWrapper">
   <div class="row">
     <div class="col-md-12">
       <!-- <app-popup class="m-4"></app-popup> -->
       <form
-      #splitproductForm="ngForm"
-      name="splitproductForm"
-      id="splitproductForm"
-      (submit)="splitAgain(splitproductForm)"
+        #splitproductForm="ngForm"
+        name="splitproductForm"
+        id="splitproductForm"
+        (submit)="splitAgain(splitproductForm)"
       >
         <div class="chooseColoumnsWrapper">
           <div class="fieldDiv popUpFormSectionWrapper">
@@ -36,17 +39,17 @@
                     id="productName"
                     #productName="ngModel"
                     [(ngModel)]="SplitProductObj.productName"
-                   
                   />
                 </td>
               </tr>
+              
               <tr>
                 <td class="col1 pt-2">
                   Product ID:<span class="mandatorySign">*</span>
                 </td>
                 <td class="col2">
                   <input
-                  readonly
+                    readonly
                     type="text"
                     placeholder="{{ SplitProductObj.productId }}"
                     class="form-control"
@@ -63,8 +66,8 @@
                 </td>
                 <td class="col2">
                   <input
-                 readonly
-                  placeholder="{{ SplitProductObj.qty }}"
+                    readonly
+                    placeholder="{{ SplitProductObj.qty }}"
                     type="text"
                     class="form-control"
                     id="qty"
@@ -80,8 +83,8 @@
                 </td>
                 <td class="col2">
                   <input
-                 readonly
-                  placeholder="{{ SplitProductObj.updatedProductName}}"
+                    readonly
+                    placeholder="{{ SplitProductObj.updatedProductName }}"
                     type="text"
                     class="form-control"
                     id="updatedProductName"
@@ -97,8 +100,8 @@
                 </td>
                 <td class="col2">
                   <input
-                 readonly
-                  placeholder="{{ SplitProductObj.updatedProductId}}"
+                    readonly
+                    placeholder="{{ SplitProductObj.updatedProductId }}"
                     type="text"
                     class="form-control"
                     id="updatedProductId"
@@ -111,7 +114,9 @@
 
               <tr>
                 <td class="col1 pt-2">
-                  splitQty :<span class="mandatorySign">* {{fetchstock.qty - SplitProductObj.splitQty}}</span>
+                  splitQty :<span class="mandatorySign"
+                    >* {{ fetchstock.qty - SplitProductObj.splitQty }}</span
+                  >
                 </td>
                 <td class="col2">
                   <input
@@ -128,21 +133,24 @@
                     (keydown.enter)="goToSplitAgainButton()"
                     required="required"
                   />
-                 
                 </td>
                 <td class="col3">
-                  <div *ngIf="splitQty.errors && (splitQty.dirty || splitQty.touched)" class="alert alert-danger">
+                  <div
+                    *ngIf="
+                      splitQty.errors && (splitQty.dirty || splitQty.touched)
+                    "
+                    class="alert alert-danger"
+                  >
                     <div [hidden]="!splitQty.errors['dirty']">
                       Please input a splitQty.
                     </div>
                     <div [hidden]="!splitQty.errors['max']">
-                      Please input {{fetchstock.qty}} limited  qty.
+                      Please input {{ fetchstock.qty }} limited qty.
                     </div>
                     <div [hidden]="!splitQty.errors['min']">
-                      Please input in range 0 to {{fetchstock.qty}}  qty.
+                      Please input in range 0 to {{ fetchstock.qty }} qty.
                     </div>
                   </div>
-                  
                 </td>
               </tr>
               <tr>
@@ -153,7 +161,7 @@
                   <input
                     readonly
                     type="text"
-                    placeholder="{{SplitProductObj.price}}"
+                    placeholder="{{ SplitProductObj.price }}"
                     class="form-control"
                     name="price"
                     id="price"
@@ -168,25 +176,19 @@
                 </td>
                 <td class="col2">
                   <select
-                  class="form-control"
+                    class="form-control"
                     name="unit"
                     id="unit"
                     #unit="ngModel"
                     [(ngModel)]="SplitProductObj.unit"
                     disabled="true"
                   >
-                    <option
-                      *ngFor="let ap of Unit"
-                      [value]="ap.name"
-                    >
+                    <option *ngFor="let ap of Unit" [value]="ap.name">
                       {{ ap.name }}
                     </option>
                   </select>
                 </td>
-
               </tr>
-
-
             </table>
           </div>
         </div>
@@ -194,15 +196,13 @@
           <button type="submit" id="splitAgBtn"  class="submit_btn  border-rad ml-2 tCenter"  [disabled]="splitproductForm.form.invalid">Split again</button>
          
           <input
-          type="button"
-          value="Cancel"
-          (click)="destroyComp()"
-          class="submit_btn cancel_btn border-rad ml-2 tCenter "
+            type="button"
+            value="Cancel"
+            (click)="destroyComp()"
+            class="submit_btn cancel_btn border-rad ml-2 tCenter"
           />
         </div>
       </form>
     </div>
   </div>
 </div>
-
-

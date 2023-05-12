@@ -298,8 +298,8 @@
                 </td>
                 <td>{{ salesBill.fiscalYear }}</td>
                 <td>{{ salesBill.customerName }}</td>
-                <td>{{ salesBill.taxAmount }}</td>
-                <td>{{ salesBill.taxAmount }}</td>
+                <td>{{ salesBill.totalAmount | number : "1.0-0" }}</td>
+                <td>{{ salesBill.taxAmount | number : "1.0-0" }}</td>
                 <td>{{ salesBill.syncWithIrd }}</td>
                 <td>
                   {{

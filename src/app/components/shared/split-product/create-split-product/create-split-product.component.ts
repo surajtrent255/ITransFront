@@ -25,8 +25,8 @@ showForm!: boolean;
 
 
 destroyComp() {
-  
-this.destroyCreatSpiltComponent.emit(true)
+  const closeBtnEl = document.getElementById("closeBtn") as HTMLButtonElement;
+  closeBtnEl.click();
 
 }
 
@@ -129,12 +129,18 @@ splitAgain(form:any){
   this.SplitProductService.splitAgain(this.SplitProductObj).subscribe(res=>{
     // alert("stocksplitted")
     this.toastrService.success("stock splitted")
-    // console.log(this.SplitProductObj.splitQty)
+    // console.log(this.SplitPr
+    const closeBtnEl = document.getElementById("closeBtn") as HTMLButtonElement;
+    closeBtnEl.click();
     
   })
  
 
 
+}
+
+destoryComp(){
+  this.destroyCreatSpiltComponent.emit(true);
 }
 
 

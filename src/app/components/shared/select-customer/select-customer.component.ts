@@ -1,59 +1,62 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Company } from 'src/app/models/company';
 
 @Component({
   selector: 'app-select-customer',
   templateUrl: './select-customer.component.html',
-  styleUrls: ['./select-customer.component.css']
+  styleUrls: ['./select-customer.component.css'],
 })
 export class SelectCustomerComponent {
-
-  @Input() selectMenusForCompanies !: Company[];
+  @Input() selectMenusForCompanies!: Company[];
   @Output() compIdEvent = new EventEmitter<number>();
 
-  title: string = "";
+  @Input() title!: string;
 
   @ViewChild('selectedCustomerBtn', { static: false })
   selectCompanyCustOrSth!: ElementRef;
-  @ViewChild("createCustomerBtn", { static: false }) createCustomerBtn !: ElementRef;
+  @ViewChild('createCustomerBtn', { static: false })
+  createCustomerBtn!: ElementRef;
+  showableALertPopup: boolean = true;
 
   @Output() destroySelectCompEmitter = new EventEmitter<boolean>(false);
-  @Output() fetchCustomerEventEmitter = new EventEmitter<boolean>(false);
+  @Output() fetchCustomerEventEmitter = new EventEmitter<number>();
 
   createCustomerEnable: boolean = false;
 
   constructor(private toastrService: ToastrService) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   ngOnChanges() {
     setTimeout(() => {
       this.selectCompanyCustOrSth.nativeElement.focus();
-    })
+    });
     setTimeout(() => {
       this.createCustomerBtn.nativeElement.focus();
-    })
-
+    });
   }
 
-
   setCompanyId(id: number) {
-
     this.compIdEvent.emit(id);
-    const closeCustomerPopUpEl = document.getElementById("closeCompanyPop") as HTMLAnchorElement;
+    const closeCustomerPopUpEl = document.getElementById(
+      'closeCompanyPop'
+    ) as HTMLAnchorElement;
     closeCustomerPopUpEl.click();
   }
 
-
   onButtonKeyUp(event: KeyboardEvent, compId: number) {
     if (event.key === 'Enter') {
-      this.setCompanyId(compId)
+      this.setCompanyId(compId);
     }
   }
-
 
   onButtonKeyUpForDispalyAddCustomerPopup(event: KeyboardEvent) {
     const eventInputTarget = event.target as HTMLInputElement;
@@ -61,15 +64,14 @@ export class SelectCustomerComponent {
       if (eventInputTarget.value === '1') {
         if (event.key === 'Enter') {
           event.stopPropagation();
+          this.showableALertPopup = false;
           this.displayAddCustomerPopup();
-
 
         }
       } else {
         if (event.key === 'Enter') {
           this.destroySelectCustomer();
           event.stopPropagation();
-
         }
       }
     }
@@ -80,17 +82,16 @@ export class SelectCustomerComponent {
 
   displayAddCustomerPopup() {
     this.createCustomerEnable = true;
-    const createNewCustomerEl = document.getElementById("createNewCustomer") as HTMLButtonElement;
+    const createNewCustomerEl = document.getElementById(
+      'createNewCustomer'
+    ) as HTMLButtonElement;
     createNewCustomerEl.click();
   }
 
   customerAdded($event) {
     this.createCustomerEnable = false;
-    if ($event === true) {
-      this.toastrService.success("Customer Has been added ");
-      this.fetchCustomerEventEmitter.emit(true);
-    }
+    this.toastrService.success('Customer Has been added ');
+    this.fetchCustomerEventEmitter.emit($event);
+    this.destroySelectCompEmitter.emit(true);
   }
-
-
 }

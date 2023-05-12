@@ -1,4 +1,11 @@
-import { Component, ElementRef, EventEmitter, HostListener, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/Product';
@@ -31,14 +38,16 @@ import { UserFeature } from 'src/app/models/UserFeatures';
   styleUrls: ['./create-sales.component.css'],
 })
 export class CreateSalesComponent {
+  @ViewChild('saleTheProductBtn', { static: true })
+  saleTheProductBtn!: ElementRef;
 
-  @ViewChild('saleTheProductBtn', { static: true }) saleTheProductBtn !: ElementRef;
+  @ViewChild('createCustomerBtn', { static: true })
+  createCustomerBtn!: ElementRef;
 
-  @ViewChild("createCustomerBtn", { static: true }) createCustomerBtn !: ElementRef;
+  @ViewChild('prodQtyInput', { static: false }) prodQtyInput!: ElementRef;
 
-  @ViewChild('prodQtyInput', { static: false }) prodQtyInput !: ElementRef;
-
-  @ViewChild('productBarCodeInput', { static: false }) productBarCodeInput !: ElementRef;
+  @ViewChild('productBarCodeInput', { static: false })
+  productBarCodeInput!: ElementRef;
 
   @ViewChild('selectedCustomerBtn', { static: false })
   myButtonRef!: ElementRef;
@@ -56,14 +65,14 @@ export class CreateSalesComponent {
   productsUserWantTosale: Product[] = [];
 
   productQtyUserWantTOSale: number = 1;
-  productQty: number = 1
+  productQty: number = 1;
   customerCompany!: Company;
   customerId: number = 0;
   customerName!: string;
   customerPan!: number;
   productQtyForEntryStatus = false;
 
-  saleType: number = 1 // 1->cash sale, 2-> credit sale
+  saleType: number = 1; // 1->cash sale, 2-> credit sale
 
   selectMenusForCompanies!: Company[];
 
@@ -71,7 +80,7 @@ export class CreateSalesComponent {
   discountReadOnly: boolean = true;
 
   discountApproachSelect: number = 2;
-  selectMenusForCompaniesSize !: number;
+  selectMenusForCompaniesSize!: number;
 
   taxApproach: number = 1;
 
@@ -87,14 +96,14 @@ export class CreateSalesComponent {
   taxApproachSelectEl: number = 2;
   customerSearchMethod: number = 1;
   custPhoneOrPan!: number;
-  postgreDate !: Date;
+  postgreDate!: Date;
   createCustomerEnable: boolean = false;
   selectCompanyActive: boolean = false;
   unknownCustomer: boolean = false;
   export: boolean = false;
-  selectMenusForProduct: Product[] = []
+  selectMenusForProduct: Product[] = [];
   selectProductActive: boolean = false;
-  prodWildCard !: string;
+  prodWildCard!: string;
   allowEditSellingPrice: boolean = false;
 
   // for bill Summary
@@ -108,6 +117,7 @@ export class CreateSalesComponent {
 
   featureObjs: UserFeature[] = [];
   searchByBarCode: boolean = false;
+
 
   constructor(
     private salesCartService: SalesCartService,
@@ -128,13 +138,13 @@ export class CreateSalesComponent {
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
-    this.counterId =1;
+    this.counterId = this.loginService.getCounterId();
     this.featureObjs = this.loginService.getFeatureObjs();
-    this.featureObjs.forEach(fo => {
+    this.featureObjs.forEach((fo) => {
       if (fo.featureId === 2) {
         this.searchByBarCode = true;
       }
-    })
+    });
     this.currentBranch = 'Branch ' + this.branchId;
     let billId: number = this.activatedRoute.snapshot.queryParams['id'];
     if (billId > 0) {
@@ -151,7 +161,6 @@ export class CreateSalesComponent {
     this.saleTheProductBtn.nativeElement.click();
   }
 
-
   ngAfterViewInit() {
     this.productBarCodeInput.nativeElement.focus();
   }
@@ -162,14 +171,16 @@ export class CreateSalesComponent {
 
   displayAddCustomerPopup() {
     this.createCustomerEnable = true;
-    const createNewCustomerEl = document.getElementById("createNewCustomer") as HTMLButtonElement;
+    const createNewCustomerEl = document.getElementById(
+      'createNewCustomer'
+    ) as HTMLButtonElement;
     createNewCustomerEl.click();
   }
 
   customerAdded($event) {
     this.createCustomerEnable = false;
     if ($event === true) {
-      this.tostrService.success("Customer Has been added ");
+      this.tostrService.success('Customer Has been added ');
       this.fetchCustomerInfo();
     }
   }
@@ -183,16 +194,16 @@ export class CreateSalesComponent {
   setAllVatToZero() {
     this.export = !this.export;
     // if (this.export) {
-    //   this.productsUserWantTosale.forEach((prod) => {
-    //     const vatSelEl = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
-    //     vatSelEl.value = String(2); //2 for zero vat
-    //   })
+    // this.productsUserWantTosale.forEach((prod) => {
+    // const vatSelEl = document.getElementById(`vatRateTypes${prod.id}`) as HTMLSelectElement;
+    // vatSelEl.value = String(2); //2 for zero vat
+    // })
     // }
   }
 
   createNewProduct($event: boolean) {
     if ($event == true) {
-      this.tostrService.success("Ok")
+      this.tostrService.success('Ok');
     }
   }
 
@@ -200,13 +211,11 @@ export class CreateSalesComponent {
     this.allowEditSellingPrice = !this.allowEditSellingPrice;
 
     const inputs = document.querySelectorAll('.productSellingPrice');
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       if (this.allowEditSellingPrice) {
         input.removeAttribute('readonly');
-
       } else {
         input.setAttribute('readonly', 'true');
-
       }
     });
   }
@@ -265,7 +274,9 @@ export class CreateSalesComponent {
       const totalAmountEl = document.getElementById(
         `totalAmount${index}`
       ) as HTMLElement;
-      const vatSelEl = document.getElementById(`vatRateTypes${index}`) as HTMLSelectElement;
+      const vatSelEl = document.getElementById(
+        `vatRateTypes${index}`
+      ) as HTMLSelectElement;
 
       let salesProd: SalesBillDetailWithProdInfo =
         salesBillDetailsWithProd.find((sp, i) => i === index)!;
@@ -295,6 +306,7 @@ export class CreateSalesComponent {
         next: (data) => {
           this.selectMenusForCompanies = data.data;
           this.selectMenusForCompaniesSize = data.data.length;
+
         },
         complete: () => {
           const custBtn = document.getElementById(
@@ -303,7 +315,7 @@ export class CreateSalesComponent {
           custBtn.click();
           setTimeout(() => {
             this.createCustomerBtn.nativeElement.focus();
-          })
+          });
         },
       });
   }
@@ -327,6 +339,21 @@ export class CreateSalesComponent {
     });
   }
 
+  fetchCustomerInfoOnlyForNameDisplay($event: number) {
+    this.companyService
+      .getCustomerInfoByPanOrPhone(
+        this.customerSearchMethod,
+        this.custPhoneOrPan
+      )
+      .subscribe({
+        next: (data) => {
+          this.selectMenusForCompanies = data.data;
+          this.selectMenusForCompaniesSize = data.data.length;
+          this.setCustomerInfo($event)
+        },
+      });
+  }
+
   setCustomerInfo(compId: number) {
     let comp: Company = this.selectMenusForCompanies.find(
       (comp) => Number(comp.companyId) === Number(compId)
@@ -335,7 +362,7 @@ export class CreateSalesComponent {
     this.customerName = comp.name;
     this.customerPan = Number(comp.panNo);
     // const closeCustomerPopUpEl = document.getElementById(
-    //   'closeCustPop'
+    // 'closeCustPop'
     // ) as HTMLAnchorElement;
     // closeCustomerPopUpEl.click();
     this.destroySelectCustomerComponent(true);
@@ -349,7 +376,9 @@ export class CreateSalesComponent {
   }
 
   destroySelectCustomerComponent($event: boolean) {
-    this.selectCompanyActive = false;
+    setTimeout(() => {
+      this.selectCompanyActive = false;
+    })
   }
 
   destroySelectProductComponent($event: boolean) {
@@ -360,18 +389,27 @@ export class CreateSalesComponent {
     setTimeout(() => {
       this.selectProductActive = true;
     }, 200);
-    const selectProductBtn = document.getElementById("selectProduct") as HTMLButtonElement;
+    const selectProductBtn = document.getElementById(
+      'selectProduct'
+    ) as HTMLButtonElement;
     selectProductBtn.click();
-    this.productService.getProductByWildCardName(this.prodWildCard, this.companyId, this.branchId).subscribe({
-      next: (data) => {
-        this.selectMenusForProduct = data.data
-      }
-    });
+    this.productService
+      .getProductByWildCardName(
+        this.prodWildCard,
+        this.companyId,
+        this.branchId
+      )
+      .subscribe({
+        next: (data) => {
+          this.selectMenusForProduct = data.data;
+        },
+      });
   }
 
-  setProductSelectedByName(prod: Product) {
-    this.productBarCodeId = prod.id;
+  setProductSelectedByName(prodId: number) {
+    this.productBarCodeId = prodId;
     this.prodQtyInput.nativeElement.focus();
+    this.selectProductActive = false;
   }
 
   getApproach($event: any) {
@@ -403,14 +441,14 @@ export class CreateSalesComponent {
     } else if (id == 2) {
       this.discountApproachSelect = 2;
       this.discountReadOnly = true;
-      this.productsUserWantTosale.forEach((prod) => {
+      this.productsUserWantTosale.forEach((prod, index) => {
         const discountInputElement = document.getElementById(
-          `discountPerc${prod.id}`
+          `discountPerc${index}`
         ) as HTMLInputElement;
         discountInputElement.value = String(prod.discount);
         this.productsUserWantTosale.forEach((prod, index) => {
           this.updateTotalAmount(index);
-        })
+        });
         this.updateBillSummary();
 
         // this.updateTotalAmount(prod);
@@ -418,10 +456,8 @@ export class CreateSalesComponent {
     }
   }
 
-
   setSaleType(id: number) {
     this.saleType = id;
-
   }
 
   goToProductQtyField() {
@@ -430,24 +466,28 @@ export class CreateSalesComponent {
     }
   }
 
-
   addTheProductForSale() {
     if (this.productBarCodeId === undefined) {
       return;
     }
     /** code for checking whether the product already exists in cart. Now not needed */
     // for (let i = 0; i < this.productsUserWantTosale.length; i++) {
-    //   let eachProd: Product = this.productsUserWantTosale[i];
-    //   if (eachProd.id === Number(this.productBarCodeId)) {
-    //     // eachProd.id is number type and this.productBarCodeId is Number | undefined type. so we need to typecast explicitly
-    //     this.tostrService.error("product already added ");
-    //     return; //return doesnot work in foreach method
+    // let eachProd: Product = this.productsUserWantTosale[i];
+    // if (eachProd.id === Number(this.productBarCodeId)) {
+    // // eachProd.id is number type and this.productBarCodeId is Number | undefined type. so we need to typecast explicitly
+    // this.tostrService.error("product already added ");
+    // return; //return doesnot work in foreach method
 
-    //   }
+    // }
     // }
 
     this.productService
-      .getProductById(this.productBarCodeId, this.companyId, this.branchId, this.searchByBarCode)
+      .getProductById(
+        this.productBarCodeId,
+        this.companyId,
+        this.branchId,
+        this.searchByBarCode
+      )
       .subscribe({
         next: (data) => {
           console.log(data.data);
@@ -464,11 +504,10 @@ export class CreateSalesComponent {
                 this.productQty = 1;
               });
               this.updateBillSummary();
-
             });
           }
           if (data.data === null) {
-            this.tostrService.error("product not available");
+            this.tostrService.error('product not available');
           }
           this.productBarCodeInput.nativeElement.focus();
         },
@@ -476,10 +515,10 @@ export class CreateSalesComponent {
   }
   // advance logic for total amount updation
   updateTotalAmount(index: number) {
-
-
     // for fetching selling price
-    let prodSellingPriceEL = document.getElementById(`prodSellingPrice${index}`) as HTMLInputElement
+    let prodSellingPriceEL = document.getElementById(
+      `prodSellingPrice${index}`
+    ) as HTMLInputElement;
     let sellingPrice = Number(prodSellingPriceEL.value);
 
     // for tracking quantity
@@ -488,7 +527,7 @@ export class CreateSalesComponent {
     ) as HTMLInputElement;
 
     if (this.productQtyForEntryStatus === true) {
-      qtyProdElement.value = String(this.productQty);//
+      qtyProdElement.value = String(this.productQty); //
     }
     let prodQty: number = Number(qtyProdElement.value);
 
@@ -498,21 +537,24 @@ export class CreateSalesComponent {
     ) as HTMLInputElement;
     let discountPerc: number = Number(discountPercElement.value);
 
-    const varRateTypeEl = document.getElementById(`vatRateTypes${index}`) as HTMLSelectElement;
+    const varRateTypeEl = document.getElementById(
+      `vatRateTypes${index}`
+    ) as HTMLSelectElement;
     let eachVatRateId: Number = Number(varRateTypeEl.value);
     let eachVatRateNum: number = 0;
     this.vatRateTypes.forEach((vrt) => {
       if (vrt.id === eachVatRateId) {
         eachVatRateNum = vrt.vatRateNum;
       }
-    })
+    });
 
     let totalAmountElement = document.getElementById(
       `totalAmount${index}`
     ) as HTMLElement;
 
     if (this.taxApproach === 1) {
-      let actSp = sellingPrice - (eachVatRateNum / (100 + eachVatRateNum)) * sellingPrice;
+      let actSp =
+        sellingPrice - (eachVatRateNum / (100 + eachVatRateNum)) * sellingPrice;
       let totalEachRow: number =
         (actSp - (discountPerc / 100) * actSp) * prodQty;
       let totalEachRow2 = totalEachRow + (eachVatRateNum / 100) * totalEachRow;
@@ -524,9 +566,7 @@ export class CreateSalesComponent {
     }
   }
 
-
   updateBillSummary() {
-
     this.bsTotal = 0;
     this.bsSubTotal = 0;
     this.bsVatTaxableAmount = 0;
@@ -535,14 +575,19 @@ export class CreateSalesComponent {
     this.bsBalanceDue = 0;
 
     this.productsUserWantTosale.forEach((prod, index) => {
-
-      const pTotalElement = document.getElementById(`totalAmount${index}`) as HTMLElement;
+      const pTotalElement = document.getElementById(
+        `totalAmount${index}`
+      ) as HTMLElement;
       let pTotal: number = Number(pTotalElement.innerText);
 
-      let prodSellingPriceEL = document.getElementById(`prodSellingPrice${index}`) as HTMLInputElement
+      let prodSellingPriceEL = document.getElementById(
+        `prodSellingPrice${index}`
+      ) as HTMLInputElement;
       let sellingPrice = Number(prodSellingPriceEL.value);
 
-      const varRateTypeEl = document.getElementById(`vatRateTypes${index}`) as HTMLSelectElement;
+      const varRateTypeEl = document.getElementById(
+        `vatRateTypes${index}`
+      ) as HTMLSelectElement;
       let eachVatRateId: Number = Number(varRateTypeEl.value);
 
       // for fetching vat rate number value from id
@@ -551,13 +596,13 @@ export class CreateSalesComponent {
         if (vrt.id === eachVatRateId) {
           eachVatRateNum = vrt.vatRateNum;
         }
-      })
+      });
 
       const qtyProdElement = document.getElementById(
         `qtyProd${index}`
       ) as HTMLInputElement;
       // if (this.productQtyForEntryStatus === true) {
-      //   qtyProdElement.value = String(this.productQty);//
+      // qtyProdElement.value = String(this.productQty);//
       // }
       let prodQty: number = Number(qtyProdElement.value);
 
@@ -566,14 +611,18 @@ export class CreateSalesComponent {
       ) as HTMLInputElement;
       let discountPerc: number = Number(discountPercElement.value);
 
-      this.bsDiscountAmount += (discountPerc / 100 * sellingPrice) * prodQty;
+      this.bsDiscountAmount += (discountPerc / 100) * sellingPrice * prodQty;
       if (this.taxApproach === 2) {
         // for tax exclusiveness
         this.bsSubTotal += pTotal;
-        this.bsTotal += pTotal + (eachVatRateNum / 100 * sellingPrice) * prodQty;//userle edit gareko sp anusar vat change hunxa.
-        this.bsNetAmount += (sellingPrice - discountPerc / 100 * sellingPrice) * prodQty;
-        if (eachVatRateId === 3) {//taxableamount is calculated only if vatrateid is equals to 3.
-          this.bsVatTaxableAmount += (sellingPrice - discountPerc / 100 * sellingPrice) * prodQty;
+        this.bsTotal +=
+          pTotal + (eachVatRateNum / 100) * sellingPrice * prodQty; //userle edit gareko sp anusar vat change hunxa.
+        this.bsNetAmount +=
+          (sellingPrice - (discountPerc / 100) * sellingPrice) * prodQty;
+        if (eachVatRateId === 3) {
+          //taxableamount is calculated only if vatrateid is equals to 3.
+          this.bsVatTaxableAmount +=
+            (sellingPrice - (discountPerc / 100) * sellingPrice) * prodQty;
         }
       }
 
@@ -582,18 +631,21 @@ export class CreateSalesComponent {
         this.bsSubTotal += pTotal;
         this.bsTotal = this.bsSubTotal;
 
-        let actSp = sellingPrice - (eachVatRateNum / (100 + eachVatRateNum)) * sellingPrice;
+        let actSp =
+          sellingPrice -
+          (eachVatRateNum / (100 + eachVatRateNum)) * sellingPrice;
         let totalEachRowTaxableAmount: number =
           (actSp - (discountPerc / 100) * actSp) * prodQty;
-        if (eachVatRateId === 3) {//taxableamount is calculated only if vatrateid is equals to 3.
+        if (eachVatRateId === 3) {
+          //taxableamount is calculated only if vatrateid is equals to 3.
           this.bsVatTaxableAmount += totalEachRowTaxableAmount;
         }
-        this.bsNetAmount += totalEachRowTaxableAmount
+        this.bsNetAmount += totalEachRowTaxableAmount;
       }
-    })
+    });
 
     this.bsBalanceDue = this.bsTotal;
-    this.bsEstimatedFRSAmount = 13 / 100 * this.bsTotal;
+    this.bsEstimatedFRSAmount = (13 / 100) * this.bsTotal;
   }
 
   removeItemFromCart(i: number) {
@@ -649,7 +701,9 @@ export class CreateSalesComponent {
       saleBillDetail.date = new Date(this.date); //backend ma set gar
 
       // setting sellingprice dynamically form dom because user can edit it. so we have to make it dynamic.
-      const sellingPriceEl = document.getElementById(`prodSellingPrice${index}`) as HTMLInputElement;
+      const sellingPriceEl = document.getElementById(
+        `prodSellingPrice${index}`
+      ) as HTMLInputElement;
       saleBillDetail.rate = Number(sellingPriceEl.value);
       this.salesBillDetailInfos.push(saleBillDetail);
     });
@@ -665,7 +719,7 @@ export class CreateSalesComponent {
     // this.calculateSubMetrics(salesBill);
     salesBill.amount = this.bsNetAmount;
     salesBill.taxableAmount = this.bsVatTaxableAmount;
-    salesBill.taxAmount = 13 / 100 * this.bsVatTaxableAmount;
+    salesBill.taxAmount = (13 / 100) * this.bsVatTaxableAmount;
     salesBill.totalAmount = this.bsTotal;
     salesBill.discount = this.bsDiscountAmount;
     // finished
@@ -677,11 +731,11 @@ export class CreateSalesComponent {
     salesBill.billPrinted = false;
     salesBill.enteredBy = this.loginService.currentUser.user.email;
     salesBill.paymentMethod = 'CashInHand';
-    console.log("start--------------------");
+    console.log('start--------------------');
     console.log(this.date);
     salesBill.billDate = new Date(this.date);
-    console.log(salesBill.billDate)
-    console.log("end-----------------------")
+    console.log(salesBill.billDate);
+    console.log('end-----------------------');
 
     salesBill.userId = this.loginService.currentUser.user.id;
     salesBill.companyId = this.loginService.getCompnayId();
@@ -693,8 +747,8 @@ export class CreateSalesComponent {
     salesBill.taxApproach = this.taxApproach;
     salesBill.discountApproach = this.discountApproachSelect;
     salesBill.customerSearchMethod = this.customerSearchMethod;
-    salesBill.saleType = this.saleType
-    // salesBill.draft  = true mjremain
+    salesBill.saleType = this.saleType;
+    // salesBill.draft = true mjremain
     salesBillMaster.salesBillDTO = salesBill;
     salesBillMaster.salesBillDetails = salesBillDetailInfos;
     salesBillMaster.alreadyDraft = this.alreadyDraft;
@@ -733,7 +787,9 @@ export class CreateSalesComponent {
       ) as HTMLInputElement;
       let qty = Number(qtyEl.value);
 
-      let prodSellingPriceEL = document.getElementById(`prodSellingPrice${prod.id}`) as HTMLInputElement
+      let prodSellingPriceEL = document.getElementById(
+        `prodSellingPrice${prod.id}`
+      ) as HTMLInputElement;
       let finalSellingPrice = Number(prodSellingPriceEL.value);
 
       if (this.taxApproach === 1) {

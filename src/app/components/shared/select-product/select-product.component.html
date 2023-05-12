@@ -1,6 +1,4 @@
-<div class="mb-2"></div>
-<div class="popupHeading">
-  <h2 class="fleft">{{ title }}</h2>
+<div class="popupHeading" *ngIf="selectMenusForProduct.length > 0">
   <a
     class="Customer1CloseButton fright"
     id="closeSelectProductPop"
@@ -9,10 +7,63 @@
   /></a>
   <div class="cboth"></div>
 </div>
-<div class="popupSubHeadingDiv selectcompanyomer">
+<div
+  class="popupSubHeadingDiv selectcompanyomer"
+  *ngIf="selectMenusForProduct.length > 0"
+>
   <h1 class="heading">Your can select your {{ title }} here</h1>
 </div>
-<div class="popupContentWrapper">
+<tr
+  class="text-center"
+  *ngIf="selectMenusForProduct.length === 0 && showableALertPopup"
+>
+  <td colspan="9">
+    <!-- st -->
+    <div class="popupSubHeadingDiv createsalesBill">
+      <h1 class="heading">
+        <i class="fa-solid fa-circle-exclamation"></i> No record found. Would
+        you like to create product ? ?
+      </h1>
+    </div>
+    <div class="popupContentWrapper">
+      <div class="row">
+        <div class="col-md-4">
+          <button class="submit_btn border-rad">
+            <input
+              #createProductBtn
+              type="radio"
+              name="createCustDecs"
+              value="1"
+              checked
+              (keyup)="onButtonKeyUpForDispalyAddProductPopup($event)"
+            />
+            Yes
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button class="submit_btn border-rad">
+            <input
+              type="radio"
+              name="createCustDecs"
+              value="0"
+              (keyup)="onButtonKeyUpForDispalyAddProductPopup($event)"
+            />
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button
+      style="display: none"
+      id="createNewProduct"
+      class="createNewTableRecord"
+    ></button>
+    <!-- ed -->
+  </td>
+</tr>
+<!-- dsfdsf -->
+<div class="popupContentWrapper" *ngIf="selectMenusForProduct.length > 0">
   <div class="row">
     <div class="col-md-12">
       <div class="recordsTableDiv">
@@ -36,40 +87,10 @@
               </th>
               <th>Selling Price</th>
               <th>Discount</th>
+              <th>unit</th>
             </tr>
           </thead>
           <tbody id="prodTable">
-            <tr class="text-center" *ngIf="selectMenusForProduct.length === 0">
-              <td colspan="9">
-                <span style="color: red">No records found !</span>
-                <span>
-                  Would you like to create Product ?
-                  <input
-                    #createProductBtn
-                    type="radio"
-                    name="createCustDecs"
-                    value="1"
-                    checked
-                    (keyup)="onButtonKeyUpForDispalyAddProductPopup($event)"
-                  />
-                  Yes
-
-                  <input
-                    type="radio"
-                    name="createCustDecs"
-                    value="0"
-                    (keyup)="onButtonKeyUpForDispalyAddProductPopup($event)"
-                  />
-                  No
-                </span>
-
-                <button
-                  style="display: none"
-                  id="createNewProduct"
-                  class="createNewTableRecord"
-                ></button>
-              </td>
-            </tr>
             <tr
               *ngFor="let product of selectMenusForProduct; let index = index"
               id="company_{{ product.id }}"
@@ -98,9 +119,11 @@
               </td>
               <td>{{ index + 1 }}</td>
               <td>{{ product.name }}</td>
-              <td>{{ product.costPrice }}</td>
               <td>{{ product.sellingPrice }}</td>
               <td>{{ product.discount }}</td>
+              <td>{{product.unit}}</td>
+
+              
             </tr>
           </tbody>
         </table>
@@ -109,11 +132,10 @@
   </div>
 </div>
 <div
-  class="popupWrapper createCustomerPopUpWrapper"
+  class="popupWrapper createCustomerPopUpWrapper popupCloser"
   id="createNewProductPopup"
   style="display: none"
 >
-  <div class="mb-2"></div>
   <app-create-product
     *ngIf="createProductEnable"
     (productInfoEvent)="productAdded($event)"
