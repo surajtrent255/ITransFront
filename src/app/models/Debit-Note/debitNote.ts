@@ -3,9 +3,10 @@ export class DebitNote {
   panNumber!: number;
   receiverName!: string;
   receiverAddress!: string;
-  billNumber!: string;
+  billNumber!: number;
   date!: Date;
   totalAmount!: number;
   totalTax!: number;
   companyId!: number;
+  branchId!: number;
 }

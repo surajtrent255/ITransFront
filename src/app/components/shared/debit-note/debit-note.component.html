@@ -38,6 +38,10 @@
           <p>
             Receiver Name: {{ PurchaseBillDetails.purchaseBillDTO.sellerName }}
           </p>
+          <p>
+            Receiver Address:
+            {{ PurchaseBillDetails.purchaseBillDTO.sellerAddress }}
+          </p>
         </div>
         <div class="recordsTableDiv">
           <table
@@ -54,6 +58,7 @@
                 <th>QTY</th>
                 <th>Discount</th>
                 <th>Debit Amount</th>
+                <th>Tax Amount</th>
                 <th>Total</th>
               </tr>
             </thead>
@@ -82,20 +87,16 @@
                 </td>
                 <td>{{ data.discountPerUnit }}</td>
                 <td>{{ data.rate }}</td>
-
+                <td>{{ data.rate * (data.taxRate / 100) }}</td>
                 <td>
-                  <span>{{ data.rate * data.qty }}</span>
+                  <span>{{
+                    data.qty * (data.rate + (data.rate * data.taxRate) / 100)
+                  }}</span>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <!-- <p style="text-align: right">
-          Total Tax Amount: {{ PurchaseBillDetails.purchaseBillDTO.taxAmount }}
-        </p>
-        <div class="total">
-          Total Amount: {{ PurchaseBillDetails.purchaseBillDTO.totalAmount }}
-        </div> -->
       </section>
       <div>
         <button
@@ -105,6 +106,13 @@
         >
           Submit
         </button>
+        <a
+          class="submit_btn border-rad"
+          routerLink="/dashboard/debitNoteList"
+          style="color: white"
+        >
+          Cancel
+        </a>
       </div>
     </div>
   </div>

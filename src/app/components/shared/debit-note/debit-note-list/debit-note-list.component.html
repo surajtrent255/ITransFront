@@ -1,0 +1,180 @@
+<div class="contentRecordsTableContainer MainContainer">
+  <div class="recordTableWrapper" style="height: auto">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations">Debit Note List</h2>
+      <div class="cboth"></div>
+    </div>
+
+    <div class="searchCreateTableDiv" style="height: 513px">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText hintText"
+            type="text"
+            search="off"
+            value="Enter CustomerPartName/MasterPartName to Search"
+          />
+          <input
+            type="image"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a href="#" class="genLink">Clear searchs</a>
+        </div>
+        <div class="fright" class="createProductDiv">
+          <a routerLink="/dashboard/debitnote">
+            <img src="../../../assets/resources/images/createProduct.png" />
+            <span> Create Debit Note</span>
+          </a>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fleft filterListWrapper">
+            <div class="fleft">
+              <span class="italicText"></span>
+            </div>
+            <ul
+              class="fleft filtersDisplayList ProductsTableFiltersDisplayList"
+            ></ul>
+            <div class="cboth"></div>
+          </div>
+          <div class="fright configNavTableWrapper">
+            <div class="fleft tableNavDiv" id="ProductsTablePagination">
+              <a href="" class="first first-page pageNumber">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev pageNumber">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+
+              <a href="" class="next pageNumber">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page pageNumber">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
+            </div>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="ProductsRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Customer Name</th>
+                <th>Customer Address</th>
+                <th>Pan Number</th>
+                <th>Bill Number</th>
+                <th>Date</th>
+                <th>Total Amount</th>
+                <th>Total Tax</th>
+                <th class="last-child">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <tr *ngFor="let data of debitNote">
+                <td>{{ data.id }}</td>
+                <td>{{ data.receiverName }}</td>
+                <td>{{ data.receiverAddress }}</td>
+                <td>{{ data.panNumber }}</td>
+                <td>{{ data.billNumber }}</td>
+                <td>{{ data.date | date }}</td>
+                <td>{{ data.totalAmount }}</td>
+                <td>{{ data.totalTax }}</td>
+
+                <td class="last-child">
+                  <a
+                    (click)="details(data.billNumber)"
+                    id="creditNoteDetails"
+                    class="createNewTableRecord"
+                  >
+                    <img
+                      src="../../../assets/resources/images/reports-bg.png"
+                    />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="popupWrapper PopupCloser"
+  id="creditNoteDetailsPopup"
+  style="display: none"
+>
+  <div class="popupHeading">
+    <h2 class="fleft">Credit Note Detail</h2>
+    <a href="" class="closeButton fright"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupSubHeadingDiv createProduct">
+    <h1 class="heading">Credit Note Details</h1>
+    <div>Product Details</div>
+  </div>
+  <div class="popupContentWrapper">
+    <form>
+      <div class="chooseColoumnsWrapper">
+        <div class="fieldDiv popUpFormSectionWrapper">
+          <div class="recordsTableDiv">
+            <table
+              cellspacing="0"
+              cellpadding="0"
+              class="recordsTable"
+              id="ProductsRecordsTable"
+            >
+              <thead>
+                <tr>
+                  <th>SN</th>
+                  <th>Product Id</th>
+                  <th>Product Name</th>
+                  <th>Credit Reason</th>
+                  <th>Credit Amount</th>
+                  <th>Credit Tax Amount</th>
+                </tr>
+              </thead>
+              <tbody id="prodTable">
+                <tr *ngFor="let data of debitNoteDetails">
+                  <td>{{ data.serialNumber }}</td>
+                  <td>{{ data.productId }}</td>
+                  <td>{{ data.productName }}</td>
+                  <td>{{ data.debitReason }}</td>
+                  <td>{{ data.debitAmount }}</td>
+                  <td>{{ data.debitTaxAmount }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="submitDiv tCenter">
+        <input
+          type="button"
+          value="Close"
+          class="submit_btn closeButton border-rad"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- imp in tbody overflow-wrap: anywhere; -->

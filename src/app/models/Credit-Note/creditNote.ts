@@ -8,4 +8,5 @@ export class CreditNote {
   totalAmount!: number;
   totalTax!: number;
   companyId!: number;
+  branchId!: number;
 }

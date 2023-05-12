@@ -63,8 +63,6 @@ export class CreditNoteInvoiceComponent {
 
     this.totalAmount = NetTotal;
     this.TotalTax = NetTaxAmount;
-    console.log('NET AMOUNT');
-    console.log(NetTotal);
 
     this.salesService
       .fetchSalesBillDetailForInvoice(this.billNo)
@@ -77,13 +75,15 @@ export class CreditNoteInvoiceComponent {
     this.SelectedProduct.map((data) => {
       this.creditNoteService
         .addCreditNoteDetails({
+          serialNumber: this.serialNumber,
           companyId: this.loginService.getCompnayId(),
           creditAmount: data.rate,
           creditReason: data.creditReason,
           creditTaxAmount: (data.rate * data.taxRate) / 100,
           productId: data.productId,
           productName: data.productName,
-          SN: this.serialNumber,
+          branchId: this.loginService.getBranchId(),
+          billNumber: this.salesInvoice.salesBillDTO.billNo,
         })
         .subscribe((res) => {});
     });
@@ -99,14 +99,10 @@ export class CreditNoteInvoiceComponent {
         totalTax: this.TotalTax,
         id: this.serialNumber,
         companyId: this.loginService.getCompnayId(),
+        branchId: this.loginService.getBranchId(),
       })
-      .subscribe({
-        next: (res) => {
-          this.router.navigateByUrl('/dashboard/creditnote');
-        },
+      .subscribe((res) => {
+        this.router.navigateByUrl('/dashboard/creditNoteList');
       });
-  }
-  cancel() {
-    this.router.navigateByUrl('/dashboard/creditnote');
   }
 }

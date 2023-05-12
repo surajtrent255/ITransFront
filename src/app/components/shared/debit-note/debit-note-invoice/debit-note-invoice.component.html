@@ -29,12 +29,16 @@
           <span> {{ purchaseInvoice.purchaseBillDTO.purchaseBillNo }}</span
           ><br />
 
-          <span>Seller Name: </span
+          <span>Receiver Name: </span
           ><span>{{ purchaseInvoice.purchaseBillDTO.sellerName }}</span
           ><br />
 
-          <span>Seller PAN: </span>
+          <span>Receiver PAN: </span>
           <span> {{ purchaseInvoice.purchaseBillDTO.sellerPan }}</span
+          ><br />
+
+          <span>Receiver Address: </span>
+          <span> {{ purchaseInvoice.purchaseBillDTO.sellerAddress }}</span
           ><br />
         </div>
 
@@ -52,6 +56,7 @@
                 <th>QTY</th>
                 <th>Discount</th>
                 <th>Debit Amount</th>
+                <th>Tax Amount</th>
                 <th>Total</th>
               </thead>
               <tbody>
@@ -61,8 +66,12 @@
                   <td>{{ product.qty }}</td>
                   <td>{{ product.discountPerUnit }}</td>
                   <td>{{ product.rate }}</td>
+                  <td>{{ (product.rate * product.taxRate) / 100 }}</td>
                   <td>
-                    {{ product.rate * product.qty }}
+                    {{
+                      ((product.rate * product.taxRate) / 100 + product.rate) *
+                        product.qty
+                    }}
                   </td>
                 </tr>
                 <tr></tr>
@@ -73,6 +82,8 @@
                   <td></td>
                   <td><span class="text text-bg">Total:</span></td>
                   <td></td>
+
+                  <td>{{ TotalTax }}</td>
 
                   <td>
                     {{ totalAmount | number : "1.0-0" }}

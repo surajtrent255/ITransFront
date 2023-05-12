@@ -175,7 +175,10 @@
                         <a class="nav-link"> Customers </a>
                       </li>
                       <li *ngIf="IsStaff">
-                        <a class="nav-link" routerLink="/dashboard/creditnote">
+                        <a
+                          class="nav-link"
+                          routerLink="/dashboard/creditNoteList"
+                        >
                           Credit Note
                         </a>
                       </li>
@@ -220,7 +223,9 @@
                         </a>
                       </li>
                       <li>
-                        <a class="nav-link" routerLink="/dashboard/debitnote"
+                        <a
+                          class="nav-link"
+                          routerLink="/dashboard/debitNoteList"
                           >Debit Note
                         </a>
                       </li>

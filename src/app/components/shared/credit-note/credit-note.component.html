@@ -6,7 +6,7 @@
       </h2>
       <div class="cboth"></div>
     </div>
-    <div class="searchCreateTableDiv" style="height: 600px">
+    <div class="searchCreateTableDiv" style="min-height: 600px; height: auto">
       <section>
         <div>
           <p>
@@ -25,7 +25,7 @@
           </p>
 
           <p>
-            Bill No:
+            Bill Id:
             <span>
               <input
                 type="number"
@@ -95,7 +95,7 @@
           </table>
         </div>
       </section>
-      <div>
+      <div style="display: flex">
         <button
           type="submit"
           (click)="onSubmit()"
@@ -103,6 +103,14 @@
         >
           Submit
         </button>
+
+        <a
+          class="submit_btn border-rad"
+          routerLink="/dashboard/creditNoteList"
+          style="color: white"
+        >
+          Cancel
+        </a>
       </div>
     </div>
   </div>

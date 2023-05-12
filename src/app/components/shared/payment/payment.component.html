@@ -68,15 +68,10 @@
           <div class="cboth"></div>
         </div>
         <div class="recordsTableDiv">
-          <table
-            cellspacing="0"
-            cellpadding="0"
-            class="recordsTable"
-            id="ProductsRecordsTable"
-          >
+          <table cellspacing="0" cellpadding="0" class="recordsTable">
             <thead>
               <tr>
-                <th class="first-child sortable" sortDir="asc">Payment Id</th>
+                <th>Payment Id</th>
                 <th>Company Id</th>
                 <th>Branch Id</th>
                 <th>Party Id</th>
@@ -91,11 +86,7 @@
                 <th class="last-child">Actions</th>
               </tr>
             </thead>
-            <tbody id="prodTable">
-              <tr>
-                <span class="noProdRecord">No records found</span>
-              </tr>
-
+            <tbody>
               <tr *ngFor="let Payment of payment">
                 <td>{{ Payment.sn }}</td>
                 <td>{{ Payment.companyId }}</td>
@@ -108,7 +99,7 @@
                 <td>{{ Payment.postCheckDate | date }}</td>
                 <td>{{ Payment.checkNo }}</td>
                 <td>{{ Payment.date | date }}</td>
-                <td>{{ Payment.status }}</td>
+                <td>{{ Payment.paymentStatus }}</td>
                 <td class="last-child">
                   <a
                     *ngIf="IsAuditor"
@@ -139,6 +130,7 @@
     >
       <app-edit-payment-details
         [PaymentId]="paymentIdForEdit"
+        (updatedSuccessful)="getDetails()"
       ></app-edit-payment-details>
     </div>
   </div>

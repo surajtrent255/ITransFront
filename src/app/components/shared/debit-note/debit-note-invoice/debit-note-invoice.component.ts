@@ -21,6 +21,7 @@ export class DebitNoteInvoiceComponent {
   purchaseInvoice!: PurchaseBillInvoice;
   serialNumber!: number;
   totalAmount!: number;
+  TotalTax!: number;
 
   constructor(
     private commonService: CommonService,
@@ -43,13 +44,23 @@ export class DebitNoteInvoiceComponent {
     });
 
     const total = this.SelectedProduct.map((item) => {
-      return item.qty * item.rate;
+      return item.qty * (item.rate + (item.rate * item.taxRate) / 100);
     });
+
     const NetTotal = total.reduce((acc, curr) => {
       return acc + curr;
     }, 0);
 
+    const totalTaxAmount = this.SelectedProduct.map((item) => {
+      return (item.rate * item.taxRate) / 100;
+    });
+
+    const NetTaxAmount = totalTaxAmount.reduce((acc, curr) => {
+      return acc + curr;
+    }, 0);
+
     this.totalAmount = NetTotal;
+    this.TotalTax = NetTaxAmount;
 
     this.PurchaseService.fetchPurchaseBillDetailForInvoice(
       this.billNo,
@@ -66,32 +77,35 @@ export class DebitNoteInvoiceComponent {
         .addDebitNoteDetails({
           debitAmount: data.rate,
           debitReason: data.debitReason,
-          debitTaxAmount: 0,
+          debitTaxAmount: data.taxRate,
           productId: data.productId,
           productName: data.productName,
-          SN: this.serialNumber,
+          serialNumber: this.serialNumber,
           companyId: this.LoginService.getCompnayId(),
+          billNumber: this.purchaseInvoice.purchaseBillDTO.purchaseBillNo,
+          branchId: this.LoginService.getBranchId(),
         })
         .subscribe((res) => {});
     });
 
     this.debitNoteService
       .addDebitNote({
-        billNumber: String(this.purchaseInvoice.purchaseBillDTO.purchaseBillNo),
+        billNumber: this.purchaseInvoice.purchaseBillDTO.purchaseBillNo,
         date: new Date(),
         id: this.serialNumber,
         panNumber: this.purchaseInvoice.purchaseBillDTO.sellerPan,
-        receiverAddress: '',
+        receiverAddress: this.purchaseInvoice.purchaseBillDTO.sellerAddress,
         receiverName: this.purchaseInvoice.purchaseBillDTO.sellerName,
         totalAmount: this.totalAmount,
-        totalTax: 0,
+        totalTax: this.TotalTax,
         companyId: this.LoginService.getCompnayId(),
+        branchId: this.LoginService.getBranchId(),
       })
       .subscribe((res) => {
-        this.router.navigateByUrl('/dashboard/debitnote');
+        this.router.navigateByUrl('/dashboard/debitNoteList');
       });
   }
   cancel() {
-    this.router.navigateByUrl('/dashboard/debitnote');
+    this.router.navigateByUrl('/dashboard/debitNoteList');
   }
 }

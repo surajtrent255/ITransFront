@@ -35,6 +35,7 @@
                     readonly
                     placeholder="{{ SplitProductObj.productName }}"
                     class="form-control"
+                    name="productName"
                     id="productName"
                     #productName="ngModel"
                     [(ngModel)]="SplitProductObj.productName"
@@ -51,6 +52,7 @@
                     type="text"
                     placeholder="{{ SplitProductObj.productId }}"
                     class="form-control"
+                    name="productId"
                     id="productId"
                     #productId="ngModel"
                     [(ngModel)]="SplitProductObj.productId"
@@ -68,6 +70,7 @@
                     placeholder="{{ SplitProductObj.qty }}"
                     type="text"
                     class="form-control"
+                    name="qty"
                     id="qty"
                     #qty="ngModel"
                     [(ngModel)]="SplitProductObj.qty"

@@ -5,10 +5,11 @@ export class Payment {
   amount!: number;
   paymentModeId!: number;
   tdsDeducted!: number;
-  postDateCheck!: string;
+  postDateCheck!: boolean;
   branchId!: number;
   date!: string;
-  status!: boolean;
+  postDateCheckStatus!: boolean;
+  paymentStatus!: boolean;
   postCheckDate!: string;
   checkNo!: number;
 }
