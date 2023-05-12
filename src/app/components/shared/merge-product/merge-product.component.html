@@ -1,6 +1,6 @@
 <div class="popupHeading">
   <h2 class="fleft">Merge Product</h2>
-  <a class="closeButton fright" id="closeEditButton"
+  <a class="closeButton fright" id="closeBtn" (click)="destroyComp()"
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
   <div class="cboth"></div>
@@ -213,7 +213,7 @@
           <input
             type="button"
             value="Cancel"
-            (click)="destroyComp()"
+            (click)="destroyCancelComp()"
             class="submit_btn cancel_btn border-rad ml-2 tCenter"
           />
         </div>

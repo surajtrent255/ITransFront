@@ -12,7 +12,7 @@ export class SelectProductComponent {
   title: string = "product";
   @Input() selectMenusForProduct !: Product[];
   @Output() destroySelectProdEmitter = new EventEmitter<boolean>(false);
-  @Output() prodSelectEmitter = new EventEmitter<Product>();
+  @Output() prodSelectEmitter = new EventEmitter<number>();
   @Output() fetchProductEventEmitter = new EventEmitter<boolean>(false);
   @ViewChild('selectedProductBtn', { static: false })
   selectedProductBtn!: ElementRef;
@@ -20,6 +20,8 @@ export class SelectProductComponent {
   @ViewChild("createProductBtn", { static: false }) createProductBtn !: ElementRef;
 
   createProductEnable: boolean = false;
+  showableALertPopup: boolean = true;
+
   constructor(
     private toastrService: ToastrService
   ) {
@@ -46,17 +48,15 @@ export class SelectProductComponent {
     this.createProductEnable = false;
   }
 
-  productAdded($event: boolean) {
+  productAdded($event: number) {
     this.createProductEnable = false;
-    if ($event === true) {
-      this.toastrService.success("Customer Has been added ");
-      this.fetchProductEventEmitter.emit(true);
-    }
+    this.toastrService.success("Product Has been added ");
+    this.setProduct($event)
   }
 
-  setProduct(prod: Product) {
+  setProduct(prodId: number) {
 
-    this.prodSelectEmitter.emit(prod);
+    this.prodSelectEmitter.emit(prodId);
     const closeCustomerPopUpEl = document.getElementById("closeSelectProductPop") as HTMLAnchorElement;
     closeCustomerPopUpEl.click();
   }
@@ -64,7 +64,7 @@ export class SelectProductComponent {
 
   onButtonKeyUp(event: KeyboardEvent, prod: Product) {
     if (event.key === 'Enter') {
-      this.setProduct(prod)
+      this.setProduct(prod.id)
     }
   }
 
@@ -81,11 +81,10 @@ export class SelectProductComponent {
       if (eventInputTarget.value === '1') {
         if (event.key === 'Enter') {
           event.stopPropagation();
+          this.showableALertPopup = false;
+
           this.displayAddProductPopup();
           // this.destroySelectProduct();
-
-
-
         }
       } else {
         if (event.key === 'Enter') {

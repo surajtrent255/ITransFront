@@ -76,6 +76,8 @@ import { AssignCounterComponent } from './components/shared/header/assign-counte
 import { CounterUserListComponent } from './components/shared/header/counter-user-list/counter-user-list.component';
 import { AssignFeatureComponent } from './components/shared/header/feature-control/assign-feature/assign-feature.component';
 import { UserFeatureListComponent } from './components/shared/header/feature-control/user-feature-list/user-feature-list.component';
+import { SearchPipe } from './components/shared/split-product/search.pipe';
+import { SearchProductComponent } from './components/shared/search-product/search-product.component';
 import { DebitNoteComponent } from './components/shared/debit-note/debit-note.component';
 import { CreditNoteComponent } from './components/shared/credit-note/credit-note.component';
 import { DebitNoteInvoiceComponent } from './components/shared/debit-note/debit-note-invoice/debit-note-invoice.component';
@@ -140,6 +142,8 @@ import { DebitNoteListComponent } from './components/shared/debit-note/debit-not
     CounterUserListComponent,
     AssignFeatureComponent,
     UserFeatureListComponent,
+    SearchPipe,
+    SearchProductComponent,
     DebitNoteComponent,
     CreditNoteComponent,
     DebitNoteInvoiceComponent,

@@ -118,6 +118,7 @@ export class CreateSalesComponent {
   featureObjs: UserFeature[] = [];
   searchByBarCode: boolean = false;
 
+
   constructor(
     private salesCartService: SalesCartService,
     private productService: ProductService,
@@ -305,6 +306,7 @@ export class CreateSalesComponent {
         next: (data) => {
           this.selectMenusForCompanies = data.data;
           this.selectMenusForCompaniesSize = data.data.length;
+
         },
         complete: () => {
           const custBtn = document.getElementById(
@@ -337,6 +339,21 @@ export class CreateSalesComponent {
     });
   }
 
+  fetchCustomerInfoOnlyForNameDisplay($event: number) {
+    this.companyService
+      .getCustomerInfoByPanOrPhone(
+        this.customerSearchMethod,
+        this.custPhoneOrPan
+      )
+      .subscribe({
+        next: (data) => {
+          this.selectMenusForCompanies = data.data;
+          this.selectMenusForCompaniesSize = data.data.length;
+          this.setCustomerInfo($event)
+        },
+      });
+  }
+
   setCustomerInfo(compId: number) {
     let comp: Company = this.selectMenusForCompanies.find(
       (comp) => Number(comp.companyId) === Number(compId)
@@ -359,7 +376,9 @@ export class CreateSalesComponent {
   }
 
   destroySelectCustomerComponent($event: boolean) {
-    this.selectCompanyActive = false;
+    setTimeout(() => {
+      this.selectCompanyActive = false;
+    })
   }
 
   destroySelectProductComponent($event: boolean) {
@@ -387,9 +406,10 @@ export class CreateSalesComponent {
       });
   }
 
-  setProductSelectedByName(prod: Product) {
-    this.productBarCodeId = prod.id;
+  setProductSelectedByName(prodId: number) {
+    this.productBarCodeId = prodId;
     this.prodQtyInput.nativeElement.focus();
+    this.selectProductActive = false;
   }
 
   getApproach($event: any) {
@@ -410,7 +430,7 @@ export class CreateSalesComponent {
       error: (error) => {
         console.error(error);
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
 

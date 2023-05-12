@@ -24,15 +24,16 @@ export class SelectCustomerComponent {
   selectCompanyCustOrSth!: ElementRef;
   @ViewChild('createCustomerBtn', { static: false })
   createCustomerBtn!: ElementRef;
+  showableALertPopup: boolean = true;
 
   @Output() destroySelectCompEmitter = new EventEmitter<boolean>(false);
-  @Output() fetchCustomerEventEmitter = new EventEmitter<boolean>(false);
+  @Output() fetchCustomerEventEmitter = new EventEmitter<number>();
 
   createCustomerEnable: boolean = false;
 
-  constructor(private toastrService: ToastrService) {}
+  constructor(private toastrService: ToastrService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnChanges() {
     setTimeout(() => {
@@ -63,7 +64,9 @@ export class SelectCustomerComponent {
       if (eventInputTarget.value === '1') {
         if (event.key === 'Enter') {
           event.stopPropagation();
+          this.showableALertPopup = false;
           this.displayAddCustomerPopup();
+
         }
       } else {
         if (event.key === 'Enter') {
@@ -87,9 +90,8 @@ export class SelectCustomerComponent {
 
   customerAdded($event) {
     this.createCustomerEnable = false;
-    if ($event === true) {
-      this.toastrService.success('Customer Has been added ');
-      this.fetchCustomerEventEmitter.emit(true);
-    }
+    this.toastrService.success('Customer Has been added ');
+    this.fetchCustomerEventEmitter.emit($event);
+    this.destroySelectCompEmitter.emit(true);
   }
 }

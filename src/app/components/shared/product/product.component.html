@@ -287,13 +287,13 @@
                 <td>{{ product.sellingPrice }}</td>
                 <td>{{ product.barcode }}</td>
                 <td>{{ product.discount }}</td>
-                <td *ngIf="product.tax ===1">No Vat</td>
-                <td *ngIf="product.tax ===2">0 Vat</td>
-                <td *ngIf="product.tax ===3">13% Vat</td>
+                <td *ngIf="product.tax === 1">No Vat</td>
+                <td *ngIf="product.tax === 2">0 Vat</td>
+                <td *ngIf="product.tax === 3">13% Vat</td>
                 <td>{{ product.userId }}</td>
                 <td>{{ product.companyId }}</td>
                 <td>{{ product.branchId }}</td>
-                <td>{{ product.unit}}</td>
+                <td>{{ product.unit }}</td>
                 <td class="last-child">
                   <a
                     id="editProduct"
@@ -320,7 +320,6 @@
     </div>
 
     <div class="popupWrapper" id="createNewProductPopup" style="display: none">
-      <div class="mb-2"></div>
       <app-create-product
         (productInfoEvent)="createNewProduct($event)"
       ></app-create-product>

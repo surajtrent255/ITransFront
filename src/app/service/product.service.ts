@@ -42,6 +42,12 @@ export class ProductService {
     return this.httpClient.get<RJResponse<Product[]>>(url);
   }
 
+  getProductForSearch( compId: number, branchId: number ,search:string): Observable<RJResponse<Product[]>> {
+    let url = `${BASE_URL}/product/search?compId=${compId}&branchId=${branchId}&search=${search}`;
+    console.log(url);
+    return this.httpClient.get<RJResponse<Product[]>>(url);
+  }
+
   getAllProductsForInventory(
     companyId: number
   ): Observable<RJResponse<InventoryProducts[]>> {

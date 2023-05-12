@@ -18,7 +18,7 @@ import { Unit } from 'src/app/models/Unit';
 })
 export class CreateProductComponent {
 
-  @Output() productInfoEvent = new EventEmitter<boolean>();
+  @Output() productInfoEvent = new EventEmitter<number>();
   @Output() destroyCreateProd = new EventEmitter<boolean>(false);
   product: Product = new Product();
 
@@ -51,6 +51,7 @@ export class CreateProductComponent {
   selectMenusForCompanies !: Company[];
   selectMenusForCompaniesSize !: number;
   selectedSellerCompanyId !: number;
+  unit:string='other';
 
 
 
@@ -133,11 +134,14 @@ export class CreateProductComponent {
     this.product.branchId = this.branchId;
     this.product.userId = this.loginService.currentUser.user.id;
     this.product.sellerId = this.selectedSellerCompanyId;
+    console.log(this.product);
     console.log(this.product.unit);
     this.productService.addNewProduct(this.product, 0).subscribe({
       next: (data) => {
         console.log(data.data);
-        this.toastrService.success("product has been added with id " + data.tax)
+        this.toastrService.success("product has been added with id " + data.data)
+        this.productInfoEvent.emit(data.data);
+
         console.log("next" + this.product.tax);
       },
       error: (error) => {
@@ -145,7 +149,6 @@ export class CreateProductComponent {
 
       },
       complete: () => {
-        this.productInfoEvent.emit(true);
         this.catSelected = false;
         console.log("complete" + this.product.tax);
       },
@@ -153,7 +156,7 @@ export class CreateProductComponent {
 
     console.log("functionout" + this.product.unit);
     console.log('product.component.ts');
-    form.reset({ discount: 0 });
+    form.reset({ discount: 0 , qtyPerUnit: 1 , unit:'other' ,tax: 3 });
   }
 
   customerAdded($event) {

@@ -5,7 +5,7 @@ export class SplitProduct {
     productId!: number;
     productName!: string;
     qty!: number;
-    splitQty!: number;
+    splitQty: number=1;
     totalQty!: number;
     unit!: string;
     price!: number;

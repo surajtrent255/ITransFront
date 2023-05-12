@@ -30,7 +30,7 @@ export class CreateCustomerComponent {
 
   @ViewChild('closeCustomer') closeCustomer!: ElementRef;
 
-  @Output() customerAddedSuccessMsg = new EventEmitter<boolean>(false);
+  @Output() customerAddedSuccessMsg = new EventEmitter<number>();
 
   districts!: District[];
   province!: Province[];
@@ -44,7 +44,7 @@ export class CreateCustomerComponent {
     private loginService: LoginService,
     private companyService: CompanyServiceService,
     private districtAndProvinceService: DistrictAndProvinceService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.districtAndProvinceService.getAllProvince().subscribe((res) => {
@@ -124,10 +124,10 @@ export class CreateCustomerComponent {
         },
         this.user_id
       )
-      .subscribe(() => {
+      .subscribe((data) => {
         form.reset();
         this.closeCustomer.nativeElement.click();
-        this.customerAddedSuccessMsg.emit(true);
+        this.customerAddedSuccessMsg.emit(data.data);
       });
   }
 

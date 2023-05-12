@@ -1,6 +1,6 @@
 <div class="popupHeading">
   <h2 class="fleft">RE-Split Product</h2>
-  <a class="closeButton fright" id="closeEditButton"
+  <a class="closeButton fright" id="closeBtn" (click)="destoryComp()"
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
   <div class="cboth"></div>
@@ -32,9 +32,9 @@
                 </td>
                 <td class="col2">
                   <input
-                    readonly
-                    placeholder="{{ SplitProductObj.productName }}"
-                    class="form-control"
+                  readonly
+                   placeholder="{{ SplitProductObj.productName }}"
+                    class="form-control "
                     name="productName"
                     id="productName"
                     #productName="ngModel"
@@ -42,6 +42,7 @@
                   />
                 </td>
               </tr>
+              
               <tr>
                 <td class="col1 pt-2">
                   Product ID:<span class="mandatorySign">*</span>
@@ -126,9 +127,10 @@
                     name="splitQty"
                     #splitQty="ngModel"
                     [max]="fetchstock.qty"
-                    [min]="0"
+                    [min]="1"
                     required
                     [(ngModel)]="SplitProductObj.splitQty"
+                    (keydown.enter)="goToSplitAgainButton()"
                     required="required"
                   />
                 </td>
@@ -191,14 +193,8 @@
           </div>
         </div>
         <div class="submitDiv tCenter">
-          <button
-            type="submit"
-            class="submit_btn border-rad ml-2 tCenter"
-            [disabled]="splitproductForm.form.invalid"
-          >
-            Split again
-          </button>
-
+          <button type="submit" id="splitAgBtn"  class="submit_btn  border-rad ml-2 tCenter"  [disabled]="splitproductForm.form.invalid">Split again</button>
+         
           <input
             type="button"
             value="Cancel"

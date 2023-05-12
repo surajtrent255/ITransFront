@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { identifierName } from '@angular/compiler';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,6 +26,7 @@ import { SalesCartService } from 'src/app/service/shared/sales-cart-service.serv
 export class CreatePurchaseBillComponent {
   @ViewChild('createtransportationForm') createtransportationForm!: NgForm;
   @ViewChild('loading', { static: false }) loadingInput!: ElementRef;
+  @ViewChild('prodIdInput', { static: false }) prodIdInput !: ElementRef;
   @ViewChild('#insuranceField', { static: false }) insuranceInput!: ElementRef;
   @ViewChild('other', { static: false }) otherInput!: ElementRef;
   selectSenderActive: boolean = false;
@@ -42,6 +44,7 @@ export class CreatePurchaseBillComponent {
   date!: string;
   productBarCodeId: undefined | number;
   sellerSearchMethod: number = 1;
+  selectMenusForProduct: Product[] = [];
 
   companyId!: number;
   branchId!: number;
@@ -49,11 +52,14 @@ export class CreatePurchaseBillComponent {
   purchaseBillDetailInfos: PurchaseBillDetail[] = [];
   featureObjs: UserFeature[] = [];
   searchByBarCode: boolean = false;
-
+  selectProductActive: boolean = false;
   transportation: number = 0.0;
   insurance: number = 0.0;
   loading: number = 0.0;
   other: number = 0.0;
+
+  prodWildCard!: string;
+
 
   constructor(
     private salesCartService: SalesCartService,
@@ -125,15 +131,20 @@ export class CreatePurchaseBillComponent {
     this.sellerSearchMethod = id;
   }
 
-  updateProdQtyUserWantToPurchase($event: any, prod: Product) {
+  updateProdQtyUserWantToPurchase($event: any, prodIndex: number) {
     if ($event.target.value === undefined) {
       return;
     }
     let qtyProd = $event.target.value;
     const prodtotalAmountElement = document.getElementById(
-      'totalAmount' + prod.id
+      'totalAmount' + prodIndex
     ) as HTMLElement;
-    let prodTotalAmount = Number(qtyProd) * prod.sellingPrice;
+
+    const unitPriceEl = document.getElementById(
+      'unitPrice' + prodIndex
+    ) as HTMLInputElement;
+    let sp: number = Number(unitPriceEl.value)
+    let prodTotalAmount = Number(qtyProd) * sp;
     prodtotalAmountElement.innerText = '' + prodTotalAmount;
   }
 
@@ -146,6 +157,33 @@ export class CreatePurchaseBillComponent {
     this.sellerPan = Number(comp.panNo);
     this.sellerAddress = comp.munVdc + comp.wardNo;
     this.destroySelectSenderComponent(true);
+  }
+  getNameWildCard() {
+    setTimeout(() => {
+      this.selectProductActive = true;
+    }, 200);
+    const selectProductBtn = document.getElementById(
+      'selectProduct'
+    ) as HTMLButtonElement;
+    selectProductBtn.click();
+    this.productService
+      .getProductByWildCardName(
+        this.prodWildCard,
+        this.companyId,
+        this.branchId
+      )
+      .subscribe({
+        next: (data) => {
+          this.selectMenusForProduct = data.data;
+
+        },
+      });
+  }
+
+  setProductSelectedByName(prodId: number) {
+    this.productBarCodeId = prodId;
+    this.prodIdInput.nativeElement.focus();
+    this.selectProductActive = false;
   }
 
   fetchPurchaserInfo() {
@@ -183,7 +221,7 @@ export class CreatePurchaseBillComponent {
 
   removeItemFromCart(id: number) {
     this.productsUserWantToPurchase = this.productsUserWantToPurchase.filter(
-      (prod) => prod.id !== id
+      (prod, index) => index !== id
     );
   }
 
@@ -212,6 +250,27 @@ export class CreatePurchaseBillComponent {
   destroySelectSenderComponent($event: boolean) {
     this.selectSenderActive = false;
   }
+
+
+  destroySelectProductComponent($event: boolean) {
+    this.selectProductActive = false;
+  }
+
+  fetchSellerInfoOnlyForNameDisplay($event: number) {
+    this.companyService
+      .getCustomerInfoByPanOrPhone(
+        this.sellerSearchMethod,
+        this.sellerPanOrPhone
+      )
+      .subscribe({
+        next: (data) => {
+          this.selectMenusForCompanies = data.data;
+          this.selectMenusForCompaniesSize = data.data.length;
+          this.setSellerInfo($event)
+        },
+      });
+  }
+
   purchaseTheProducts(draftSt: boolean) {
     console.log('above');
     if (this.createtransportationForm.invalid) {
@@ -230,11 +289,11 @@ export class CreatePurchaseBillComponent {
     }
 
     console.log('below');
-    this.productsUserWantToPurchase.forEach((prod) => {
+    this.productsUserWantToPurchase.forEach((prod, index) => {
       let purchaseBillDetail: PurchaseBillDetail = new PurchaseBillDetail();
       purchaseBillDetail.productId = prod.id;
       let qtyElement = document.getElementById(
-        'qtyProd' + prod.id
+        'qtyProd' + index
       ) as HTMLInputElement;
       purchaseBillDetail.qty = Number(qtyElement.value);
       purchaseBillDetail.discountPerUnit = prod.discount;
