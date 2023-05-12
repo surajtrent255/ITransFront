@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input,Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input,Output, ViewChild } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 import { SplitProduct } from 'src/app/models/SplitProduct';
 import { Unit } from 'src/app/models/Unit';
@@ -19,7 +19,8 @@ import { Stock, UpdateStock } from 'src/app/models/Stock';
 export class CreateSplitProductComponent {
 
 @Input() id !: number;
-  showForm!: boolean;
+@ViewChild('splitQty') splitQty !:ElementRef
+showForm!: boolean;
 @Output() destroyCreatSpiltComponent=new EventEmitter<boolean>(false)
 
 
@@ -52,7 +53,7 @@ constructor(
 
 
 ngOnInit() {
-  
+
   this.companyId = this.loginService.getCompnayId();
   this.branchId = this.loginService.getBranchId();
   this.compId=this.loginService.getCompnayId();
@@ -60,6 +61,11 @@ ngOnInit() {
   this.getSplitProductById();
   this.getAllVatRateTypes();
   console.log(this.companyId, this.branchId);
+  console.log(this.SplitProductObj);
+  setTimeout(()=>{
+    const htmlInputEL = document.getElementById("splitQty") as HTMLInputElement;
+    htmlInputEL.focus();
+  })
   // this.getallstock(this.SplitProductObj.productId,this.SplitProductObj.companyId);
 }
 
@@ -68,6 +74,13 @@ ngOnChanges(){
   // this.getallstock(this.SplitProductObj.productId,this.SplitProductObj.companyId);
 }
 
+
+goToSplitAgainButton(){
+  const splitAgBtnEl = document.getElementById("splitAgBtn") as HTMLButtonElement;
+  setTimeout(()=>{
+    splitAgBtnEl.focus();
+  }, 1000)
+}
 getSplitProductById(){
   this.SplitProductService.getSplitProductById(this.id).subscribe(res=>{
     this.SplitProductObj = res.data[0];

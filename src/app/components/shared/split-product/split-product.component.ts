@@ -1,4 +1,4 @@
-  import { Component } from '@angular/core';
+  import { Component,EventEmitter,Input, Output,} from '@angular/core';
   import { SplitProduct } from 'src/app/models/SplitProduct';
   import { LoginService } from 'src/app/service/shared/login.service';
   import {SplitProductService} from 'src/app/service/shared/SplitProduct/split-product.service'
@@ -11,6 +11,7 @@
   import { Product } from 'src/app/models/Product';
   import { VatRateTypes } from 'src/app/models/VatRateTypes';
   import { Stock, UpdateStock } from 'src/app/models/Stock';
+  
 
   @Component({
     selector: 'app-split-product',
@@ -18,6 +19,9 @@
     styleUrls: ['./split-product.component.css']
   })
   export class SplitProductComponent {
+    title: string = "product";
+    @Input() selectMenusForProduct !: Product[];
+    @Output() destroySelectProdEmitter = new EventEmitter<boolean>(false);
     splitProducts!: SplitProduct[] ;
     Unit:Unit[]=[];
     availableProducts: Product[] = [];
@@ -38,8 +42,11 @@
     idForMergeComp!:number;
     enableCreateSplitComp : boolean = false;
     enableMergeComp:boolean=false;
-
+    searchText!:any;
     idForSplitComp !: number;
+    // selectMenusForProduct: Product[] = []
+    selectProductActive: boolean = false;
+    prodWildCard !: string;
     
     constructor(
       
@@ -86,7 +93,18 @@
         this.availableProducts = data.data;
       });
     }
-
+    setProductSelectedByName(prod: Product) {
+    //  const productNameEL = document.getElementById("productName") as HTMLSelectElement;
+    //  productNameEL.value = prod.name;
+    //  this.SplitProductObj.productName = prod.name;
+    //  this.SplitProductObj.id = prod.id;
+     this.selectProductId(prod.id)
+     alert(JSON.stringify(this.SplitProductObj))
+    }
+    destroySelectProductComponent($event: boolean) {
+      this.selectProductActive = false;
+    }
+  
     getTheProductForSplit(id:number){
       this.resetForm();
       this.enableCreateSplitComp = true;
@@ -206,9 +224,13 @@
       });
     }
 
-    selectProductId(productName: string ) {
-      const product = this.availableProducts.find(p => p.name === productName);
+    selectProductId(productId: any ) {
+      // alert(productName)
+      console.log("selected producted by it " + productId )
+      const product = this.availableProducts.find(p => p.id === productId);
+      console.log("selected product " + product)
       if (product) {
+        console.log(product);
         this.SplitProductObj.productId = product.id;
         this.SplitProductObj.unit=product.unit;
         this.createproduct.tax =this.SplitProductObj.tax= product.tax;
@@ -232,7 +254,6 @@
      
       this.enableMergeComp = false
     }
-
 
     resetForm() {
       this.SplitProductObj = new SplitProduct();
@@ -277,6 +298,23 @@
         bankForm.style.display = 'none';
        
       }
+    }
+    
+    getNameWildCard(prodName: string) {
+      // alert(JSON.stringify(prodName));
+      alert(JSON.stringify(this.SplitProductObj))
+    setTimeout(()=>{
+      this.selectProductActive = true;
+      const selectProductPopUpEl = document.getElementById("selectProduct") as HTMLButtonElement;
+      selectProductPopUpEl.click();
+    },1000)
+
+    this.productService.getProductByWildCardName(prodName, this.companyId, this.branchId).subscribe({
+      next: (data) => {
+        this.selectMenusForProduct = data.data
+        // alert(JSON.stringify(this.selectMenusForProduct))
+      }
+    });
     }
   
   }

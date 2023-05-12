@@ -250,7 +250,7 @@
               <!-- </c:forEach> -->
             </tbody>
 
-            <tbody *ngFor="let splitProduct of splitProducts; let i = index">
+            <tbody *ngFor="let splitProduct of splitProducts ; let i = index">
               <tr>
                 <td>{{ splitProduct.productName }}</td>
                 <td>{{ splitProduct.updatedProductName }}</td>
@@ -271,7 +271,7 @@
                     ></i>
                   </a>
                   <a
-                    id="createMerge" title="mearge product"
+                    id="createMerge" title="Merge product"
                     (click)="getTheProductForMerge(splitProduct.id)"
                     class="createNewTableRecord"
                   >
@@ -318,29 +318,68 @@
             <div class="chooseColoumnsWrapper">
               <div class="fieldDiv popUpFormSectionWrapper">
                 <table class="" cellpadding="0" cellspacing="0">
+                
                   <tr>
-                    <td class="col1 pt-2">
+                    
+                    <!-- <td class="col1 pt-2">
                       Product Name:<span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2">
-                      <select
-                      class="form-control"
+                    </td> -->
+                    <!-- <td class="col2">
+                      <ng-select
+                        class="form-control form-select"
                         name="productName"
                         id="productName"
+                        [(ngModel)]="SplitProductObj.productName"
+                        
+                        [items]="availableProducts"
+                        bindLabel="name"
+                        [searchable]="true"
+                        [clearable]="true"
+                        
+                      
+                      >
+                        <ng-template ng-option-tmp let-item="item">
+                          <option class="form-control"  [value]="item.name"  (click)="selectProductId(item.name)">{{ item.name }}</option>
+                          
+                        </ng-template>
+                      </ng-select> -->
+                      <!-- <h1>{{SplitProductObj.productName | json}}</h1> -->
+                    <!-- </td> -->
+                    
+                    <!-- <td class="col2">
+                      <select
+                      class="form-control form-select"
                         name="productName"
+                        id="productName"
+                        name="productName "
                         #productName="ngModel"
                         [(ngModel)]="SplitProductObj.productName"
                         (ngModelChange)="selectProductId($event)"
-                      >
+                        
+                      >  
                         <option
-                          *ngFor="let product of availableProducts"
+                          *ngFor="let product of availableProducts "
                           [value]="product.name"
                         >
                           {{ product.name }}
                         </option>
                       </select>
-                    </td>
+
+                    </td> 
                     <td class="col3">
+                      <i
+                        class="submit_btn border-rad fas far fa-search"
+                        style="margin: 0 5px"
+                      (click)="fetchproduct()"
+                      ></i>
+                      <button
+                        id="selectproduct"
+                        class="createNewTableRecord"
+                        style="display: none"
+                      ></button>
+                    </td> 
+                    
+                     <td class="col3">
                       <small
                         class="text-danger"
                         [class.d-none]="
@@ -349,6 +388,40 @@
                         >invalid productName</small
                       >
                     </td>
+                  </tr> -->
+                  <tr>
+                    <td class="col1 pt-2">
+                      ProductName:<span class="mandatorySign">*</span>
+                    </td>
+                    <td class="col2">
+                      <input
+                      type="text"
+                        name="productName"
+                        [(ngModel)]="SplitProductObj.productName "
+                        required
+                        #productName="ngModel"
+                        [class.is-invalid]="
+                        productName.invalid && productName.touched
+                        "
+                        class="form-control"
+                        id="productName"
+                        (keydown.enter)="getNameWildCard(productName.value)"
+                      >
+                    </td>
+                    <button style="display:none"  id="selectProduct" class="createNewTableRecord"
+                    > selectProduct</button>
+                    <td class="col3">
+                      <small
+                        class="text-danger"
+                        [class.d-none]="
+                        productName.valid || productName.untouched
+                        "
+                        >invalid productName</small
+                      >
+                    </td>
+                    <!-- <td class="col3">
+                      Product Name:<span>{{SplitProductObj.productName}}</span>
+                    </td> -->
                   </tr>
                   <tr>
                     <td class="col1 pt-2">
@@ -358,7 +431,7 @@
                       <input
                         name="productId"
                         readonly
-                        [(ngModel)]="SplitProductObj.productId"
+                        [(ngModel)]="SplitProductObj.productId "
                         required
                         #productId="ngModel"
                         [class.is-invalid]="
@@ -452,7 +525,7 @@
                         [class.is-invalid]="
                         price.invalid && price.touched
                         "
-                        class="form-control"
+                        class="form-control "
                         id="price"
                       >
                     </td>
@@ -505,7 +578,7 @@
                     </td>
                     <td class="col2">
                       <select
-                      class="form-control"
+                      class="form-control form-select"
                         name="unit"
                         id="unit"
                         #unit="ngModel"
@@ -536,7 +609,7 @@
                     </td>
                     <td class="col2">
                       <select
-                      class="form-control"
+                      class="form-control form-select"
                         name="tax"
                         id="tax"
                         #tax="ngModel"
@@ -606,4 +679,24 @@
   (enableMergeComp)="destroyCreateMergeProductComponent($event)"
   ></app-merge-product>
 </div>
+
+
+<div
+  class="popupWrapper"
+  id="selectProductPopup"
+  style="display: none; width: auto"
+>
+  <app-select-product
+    *ngIf="selectProductActive"
+    [selectMenusForProduct]="selectMenusForProduct"
+    (prodSelectEmitter)="setProductSelectedByName($event)"
+    (destroySelectProdEmitter)="destroySelectProductComponent($event)"
+
+  >
+  <!-- (fetchProductEventEmitter)="getNameWildCardAfterProductSelect()" -->
+  </app-select-product>
+</div>
+
+
+
 

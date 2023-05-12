@@ -24,7 +24,7 @@
                                     Product Name:<span class="mandatorySign">*</span>
                                 </td>
                                 <td class="col2">
-                                    <input readonly placeholder="{{ SplitProductObj.productName }}" class="form-control" id="productName" #productName="ngModel" [(ngModel)]="SplitProductObj.productName"/>
+                                    <input readonly placeholder="{{ SplitProductObj.productName }}" class="form-control"  name="productName" id="productName" #productName="ngModel" [(ngModel)]="SplitProductObj.productName"/>
                                 </td>
                             </tr>
                             <tr>
@@ -32,7 +32,7 @@
                                     Product ID:<span class="mandatorySign">*</span>
                                 </td>
                                 <td class="col2">
-                                    <input readonly type="text" placeholder="{{ SplitProductObj.productId }}" class="form-control" id="productId" #productId="ngModel" [(ngModel)]="SplitProductObj.productId"/>
+                                    <input readonly type="text" placeholder="{{ SplitProductObj.productId }}" class="form-control"  name="productId"  id="productId" #productId="ngModel" [(ngModel)]="SplitProductObj.productId"/>
                                 </td>
                             </tr>
 
@@ -41,7 +41,7 @@
                                     Merge Ratio:<span class="mandatorySign">*</span>
                                 </td>
                                 <td class="col2">
-                                    <input readonly placeholder="{{ SplitProductObj.qty }}" type="text" class="form-control" id="qty" #qty="ngModel" [(ngModel)]="SplitProductObj.qty"/>
+                                    <input readonly placeholder="{{ SplitProductObj.qty }}" type="text" class="form-control"   name="qty" id="qty" #qty="ngModel" [(ngModel)]="SplitProductObj.qty"/>
                                 </td>
                             </tr>
                             <tr>
@@ -49,7 +49,7 @@
                                     UpdatedProductName:<span class="mandatorySign">*</span>
                                 </td>
                                 <td class="col2">
-                                    <input readonly placeholder="{{ SplitProductObj.updatedProductName }}" type="text" class="form-control" id="updatedProductName" #updatedProductName="ngModel" [(ngModel)]="SplitProductObj.updatedProductName"/>
+                                    <input readonly placeholder="{{ SplitProductObj.updatedProductName }}" type="text" class="form-control"  name="updatedProductName" id="updatedProductName" #updatedProductName="ngModel" [(ngModel)]="SplitProductObj.updatedProductName"/>
                                 </td>
                             </tr>
                             <tr>
@@ -57,7 +57,7 @@
                                     updatedProductId:<span class="mandatorySign">*</span>
                                 </td>
                                 <td class="col2">
-                                    <input readonly type="text" placeholder="{{ SplitProductObj.updatedProductId }}" class="form-control" id="updatedProductId" #updatedProductId="ngModel" [(ngModel)]="SplitProductObj.updatedProductId"/>
+                                    <input readonly type="text" placeholder="{{ SplitProductObj.updatedProductId }}" class="form-control" name="updatedProductId" id="updatedProductId" #updatedProductId="ngModel" [(ngModel)]="SplitProductObj.updatedProductId"/>
                                 </td>
                             </tr>
 
@@ -93,7 +93,7 @@
                                     Price:<span class="mandatorySign">*</span>
                                 </td>
                                 <td class="col2">
-                                    <input class="form-control" readonly type="text" placeholder="{{ SplitProductObj.price }}" id="price" #price="ngModel" [(ngModel)]="SplitProductObj.price"/>
+                                    <input class="form-control" readonly type="text" name="price" placeholder="{{ SplitProductObj.price }}" id="price" #price="ngModel" [(ngModel)]="SplitProductObj.price"/>
                                 </td>
                             </tr>
                             <tr>

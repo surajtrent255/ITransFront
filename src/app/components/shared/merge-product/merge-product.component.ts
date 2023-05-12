@@ -52,7 +52,10 @@ ngOnInit() {
   this.getSplitProductById();
   this.getAllVatRateTypes();
   
-  
+  setTimeout(()=>{
+    const htmlInputEL = document.getElementById("splitQty") as HTMLInputElement;
+    htmlInputEL.focus();
+  })
   console.log(this.companyId, this.branchId);
 
   }
@@ -67,6 +70,7 @@ ngOnInit() {
     
     this.SplitProductService.getSplitProductById(this.id).subscribe(res=>{
       this.SplitProductObj = res.data[0];
+      console.log(this.SplitProductObj);
 
       this.getallstock(this.SplitProductObj.updatedProductId,this.SplitProductObj.companyId);
       

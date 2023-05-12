@@ -238,20 +238,22 @@
                     "
                     class="form-control"
                     id="qtyPerUnit"
+                    
                     #qtyPerUnit="ngModel"
                     name="qtyPerUnit"
-                    required
                     [(ngModel)]="product.qtyPerUnit"
-                    required="required"
+                   
+                    
+                    
                   />
                 </td>
-                <td class="col3">
+                <!-- <td class="col3">
                   <small
                     class="text-danger"
                     [class.d-none]="qtyPerUnit.valid || qtyPerUnit.untouched"
                     >invalid qtyPerUnit</small
                   >
-                </td>
+                </td> -->
               </tr>
               <!-- <tr>
                 <td class="col1 pt-2">
@@ -328,29 +330,32 @@
               </tr>
 
               <tr>
-                <td class="col1 pt-2">
+                <td class="col1 pt-2" >
                   Tax :<span class="mandatorySign">*</span>
                 </td>
-                <td>
+                <td  >
                   <select
                     name="tax"
                     id="tax"
                     #tax="ngModel"
-                    style="width: 100%"
+                    style="width: 100% "
+                    class="form-control  form-select"
                     [(ngModel)]="product.tax"
-                    required
+                    
+                    
                   >
                     <option [value]="ap.id" *ngFor="let ap of typerate">
                       {{ ap.vatRate }} --{{ ap.id }}
                     </option>
+                    
                   </select>
                 </td>
-                <div
+                <!-- <div
                   *ngIf="tax.errors && (tax.dirty || tax.touched)"
                   class="alert alert-danger"
                 >
                   <div [hidden]="!tax.errors">Please select tax.</div>
-                </div>
+                </div> -->
 
                 <!-- <td class="col2">
                   <input
@@ -374,29 +379,35 @@
                 </td> -->
               </tr>
               <tr>
+                
                 <td class="col1 pt-2">
                   unit :<span class="mandatorySign">*</span>
                 </td>
-                <td>
+                  
+                  <td>
                   <select
+                 
+                  class="form-control form-select"
                     name="unit"
                     id="unit"
                     #unit="ngModel"
                     [(ngModel)]="product.unit"
                     style="width: 100%"
-                    required
+                    
                   >
-                    <option [value]="ap.name" *ngFor="let ap of Unit">
-                      {{ ap.name }}
+                    <option [value]="ap.name" *ngFor="let ap of Unit" >
+                      {{ ap.name }}  
                     </option>
+                    
                   </select>
+                 
                 </td>
-                <div
+                <!-- <div
                   *ngIf="unit.errors && (unit.dirty || unit.touched)"
                   class="alert alert-danger"
                 >
                   <div [hidden]="!unit.errors">Please select a unit.</div>
-                </div>
+                </div> -->
               </tr>
             </table>
           </div>

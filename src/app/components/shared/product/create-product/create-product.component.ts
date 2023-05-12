@@ -51,6 +51,7 @@ export class CreateProductComponent {
   selectMenusForCompanies !: Company[];
   selectMenusForCompaniesSize !: number;
   selectedSellerCompanyId !: number;
+  unit:string='other';
 
 
 
@@ -133,6 +134,7 @@ export class CreateProductComponent {
     this.product.branchId = this.branchId;
     this.product.userId = this.loginService.currentUser.user.id;
     this.product.sellerId = this.selectedSellerCompanyId;
+    console.log(this.product);
     console.log(this.product.unit);
     this.productService.addNewProduct(this.product, 0).subscribe({
       next: (data) => {
@@ -153,7 +155,7 @@ export class CreateProductComponent {
 
     console.log("functionout" + this.product.unit);
     console.log('product.component.ts');
-    form.reset({ discount: 0 });
+    form.reset({ discount: 0 , qtyPerUnit: 1 , unit:'other' ,tax: 3 });
   }
 
   customerAdded($event) {

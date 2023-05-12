@@ -31,7 +31,8 @@
                   <input
                   readonly
                    placeholder="{{ SplitProductObj.productName }}"
-                    class="form-control"
+                    class="form-control "
+                    name="productName"
                     id="productName"
                     #productName="ngModel"
                     [(ngModel)]="SplitProductObj.productName"
@@ -49,6 +50,7 @@
                     type="text"
                     placeholder="{{ SplitProductObj.productId }}"
                     class="form-control"
+                    name="productId"
                     id="productId"
                     #productId="ngModel"
                     [(ngModel)]="SplitProductObj.productId"
@@ -66,6 +68,7 @@
                     type="text"
                     class="form-control"
                     id="qty"
+                    name="qty"
                     #qty="ngModel"
                     [(ngModel)]="SplitProductObj.qty"
                   />
@@ -82,6 +85,7 @@
                     type="text"
                     class="form-control"
                     id="updatedProductName"
+                    name="updatedProductName"
                     #updatedProductName="ngModel"
                     [(ngModel)]="SplitProductObj.updatedProductName"
                   />
@@ -98,6 +102,7 @@
                     type="text"
                     class="form-control"
                     id="updatedProductId"
+                    name="updatedProductId"
                     #updatedProductId="ngModel"
                     [(ngModel)]="SplitProductObj.updatedProductId"
                   />
@@ -117,9 +122,10 @@
                     name="splitQty"
                     #splitQty="ngModel"
                     [max]="fetchstock.qty"
-                    [min]="0"
+                    [min]="1"
                     required
                     [(ngModel)]="SplitProductObj.splitQty"
+                    (keydown.enter)="goToSplitAgainButton()"
                     required="required"
                   />
                  
@@ -149,6 +155,7 @@
                     type="text"
                     placeholder="{{SplitProductObj.price}}"
                     class="form-control"
+                    name="price"
                     id="price"
                     #price="ngModel"
                     [(ngModel)]="SplitProductObj.price"
@@ -184,7 +191,7 @@
           </div>
         </div>
         <div class="submitDiv tCenter">
-          <button type="submit"  class="submit_btn  border-rad ml-2 tCenter"  [disabled]="splitproductForm.form.invalid">Split again</button>
+          <button type="submit" id="splitAgBtn"  class="submit_btn  border-rad ml-2 tCenter"  [disabled]="splitproductForm.form.invalid">Split again</button>
          
           <input
           type="button"

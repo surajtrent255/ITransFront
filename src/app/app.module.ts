@@ -76,6 +76,8 @@ import { AssignCounterComponent } from './components/shared/header/assign-counte
 import { CounterUserListComponent } from './components/shared/header/counter-user-list/counter-user-list.component';
 import { AssignFeatureComponent } from './components/shared/header/feature-control/assign-feature/assign-feature.component';
 import { UserFeatureListComponent } from './components/shared/header/feature-control/user-feature-list/user-feature-list.component';
+import { SearchPipe } from './components/shared/split-product/search.pipe';
+import { SearchProductComponent } from './components/shared/search-product/search-product.component';
 
 @NgModule({
   declarations: [
@@ -134,6 +136,8 @@ import { UserFeatureListComponent } from './components/shared/header/feature-con
     CounterUserListComponent,
     AssignFeatureComponent,
     UserFeatureListComponent,
+    SearchPipe,
+    SearchProductComponent,
   ],
   imports: [
     BrowserModule,
