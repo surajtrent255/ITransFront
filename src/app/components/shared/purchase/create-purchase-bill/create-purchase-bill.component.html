@@ -5,7 +5,7 @@
       <div class="cboth"></div>
     </div>
     <div class="popupSubHeadingDiv createsalesBill">
-      <h1 class="heading">Choose products for purchase</h1>
+      <h1 class="heading">Choose products for sales</h1>
     </div>
     <div class="popupContentWrapper" style="background: none">
       <div class="row">
@@ -193,6 +193,7 @@
                   <div style="display: inline-block">
                     <input
                       type="text"
+                      #prodIdInput
                       id="productBarCodeId"
                       class="input-field"
                       [(ngModel)]="productBarCodeId"
@@ -257,7 +258,6 @@
                     </td>
                     <td>
                       <input
-                        #prodQtyInput
                         class="input-field"
                         type="number"
                         value="1"

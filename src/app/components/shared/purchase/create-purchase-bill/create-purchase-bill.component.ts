@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { identifierName } from '@angular/compiler';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,7 +26,7 @@ import { SalesCartService } from 'src/app/service/shared/sales-cart-service.serv
 export class CreatePurchaseBillComponent {
   @ViewChild('createtransportationForm') createtransportationForm!: NgForm;
   @ViewChild('loading', { static: false }) loadingInput!: ElementRef;
-  @ViewChild('prodQtyInput', { static: false }) prodQtyInput !: ElementRef;
+  @ViewChild('prodIdInput', { static: false }) prodIdInput !: ElementRef;
   @ViewChild('#insuranceField', { static: false }) insuranceInput!: ElementRef;
   @ViewChild('other', { static: false }) otherInput!: ElementRef;
   selectSenderActive: boolean = false;
@@ -172,13 +173,14 @@ export class CreatePurchaseBillComponent {
       .subscribe({
         next: (data) => {
           this.selectMenusForProduct = data.data;
+
         },
       });
   }
 
   setProductSelectedByName(prodId: number) {
     this.productBarCodeId = prodId;
-    this.prodQtyInput.nativeElement.focus();
+    this.prodIdInput.nativeElement.focus();
     this.selectProductActive = false;
   }
 
@@ -285,11 +287,11 @@ export class CreatePurchaseBillComponent {
     }
 
     console.log('below');
-    this.productsUserWantToPurchase.forEach((prod) => {
+    this.productsUserWantToPurchase.forEach((prod, index) => {
       let purchaseBillDetail: PurchaseBillDetail = new PurchaseBillDetail();
       purchaseBillDetail.productId = prod.id;
       let qtyElement = document.getElementById(
-        'qtyProd' + prod.id
+        'qtyProd' + index
       ) as HTMLInputElement;
       purchaseBillDetail.qty = Number(qtyElement.value);
       purchaseBillDetail.discountPerUnit = prod.discount;
