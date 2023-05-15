@@ -97,3 +97,6 @@ export const DEBIT_NOTE = BASE_URL + '/ap1/v1/debitNote';
 
 // for credit note
 export const CREDIT_NOTE = BASE_URL + '/api/v1/creditNote';
+
+// post date check api
+export const CHECK_INFO = BASE_URL + '/api/v1/cheque';

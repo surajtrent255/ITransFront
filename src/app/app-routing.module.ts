@@ -31,6 +31,8 @@ import { DebitNoteComponent } from './components/shared/debit-note/debit-note.co
 import { CreditNoteComponent } from './components/shared/credit-note/credit-note.component';
 import { CreditNoteInvoiceComponent } from './components/shared/credit-note/credit-note-invoice/credit-note-invoice.component';
 import { DebitNoteInvoiceComponent } from './components/shared/debit-note/debit-note-invoice/debit-note-invoice.component';
+import { CreditNoteListComponent } from './components/shared/credit-note/credit-note-list/credit-note-list.component';
+import { DebitNoteListComponent } from './components/shared/debit-note/debit-note-list/debit-note-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -159,6 +161,14 @@ const routes: Routes = [
       {
         path: 'creditnoteInvoice',
         component: CreditNoteInvoiceComponent,
+      },
+      {
+        path: 'creditNoteList',
+        component: CreditNoteListComponent,
+      },
+      {
+        path: 'debitNoteList',
+        component: DebitNoteListComponent,
       },
     ],
   },

@@ -1,8 +1,16 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Payment } from 'src/app/models/Payment/payment';
 import { PaymentMode } from 'src/app/models/Payment/paymentMode';
 import { PaymentService } from 'src/app/service/shared/Payment/payment.service';
+import { CommonService } from 'src/app/service/shared/common/common.service';
+import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
   selector: 'app-edit-payment-details',
@@ -10,21 +18,24 @@ import { PaymentService } from 'src/app/service/shared/Payment/payment.service';
   styleUrls: ['./edit-payment-details.component.css'],
 })
 export class EditPaymentDetailsComponent {
+  @Input() PaymentId!: number;
+  @Output() updatedSuccessful = new EventEmitter<boolean>(false);
+
   paymentMode!: PaymentMode[];
-  loggedInCompanyId!: number;
-  loggedInBranchId!: number;
   postDateCheckEnable!: boolean;
   cheque!: boolean;
   Payment: Payment = new Payment();
-  datePickerEnable!: boolean;
+  datePickerEnable: boolean = false;
 
-  @Input() PaymentId!: number;
-
-  constructor(private paymentService: PaymentService) {}
+  constructor(
+    private paymentService: PaymentService,
+    private commonService: CommonService,
+    private LoginService: LoginService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.paymentService.getPaymentModeDetails().subscribe((res) => {
-      console.log(res.data);
       this.paymentMode = res.data;
     });
   }
@@ -36,22 +47,23 @@ export class EditPaymentDetailsComponent {
   getPaymentDetailsById(sn: number) {
     this.paymentService.getPaymentDetailsById(sn).subscribe((res) => {
       this.Payment = res.data;
+      this.Payment.postCheckDate = this.commonService.formatDate(
+        Number(this.Payment.postCheckDate)
+      );
       if (this.Payment.paymentModeId == 2) {
         this.cheque = true;
       }
-      if (this.Payment.postDateCheck === 'true') {
-        this.postDateCheckEnable = true;
-      } else {
-        this.postDateCheckEnable = false;
+      if (this.Payment.postDateCheck) {
+        this.datePickerEnable = true;
       }
     });
   }
 
   postCheckDateChange(e: any) {
     if (e.target.value === 'true') {
-      this.postDateCheckEnable = true;
+      this.datePickerEnable = true;
     } else {
-      this.postDateCheckEnable = false;
+      this.datePickerEnable = false;
     }
   }
   paymentModeChange(data: string) {
@@ -61,5 +73,16 @@ export class EditPaymentDetailsComponent {
       this.cheque = false;
     }
   }
-  editPaymentDetails() {}
+  editPaymentDetails() {
+    this.paymentService.updatePaymentDetails(this.Payment).subscribe({
+      next: (res) => {
+        this.updatedSuccessful.emit(true);
+        this.paymentService.getPaymentDetails(this.LoginService.getCompnayId());
+      },
+    });
+  }
+
+  cancel() {
+    this.updatedSuccessful.emit(true);
+  }
 }

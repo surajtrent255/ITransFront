@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CREDIT_NOTE } from 'src/app/constants/urls';
 import { CreditNote } from 'src/app/models/Credit-Note/creditNote';
 import { CreditNoteDetails } from 'src/app/models/Credit-Note/creditNoteDetails';
+import { RJResponse } from 'src/app/models/rjresponse';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,23 @@ export class CreditNoteService {
           this.ToastrService.error(err);
         },
       })
+    );
+  }
+
+  getCreditNote(
+    companyId: number,
+    branchId: number
+  ): Observable<RJResponse<CreditNote[]>> {
+    return this.http.get<RJResponse<CreditNote[]>>(
+      `${CREDIT_NOTE}?companyId=${companyId}&branchId=${branchId}`
+    );
+  }
+
+  getCreditNoteDetails(
+    billNumber: string
+  ): Observable<RJResponse<CreditNoteDetails[]>> {
+    return this.http.get<RJResponse<CreditNoteDetails[]>>(
+      `${CREDIT_NOTE}/details?billNumber=${billNumber}`
     );
   }
 }

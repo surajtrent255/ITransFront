@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DEBIT_NOTE } from 'src/app/constants/urls';
 import { DebitNote } from 'src/app/models/Debit-Note/debitNote';
 import { DebitNoteDetails } from 'src/app/models/Debit-Note/debitNoteDetails';
+import { RJResponse } from 'src/app/models/rjresponse';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,23 @@ export class DebitNoteService {
           this.ToastrService.error(err);
         },
       })
+    );
+  }
+
+  getDebitNotes(
+    companyId: number,
+    branchId: number
+  ): Observable<RJResponse<DebitNote[]>> {
+    return this.http.get<RJResponse<DebitNote[]>>(
+      `${DEBIT_NOTE}?companyId=${companyId}&branchId=${branchId}`
+    );
+  }
+
+  getDebitNoteDetails(
+    billNumber: number
+  ): Observable<RJResponse<DebitNoteDetails[]>> {
+    return this.http.get<RJResponse<DebitNoteDetails[]>>(
+      `${DEBIT_NOTE}/details?billNumber=${billNumber}`
     );
   }
 }

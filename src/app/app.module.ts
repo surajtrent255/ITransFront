@@ -82,6 +82,8 @@ import { DebitNoteComponent } from './components/shared/debit-note/debit-note.co
 import { CreditNoteComponent } from './components/shared/credit-note/credit-note.component';
 import { DebitNoteInvoiceComponent } from './components/shared/debit-note/debit-note-invoice/debit-note-invoice.component';
 import { CreditNoteInvoiceComponent } from './components/shared/credit-note/credit-note-invoice/credit-note-invoice.component';
+import { CreditNoteListComponent } from './components/shared/credit-note/credit-note-list/credit-note-list.component';
+import { DebitNoteListComponent } from './components/shared/debit-note/debit-note-list/debit-note-list.component';
 
 @NgModule({
   declarations: [
@@ -146,6 +148,8 @@ import { CreditNoteInvoiceComponent } from './components/shared/credit-note/cred
     CreditNoteComponent,
     DebitNoteInvoiceComponent,
     CreditNoteInvoiceComponent,
+    CreditNoteListComponent,
+    DebitNoteListComponent,
   ],
   imports: [
     BrowserModule,

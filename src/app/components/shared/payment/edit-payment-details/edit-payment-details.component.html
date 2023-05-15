@@ -5,7 +5,7 @@
   /></a>
   <div class="cboth"></div>
 </div>
-<div class="popupSubHeadingDiv createProduct">
+<div class="popupSubHeadingDiv">
   <h1 class="heading">Edit Payment Details</h1>
   <div>Edit Details</div>
 </div>
@@ -95,7 +95,7 @@
             <td class="col3"></td>
           </tr>
 
-          <tr>
+          <tr *ngIf="cheque">
             <td class="col1">Post Check Date</td>
             <div style="padding-left: 5px">
               <select
@@ -115,7 +115,7 @@
             <td class="col3"></td>
           </tr>
 
-          <tr *ngIf="datePickerEnable">
+          <tr *ngIf="datePickerEnable && cheque">
             <td class="col1">Post Check Date<span class=""></span></td>
             <td class="col3">
               <input
@@ -143,6 +143,7 @@
       <input
         type="button"
         value="Cancel"
+        (click)="cancel()"
         class="submit_btn closeButton border-rad"
       />
     </div>

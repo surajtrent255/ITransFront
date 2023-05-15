@@ -35,6 +35,7 @@ export class CreatePurchaseBillComponent {
   sellerId: number | undefined = 0;
   sellerName!: string;
   sellerPan!: number;
+  sellerAddress!: string;
   sellerPanOrPhone!: number;
   selectMenusForCompanies!: Company[];
   selectMenusForCompaniesSize!: number;
@@ -122,7 +123,7 @@ export class CreatePurchaseBillComponent {
       error: (error) => {
         console.error(error);
       },
-      complete: () => { },
+      complete: () => {},
     });
   }
 
@@ -154,6 +155,7 @@ export class CreatePurchaseBillComponent {
     this.sellerId = comp.companyId;
     this.sellerName = comp.name;
     this.sellerPan = Number(comp.panNo);
+    this.sellerAddress = comp.munVdc + comp.wardNo;
     this.destroySelectSenderComponent(true);
   }
   getNameWildCard() {
@@ -327,6 +329,7 @@ export class CreatePurchaseBillComponent {
     purchaseBill.sellerId = this.sellerId!;
     purchaseBill.sellerName = this.sellerName;
     purchaseBill.sellerPan = this.sellerPan;
+    purchaseBill.sellerAddress = this.sellerAddress;
     purchaseBill.syncWithIrd = false;
     purchaseBill.enteredBy = this.loginService.currentUser.user.email;
     purchaseBill.paymentMethod = 'CashInHand';
@@ -359,7 +362,7 @@ export class CreatePurchaseBillComponent {
       });
   }
 
-  createNewProduct($event: any) { }
+  createNewProduct($event: any) {}
 }
 
 interface InputEvent extends Event {

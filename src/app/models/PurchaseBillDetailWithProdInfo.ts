@@ -5,6 +5,7 @@ export class PurchaseBillDetailWithProdInfo {
   date: Date = new Date();
   discountPerUnit: number = 0.0;
   rate: number = 0.0;
+  taxRate!: number;
   purchaseBillId!: number;
   companyId!: number;
   productName!: string;
