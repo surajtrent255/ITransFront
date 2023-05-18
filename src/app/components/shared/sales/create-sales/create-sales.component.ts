@@ -107,6 +107,7 @@ export class CreateSalesComponent {
   prodWildCard!: string;
   allowEditSellingPrice: boolean = false;
   allowEditDiscountPerUnit: boolean = false;
+  hasAbbr: boolean = false;
 
   // for bill Summary
   bsSubTotal: number = 0;
@@ -798,6 +799,16 @@ export class CreateSalesComponent {
       return;
     }
 
+    // for abbrevationBill
+
+    if (this.unknownCustomer || (!this.doesCustomerhavePan)) {
+      if (this.bsTotal < 1000) {
+        this.hasAbbr = true;
+      } else {
+        this.hasAbbr = false;
+      }
+    }
+    //
     this.productsUserWantTosale.forEach((prod, index) => {
       let saleBillDetail: SalesBillDetail = new SalesBillDetail();
       saleBillDetail.productId = prod.id;
@@ -839,12 +850,28 @@ export class CreateSalesComponent {
           eachVatRateNum = vrt.vatRateNum;
         }
       });
-      if (prod.taxApproach === 1) {
-        saleBillDetail.rate = prod.sellingPrice - (eachVatRateNum / (100 + eachVatRateNum)) * prod.sellingPrice;
+
+      if (this.hasAbbr === false) {
+        if (prod.taxApproach === 1) {
+          saleBillDetail.rate = prod.sellingPrice - (eachVatRateNum / (100 + eachVatRateNum)) * prod.sellingPrice;
+        }
+        else {
+          saleBillDetail.rate = prod.sellingPrice;
+        }
       }
-      else {
-        saleBillDetail.rate = prod.sellingPrice;
+
+
+      // forHasAbbr True
+      if (this.hasAbbr === true) {
+        if (prod.taxApproach === 2) {
+          saleBillDetail.rate = prod.sellingPrice + (eachVatRateNum / (100 + eachVatRateNum)) * prod.sellingPrice;
+        }
+        else {
+          saleBillDetail.rate = prod.sellingPrice;
+        }
       }
+
+
       this.salesBillDetailInfos.push(saleBillDetail);
     });
     this.continueSelling(draft);
@@ -864,13 +891,7 @@ export class CreateSalesComponent {
     salesBill.discount = this.bsDiscountAmount;
     // finished
     // for setting hasAbbr
-    if (this.unknownCustomer || (!this.doesCustomerhavePan)) {
-      if (this.bsTotal < 1000) {
-        salesBill.hasAbbr = true;
-      } else {
-        salesBill.hasAbbr = false;
-      }
-    }
+    salesBill.hasAbbr = this.hasAbbr;
     salesBill.customerId = this.customerId;
     salesBill.customerName = this.customerName;
     salesBill.customerPan = this.customerPan;
