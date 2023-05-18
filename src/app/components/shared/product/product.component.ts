@@ -7,12 +7,24 @@ import { CategoryProductService } from 'src/app/service/category-product.service
 import { ProductService } from 'src/app/service/product.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
 })
+
 export class ProductComponent {
+
+  title = "pagination";
+  POSTS: any;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: any = [5, 10, 15, 20];
+
+
+
   availableProducts: Product[] = [];
   availableCategories: CategoryProduct[] = [];
 
@@ -41,6 +53,26 @@ export class ProductComponent {
     } else {
       this.IsAuditor = true;
     }
+
+    // pagination
+    this.postList();
+  }
+
+  postList(): void {
+    this.productService.getAllPosts().subscribe((response) => {
+      this.POSTS = response;
+    })
+  }
+
+  onTableDataChanges(event: any) {
+    this.page = event;
+    this.postList();
+  }
+
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.postList();
   }
 
   fetchAllProducts(compId: number, branchId: number) {

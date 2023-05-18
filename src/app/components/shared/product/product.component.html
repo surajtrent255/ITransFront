@@ -196,14 +196,14 @@
                 >
                   Product Name
                 </th>
-                <!-- <th
+                <th
                   class="sortable"
                   sortDir="asc"
                   sortCol="customer_name"
                   id="costprice"
                 >
                   Cost Price
-                </th> -->
+                </th>
                 <th
                   class="sortable"
                   sortDir="asc"
@@ -317,19 +317,23 @@
           </table>
         </div>
       </div>
-    </div>
 
-    <div class="popupWrapper" id="createNewProductPopup" style="display: none">
-      <app-create-product
-        (productInfoEvent)="createNewProduct($event)"
-      ></app-create-product>
-    </div>
+      <div
+        class="popupWrapper"
+        id="createNewProductPopup"
+        style="display: none"
+      >
+        <app-create-product
+          (productInfoEvent)="createNewProduct($event)"
+        ></app-create-product>
+      </div>
 
-    <div class="popupWrapper" id="editProductPopup" style="display: none">
-      <app-editproduct
-        [productId]="productInfoForUpdateId"
-        (updatedSuccessful)="fetchAllProductsAfterEdit()"
-      ></app-editproduct>
+      <div class="popupWrapper" id="editProductPopup" style="display: none">
+        <app-editproduct
+          [productId]="productInfoForUpdateId"
+          (updatedSuccessful)="fetchAllProductsAfterEdit()"
+        ></app-editproduct>
+      </div>
     </div>
   </div>
 </div>

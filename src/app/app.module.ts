@@ -84,6 +84,8 @@ import { DebitNoteInvoiceComponent } from './components/shared/debit-note/debit-
 import { CreditNoteInvoiceComponent } from './components/shared/credit-note/credit-note-invoice/credit-note-invoice.component';
 import { CreditNoteListComponent } from './components/shared/credit-note/credit-note-list/credit-note-list.component';
 import { DebitNoteListComponent } from './components/shared/debit-note/debit-note-list/debit-note-list.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ConfirmAlertComponent } from './components/shared/confirm-alert/confirm-alert.component';
 
 @NgModule({
   declarations: [
@@ -150,6 +152,7 @@ import { DebitNoteListComponent } from './components/shared/debit-note/debit-not
     CreditNoteInvoiceComponent,
     CreditNoteListComponent,
     DebitNoteListComponent,
+    ConfirmAlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -177,6 +180,7 @@ import { DebitNoteListComponent } from './components/shared/debit-note/debit-not
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule
   ],
   exports: [ProductComponent],
 
@@ -185,4 +189,4 @@ import { DebitNoteListComponent } from './components/shared/debit-note/debit-not
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

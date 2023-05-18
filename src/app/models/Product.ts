@@ -12,11 +12,12 @@ export class Product {
   barcode !: string;
   discount: number = 0;
   stock !: number;
-  tax: number=3;
-  unit: string ="other";
+  tax: number = 3;
+  unit: string = "other";
   createDate !: Date;
   updateDate !: Date;
   vatRate!: number;
-  qtyPerUnit: number =1;
+  qtyPerUnit: number = 1;
+  taxApproach !: number;
 
 }
