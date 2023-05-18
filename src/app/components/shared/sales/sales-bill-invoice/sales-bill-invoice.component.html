@@ -102,7 +102,7 @@
                   <td>{{ invoice.productName }}</td>
                   <td>{{ invoice.qty }}</td>
                   <td>{{ invoice.rate }}</td>
-                  <td>{{ invoice.rowTotal }}</td>
+                  <td>{{ invoice.qty * invoice.rate | number : "1.2-2" }}</td>
                 </tr>
                 <tr></tr>
                 <tr>

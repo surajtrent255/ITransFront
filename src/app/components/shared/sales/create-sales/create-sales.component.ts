@@ -643,6 +643,11 @@ export class CreateSalesComponent {
         const sellingPriceEl2 = document.getElementById(`prodSellingPrice${index}`) as HTMLInputElement
         totalAmountElement.innerText = String((Number(sellingPriceEl2.value) * prodQty) - (eachVatRateNum / 100 * Number(sellingPriceEl2.value) * prodQty) - (discountPerc / 100 * Number(sellingPriceEl2.value) * prodQty) + (eachVatRateNum / 100 * Number(sellingPriceEl2.value) * prodQty))
 
+      } else if (prod.taxApproach === 0) {
+        sellingPriceEl.value = String(prod.sellingPrice + eachVatRateNum / 100 * prod.sellingPrice);
+        const sellingPriceEl2 = document.getElementById(`prodSellingPrice${index}`) as HTMLInputElement
+        totalAmountElement.innerText = String((Number(sellingPriceEl2.value) * prodQty) - (eachVatRateNum / 100 * Number(sellingPriceEl2.value) * prodQty) - (discountPerc / 100 * Number(sellingPriceEl2.value) * prodQty) + (eachVatRateNum / 100 * Number(sellingPriceEl2.value) * prodQty))
+
       }
     } else if (this.taxApproach === 2) {
       if (prod.taxApproach === 1) {
@@ -657,6 +662,10 @@ export class CreateSalesComponent {
         const sellingPriceEl2 = document.getElementById(`prodSellingPrice${index}`) as HTMLInputElement
         totalAmountElement.innerText = String((Number(sellingPriceEl2.value) * prodQty) - (discountPerc / 100 * Number(sellingPriceEl2.value) * prodQty))
 
+      } else if (prod.taxApproach === 0) {
+        sellingPriceEl.value = String(prod.sellingPrice)
+        const sellingPriceEl2 = document.getElementById(`prodSellingPrice${index}`) as HTMLInputElement
+        totalAmountElement.innerText = String((Number(sellingPriceEl2.value) * prodQty) - (discountPerc / 100 * Number(sellingPriceEl2.value) * prodQty))
       }
     }
     // atul code end
@@ -812,10 +821,22 @@ export class CreateSalesComponent {
       saleBillDetail.date = new Date(this.date); //backend ma set gar
 
       // setting sellingprice dynamically form dom because user can edit it. so we have to make it dynamic.
-      const sellingPriceEl = document.getElementById(
-        `prodSellingPrice${index}`
-      ) as HTMLInputElement;
-      saleBillDetail.rate = Number(sellingPriceEl.value);
+      // const sellingPriceEl = document.getElementById(
+      //   `prodSellingPrice${index}`
+      // ) as HTMLInputElement;
+      // saleBillDetail.rate = Number(sellingPriceEl.value);
+      let eachVatRateNum: number = 0;
+      this.vatRateTypes.forEach((vrt) => {
+        if (vrt.id === prod.tax) {
+          eachVatRateNum = vrt.vatRateNum;
+        }
+      });
+      if (prod.taxApproach === 1) {
+        saleBillDetail.rate = prod.sellingPrice - (eachVatRateNum / (100 + eachVatRateNum)) * prod.sellingPrice;
+      }
+      else {
+        saleBillDetail.rate = prod.sellingPrice;
+      }
       this.salesBillDetailInfos.push(saleBillDetail);
     });
     this.continueSelling(draft);
@@ -828,7 +849,7 @@ export class CreateSalesComponent {
     let salesBillMaster: SalesBillMaster = new SalesBillMaster();
 
     // this.calculateSubMetrics(salesBill);
-    salesBill.amount = this.bsNetAmount;
+    salesBill.amount = this.bsSubTotal;
     salesBill.taxableAmount = this.bsVatTaxableAmount;
     salesBill.taxAmount = (13 / 100) * this.bsVatTaxableAmount;
     salesBill.totalAmount = this.bsTotal;

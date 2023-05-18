@@ -196,14 +196,14 @@
                 >
                   Product Name
                 </th>
-                <th
+                <!-- <th
                   class="sortable"
                   sortDir="asc"
                   sortCol="customer_name"
                   id="costprice"
                 >
                   Cost Price
-                </th>
+                </th> -->
                 <th
                   class="sortable"
                   sortDir="asc"
@@ -289,7 +289,9 @@
                 <td>{{ product.discount }}</td>
                 <td>
                   <ng-container *ngFor="let vat of typerate">
-                    <span *ngIf="vat.id === product.tax">{{ vat.vatRate }}</span>
+                    <span *ngIf="vat.id === product.tax">{{
+                      vat.vatRate
+                    }}</span>
                   </ng-container>
                 </td>
                 <td>{{ product.userId }}</td>
