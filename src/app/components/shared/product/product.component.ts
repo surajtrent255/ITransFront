@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { Product } from 'src/app/models/Product';
+import { VatRateTypes } from 'src/app/models/VatRateTypes';
 import { CategoryProductService } from 'src/app/service/category-product.service';
 import { ProductService } from 'src/app/service/product.service';
 import { LoginService } from 'src/app/service/shared/login.service';
@@ -15,6 +16,7 @@ import { LoginService } from 'src/app/service/shared/login.service';
 export class ProductComponent {
   availableProducts: Product[] = [];
   availableCategories: CategoryProduct[] = [];
+  typerate: VatRateTypes[] = [];
 
   showableCreateProdDiv: boolean = false;
   constructor(
@@ -22,7 +24,7 @@ export class ProductComponent {
     private loginService: LoginService,
     private router: Router,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   newProduct!: Product;
   IsAuditor!: boolean;
@@ -35,6 +37,7 @@ export class ProductComponent {
     this.branchId = this.loginService.getBranchId();
     this.fetchAllProducts(this.compId, this.branchId);
     let roles = localStorage.getItem('CompanyRoles');
+    this.getAllVatRateTypes();
 
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
@@ -65,6 +68,12 @@ export class ProductComponent {
 
   fetchAllProductsAfterEdit() {
     this.fetchAllProducts(this.compId, this.branchId);
+  }
+  getAllVatRateTypes() {
+    this.productService.getAllVatRateTypes().subscribe((res) => {
+      console.log(res.data);
+      this.typerate = res.data;
+    });
   }
 
   createNewProduct($event: number) {

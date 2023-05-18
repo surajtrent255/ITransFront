@@ -1,10 +1,11 @@
 export class PurchaseBillDetail {
-  id !: number;
-  productId !: number;
+  id!: number;
+  productId!: number;
   qty: number = 0;
-  date: Date = new Date;
+  taxTypeId!: number;
+  date: Date = new Date();
   discountPerUnit: number = 0.0;
   rate: number = 0.0;
-  purchaseBillId !: number;
-  companyId !: number;
+  purchaseBillId!: number;
+  companyId!: number;
 }

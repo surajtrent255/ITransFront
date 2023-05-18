@@ -180,7 +180,7 @@
                     class="first-child sortable"
                     sortDir="asc"
                     sortCol="organization_id"
-                    id="id"
+                    id="productName"
                   >
                     productName
                   </th>
@@ -188,7 +188,7 @@
                     class="sortable"
                     sortDir="asc"
                     sortCol="organization_name"
-                    id="name"
+                    id="updatedProductName"
                   >
                     updatedProductName
                   </th>
@@ -196,7 +196,7 @@
                     class="sortable"
                     sortDir="asc"
                     sortCol="customer_name"
-                    id="costprice"
+                    id="qty"
                   >
                     qty
                   </th>
@@ -204,7 +204,7 @@
                     class="sortable"
                     sortDir="asc"
                     sortCol="master_name"
-                    id="sellingprice"
+                    id="splitQty"
                   >
                     splitQty
                   </th>
@@ -212,7 +212,7 @@
                     class="sortable"
                     sortDir="asc"
                     sortCol="master_name"
-                    id="sellingprice"
+                    id="price"
                   >
                     price
                   </th>
@@ -220,10 +220,11 @@
                     class="sortable"
                     sortDir="asc"
                     sortCol="master_name"
-                    id="sellingprice"
+                    id="unit"
                   >
                     unit
                   </th>
+                 
   
                   <th class="last-child">Actions</th>
                 </tr>
@@ -258,6 +259,7 @@
                   <td>{{ splitProduct.splitQty }}</td>
                   <td>{{ splitProduct.price }}</td>
                   <td>{{ splitProduct.unit }}</td>
+                  
                   <td class="last-child">
                     <a
                       id="createSplit"
