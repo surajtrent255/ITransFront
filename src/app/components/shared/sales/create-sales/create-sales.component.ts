@@ -100,6 +100,7 @@ export class CreateSalesComponent {
   createCustomerEnable: boolean = false;
   selectCompanyActive: boolean = false;
   unknownCustomer: boolean = false;
+  doesCustomerhavePan: boolean = true;
   export: boolean = false;
   selectMenusForProduct: Product[] = [];
   selectProductActive: boolean = false;
@@ -376,6 +377,12 @@ export class CreateSalesComponent {
     this.customerId = comp.companyId;
     this.customerName = comp.name;
     this.customerPan = Number(comp.panNo);
+    if (this.customerPan > 0) {
+      this.doesCustomerhavePan = true;
+    } else {
+      this.doesCustomerhavePan = false;
+
+    }
     // const closeCustomerPopUpEl = document.getElementById(
     // 'closeCustPop'
     // ) as HTMLAnchorElement;
@@ -531,10 +538,11 @@ export class CreateSalesComponent {
       )
       .subscribe({
         next: (data) => {
-          console.log(data.data);
-          console.log('navin');
-          this.prodWildCard = data.data.name;
+          if (data.data === null)
+            this.tostrService.error('product not available');
+
           if (data.data !== null) {
+            this.prodWildCard = data.data.name;
             this.productsUserWantTosale.push(data.data);
 
             this.productBarCodeId = undefined;
@@ -579,9 +587,7 @@ export class CreateSalesComponent {
               // for focusing ends
             });
           }
-          if (data.data === null) {
-            this.tostrService.error('product not available');
-          }
+
           this.prodQtyInput.nativeElement.focus();
         },
       });
@@ -605,9 +611,10 @@ export class CreateSalesComponent {
       `qtyProd${index}`
     ) as HTMLInputElement;
 
-    if (this.productQtyForEntryStatus === true) {
-      qtyProdElement.value = String(this.productQty); //
-    }
+    // if (this.productQtyForEntryStatus === true) {
+    //   alert(this.productQty)
+    //   qtyProdElement.value = String(this.productQty); //
+    // }
     let prodQty: number = Number(qtyProdElement.value);
 
     // for tracking discount
@@ -790,6 +797,7 @@ export class CreateSalesComponent {
       this.tostrService.warning('please enter at least one product');
       return;
     }
+
     this.productsUserWantTosale.forEach((prod, index) => {
       let saleBillDetail: SalesBillDetail = new SalesBillDetail();
       saleBillDetail.productId = prod.id;
@@ -855,7 +863,14 @@ export class CreateSalesComponent {
     salesBill.totalAmount = this.bsTotal;
     salesBill.discount = this.bsDiscountAmount;
     // finished
-
+    // for setting hasAbbr
+    if (this.unknownCustomer || (!this.doesCustomerhavePan)) {
+      if (this.bsTotal < 1000) {
+        salesBill.hasAbbr = true;
+      } else {
+        salesBill.hasAbbr = false;
+      }
+    }
     salesBill.customerId = this.customerId;
     salesBill.customerName = this.customerName;
     salesBill.customerPan = this.customerPan;

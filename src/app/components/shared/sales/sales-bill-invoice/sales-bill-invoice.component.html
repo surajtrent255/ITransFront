@@ -2,7 +2,11 @@
   <div class="recordTableWrapper" style="height: auto">
     <div class="recordCategory">
       <h2 class="text-center" id="" style="font-weight: bold !important">
-        Invoice here
+        {{
+          salesInvoice.salesBillDTO.hasAbbr
+            ? "ABBREVATED TAX INVOICE"
+            : "INVOICE"
+        }}
       </h2>
       <div class="cboth"></div>
     </div>
@@ -18,7 +22,11 @@
         <div class="col-md-6">
           <span>
             <span style="font-weight: bold !important">Bill Number:</span>
-            {{ salesInvoice.salesBillDTO.billNo }}</span
+            {{
+              salesInvoice.salesBillDTO.hasAbbr
+                ? salesInvoice.salesBillDTO.billNo
+                : salesInvoice.salesBillDTO.billNo
+            }}</span
           ><br />
           <span>
             <span style="font-weight: bold !important"> Seller PAN:</span>
@@ -123,7 +131,7 @@
                     {{ salesInvoice.salesBillDTO.discount | number : "1.2-2" }}
                   </td>
                 </tr>
-                <tr>
+                <tr *ngIf="salesInvoice.salesBillDTO.hasAbbr === false">
                   <td></td>
                   <td></td>
                   <td></td>
@@ -134,7 +142,7 @@
                     }}
                   </td>
                 </tr>
-                <tr>
+                <tr *ngIf="salesInvoice.salesBillDTO.hasAbbr === false">
                   <td></td>
                   <td></td>
                   <td></td>

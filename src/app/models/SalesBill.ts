@@ -32,4 +32,5 @@ export class SalesBill {
   customerSearchMethod !: number;
   printCount !: number;
   saleType !: number;
+  hasAbbr !: boolean;
 }
