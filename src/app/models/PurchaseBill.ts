@@ -26,9 +26,12 @@ export class PurchaseBill {
   transactionId!: string; //imp if any
   status: boolean = true;
   saleType!: number;
-
   transportation!: number;
+  transportationTaxType: number = 3;
   insurance!: number;
+  insuranceTaxType: number = 3;
   loading!: number;
+  loadingTaxType: number = 3;
   other!: number;
+  otherTaxType: number = 3;
 }

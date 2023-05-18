@@ -1,11 +1,15 @@
 <div class="contentRecordsTableContainer MainContainer" style="height: auto">
   <div class="recordTableWrapper">
     <div class="recordCategory">
-      <h2 class="text-center" id="totalGroupCombinations">Create Purchase</h2>
+      <h2 class="text-center" id="totalGroupCombinations">
+        <img
+          src="../../../../../assets/resources/images/createProduct.png "
+        />Create Purchase
+      </h2>
       <div class="cboth"></div>
     </div>
     <div class="popupSubHeadingDiv createsalesBill">
-      <h1 class="heading">Choose products for sales</h1>
+      <h1 class="heading">Choose products for Purchase</h1>
     </div>
     <div class="popupContentWrapper" style="background: none">
       <div class="row">
@@ -161,7 +165,7 @@
                     margin-left: 3px;
                     display: inline-block;
                   "
-                  >Cash sale
+                  >Cash Purchase
                 </label>
               </div>
               <div style="display: inline-block; margin-left: 10px">
@@ -178,7 +182,7 @@
                     margin-left: 3px;
                     display: inline-block;
                   "
-                  >Credit sale</label
+                  >Credit Purchase</label
                 >
               </div>
             </div>
@@ -226,7 +230,7 @@
                     class="submit_btn border-rad"
                     (click)="addTheProductForPurchase()"
                   >
-                    Add product
+                    Add To Bill
                   </button>
                 </div>
               </div>
@@ -238,6 +242,7 @@
                   <th>Item</th>
                   <th>Qty</th>
                   <th>Rate</th>
+                  <th>TAX</th>
                   <th>Total Amount</th>
                   <th>Remove Item</th>
                   <!-- <th>Name</th>
@@ -280,9 +285,24 @@
                         value="{{ prod.sellingPrice }}"
                       />
                     </td>
+                    <td>
+                      <select
+                        name="tax"
+                        id="tax"
+                        #tax="ngModel"
+                        style="width: 100%"
+                        class="form-control form-select"
+                        [(ngModel)]="prod.tax"
+                      >
+                        <option [value]="ap.id" *ngFor="let ap of typerate">
+                          {{ ap.vatRate }}
+                        </option>
+                      </select>
+                    </td>
                     <td id="totalAmount{{ i }}">
                       {{ prod.sellingPrice }}
                     </td>
+
                     <td style="text-align: center; vertical-align: middle">
                       <i
                         class="fa fa-remove text-danger"
@@ -312,9 +332,15 @@
                         <div class="chooseColoumnsWrapper">
                           <div class="fieldDiv popUpFormSectionWrapper">
                             <table class="" cellpadding="0" cellspacing="1">
-                              <tr>
+                              <tr style="padding-bottom: 5px">
+                                <td style="font-size: large">Name</td>
+                                <td style="font-size: large">Amount</td>
+                                <td style="font-size: large">Tax Type</td>
+                              </tr>
+
+                              <tr style="padding-top: 10px">
                                 <td class="col1 pt-2">
-                                  transportation:<span class="mandatorySign"
+                                  Transportation:<span class="mandatorySign"
                                     >*</span
                                   >
                                 </td>
@@ -332,8 +358,28 @@
                                     #transportationField="ngModel"
                                     required="required"
                                     [(ngModel)]="transportation"
-                                    (keydown.enter)="goToInsuranceField()"
+                                    (keydown.enter)="
+                                      goToTransportationTaxField()
+                                    "
                                   />
+                                </td>
+                                <td>
+                                  <select
+                                    name="transportationTax"
+                                    id="transportationTax"
+                                    #transportationTax="ngModel"
+                                    [(ngModel)]="transportationTaxType"
+                                    style="width: 100%"
+                                    class="form-control form-select"
+                                    (keydown.enter)="goToInsuranceField()"
+                                  >
+                                    <option
+                                      [value]="ap.id"
+                                      *ngFor="let ap of typerate"
+                                    >
+                                      {{ ap.vatRate }}
+                                    </option>
+                                  </select>
                                 </td>
                               </tr>
                               <tr>
@@ -354,14 +400,33 @@
                                     name="insurance"
                                     required="required"
                                     [(ngModel)]="insurance"
-                                    (keydown.enter)="goToLoadingField()"
+                                    (keydown.enter)="goToInsuranceTaxField()"
                                   />
+                                </td>
+
+                                <td>
+                                  <select
+                                    name="insuranceTax"
+                                    id="insuranceTax"
+                                    #insuranceTax="ngModel"
+                                    [(ngModel)]="insuranceTaxType"
+                                    style="width: 100%"
+                                    class="form-control form-select"
+                                    (keydown.enter)="goToLoadingField()"
+                                  >
+                                    <option
+                                      [value]="ap.id"
+                                      *ngFor="let ap of typerate"
+                                    >
+                                      {{ ap.vatRate }}
+                                    </option>
+                                  </select>
                                 </td>
                               </tr>
 
                               <tr>
                                 <td class="col1 pt-2">
-                                  loading:<span class="mandatorySign">*</span>
+                                  Loading:<span class="mandatorySign">*</span>
                                 </td>
                                 <td class="col2">
                                   <input
@@ -377,14 +442,33 @@
                                     name="loading"
                                     required="required"
                                     [(ngModel)]="loading"
-                                    (keydown.enter)="goToOtherField()"
+                                    (keydown.enter)="goToLoadingTaxField()"
                                   />
                                 </td>
+                                <td>
+                                  <select
+                                    name="loadingTax"
+                                    id="loadingTax"
+                                    #loadingTax="ngModel"
+                                    [(ngModel)]="loadingTaxType"
+                                    style="width: 100%"
+                                    class="form-control form-select"
+                                    (keydown.enter)="goToOtherField()"
+                                  >
+                                    <option
+                                      [value]="ap.id"
+                                      *ngFor="let ap of typerate"
+                                    >
+                                      {{ ap.vatRate }}
+                                    </option>
+                                  </select>
+                                </td>
                               </tr>
+                              <tr></tr>
 
                               <tr>
                                 <td class="col1 pt-2">
-                                  other:<span class="mandatorySign">*</span>
+                                  Other:<span class="mandatorySign">*</span>
                                 </td>
                                 <td class="col2">
                                   <input
@@ -399,9 +483,30 @@
                                     #otherField="ngModel"
                                     required="required"
                                     [(ngModel)]="other"
+                                    (keydown.enter)="goToOtherTaxField()"
                                   />
                                 </td>
+
+                                <td class="col3">
+                                  <select
+                                    name="otherTax"
+                                    id="otherTax"
+                                    #otherTax="ngModel"
+                                    [(ngModel)]="otherTaxType"
+                                    style="width: 100%"
+                                    class="form-control form-select"
+                                    (keydown.enter)="goTopurchesebuttom()"
+                                  >
+                                    <option
+                                      [value]="ap.id"
+                                      *ngFor="let ap of typerate"
+                                    >
+                                      {{ ap.vatRate }}
+                                    </option>
+                                  </select>
+                                </td>
                               </tr>
+                              <tr></tr>
                             </table>
                           </div>
                         </div>
@@ -418,7 +523,12 @@
               <!-- <button class="submit_btn" (click)="purchaseTheProducts(true)">
                 Save as a Draft
               </button> -->
-              <button class="submit_btn" (click)="purchaseTheProducts(false)">
+              <button
+                class="submit_btn"
+                id="sumbit_btn"
+                name="sumbit_btn"
+                (click)="purchaseTheProducts(false)"
+              >
                 Purchase the Product
               </button>
             </div>
