@@ -169,7 +169,11 @@
         <div class="row">
           <div class="col-md-12">
             (In Words:
-            {{ salesInvoice.salesBillDTO.totalAmount | numberToWords }})
+            {{
+              salesInvoice.salesBillDTO.totalAmount
+                | number : "1.0-0"
+                | numberToWords
+            }})
           </div>
         </div>
         <div class="row">
