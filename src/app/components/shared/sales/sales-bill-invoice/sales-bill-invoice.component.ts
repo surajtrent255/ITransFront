@@ -22,7 +22,7 @@ export class SalesBillInvoiceComponent {
 
   // @Output() activeSalesBillInvoiceEvent = new EventEmitter<boolean>();
   salesInvoice: SalesBillInvoice = new SalesBillInvoice;
-
+  printButtonVisiability: boolean = true;
 
   constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService, private tostrService: ToastrService,
     private activatedRoute: ActivatedRoute, private router: Router) { }
@@ -46,6 +46,8 @@ export class SalesBillInvoiceComponent {
 
 
   printTheBill(billId: number) {
+    this.printButtonVisiability = false;
+
     let userId = this.loginService.currentUser.user.id;
 
     this.salesBillService.printTheBill(billId, userId).subscribe({
@@ -58,7 +60,14 @@ export class SalesBillInvoiceComponent {
       },
       complete: () => {
         // this.fetchSalesBillInvoice(billId);
-        this.router.navigateByUrl(`dashboard/salesbill`);
+        // this.router.navigateByUrl(`dashboard/salesbill`);
+        const printContents = document.getElementById('printable-content')!.innerHTML;
+        const originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+        this.printButtonVisiability = true;
+        document.body.innerHTML = originalContents;
       }
     })
 

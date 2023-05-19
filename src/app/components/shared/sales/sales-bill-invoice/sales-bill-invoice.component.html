@@ -1,4 +1,4 @@
-<div class="contentRecordsTableContainer MainContainer">
+<div id="printable-content" class="contentRecordsTableContainer MainContainer">
   <div class="recordTableWrapper" style="height: auto">
     <div class="recordCategory">
       <h2 class="text-center" id="" style="font-weight: bold !important">
@@ -188,6 +188,7 @@
         </div>
       </div>
       <button
+        *ngIf="printButtonVisiability"
         class="submit_btn border-rad"
         (click)="printTheBill(salesInvoice.salesBillDTO.id)"
       >

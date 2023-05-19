@@ -1,0 +1,15 @@
+@media print {
+  /* Custom print styles */
+  #printable-content {
+    font-size: 12pt;
+  }
+  .no-print {
+    display: none;
+  }
+}
+
+/* img {
+  width: 50px;
+  height: auto;
+} */
+@page { size:  landscape; margin: 0px; }
