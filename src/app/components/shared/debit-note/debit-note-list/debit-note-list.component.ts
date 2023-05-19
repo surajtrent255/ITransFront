@@ -13,6 +13,8 @@ export class DebitNoteListComponent {
   debitNote!: DebitNote[];
   debitNoteDetails!: DebitNoteDetails[];
 
+  IsAuditor!: boolean;
+
   constructor(
     private debitNoteService: DebitNoteService,
     private loginService: LoginService
@@ -20,6 +22,13 @@ export class DebitNoteListComponent {
 
   ngOnInit() {
     this.getDebitNote();
+
+    let roles = localStorage.getItem('CompanyRoles');
+    if (roles?.includes('AUDITOR')) {
+      this.IsAuditor = false;
+    } else {
+      this.IsAuditor = true;
+    }
   }
 
   getDebitNote() {

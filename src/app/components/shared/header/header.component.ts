@@ -61,7 +61,7 @@ export class HeaderComponent {
   // Role Testing
   status!: boolean;
   roleId!: number;
-  PopupRoleId: number[] = [];
+  PopupRoleId!: number;
 
   // Assign Company
   assignCompanyStatus!: boolean;
@@ -327,19 +327,22 @@ export class HeaderComponent {
     this.userRoleTabStatus = status;
     this.roleService
       .updateUserRoleStatus(status, userId, this.localStorageCompanyId, roleId)
-      .subscribe((res) => {
-        console.log(res);
+      .subscribe({
+        next: (res) => {},
       });
   }
 
   onRoleChecked(e: any, roleId: number) {
-    let status = e.target.checked;
-    this.roleId = roleId;
-    if (status === true) {
-      this.PopupRoleId.push(roleId);
-    } else {
-      this.PopupRoleId.pop();
-    }
+    console.log(e.target.checked);
+    this.PopupRoleId = roleId;
+    // for multiple role assign
+    // let status = e.target.checked;
+    // this.roleId = roleId;
+    // if (status === true) {
+    //   this.PopupRoleId.push(roleId);
+    // } else {
+    //   this.PopupRoleId.pop();
+    // }
   }
 
   hasRole(roleName: string) {
@@ -361,7 +364,7 @@ export class HeaderComponent {
         .subscribe({
           next: () => {
             this.getUserRoleDetailsBasedOnCompanyId();
-            this.PopupRoleId = [];
+            // this.PopupRoleId = [];
           },
         });
     }
@@ -428,17 +431,19 @@ export class HeaderComponent {
       });
   }
 
-  addRole(userId: number, firstName: string, lastName: string) {
-    this.selectedUser = firstName + ' ' + lastName;
-    this.selectedUserId = userId;
+  addRole(e: any, userId: number, firstName: string, lastName: string) {
     this.roleService
       .getUserRoleDetailsBasedOnCompanyIdAndUserId(
         this.localStorageCompanyId,
         userId
       )
-      .subscribe((res) => {
-        this.addRoleData = res.data;
+      .subscribe({
+        next: (res) => {
+          this.addRoleData = res.data;
+        },
       });
+    this.selectedUser = firstName + ' ' + lastName;
+    this.selectedUserId = userId;
   }
 
   onAssignBranchPopupCheckBoxChange(e: any, userId: number) {

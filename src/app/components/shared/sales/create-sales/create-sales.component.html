@@ -6,18 +6,24 @@
       </h2>
       <div class="cboth"></div>
     </div>
-    <div class="fright" class="createProductDiv text-end">
+    <!-- <div class="fright" class="createProductDiv text-end">
       <a href="" id="createNewProduct" class="createNewTableRecord">
         <img src="../../../assets/resources/images/createProduct.png" />
         <span class="mr-2"> Create Product</span>
       </a>
-    </div>
+    </div> -->
 
-    <div class="popupSubHeadingDiv createsalesBill">
+    <div style="margin-top: 4px" class="popupSubHeadingDiv createsalesBill">
       <h1 class="heading">Choose products for sales</h1>
     </div>
     <div class="popupContentWrapper" style="background: none">
-      <div class="row card">
+      <div
+        style="
+          box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.6);
+          background-color: #9bb4cc;
+        "
+        class="card"
+      >
         <div class="col-md-12">
           <!-- <app-popup class="m-4"></app-popup> -->
 
@@ -571,15 +577,18 @@
               </div>
             </div>
           </div>
-          <div style="margin-top: 20px">
+          <div style="margin: 20px">
             <!-- <button class="submit_btn border-rad" id="popperAlertLink">
   Sale the product
   </button> -->
-            <button class="submit_btn" (click)="saleTheProducts(true)">
+            <button
+              class="submit_btn border-rad"
+              (click)="saleTheProducts(true)"
+            >
               Save as a Draft
             </button>
             <button
-              class="submit_btn"
+              class="submit_btn border-rad"
               (click)="saleTheProducts(false)"
               #saleTheProductBtn
             >
@@ -591,7 +600,7 @@
     </div>
 
     <div>
-      <div class="popperAlert" id="popperAlertSettingPopup" >
+      <div class="popperAlert" id="popperAlertSettingPopup">
         <div class="popupHeading">
           <h2 class="fleft">Confirm</h2>
           <a href="" class="closeAlertPopperButton fright"

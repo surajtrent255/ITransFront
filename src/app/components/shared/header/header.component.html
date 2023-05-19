@@ -233,6 +233,7 @@
                               id="createNewAssign"
                               (click)="
                                 addRole(
+                                  $event,
                                   userconfig.userId,
                                   userconfig.firstName,
                                   userconfig.lastName
@@ -785,7 +786,8 @@
                 style="margin: 1px"
               >
                 <input
-                  type="checkbox"
+                  type="radio"
+                  name="role"
                   [checked]="hasRole(role.role)"
                   (change)="onRoleChecked($event, role.id)"
                   value="admin"
@@ -818,7 +820,7 @@
 <div
   class="popupWrapper PopupCloser"
   id="AddNewUserPopup"
-  style="display: none"
+  style="display: none; min-width: 500px; width: auto"
 >
   <div class="popupHeading" style="background-color: #3c4858">
     <h2 class="fleft">Assign Company</h2>

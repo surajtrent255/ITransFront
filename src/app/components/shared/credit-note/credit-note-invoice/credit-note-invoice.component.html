@@ -1,5 +1,5 @@
 <div class="contentRecordsTableContainer MainContainer">
-  <div class="recordTableWrapper" style="height: 545px">
+  <div class="recordTableWrapper" style="height: auto">
     <div class="recordCategory">
       <h2 class="text-center" id="">Invoice here</h2>
       <div class="cboth"></div>
@@ -8,7 +8,11 @@
     <div class="popupSubHeadingDiv">
       <h1 class="heading">Invoice of Credit Note</h1>
     </div>
-    <div class="popupContentWrapper">
+    <div
+      id="httptrace-table"
+      class="popupContentWrapper"
+      style="box-shadow: 0.5px 5px 8px rgba(0, 0, 0, 0.6)"
+    >
       <div class="row">
         <h5 class="text-center">Credit Note Invoice</h5>
         <div class="col-md-6">
@@ -101,6 +105,13 @@
               routerLink="/dashboard/creditNoteList"
             >
               Cancel
+            </button>
+            <button
+              type="button"
+              (click)="exportToExcel()"
+              class="submit_btn border-rad"
+            >
+              download
             </button>
           </div>
         </div>

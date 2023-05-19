@@ -13,6 +13,8 @@ export class CreditNoteListComponent {
   creditNote!: CreditNote[];
   creditNoteDtails!: CreditNoteDetails[];
 
+  IsAuditor!: boolean;
+
   constructor(
     private loginService: LoginService,
     private creditNoteService: CreditNoteService
@@ -20,6 +22,13 @@ export class CreditNoteListComponent {
 
   ngOnInit() {
     this.getCreditNote();
+
+    let roles = localStorage.getItem('CompanyRoles');
+    if (roles?.includes('AUDITOR')) {
+      this.IsAuditor = false;
+    } else {
+      this.IsAuditor = true;
+    }
   }
 
   getCreditNote() {

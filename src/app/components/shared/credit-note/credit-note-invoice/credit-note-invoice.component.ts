@@ -71,6 +71,33 @@ export class CreditNoteInvoiceComponent {
       });
   }
 
+  exportToExcel() {
+    // const downloadLink = document.createElement('a');
+    // const datatype = 'application/vnd.ms-excel';
+    // const table = document.getElementById('httptrace-table');
+    // const tableHtml = table?.outerHTML.replace(/ /g, '%20');
+    // document.body.appendChild(downloadLink);
+    // downloadLink.href = 'data:' + datatype + ' ' + tableHtml;
+    // downloadLink.download = 'httptrace.xls';
+    // downloadLink.click();
+
+    const table = document.getElementById('httptrace-table');
+
+    // Define the tableExport variable
+    const tableExport: any = window['tableExport'];
+
+    // Initialize tableExport with the table element
+    const exportInstance = new tableExport.default(table, {
+      exportButtons: false, // Hide the export buttons
+    });
+
+    // Generate the Excel file
+    exportInstance.exportToExcel();
+
+    // Cleanup tableExport instance
+    exportInstance.reset();
+  }
+
   submit() {
     this.SelectedProduct.map((data) => {
       this.creditNoteService
