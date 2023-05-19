@@ -1,25 +1,23 @@
 <div class="contentRecordsTableContainer MainContainer" style="height: auto">
   <div class="recordTableWrapper">
     <div class="recordCategory">
-      <h2 class="text-center" id="totalGroupCombinations">Create Purchase</h2>
+      <h2 class="text-center" id="totalGroupCombinations">
+        <img
+          src="../../../../../assets/resources/images/createProduct.png "
+        />Create Purchase
+      </h2>
       <div class="cboth"></div>
     </div>
-    <div style="margin-top: 4px" class="popupSubHeadingDiv createsalesBill">
-      <h1 class="heading">Choose products for sales</h1>
+    <div class="popupSubHeadingDiv createsalesBill">
+      <h1 class="heading">Choose products for Purchase</h1>
     </div>
     <div class="popupContentWrapper" style="background: none">
-      <div
-        class="card"
-        style="
-          box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.6);
-          background-color: #9bb4cc;
-        "
-      >
+      <div class="row">
         <div class="col-md-12">
           <!-- <app-popup class="m-4"></app-popup> -->
 
           <div class="row">
-            <div class="col-md-3 mt-1">
+            <div class="col-md-3">
               <!-- <span class="inputItems">Seller Name: {{ sellerName }}</span>
               <div style="display: flex; align-items: center">
                 <input
@@ -116,7 +114,7 @@
                 </button>
               </span> -->
             </div>
-            <div class="col-md-3 mt-1">
+            <div class="col-md-3">
               <span class="inputItems">Date:</span>
               <input
                 class="inputItems input-field"
@@ -125,73 +123,70 @@
                 type="date"
               />
             </div>
-            <div class="col-md-3 mt-1">
+            <div class="col-md-3">
               <span class="inputItems">Bill number:</span>
               <input class="input-field" type="number" [(ngModel)]="billNo" />
             </div>
           </div>
-
           <hr />
+          <div class="row">
+            <div class="col-md-3">
+              <span class="inputItems">Current Branch</span>
+              <input
+                class="inputItems input-field"
+                type="text"
+                [ngModel]="currentBranch"
+                readonly
+              />
+            </div>
+            <!-- <div class="col-md-3">
+              <input type="radio" name="discountType" value="1" />
+              Discount Per unit
+              <input type="radio" name="discountType" value="0" ; />
+              On overall basis
+            </div> -->
 
-          <div class="">
-            <div class="row">
-              <div class="col-md-3">
-                <span class="inputItems">Current Branch</span>
+            <div class="col-md-3">
+              <div style="display: inline-block">
                 <input
-                  class="inputItems input-field"
-                  type="text"
-                  [ngModel]="currentBranch"
-                  readonly
+                  type="radio"
+                  style="
+                    margin-top: 8px;
+                    display: inline-block;
+                    margin-left: 3px;
+                  "
+                  name="saleType"
+                  [checked]="saleType === 1"
+                  (change)="setSaleType(1)"
                 />
+                <label
+                  style="
+                    margin-top: 8px;
+                    margin-left: 3px;
+                    display: inline-block;
+                  "
+                  >Cash Purchase
+                </label>
               </div>
-              <!-- <div class="col-md-3">
-                <input type="radio" name="discountType" value="1" />
-                Discount Per unit
-                <input type="radio" name="discountType" value="0" ; />
-                On overall basis
-              </div> -->
-
-              <div class="row col-md-3">
-                <div style="display: inline-block">
-                  <input
-                    type="radio"
-                    style="
-                      margin-top: 8px;
-                      display: inline-block;
-                      margin-left: 3px;
-                    "
-                    name="saleType"
-                    [checked]="saleType === 1"
-                    (change)="setSaleType(1)"
-                  />
-                  <label
-                    style="
-                      margin-top: 8px;
-                      margin-left: 3px;
-                      display: inline-block;
-                    "
-                    >Cash sale
-                  </label>
-                </div>
-                <div style="display: inline-block; margin-left: 10px">
-                  <input
-                    type="radio"
-                    style="margin-top: 8px; display: inline-block"
-                    name="saleType"
-                    [checked]="saleType === 2"
-                    (change)="setSaleType(2)"
-                  />
-                  <label
-                    style="
-                      margin-top: 8px;
-                      margin-left: 3px;
-                      display: inline-block;
-                    "
-                    >Credit sale</label
-                  >
-                </div>
+              <div style="display: inline-block; margin-left: 10px">
+                <input
+                  type="radio"
+                  style="margin-top: 8px; display: inline-block"
+                  name="saleType"
+                  [checked]="saleType === 2"
+                  (change)="setSaleType(2)"
+                />
+                <label
+                  style="
+                    margin-top: 8px;
+                    margin-left: 3px;
+                    display: inline-block;
+                  "
+                  >Credit Purchase</label
+                >
               </div>
             </div>
+
             <hr />
             <div class="row">
               <div class="offset-md-3">
@@ -235,7 +230,7 @@
                     class="submit_btn border-rad"
                     (click)="addTheProductForPurchase()"
                   >
-                    Add product
+                    Add To Bill
                   </button>
                 </div>
               </div>
@@ -247,6 +242,7 @@
                   <th>Item</th>
                   <th>Qty</th>
                   <th>Rate</th>
+                  <th>TAX</th>
                   <th>Total Amount</th>
                   <th>Remove Item</th>
                   <!-- <th>Name</th>
@@ -289,9 +285,24 @@
                         value="{{ prod.sellingPrice }}"
                       />
                     </td>
+                    <td>
+                      <select
+                        name="tax"
+                        id="tax"
+                        #tax="ngModel"
+                        style="width: 100%"
+                        class="form-control form-select"
+                        [(ngModel)]="prod.tax"
+                      >
+                        <option [value]="ap.id" *ngFor="let ap of typerate">
+                          {{ ap.vatRate }}
+                        </option>
+                      </select>
+                    </td>
                     <td id="totalAmount{{ i }}">
                       {{ prod.sellingPrice }}
                     </td>
+
                     <td style="text-align: center; vertical-align: middle">
                       <i
                         class="fa fa-remove text-danger"
@@ -303,132 +314,209 @@
               </table>
               <div class="row mt-2 p-3">
                 <div class="col-md-4 offset-md-8">
-                  <div
-                    class="card bg-light"
-                    style="
-                      background-color: #620f0f;
-                      border-radius: 8px;
-                      box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.6);
-                    "
-                  >
-                    <div class="card-header bg-secondary text-white">
-                      <h5 class="card-title mb-0 text-white">
+                  <div class="card">
+                    <div
+                      class="card-header text-white"
+                      style="background-color: #e3e6eb"
+                    >
+                      <h5 class="card-title mb-0 text-black">
                         <th>Required Additional Attributes</th>
                       </h5>
                     </div>
                     <div class="card-body">
-                      <div class="container">
-                        <form
-                          #createtransportationForm="ngForm"
-                          name="createTransportation"
-                          id="createTransportationForm"
-                        >
-                          <div class="">
-                            <div class="fieldDiv popUpFormSectionWrapper">
-                              <table class="" cellpadding="0" cellspacing="1">
-                                <tr>
-                                  <td class="col1 pt-2">
-                                    transportation:<span class="mandatorySign"
-                                      >*</span
-                                    >
-                                  </td>
-                                  <td class="col2">
-                                    <input
-                                      type="number"
-                                      [class.is-invalid]="
-                                        transportationField.invalid &&
-                                        transportationField.touched
-                                      "
-                                      class="form-control"
-                                      id="transportation"
-                                      required
-                                      name="transportation"
-                                      #transportationField="ngModel"
-                                      required="required"
-                                      [(ngModel)]="transportation"
-                                      (keydown.enter)="goToInsuranceField()"
-                                    />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td class="col1 pt-2">
-                                    Insurance:<span class="mandatorySign"
-                                      >*</span
-                                    >
-                                  </td>
-                                  <td class="col2">
-                                    <input
-                                      type="number"
-                                      [class.is-invalid]="
-                                        insuranceField.invalid &&
-                                        insuranceField.touched
-                                      "
-                                      class="form-control"
-                                      id="insurance"
-                                      required
-                                      #insuranceField="ngModel"
-                                      name="insurance"
-                                      required="required"
-                                      [(ngModel)]="insurance"
-                                      (keydown.enter)="goToLoadingField()"
-                                    />
-                                  </td>
-                                </tr>
+                      <form
+                        #createtransportationForm="ngForm"
+                        name="createTransportation"
+                        id="createTransportationForm"
+                      >
+                        <div class="chooseColoumnsWrapper">
+                          <div class="fieldDiv popUpFormSectionWrapper">
+                            <table class="" cellpadding="0" cellspacing="1">
+                              <tr style="padding-bottom: 5px">
+                                <td style="font-size: large">Name</td>
+                                <td style="font-size: large">Amount</td>
+                                <td style="font-size: large">Tax Type</td>
+                              </tr>
 
-                                <tr>
-                                  <td class="col1 pt-2">
-                                    loading:<span class="mandatorySign">*</span>
-                                  </td>
-                                  <td class="col2">
-                                    <input
-                                      [class.is-invalid]="
-                                        loadingField.invalid &&
-                                        loadingField.touched
-                                      "
-                                      type="number"
-                                      class="form-control"
-                                      id="loading"
-                                      required
-                                      #loadingField="ngModel"
-                                      name="loading"
-                                      required="required"
-                                      [(ngModel)]="loading"
-                                      (keydown.enter)="goToOtherField()"
-                                    />
-                                  </td>
-                                </tr>
+                              <tr style="padding-top: 10px">
+                                <td class="col1 pt-2">
+                                  Transportation:<span class="mandatorySign"
+                                    >*</span
+                                  >
+                                </td>
+                                <td class="col2">
+                                  <input
+                                    type="number"
+                                    [class.is-invalid]="
+                                      transportationField.invalid &&
+                                      transportationField.touched
+                                    "
+                                    class="form-control"
+                                    id="transportation"
+                                    required
+                                    name="transportation"
+                                    #transportationField="ngModel"
+                                    required="required"
+                                    [(ngModel)]="transportation"
+                                    (keydown.enter)="
+                                      goToTransportationTaxField()
+                                    "
+                                  />
+                                </td>
+                                <td>
+                                  <select
+                                    name="transportationTax"
+                                    id="transportationTax"
+                                    #transportationTax="ngModel"
+                                    [(ngModel)]="transportationTaxType"
+                                    style="width: 100%"
+                                    class="form-control form-select"
+                                    (keydown.enter)="goToInsuranceField()"
+                                  >
+                                    <option
+                                      [value]="ap.id"
+                                      *ngFor="let ap of typerate"
+                                    >
+                                      {{ ap.vatRate }}
+                                    </option>
+                                  </select>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="col1 pt-2">
+                                  Insurance:<span class="mandatorySign">*</span>
+                                </td>
+                                <td class="col2">
+                                  <input
+                                    type="number"
+                                    [class.is-invalid]="
+                                      insuranceField.invalid &&
+                                      insuranceField.touched
+                                    "
+                                    class="form-control"
+                                    id="insurance"
+                                    required
+                                    #insuranceField="ngModel"
+                                    name="insurance"
+                                    required="required"
+                                    [(ngModel)]="insurance"
+                                    (keydown.enter)="goToInsuranceTaxField()"
+                                  />
+                                </td>
 
-                                <tr>
-                                  <td class="col1 pt-2">
-                                    other:<span class="mandatorySign">*</span>
-                                  </td>
-                                  <td class="col2">
-                                    <input
-                                      type="number"
-                                      [class.is-invalid]="
-                                        otherField.invalid && otherField.touched
-                                      "
-                                      class="form-control"
-                                      id="other"
-                                      required
-                                      name="other"
-                                      #otherField="ngModel"
-                                      required="required"
-                                      [(ngModel)]="other"
-                                    />
-                                  </td>
-                                </tr>
-                              </table>
-                            </div>
+                                <td>
+                                  <select
+                                    name="insuranceTax"
+                                    id="insuranceTax"
+                                    #insuranceTax="ngModel"
+                                    [(ngModel)]="insuranceTaxType"
+                                    style="width: 100%"
+                                    class="form-control form-select"
+                                    (keydown.enter)="goToLoadingField()"
+                                  >
+                                    <option
+                                      [value]="ap.id"
+                                      *ngFor="let ap of typerate"
+                                    >
+                                      {{ ap.vatRate }}
+                                    </option>
+                                  </select>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td class="col1 pt-2">
+                                  Loading:<span class="mandatorySign">*</span>
+                                </td>
+                                <td class="col2">
+                                  <input
+                                    [class.is-invalid]="
+                                      loadingField.invalid &&
+                                      loadingField.touched
+                                    "
+                                    type="number"
+                                    class="form-control"
+                                    id="loading"
+                                    required
+                                    #loadingField="ngModel"
+                                    name="loading"
+                                    required="required"
+                                    [(ngModel)]="loading"
+                                    (keydown.enter)="goToLoadingTaxField()"
+                                  />
+                                </td>
+                                <td>
+                                  <select
+                                    name="loadingTax"
+                                    id="loadingTax"
+                                    #loadingTax="ngModel"
+                                    [(ngModel)]="loadingTaxType"
+                                    style="width: 100%"
+                                    class="form-control form-select"
+                                    (keydown.enter)="goToOtherField()"
+                                  >
+                                    <option
+                                      [value]="ap.id"
+                                      *ngFor="let ap of typerate"
+                                    >
+                                      {{ ap.vatRate }}
+                                    </option>
+                                  </select>
+                                </td>
+                              </tr>
+                              <tr></tr>
+
+                              <tr>
+                                <td class="col1 pt-2">
+                                  Other:<span class="mandatorySign">*</span>
+                                </td>
+                                <td class="col2">
+                                  <input
+                                    type="number"
+                                    [class.is-invalid]="
+                                      otherField.invalid && otherField.touched
+                                    "
+                                    class="form-control"
+                                    id="other"
+                                    required
+                                    name="other"
+                                    #otherField="ngModel"
+                                    required="required"
+                                    [(ngModel)]="other"
+                                    (keydown.enter)="goToOtherTaxField()"
+                                  />
+                                </td>
+
+                                <td class="col3">
+                                  <select
+                                    name="otherTax"
+                                    id="otherTax"
+                                    #otherTax="ngModel"
+                                    [(ngModel)]="otherTaxType"
+                                    style="width: 100%"
+                                    class="form-control form-select"
+                                    (keydown.enter)="goTopurchesebuttom()"
+                                  >
+                                    <option
+                                      [value]="ap.id"
+                                      *ngFor="let ap of typerate"
+                                    >
+                                      {{ ap.vatRate }}
+                                    </option>
+                                  </select>
+                                </td>
+                              </tr>
+                              <tr></tr>
+                            </table>
                           </div>
-                        </form>
-                      </div>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div style="margin: 20px">
+            <div style="margin-top: 20px">
               <!-- <button class="submit_btn border-rad" id="popperAlertLink">
               Sale the product
             </button> -->
@@ -436,7 +524,9 @@
                 Save as a Draft
               </button> -->
               <button
-                class="submit_btn border-rad"
+                class="submit_btn"
+                id="sumbit_btn"
+                name="sumbit_btn"
                 (click)="purchaseTheProducts(false)"
               >
                 Purchase the Product

@@ -343,11 +343,18 @@
                   <a
                     *ngIf="IsAuditor"
                     href=""
-                    (click)="cancelTheBill(salesBill.id)"
                     class="deleteRowLink deleteGroupCombo"
+                    (click)="cancelTheBill(salesBill.id)"
                   >
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
+                  <button
+                    style="display: none"
+                    class="createNewTableRecord"
+                    id="confirmAlert"
+                  >
+                    cancel
+                  </button>
                 </td>
                 <td>
                   <i
@@ -391,6 +398,17 @@
         (activeSalesBillEditEvent)="deactivateSalesBillEdit($event)"
       >
       </app-sales-bill-edit>
+    </div>
+
+    <div class="popupWrapper" id="confirmAlertPopup" style="display: none">
+      <app-confirm-alert
+        *ngIf="confirmAlertDisplay"
+        [msg]="'Are you sure to cancel this bill ? '"
+        (destroyConfirmAlertSectionEmitter)="
+          destroyConfirmAlertSectionEmitter($event)
+        "
+      >
+      </app-confirm-alert>
     </div>
   </div>
 </div>

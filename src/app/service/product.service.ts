@@ -8,6 +8,7 @@ import { RJResponse } from '../models/rjresponse';
 import { VatRateTypes } from '../models/VatRateTypes';
 import { Unit } from '../models/Unit';
 const productURL = 'product';
+const endpoint = 'https://jsonplaceholder.typicode.com/posts'
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +43,7 @@ export class ProductService {
     return this.httpClient.get<RJResponse<Product[]>>(url);
   }
 
-  getProductForSearch( compId: number, branchId: number ,search:string): Observable<RJResponse<Product[]>> {
+  getProductForSearch(compId: number, branchId: number, search: string): Observable<RJResponse<Product[]>> {
     let url = `${BASE_URL}/product/search?compId=${compId}&branchId=${branchId}&search=${search}`;
     console.log(url);
     return this.httpClient.get<RJResponse<Product[]>>(url);
@@ -83,5 +84,9 @@ export class ProductService {
     let url = `${BASE_URL}/unit`;
     return this.httpClient.get<RJResponse<Unit[]>>(url);
 
+  }
+
+  getAllPosts(): Observable<any> {
+    return this.httpClient.get(endpoint);
   }
 }

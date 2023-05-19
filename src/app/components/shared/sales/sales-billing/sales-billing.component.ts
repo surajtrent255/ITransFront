@@ -24,14 +24,17 @@ export class SalesBillingComponent {
   salesBills: SalesBill[] = [];
   customerId!: number;
   activeSalesBillEdit: boolean = false;
+  confirmAlertDisplay: boolean = false;
+  cancelBillId !: number;
 
   companyId!: number;
   branchId!: number;
+
   constructor(
     private salesBillService: SalesBillServiceService,
     private loginService: LoginService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     console.log('sales-billingbasecomp');
@@ -65,11 +68,26 @@ export class SalesBillingComponent {
   }
 
   cancelTheBill(id: number) {
+    this.confirmAlertDisplay = true;
+    this.cancelBillId = id;
+    const confirmAlertBtn = document.getElementById("confirmAlert") as HTMLButtonElement;
+    confirmAlertBtn.click();
+  }
+
+  continuingCancelling(id: number) {
     this.salesBillService.cancelTheBill(id).subscribe({
       complete: () => {
         this.getSalesBillForCompanyBranch();
       },
     });
+  }
+
+  destroyConfirmAlertSectionEmitter($event: boolean) {
+    this.confirmAlertDisplay = false;
+
+    if ($event === true) {
+      this.continuingCancelling(this.cancelBillId);
+    }
   }
 
   activateSalesBillEntry() {

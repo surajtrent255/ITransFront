@@ -37,7 +37,7 @@ export class SalesBillInvoiceComponent {
     this.salesBillService.fetchSalesBillDetailForInvoice(billId).subscribe({
       next: (data: RJResponse<SalesBillInvoice>) => {
         this.salesInvoice = data.data;
-        this.salesInvoice.salesBillDTO.totalAmount = Math.round(this.salesInvoice.salesBillDTO.totalAmount);
+        this.salesInvoice.salesBillDTO.totalAmount = this.salesInvoice.salesBillDTO.totalAmount;
 
       }
     })

@@ -1,0 +1,31 @@
+<div class="popupSubHeadingDiv createsalesBill">
+  <h1 class="heading">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    Confirm alert box
+    <a
+      class="closeButton fright"
+      id="closeAlertAch"
+      (click)="destroyAlertComp()"
+      ><img
+        src="../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+  </h1>
+</div>
+<div class="popupContentWrapper">
+  <div class="row">
+    <h4 style="font-weight: bold">{{ msg }}</h4>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-4">
+      <button class="submit_btn border-rad" (click)="emitStatus(true)">
+        Yes
+      </button>
+    </div>
+    <div class="col-md-4">
+      <button class="submit_btn border-rad" (click)="emitStatus(false)">
+        No
+      </button>
+    </div>
+  </div>
+</div>

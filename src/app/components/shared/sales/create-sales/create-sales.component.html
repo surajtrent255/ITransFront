@@ -1,10 +1,7 @@
 <div class="contentRecordsTableContainer MainContainer" style="height: auto">
   <div class="recordTableWrapper">
     <div class="recordCategory">
-      <h2 class="text-center" id="totalGroupCombinations">
-        Create Purchase {{ selectCompanyActive }}
-      </h2>
-      <div class="cboth"></div>
+      <h2 class="text-center" id="totalGroupCombinations">Create Sales</h2>
     </div>
     <!-- <div class="fright" class="createProductDiv text-end">
       <a href="" id="createNewProduct" class="createNewTableRecord">
@@ -13,17 +10,11 @@
       </a>
     </div> -->
 
-    <div style="margin-top: 4px" class="popupSubHeadingDiv createsalesBill">
+    <div class="popupSubHeadingDiv createsalesBill">
       <h1 class="heading">Choose products for sales</h1>
     </div>
     <div class="popupContentWrapper" style="background: none">
-      <div
-        style="
-          box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.6);
-          background-color: #9bb4cc;
-        "
-        class="card"
-      >
+      <div class="row card">
         <div class="col-md-12">
           <!-- <app-popup class="m-4"></app-popup> -->
 
@@ -40,7 +31,7 @@
               </i>
               <div
                 class="dropdown-menu"
-                style="margin-left: 4px"
+                style="padding-right: 4px"
                 aria-labelledby="dropdownMenuButton"
               >
                 <span *ngFor="let feature of featureObjs">
@@ -52,11 +43,22 @@
                     />
                     <span class="ml-2">Alter Price</span>
                   </ul>
+                  <ul class="ml-3" *ngIf="feature.featureId === 5">
+                    <input
+                      type="checkbox"
+                      [checked]="allowEditDiscountPerUnit"
+                      (change)="updateAllowEditDiscountPerUnit()"
+                    />
+                    <span class="ml-2">Alter Discount Per Unit </span>
+                  </ul>
                 </span>
               </div>
             </div>
             <div class="col-md-3">
-              <span class="inputItems">To: {{ customerName }}</span>
+              <span class="inputItems"
+                >To:
+                <p id="to">{{ customerName }}</p></span
+              >
               <div style="display: flex; align-items: center">
                 <input
                   type="text"
@@ -106,8 +108,8 @@
                     display: inline-block;
                   "
                 >
-                  Unknown Customer</label
-                >
+                  Unknown Customer
+                </label>
               </div>
               <!-- <Select
   style="width: 70%"
@@ -152,13 +154,27 @@
   </div> -->
             </div>
             <div
-              class="col-md-3"
+              class="col-md-3 mt-2"
               style="
                 display: flex;
                 flex-direction: column;
-                justify-content: flex-end;
+                justify-content: flex-start;
               "
-            ></div>
+            >
+              <span>
+                <button
+                  id="createNewCustomer1"
+                  class="createNewTableRecord mr-2"
+                  style="width: 20%"
+                >
+                  <i
+                    style="color: rebeccapurple"
+                    class="fa-solid fa-user-plus"
+                  ></i>
+                </button>
+                Add Customer</span
+              >
+            </div>
             <div class="col-md-3">
               <span class="inputItems">Date:</span>
               <input
@@ -188,7 +204,7 @@
                     margin-left: 3px;
                     display: inline-block;
                   "
-                  >Cash Purchase
+                  >Cash sale
                 </label>
               </div>
               <div style="display: inline-block; margin-left: 10px">
@@ -205,7 +221,7 @@
                     margin-left: 3px;
                     display: inline-block;
                   "
-                  >Credit Purchase</label
+                  >Credit sale</label
                 >
               </div>
             </div>
@@ -236,6 +252,8 @@
                 <div style="display: inline-block">
                   <input
                     type="radio"
+                    id="allowEditDiscountPerUnit"
+                    disabled="true"
                     style="
                       margin-top: 8px;
                       display: inline-block;
@@ -326,8 +344,9 @@
                     class="input-field"
                     #productBarCodeInput
                     [(ngModel)]="productBarCodeId"
-                    (keydown.enter)="goToProductQtyField()"
+                    (keydown.enter)="addTheProductForSale()"
                   />
+                  <!-- ;goToProductQtyField() -->
                   <!-- (keydown.enter)="addTheProductForSale()" -->
                 </div>
               </div>
@@ -342,7 +361,7 @@
                     #prodQtyInput
                     [(ngModel)]="productQty"
                     (keydown.enter)="
-                      addTheProductForSale(); updateBillSummary()
+                      changeProductQuantity(); updateBillSummary()
                     "
                   />
                 </div>
@@ -372,7 +391,7 @@
                   class="submit_btn border-rad"
                   (click)="addTheProductForSale(); updateBillSummary()"
                 >
-                  Add product
+                  Add to bill
                 </button>
               </div>
             </div>
@@ -413,7 +432,7 @@
                 <th>Unit Price</th>
                 <th>Disc %</th>
                 <th>Tax Rate</th>
-                <th>Amount NRP</th>
+                <th>Amount NPR</th>
                 <th>Remove Item</th>
                 <!-- <th>Name</th>
   <th>Quantity</th>
@@ -430,10 +449,10 @@
                   <td>
                     <input
                       type="number"
-                      value="1"
                       style="width: 20%"
                       id="qtyProd{{ i }}"
                       (change)="updateTotalAmount(i); updateBillSummary()"
+                      (keydown.enter)="goToProductId()"
                     />
                     <!-- <span> {{ prod.unit }}</span> -->
                     <span *ngIf="prod.stock <= 10"
@@ -495,14 +514,14 @@
                   <td style="text-align: center; vertical-align: middle">
                     <i
                       class="fa fa-remove text-danger"
-                      (click)="removeItemFromCart(i)"
+                      (click)="removeItemFromCart(i); updateBillSummary()"
                     ></i>
                   </td>
                 </tr>
               </tbody>
             </table>
             <div class="row mt-2 p-3">
-              <div class="col-md-4">
+              <div class="col-md-4 offset-md-8">
                 <div
                   class="card bg-light"
                   style="
@@ -517,18 +536,18 @@
                   <div>
                     <table class="table2">
                       <tr>
-                        <td style="width: 50%"><h3>Net Amount:</h3></td>
+                        <td><h3>Total Amount:</h3></td>
                         <td class="align-right">
                           <span id="total">
-                            {{ bsNetAmount | number : "1.0-0" }}</span
+                            {{ bsSubTotal | number : "1.2-2" }}</span
                           >
                         </td>
                       </tr>
                       <tr>
-                        <td style="width: 50%"><h3>Subtotal:</h3></td>
+                        <td><h3>TaxableAmount:</h3></td>
                         <td class="align-right">
-                          <span id="subtotal">
-                            {{ bsSubTotal | number : "1.0-0" }}</span
+                          <span id="total">
+                            {{ bsVatTaxableAmount | number : "1.2-2" }}</span
                           >
                         </td>
                       </tr>
@@ -536,20 +555,29 @@
                         <td>
                           <h3>
                             Includes VAT @13% on
-                            {{ bsVatTaxableAmount | number : "1.0-0" }}:
+                            {{ bsVatTaxableAmount | number : "1.2-2" }}:
                           </h3>
                         </td>
                         <td class="align-right">
                           <span id="vat">{{
-                            (13 / 100) * bsVatTaxableAmount | number : "1.0-0"
+                            (13 / 100) * bsVatTaxableAmount | number : "1.2-2"
                           }}</span>
                         </td>
                       </tr>
+
                       <tr>
-                        <td><h3>Total:</h3></td>
+                        <td style="width: 50%"><h3>Discount:</h3></td>
                         <td class="align-right">
-                          <span id="total">
-                            {{ bsTotal | number : "1.0-0" }}</span
+                          <span id="discount">
+                            {{ bsDiscountAmount | number : "1.2-2" }}</span
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="width: 50%"><h3>Total :</h3></td>
+                        <td class="align-right">
+                          <span id="subtotal">
+                            {{ bsTotal | number : "1.2-2" }}</span
                           >
                         </td>
                       </tr>
@@ -557,7 +585,7 @@
                         <td><h3>Balance due:</h3></td>
                         <td>
                           <span class="ml-4" id="balancedue">{{
-                            bsBalanceDue | number : "1.0-0"
+                            bsBalanceDue | number : "1.2-2"
                           }}</span>
                         </td>
                       </tr>
@@ -567,7 +595,7 @@
                         </td>
                         <td>
                           <span class="ml-4" id="estimatedFRS">{{
-                            bsEstimatedFRSAmount | number : "1.0-0"
+                            bsEstimatedFRSAmount | number : "1.2-2"
                           }}</span>
                         </td>
                       </tr> -->
@@ -577,18 +605,15 @@
               </div>
             </div>
           </div>
-          <div style="margin: 20px">
+          <div style="margin-top: 20px">
             <!-- <button class="submit_btn border-rad" id="popperAlertLink">
   Sale the product
   </button> -->
-            <button
-              class="submit_btn border-rad"
-              (click)="saleTheProducts(true)"
-            >
+            <button class="submit_btn" (click)="saleTheProducts(true)">
               Save as a Draft
             </button>
             <button
-              class="submit_btn border-rad"
+              class="submit_btn"
               (click)="saleTheProducts(false)"
               #saleTheProductBtn
             >
@@ -640,17 +665,17 @@
     </div>
   </div>
 </div>
-<!-- <div
+<div
   class="popupWrapper createCustomerPopUpWrapper"
-  id="createNewCustomerPopup"
+  id="createNewCustomer1Popup"
   style="display: none"
- >
-  <div class="mb-2"></div>
+>
   <app-create-customer
-  (customerAddedSuccessMsg)="getCompanyList()"
-  [title]="'Customer'"
+    (customerAddedSuccessMsg)="getCompanyList()"
+    (customerAddedSuccessMsg)="customerAddedSuccessfully($event)"
+    [title]="'Customer'"
   ></app-create-customer>
- </div> -->
+</div>
 
 <!-- code start -->
 

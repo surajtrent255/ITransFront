@@ -47,355 +47,351 @@
       >
         <div class="chooseColoumnsWrapper">
           <div class="fieldDiv popUpFormSectionWrapper">
-            <div class="container" style="margin: 10px">
-              <table class="" cellpadding="0" cellspacing="1">
-                <tr>
-                  <!-- <td class="col1 pt-2">
-                    Customer:
-                    <span class="mandatorySign">*</span>
-                  </td> -->
-                  <!-- <td class="col2 pt-2 ml-3">
-                    <input
-                      type="text"
-                      [(ngModel)]="custPhoneOrPan"
-                      class="form-control"
-                      (keydown.enter)="fetchCustomerInfo()"
-                      name="seller"
-                      ngNoForm
-                    />
-                  </td> -->
-                  <!-- <td class="col3">
-                    <i
-                      class="submit_btn border-rad fas far fa-search"
-                      style="margin: 0 5px"
-                      (click)="fetchCustomerInfo()"
-                    ></i>
-                    <button
-                      id="selectCustomer"
-                      class="createNewTableRecord"
-                      style="display: none"
-                    ></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col1 pt-2"></td>
-                  <td class="col2">
-                    <div class="ml-2 mb-2 mt-2">
-                      <span>
-                        <input
-                          type="radio"
-                          name="customerSearch"
-                          value="pan"
-                          (change)="customerSearch(1)"
-                          [checked]="customerSearchMethod === 1"
-                        />
-                        PAN
-                      </span>
-                      <span>
-                        <input
-                          type="radio"
-                          name="customerSearch"
-                          class="ml-3"
-                          value="phone"
-                          [checked]="customerSearchMethod === 2"
-                          (change)="customerSearch(2)"
-                        />
-                        PHONE</span
-                      >
-                    </div>
-                  </td>
-                </tr> -->
-                  <!-- <tr>
-                  <td class="col1 pt-2">
-                    Seller Id :<span class="mandatorySign">*</span>
-                  </td>
-                  <td class="col2">
-                    <input
-                      type="number"
-                      [class.is-invalid]="sellerId.invalid && sellerId.touched"
-                      class="form-control"
-                      id="sellerId"
-                      #sellerId="ngModel"
-                      required
-                      name="sellerId"
-                      readonly
-                      [(ngModel)]="product.sellerId"
-                      required="required"
-                    />
-                  </td>
-                </tr> -->
-                </tr>
-
-                <tr>
-                  <td class="col1 pt-2">
-                    Product Name:<span class="mandatorySign">*</span>
-                  </td>
-                  <td class="col2">
-                    <input
-                      type="text"
-                      [class.is-invalid]="name.invalid && name.touched"
-                      class="form-control"
-                      id="name"
-                      #name="ngModel"
-                      required
-                      name="name"
-                      [(ngModel)]="product.name"
-                      required="required"
-                    />
-                  </td>
-                  <td class="col3">
-                    <small
-                      class="text-danger"
-                      [class.d-none]="name.valid || name.untouched"
-                      >invalid name</small
+            <table class="" cellpadding="0" cellspacing="1">
+              <tr>
+                <!-- <td class="col1 pt-2">
+                  Customer:
+                  <span class="mandatorySign">*</span>
+                </td> -->
+                <!-- <td class="col2 pt-2 ml-3">
+                  <input
+                    type="text"
+                    [(ngModel)]="custPhoneOrPan"
+                    class="form-control"
+                    (keydown.enter)="fetchCustomerInfo()"
+                    name="seller"
+                    ngNoForm
+                  />
+                </td> -->
+                <!-- <td class="col3">
+                  <i
+                    class="submit_btn border-rad fas far fa-search"
+                    style="margin: 0 5px"
+                    (click)="fetchCustomerInfo()"
+                  ></i>
+                  <button
+                    id="selectCustomer"
+                    class="createNewTableRecord"
+                    style="display: none"
+                  ></button>
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2"></td>
+                <td class="col2">
+                  <div class="ml-2 mb-2 mt-2">
+                    <span>
+                      <input
+                        type="radio"
+                        name="customerSearch"
+                        value="pan"
+                        (change)="customerSearch(1)"
+                        [checked]="customerSearchMethod === 1"
+                      />
+                      PAN
+                    </span>
+                    <span>
+                      <input
+                        type="radio"
+                        name="customerSearch"
+                        class="ml-3"
+                        value="phone"
+                        [checked]="customerSearchMethod === 2"
+                        (change)="customerSearch(2)"
+                      />
+                      PHONE</span
                     >
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col1 pt-2">
-                    Description :<span class="mandatorySign">*</span>
-                  </td>
-                  <td class="col2">
-                    <textarea
-                      name="description"
-                      [(ngModel)]="product.description"
-                      required
-                      #description="ngModel"
-                      [class.is-invalid]="
-                        description.invalid && description.touched
-                      "
-                      class="form-control"
-                      id="description"
-                      cols="30"
-                      rows="2"
-                    ></textarea>
-                  </td>
-                  <td class="col3">
-                    <small
-                      class="text-danger"
-                      [class.d-none]="
-                        description.valid || description.untouched
-                      "
-                      >invalid description</small
-                    >
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Select Category:</td>
-                  <td>
-                    <input
-                      type="text"
-                      readOnly
-                      value="{{ selectedCategory.name }}"
-                      class="form-control"
-                      required
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col1 pt-2">
-                    Selling Price:<span class="mandatorySign">*</span>
-                  </td>
-                  <td class="col2">
-                    <input
-                      type="number"
-                      [class.is-invalid]="
-                        sellingPrice.invalid && sellingPrice.touched
-                      "
-                      class="form-control"
-                      id="sellingPrice"
-                      #sellingPrice="ngModel"
-                      name="sellingPrice"
-                      required
-                      sellingPrice="sellingPrice"
-                      [(ngModel)]="product.sellingPrice"
-                      required="required"
-                    />
-                  </td>
-                  <td class="col3">
-                    <small
-                      class="text-danger"
-                      [class.d-none]="
-                        sellingPrice.valid || sellingPrice.untouched
-                      "
-                      >invalid selling price</small
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col1 pt-2">
-                    Quatityperunit:<span class="mandatorySign">*</span>
-                  </td>
-                  <td class="col2">
-                    <input
-                      type="number"
-                      [class.is-invalid]="
-                        qtyPerUnit.invalid && qtyPerUnit.touched
-                      "
-                      class="form-control"
-                      id="qtyPerUnit"
-                      #qtyPerUnit="ngModel"
-                      name="qtyPerUnit"
-                      [(ngModel)]="product.qtyPerUnit"
-                    />
-                  </td>
-                  <!-- <td class="col3">
-                    <small
-                      class="text-danger"
-                      [class.d-none]="qtyPerUnit.valid || qtyPerUnit.untouched"
-                      >invalid qtyPerUnit</small
-                    >
-                  </td> -->
-                </tr>
+                  </div>
+                </td>
+              </tr> -->
                 <!-- <tr>
-                  <td class="col1 pt-2">
-                    Cost Price:<span class="mandatorySign">*</span>
-                  </td>
-                  <td class="col2">
-                    <input
-                      type="number"
-                      [class.is-invalid]="costPrice.invalid && costPrice.touched"
-                      class="form-control"
-                      id="costPrice"
-                      #costPrice="ngModel"
-                      required
-                      name="costPrice"
-                      costPrice="costPrice"
-                      [(ngModel)]="product.costPrice"
-                      required="required"
-                    />
-                  </td>
-                  <td class="col3">
-                    <small
-                      class="text-danger"
-                      [class.d-none]="costPrice.valid || costPrice.untouched"
-                      >invalid costPrice</small
-                    >
-                  </td>
-                </tr> -->
-                <tr>
-                  <td class="col1 pt-2">Bar Code:</td>
-                  <td class="col2">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="barcode"
-                      #barcode="ngModel"
-                      name="barcode"
-                      barcode="barcode"
-                      [(ngModel)]="product.barcode"
-                    />
-                  </td>
-                  <!-- <td class="col3">
-                    <small
-                      class="text-danger"
-                      [class.d-none]="barcode.valid || barcode.untouched"
-                      >invalid barcode</small
-                    >
-                  </td> -->
-                </tr>
-                <tr>
-                  <td class="col1 pt-2">
-                    Discount :<span class="mandatorySign">*</span>
-                  </td>
-                  <td class="col2">
-                    <input
-                      type="number"
-                      [class.is-invalid]="discount.invalid && discount.touched"
-                      class="form-control"
-                      id="discount"
-                      #discount="ngModel"
-                      name="discount"
-                      required
-                      discount="discount"
-                      [(ngModel)]="product.discount"
-                      required="required"
-                    />
-                  </td>
-                  <td class="col3">
-                    <small
-                      class="text-danger"
-                      [class.d-none]="discount.valid || discount.untouched"
-                      >invalid discount</small
-                    >
-                  </td>
-                </tr>
+                <td class="col1 pt-2">
+                  Seller Id :<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                    type="number"
+                    [class.is-invalid]="sellerId.invalid && sellerId.touched"
+                    class="form-control"
+                    id="sellerId"
+                    #sellerId="ngModel"
+                    required
+                    name="sellerId"
+                    readonly
+                    [(ngModel)]="product.sellerId"
+                    required="required"
+                  />
+                </td>
+              </tr> -->
+              </tr>
 
-                <tr>
-                  <td class="col1 pt-2">
-                    Tax :<span class="mandatorySign">*</span>
-                  </td>
-                  <td>
-                    <select
-                      name="tax"
-                      id="tax"
-                      #tax="ngModel"
-                      style="width: 100%"
-                      class="form-control form-select"
-                      [(ngModel)]="product.tax"
-                    >
-                      <option [value]="ap.id" *ngFor="let ap of typerate">
-                        {{ ap.vatRate }} --{{ ap.id }}
-                      </option>
-                    </select>
-                  </td>
-                  <!-- <div
-                    *ngIf="tax.errors && (tax.dirty || tax.touched)"
-                    class="alert alert-danger"
+              <tr>
+                <td class="col1 pt-2">
+                  Product Name:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                    type="text"
+                    [class.is-invalid]="name.invalid && name.touched"
+                    class="form-control"
+                    id="name"
+                    #name="ngModel"
+                    required
+                    name="name"
+                    [(ngModel)]="product.name"
+                    required="required"
+                  />
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="name.valid || name.untouched"
+                    >invalid name</small
                   >
-                    <div [hidden]="!tax.errors">Please select tax.</div>
-                  </div> -->
-
-                  <!-- <td class="col2">
-                    <input
-                      type="number"
-                      [class.is-invalid]="tax.invalid && tax.touched"
-                      class="form-control"
-                      id="tax"
-                      name="tax"
-                      #tax="ngModel"
-                      tax="tax"
-                      [(ngModel)]="product.tax"
-  
-                    />
-                  </td>
-                  <td class="col3">
-                    <small
-                      class="text-danger"
-                      [class.d-none]="tax.valid || tax.untouched"
-                      >invalid tax</small
-                    >
-                  </td> -->
-                </tr>
-                <tr>
-                  <td class="col1 pt-2">
-                    unit :<span class="mandatorySign">*</span>
-                  </td>
-
-                  <td>
-                    <select
-                      class="form-control form-select"
-                      name="unit"
-                      id="unit"
-                      #unit="ngModel"
-                      [(ngModel)]="product.unit"
-                      style="width: 100%"
-                    >
-                      <option [value]="ap.name" *ngFor="let ap of Unit">
-                        {{ ap.name }}
-                      </option>
-                    </select>
-                  </td>
-                  <!-- <div
-                    *ngIf="unit.errors && (unit.dirty || unit.touched)"
-                    class="alert alert-danger"
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  Description :<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <textarea
+                    name="description"
+                    [(ngModel)]="product.description"
+                    required
+                    #description="ngModel"
+                    [class.is-invalid]="
+                      description.invalid && description.touched
+                    "
+                    class="form-control"
+                    id="description"
+                    cols="30"
+                    rows="2"
+                  ></textarea>
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="description.valid || description.untouched"
+                    >invalid description</small
                   >
-                    <div [hidden]="!unit.errors">Please select a unit.</div>
-                  </div> -->
-                </tr>
-              </table>
-            </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Category:</td>
+                <td>
+                  <input
+                    type="text"
+                    readOnly
+                    value="{{ selectedCategory.name }}"
+                    class="form-control"
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  Selling Price:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                    type="number"
+                    [class.is-invalid]="
+                      sellingPrice.invalid && sellingPrice.touched
+                    "
+                    class="form-control"
+                    id="sellingPrice"
+                    #sellingPrice="ngModel"
+                    name="sellingPrice"
+                    required
+                    sellingPrice="sellingPrice"
+                    [(ngModel)]="product.sellingPrice"
+                    required="required"
+                  />
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="
+                      sellingPrice.valid || sellingPrice.untouched
+                    "
+                    >invalid selling price</small
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  Quatityperunit:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                    type="number"
+                    [class.is-invalid]="
+                      qtyPerUnit.invalid && qtyPerUnit.touched
+                    "
+                    class="form-control"
+                    id="qtyPerUnit"
+                    #qtyPerUnit="ngModel"
+                    name="qtyPerUnit"
+                    [(ngModel)]="product.qtyPerUnit"
+                  />
+                </td>
+                <!-- <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="qtyPerUnit.valid || qtyPerUnit.untouched"
+                    >invalid qtyPerUnit</small
+                  >
+                </td> -->
+              </tr>
+              <!-- <tr>
+                <td class="col1 pt-2">
+                  Cost Price:<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                    type="number"
+                    [class.is-invalid]="costPrice.invalid && costPrice.touched"
+                    class="form-control"
+                    id="costPrice"
+                    #costPrice="ngModel"
+                    required
+                    name="costPrice"
+                    costPrice="costPrice"
+                    [(ngModel)]="product.costPrice"
+                    required="required"
+                  />
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="costPrice.valid || costPrice.untouched"
+                    >invalid costPrice</small
+                  >
+                </td>
+              </tr> -->
+              <tr>
+                <td class="col1 pt-2">Bar Code:</td>
+                <td class="col2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="barcode"
+                    #barcode="ngModel"
+                    name="barcode"
+                    barcode="barcode"
+                    [(ngModel)]="product.barcode"
+                  />
+                </td>
+                <!-- <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="barcode.valid || barcode.untouched"
+                    >invalid barcode</small
+                  >
+                </td> -->
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  Discount :<span class="mandatorySign">*</span>
+                </td>
+                <td class="col2">
+                  <input
+                    type="number"
+                    [class.is-invalid]="discount.invalid && discount.touched"
+                    class="form-control"
+                    id="discount"
+                    #discount="ngModel"
+                    name="discount"
+                    required
+                    discount="discount"
+                    [(ngModel)]="product.discount"
+                    required="required"
+                  />
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="discount.valid || discount.untouched"
+                    >invalid discount</small
+                  >
+                </td>
+              </tr>
+
+              <tr>
+                <td class="col1 pt-2">
+                  Tax :<span class="mandatorySign">*</span>
+                </td>
+                <td>
+                  <select
+                    name="tax"
+                    id="tax"
+                    #tax="ngModel"
+                    style="width: 100%"
+                    class="form-control form-select"
+                    [(ngModel)]="product.tax"
+                  >
+                    <option [value]="ap.id" *ngFor="let ap of typerate">
+                      {{ ap.id }}--{{ ap.vatRate }}
+                    </option>
+                  </select>
+                </td>
+                <!-- <div
+                  *ngIf="tax.errors && (tax.dirty || tax.touched)"
+                  class="alert alert-danger"
+                >
+                  <div [hidden]="!tax.errors">Please select tax.</div>
+                </div> -->
+
+                <!-- <td class="col2">
+                  <input
+                    type="number"
+                    [class.is-invalid]="tax.invalid && tax.touched"
+                    class="form-control"
+                    id="tax"
+                    name="tax"
+                    #tax="ngModel"
+                    tax="tax"
+                    [(ngModel)]="product.tax"
+
+                  />
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="tax.valid || tax.untouched"
+                    >invalid tax</small
+                  >
+                </td> -->
+              </tr>
+              <tr>
+                <td class="col1 pt-2">
+                  unit :<span class="mandatorySign">*</span>
+                </td>
+
+                <td>
+                  <select
+                    class="form-control form-select"
+                    name="unit"
+                    id="unit"
+                    #unit="ngModel"
+                    [(ngModel)]="product.unit"
+                    style="width: 100%"
+                  >
+                    <option [value]="ap.name" *ngFor="let ap of Unit">
+                      {{ ap.name }}
+                    </option>
+                  </select>
+                </td>
+                <!-- <div
+                  *ngIf="unit.errors && (unit.dirty || unit.touched)"
+                  class="alert alert-danger"
+                >
+                  <div [hidden]="!unit.errors">Please select a unit.</div>
+                </div> -->
+              </tr>
+            </table>
           </div>
         </div>
         <div class="submitDiv tCenter">

@@ -9,6 +9,7 @@ import { SalesBillServiceService } from 'src/app/service/sales-bill-service.serv
 import { CreditNoteService } from 'src/app/service/shared/Credit-Note/credit-note.service';
 import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-credit-note-invoice',
@@ -16,6 +17,8 @@ import { LoginService } from 'src/app/service/shared/login.service';
   styleUrls: ['./credit-note-invoice.component.css'],
 })
 export class CreditNoteInvoiceComponent {
+  @ViewChild('httptraceTable') httptraceTable!: ElementRef;
+
   billNo!: number;
   SelectedProduct: SalesBillDetailWithProdInfo[] = [];
   salesInvoice: SalesBillInvoice = new SalesBillInvoice();
@@ -72,30 +75,37 @@ export class CreditNoteInvoiceComponent {
   }
 
   exportToExcel() {
-    // const downloadLink = document.createElement('a');
-    // const datatype = 'application/vnd.ms-excel';
-    // const table = document.getElementById('httptrace-table');
-    // const tableHtml = table?.outerHTML.replace(/ /g, '%20');
-    // document.body.appendChild(downloadLink);
-    // downloadLink.href = 'data:' + datatype + ' ' + tableHtml;
-    // downloadLink.download = 'httptrace.xls';
-    // downloadLink.click();
-
     const table = document.getElementById('httptrace-table');
+    const tableHtml = table?.outerHTML.replace(/ /g, '%20');
 
-    // Define the tableExport variable
-    const tableExport: any = window['tableExport'];
+    // Create a new workbook
+    const workbook = XLSX.utils.book_new();
 
-    // Initialize tableExport with the table element
-    const exportInstance = new tableExport.default(table, {
-      exportButtons: false, // Hide the export buttons
+    // Convert the HTML table to a worksheet
+    const worksheet = XLSX.utils.table_to_sheet(table);
+
+    // Add the worksheet to the workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+    // Convert the workbook to an Excel file
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
     });
 
-    // Generate the Excel file
-    exportInstance.exportToExcel();
+    // Create a Blob from the Excel data
+    const blob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
 
-    // Cleanup tableExport instance
-    exportInstance.reset();
+    // Create a download link and trigger the download
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = 'httptrace.xlsx';
+    downloadLink.click();
+
+    // Clean up the URL object
+    URL.revokeObjectURL(downloadLink.href);
   }
 
   submit() {

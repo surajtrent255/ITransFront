@@ -287,9 +287,13 @@
                 <td>{{ product.sellingPrice }}</td>
                 <td>{{ product.barcode }}</td>
                 <td>{{ product.discount }}</td>
-                <td *ngIf="product.tax === 1">No Vat</td>
-                <td *ngIf="product.tax === 2">0 Vat</td>
-                <td *ngIf="product.tax === 3">13% Vat</td>
+                <td>
+                  <ng-container *ngFor="let vat of typerate">
+                    <span *ngIf="vat.id === product.tax">{{
+                      vat.vatRate
+                    }}</span>
+                  </ng-container>
+                </td>
                 <td>{{ product.userId }}</td>
                 <td>{{ product.companyId }}</td>
                 <td>{{ product.branchId }}</td>
@@ -317,19 +321,23 @@
           </table>
         </div>
       </div>
-    </div>
 
-    <div class="popupWrapper" id="createNewProductPopup" style="display: none">
-      <app-create-product
-        (productInfoEvent)="createNewProduct($event)"
-      ></app-create-product>
-    </div>
+      <div
+        class="popupWrapper"
+        id="createNewProductPopup"
+        style="display: none"
+      >
+        <app-create-product
+          (productInfoEvent)="createNewProduct($event)"
+        ></app-create-product>
+      </div>
 
-    <div class="popupWrapper" id="editProductPopup" style="display: none">
-      <app-editproduct
-        [productId]="productInfoForUpdateId"
-        (updatedSuccessful)="fetchAllProductsAfterEdit()"
-      ></app-editproduct>
+      <div class="popupWrapper" id="editProductPopup" style="display: none">
+        <app-editproduct
+          [productId]="productInfoForUpdateId"
+          (updatedSuccessful)="fetchAllProductsAfterEdit()"
+        ></app-editproduct>
+      </div>
     </div>
   </div>
 </div>

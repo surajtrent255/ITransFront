@@ -10,6 +10,7 @@ import { PurchaseBillDetail } from 'src/app/models/PurchaseBillDetail';
 import { PurchaseBillMaster } from 'src/app/models/PurchaseBillMaster';
 import { SalesBillDetail } from 'src/app/models/SalesBillDetail';
 import { UserFeature } from 'src/app/models/UserFeatures';
+import { VatRateTypes } from 'src/app/models/VatRateTypes';
 import { Company } from 'src/app/models/company';
 import { ProductService } from 'src/app/service/product.service';
 import { PurchaseBillService } from 'src/app/service/purchase-bill.service';
@@ -26,7 +27,13 @@ import { SalesCartService } from 'src/app/service/shared/sales-cart-service.serv
 export class CreatePurchaseBillComponent {
   @ViewChild('createtransportationForm') createtransportationForm!: NgForm;
   @ViewChild('loading', { static: false }) loadingInput!: ElementRef;
-  @ViewChild('prodIdInput', { static: false }) prodIdInput !: ElementRef;
+  @ViewChild('transportationTax', { static: false })
+  transportationTaxInput!: ElementRef;
+  @ViewChild('insuranceTax', { static: false }) insuranceTaxInput!: ElementRef;
+  @ViewChild('loadingTax', { static: false }) loadingTaxInput!: ElementRef;
+  @ViewChild('otherTax', { static: false }) otherTaxInput!: ElementRef;
+  @ViewChild('submit_btn', { static: false }) buttonInput!: ElementRef;
+  @ViewChild('prodIdInput', { static: false }) prodIdInput!: ElementRef;
   @ViewChild('#insuranceField', { static: false }) insuranceInput!: ElementRef;
   @ViewChild('other', { static: false }) otherInput!: ElementRef;
   selectSenderActive: boolean = false;
@@ -50,6 +57,8 @@ export class CreatePurchaseBillComponent {
   branchId!: number;
   productsUserWantToPurchase: Product[] = [];
   purchaseBillDetailInfos: PurchaseBillDetail[] = [];
+  formpurchaseBill: PurchaseBill[] = [];
+  typerate: VatRateTypes[] = [];
   featureObjs: UserFeature[] = [];
   searchByBarCode: boolean = false;
   selectProductActive: boolean = false;
@@ -57,9 +66,13 @@ export class CreatePurchaseBillComponent {
   insurance: number = 0.0;
   loading: number = 0.0;
   other: number = 0.0;
+  taxTypeId!: number;
+  transportationTaxType: number = 3;
+  insuranceTaxType: number = 3;
+  loadingTaxType: number = 3;
+  otherTaxType: number = 3;
 
   prodWildCard!: string;
-
 
   constructor(
     private salesCartService: SalesCartService,
@@ -79,6 +92,8 @@ export class CreatePurchaseBillComponent {
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.featureObjs = this.loginService.getFeatureObjs();
+
+    this.getAllVatRateTypes();
     this.featureObjs.forEach((fo) => {
       if (fo.featureId === 2) {
         this.searchByBarCode = true;
@@ -114,6 +129,12 @@ export class CreatePurchaseBillComponent {
         }
       });
   }
+  getAllVatRateTypes() {
+    this.productService.getAllVatRateTypes().subscribe((res) => {
+      console.log(res.data);
+      this.typerate = res.data;
+    });
+  }
 
   getCompanyList() {
     this.companyService.getAllCompanies().subscribe({
@@ -135,6 +156,7 @@ export class CreatePurchaseBillComponent {
     if ($event.target.value === undefined) {
       return;
     }
+
     let qtyProd = $event.target.value;
     const prodtotalAmountElement = document.getElementById(
       'totalAmount' + prodIndex
@@ -143,7 +165,7 @@ export class CreatePurchaseBillComponent {
     const unitPriceEl = document.getElementById(
       'unitPrice' + prodIndex
     ) as HTMLInputElement;
-    let sp: number = Number(unitPriceEl.value)
+    let sp: number = Number(unitPriceEl.value);
     let prodTotalAmount = Number(qtyProd) * sp;
     prodtotalAmountElement.innerText = '' + prodTotalAmount;
   }
@@ -175,7 +197,6 @@ export class CreatePurchaseBillComponent {
       .subscribe({
         next: (data) => {
           this.selectMenusForProduct = data.data;
-
         },
       });
   }
@@ -228,9 +249,27 @@ export class CreatePurchaseBillComponent {
   setSaleType(id: number) {
     this.saleType = id;
   }
+  goTopurchesebuttom() {
+    const insurancefiledEl = document.getElementById(
+      'submit_btn'
+    ) as HTMLInputElement;
+    insurancefiledEl.focus();
+  }
+  goToOtherTaxField() {
+    const insurancefiledEl = document.getElementById(
+      'otherTaxType'
+    ) as HTMLInputElement;
+    insurancefiledEl.focus();
+  }
   goToOtherField() {
     const insurancefiledEl = document.getElementById(
       'other'
+    ) as HTMLInputElement;
+    insurancefiledEl.focus();
+  }
+  goToLoadingTaxField() {
+    const insurancefiledEl = document.getElementById(
+      'loadingTax'
     ) as HTMLInputElement;
     insurancefiledEl.focus();
   }
@@ -240,9 +279,21 @@ export class CreatePurchaseBillComponent {
     ) as HTMLInputElement;
     insurancefiledEl.focus();
   }
+  goToInsuranceTaxField() {
+    const insurancefiledEl = document.getElementById(
+      'insuranceTax'
+    ) as HTMLInputElement;
+    insurancefiledEl.focus();
+  }
   goToInsuranceField() {
     const insurancefiledEl = document.getElementById(
       'insurance'
+    ) as HTMLInputElement;
+    insurancefiledEl.focus();
+  }
+  goToTransportationTaxField() {
+    const insurancefiledEl = document.getElementById(
+      'transportationTax'
     ) as HTMLInputElement;
     insurancefiledEl.focus();
   }
@@ -250,7 +301,6 @@ export class CreatePurchaseBillComponent {
   destroySelectSenderComponent($event: boolean) {
     this.selectSenderActive = false;
   }
-
 
   destroySelectProductComponent($event: boolean) {
     this.selectProductActive = false;
@@ -266,7 +316,7 @@ export class CreatePurchaseBillComponent {
         next: (data) => {
           this.selectMenusForCompanies = data.data;
           this.selectMenusForCompaniesSize = data.data.length;
-          this.setSellerInfo($event)
+          this.setSellerInfo($event);
         },
       });
   }
@@ -292,6 +342,7 @@ export class CreatePurchaseBillComponent {
     this.productsUserWantToPurchase.forEach((prod, index) => {
       let purchaseBillDetail: PurchaseBillDetail = new PurchaseBillDetail();
       purchaseBillDetail.productId = prod.id;
+      purchaseBillDetail.taxTypeId = prod.tax;
       let qtyElement = document.getElementById(
         'qtyProd' + index
       ) as HTMLInputElement;
@@ -341,9 +392,14 @@ export class CreatePurchaseBillComponent {
     purchaseBill.billActive = true;
 
     purchaseBill.transportation = this.transportation;
+    purchaseBill.transportationTaxType = this.transportationTaxType;
+
     purchaseBill.insurance = this.insurance;
+    purchaseBill.insuranceTaxType = this.insuranceTaxType;
     purchaseBill.loading = this.loading;
+    purchaseBill.loadingTaxType = this.loadingTaxType;
     purchaseBill.other = this.other;
+    purchaseBill.otherTaxType = this.otherTaxType;
     purchaseBillMaster.purchaseBillDTO = purchaseBill;
     purchaseBillMaster.purchaseBillDetails = this.purchaseBillDetailInfos;
 

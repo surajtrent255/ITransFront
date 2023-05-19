@@ -17,19 +17,14 @@ import { Unit } from 'src/app/models/Unit';
   styleUrls: ['./create-product.component.css'],
 })
 export class CreateProductComponent {
-
   @Output() productInfoEvent = new EventEmitter<number>();
   @Output() destroyCreateProd = new EventEmitter<boolean>(false);
   product: Product = new Product();
 
   availableCategories: CategoryProduct[] = [];
-  selectedCategory: CategoryProduct = new CategoryProduct;
+  selectedCategory: CategoryProduct = new CategoryProduct();
   typerate: VatRateTypes[] = [];
   Unit: Unit[] = [];
-
-
-
-
 
   constructor(
     private productService: ProductService,
@@ -37,23 +32,19 @@ export class CreateProductComponent {
     private loginService: LoginService,
     private toastrService: ToastrService,
     private companyService: CompanyServiceService,
-    private selectCategoryService: SelectCategoryServiceService,
-
-
-  ) { }
+    private selectCategoryService: SelectCategoryServiceService
+  ) {}
 
   compId!: number;
-  branchId !: number;
+  branchId!: number;
   catSelected: boolean = false;
 
   customerSearchMethod: number = 1;
-  custPhoneOrPan !: number;
-  selectMenusForCompanies !: Company[];
-  selectMenusForCompaniesSize !: number;
-  selectedSellerCompanyId !: number;
-  unit:string='other';
-
-
+  custPhoneOrPan!: number;
+  selectMenusForCompanies!: Company[];
+  selectMenusForCompaniesSize!: number;
+  selectedSellerCompanyId!: number;
+  unit: string = 'other';
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
@@ -61,7 +52,6 @@ export class CreateProductComponent {
     this.fetchAllCategories();
     this.getAllVatRateTypes();
     this.getALLUnit();
-
   }
 
   fetchAllCategories() {
@@ -73,16 +63,17 @@ export class CreateProductComponent {
   }
 
   ngAfterViewInit() {
-    this.selectCategoryService.selectedCategoryForCatCreationSubject.subscribe((cat) => {
-      this.selectedCategory = cat;
-      this.product.categoryId = cat.id;
-    });
+    this.selectCategoryService.selectedCategoryForCatCreationSubject.subscribe(
+      (cat) => {
+        this.selectedCategory = cat;
+        this.product.categoryId = cat.id;
+      }
+    );
   }
 
   // customerSearch(id: number) {
   //   this.customerSearchMethod = id;
   // }
-
 
   // fetchCustomerInfo() {
   //   if (this.custPhoneOrPan === null || this.custPhoneOrPan === undefined) {
@@ -113,21 +104,20 @@ export class CreateProductComponent {
   //   closeCustomerPopUpEl.click();
   // }
   getAllVatRateTypes() {
-
-    this.productService.getAllVatRateTypes().subscribe(res => {
-      console.log(res.data)
+    this.productService.getAllVatRateTypes().subscribe((res) => {
+      console.log(res.data);
       this.typerate = res.data;
     });
   }
   getALLUnit() {
-    this.productService.getAllUnit().subscribe(res => {
+    this.productService.getAllUnit().subscribe((res) => {
       this.Unit = res.data;
-    })
+    });
   }
 
   createProduct(form: any) {
     if (this.product.categoryId === undefined || this.product.categoryId <= 0) {
-      this.toastrService.warning("select category");
+      this.toastrService.warning('select category');
       return;
     }
     this.product.companyId = this.compId;
@@ -139,29 +129,30 @@ export class CreateProductComponent {
     this.productService.addNewProduct(this.product, 0).subscribe({
       next: (data) => {
         console.log(data.data);
-        this.toastrService.success("product has been added with id " + data.data)
+        this.toastrService.success(
+          'product has been added with id ' + data.data
+        );
         this.productInfoEvent.emit(data.data);
 
-        console.log("next" + this.product.tax);
+        console.log('next' + this.product.tax);
       },
       error: (error) => {
         console.log('Error occured ');
-
       },
       complete: () => {
         this.catSelected = false;
-        console.log("complete" + this.product.tax);
+        console.log('complete' + this.product.tax);
       },
     });
 
-    console.log("functionout" + this.product.unit);
+    console.log('functionout' + this.product.unit);
     console.log('product.component.ts');
-    form.reset({ discount: 0 , qtyPerUnit: 1 , unit:'other' ,tax: 3 });
+    form.reset({ discount: 0, qtyPerUnit: 1, unit: 'other', tax: 3 });
   }
 
   customerAdded($event) {
     if ($event === true) {
-      this.toastrService.success("Customer Has been added ");
+      this.toastrService.success('Customer Has been added ');
     }
   }
 
