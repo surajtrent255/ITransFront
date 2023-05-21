@@ -548,7 +548,6 @@ export class CreateSalesComponent {
       )
       .subscribe({
         next: (data) => {
-          alert(JSON.stringify(data))
           if (data.data === null)
             this.tostrService.error('product not available');
           this.productBarCodeInput.nativeElement.focus();
