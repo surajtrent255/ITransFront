@@ -43,7 +43,7 @@
                     />
                     <span class="ml-2">Alter Price</span>
                   </ul>
-                  <ul class="ml-3" *ngIf="feature.featureId === 1">
+                  <ul class="ml-3" *ngIf="feature.featureId === 5">
                     <input
                       type="checkbox"
                       [checked]="allowEditDiscountPerUnit"
@@ -55,7 +55,10 @@
               </div>
             </div>
             <div class="col-md-3">
-              <span class="inputItems">To: {{ customerName }}</span>
+              <span class="inputItems"
+                >To:
+                <p id="to">{{ customerName }}</p></span
+              >
               <div style="display: flex; align-items: center">
                 <input
                   type="text"

@@ -108,7 +108,7 @@ export class CreateSalesComponent {
   allowEditSellingPrice: boolean = false;
   allowEditDiscountPerUnit: boolean = false;
   hasAbbr: boolean = false;
-
+  isAbbrFeature: boolean = false;
   // for bill Summary
   bsSubTotal: number = 0;
   bsNetAmount: number = 0;
@@ -144,6 +144,9 @@ export class CreateSalesComponent {
     this.featureObjs.forEach((fo) => {
       if (fo.featureId === 2) {
         this.searchByBarCode = true;
+      }
+      if (fo.featureId === 6) {
+        this.isAbbrFeature = true;
       }
     });
     this.currentBranch = 'Branch ' + this.branchId;
@@ -256,6 +259,8 @@ export class CreateSalesComponent {
 
         this.customerId = salesBillInvoice.salesBillDTO.customerId;
         this.customerName = salesBillInvoice.salesBillDTO.customerName;
+        const toEl = document.getElementById("to") as HTMLSpanElement;
+        toEl.innerText = this.customerName
         this.customerPan = salesBillInvoice.salesBillDTO.customerPan;
 
         let productsIds: number[] = [];
@@ -303,6 +308,10 @@ export class CreateSalesComponent {
       qtyEl.value = String(salesProd.qty);
       discountEl.value = String(salesProd.discountPerUnit);
       totalAmountEl.innerText = String(salesProd.rowTotal);
+      setTimeout(() => {
+        this.updateTotalAmount(index)
+
+      })
     });
   }
 
@@ -539,8 +548,10 @@ export class CreateSalesComponent {
       )
       .subscribe({
         next: (data) => {
+          alert(JSON.stringify(data))
           if (data.data === null)
             this.tostrService.error('product not available');
+          this.productBarCodeInput.nativeElement.focus();
 
           if (data.data !== null) {
             this.prodWildCard = data.data.name;
@@ -800,14 +811,16 @@ export class CreateSalesComponent {
     }
 
     // for abbrevationBill
-
-    if (this.unknownCustomer || (!this.doesCustomerhavePan)) {
-      if (this.bsTotal < 1000) {
-        this.hasAbbr = true;
-      } else {
-        this.hasAbbr = false;
+    if (this.isAbbrFeature) {
+      if (this.unknownCustomer || (!this.doesCustomerhavePan)) {
+        if (this.bsTotal < 1000) {
+          this.hasAbbr = true;
+        } else {
+          this.hasAbbr = false;
+        }
       }
     }
+
     //
     this.productsUserWantTosale.forEach((prod, index) => {
       let saleBillDetail: SalesBillDetail = new SalesBillDetail();

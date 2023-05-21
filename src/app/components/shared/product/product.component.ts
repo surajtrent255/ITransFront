@@ -22,9 +22,9 @@ export class ProductComponent {
   page: number = 1;
   count: number = 0;
   tableSize: number = 10;
-  tableSizes: any = [5, 10, 15, 20];
+  tableSizes: any = [1, 10, 15, 20];
 
-
+  searchProductName: string = ''
 
   availableProducts: Product[] = [];
   availableCategories: CategoryProduct[] = [];
@@ -36,7 +36,7 @@ export class ProductComponent {
     private loginService: LoginService,
     private router: Router,
     private toastrService: ToastrService
-  ) {}
+  ) { }
 
   newProduct!: Product;
   IsAuditor!: boolean;
@@ -58,7 +58,10 @@ export class ProductComponent {
     }
 
     // pagination
+    this.tableSize = 1;
+    this.page = 1;
     this.postList();
+
   }
 
   postList(): void {
