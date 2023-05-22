@@ -4,6 +4,7 @@ import {
   EventEmitter,
   HostListener,
   Output,
+  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -129,7 +130,8 @@ export class CreateSalesComponent {
     private companyService: CompanyServiceService,
     private vatRateTypeService: VatRateTypesService,
     private activatedRoute: ActivatedRoute,
-    private tostrService: ToastrService
+    private tostrService: ToastrService,
+    private renderer: Renderer2
   ) {
     const currentDateObj = new Date();
     const datePipe = new DatePipe('en-US');
@@ -551,7 +553,6 @@ export class CreateSalesComponent {
           if (data.data === null)
             this.tostrService.error('product not available');
           this.productBarCodeInput.nativeElement.focus();
-
           if (data.data !== null) {
             this.prodWildCard = data.data.name;
             this.productsUserWantTosale.push(data.data);
@@ -597,9 +598,12 @@ export class CreateSalesComponent {
               // this.prodQtyInput.nativeElement.focus();
               // for focusing ends
             });
+            this.prodQtyInput.nativeElement.focus();
+            this.prodQtyInput.nativeElement.select();
           }
 
-          this.prodQtyInput.nativeElement.focus();
+
+
         },
       });
   }
@@ -697,6 +701,7 @@ export class CreateSalesComponent {
     addedProductQtyEl.value = String(this.productQty);
     this.updateTotalAmount(this.productsUserWantTosale.length - 1) // lenght -1 give array cureent last element index
     this.productBarCodeInput.nativeElement.focus();
+    this.productBarCodeInput.nativeElement.select();
   }
 
   updateBillSummary() {
@@ -936,7 +941,10 @@ export class CreateSalesComponent {
       next: (data) => {
         console.log(data);
         if (draft === false) {
-          this.router.navigateByUrl(`dashboard/salesbill/invoice/${data.data}`);
+          this.router.navigateByUrl(`dashboard/salesbill`);
+
+          window.open(`dashboard/salesbill/invoice/${data.data}`, '_blank');
+
         } else {
           alert('Draft has been saved ');
           this.router.navigateByUrl('dashboard/salesbill');

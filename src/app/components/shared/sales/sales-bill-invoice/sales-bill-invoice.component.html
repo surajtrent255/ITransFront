@@ -1,4 +1,8 @@
-<div id="printable-content" class="contentRecordsTableContainer MainContainer">
+<div
+  id="printable-content"
+  class="contentRecordsTableContainer MainContainer"
+  style="width: 100%; height: 100%"
+>
   <div class="recordTableWrapper" style="height: auto">
     <div class="recordCategory">
       <h2 class="text-center" id="" style="font-weight: bold !important">
@@ -11,14 +15,17 @@
       <div class="cboth"></div>
     </div>
 
-    <div class="popupSubHeadingDiv">
-      <h1 class="heading">Invoice of the sold products</h1>
+    <div class="popupSubHeadingDiv" class="text-center p-2">
+      <h1 class="heading">{{ company.name }}</h1>
+      <h2>
+        Address: {{ company.state }}, {{ company.district }},
+        {{ company.munVdc }}
+      </h2>
+      <h2>Phone: {{ company.phone }}</h2>
+      <h2>Pan no: {{ company.panNo }}</h2>
     </div>
     <div class="popupContentWrapper">
       <div class="row">
-        <h5 class="text-center" style="font-weight: bold !important">
-          Tax Invoice
-        </h5>
         <div class="col-md-6">
           <span>
             <span style="font-weight: bold !important">Bill Number:</span>
@@ -71,7 +78,7 @@
           > -->
           <br />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4 offset-md-2">
           <span>
             <span style="font-weight: bold !important">Transaction Date:</span>
             {{ salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd" }}</span
@@ -170,9 +177,7 @@
           <div class="col-md-12">
             (In Words:
             {{
-              salesInvoice.salesBillDTO.totalAmount
-                | number : "1.0-0"
-                | numberToWords
+              salesInvoice.salesBillDTO.totalAmount | rounding | numberToWords
             }})
           </div>
         </div>

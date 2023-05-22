@@ -24,13 +24,22 @@ export class SalesBillInvoiceComponent {
   salesInvoice: SalesBillInvoice = new SalesBillInvoice;
   printButtonVisiability: boolean = true;
 
-  constructor(private salesBillService: SalesBillServiceService, private loginService: LoginService, private tostrService: ToastrService,
-    private activatedRoute: ActivatedRoute, private router: Router) { }
+
+  company: any;
+  constructor(private salesBillService: SalesBillServiceService,
+    private loginService: LoginService,
+    private tostrService: ToastrService,
+    private activatedRoute: ActivatedRoute, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     let billId: number = this.activatedRoute.snapshot.params['billId'];
     this.fetchSalesBillInvoice(billId);
+    this.company = this.loginService.getCompany();
     console.log("salebill init");
+
+
+    // window.print();
+
   }
 
   fetchSalesBillInvoice(billId: number) {
@@ -38,11 +47,15 @@ export class SalesBillInvoiceComponent {
       next: (data: RJResponse<SalesBillInvoice>) => {
         this.salesInvoice = data.data;
         this.salesInvoice.salesBillDTO.totalAmount = this.salesInvoice.salesBillDTO.totalAmount;
+        // setTimeout(() => {
+        //   const printContents = document.getElementById('printable-content')!.innerHTML;
+        //   const originalContents = document.body.innerHTML;
 
+        //   document.body.innerHTML = printContents;
+        // })
       }
     })
   }
-
 
 
   printTheBill(billId: number) {
@@ -52,7 +65,6 @@ export class SalesBillInvoiceComponent {
 
     this.salesBillService.printTheBill(billId, userId).subscribe({
       next: (data) => {
-        this.tostrService.success("bill is printed successfully ")
         console.log("bill is printed Successfully");
       },
       error: (error) => {
@@ -60,22 +72,31 @@ export class SalesBillInvoiceComponent {
       },
       complete: () => {
         // this.fetchSalesBillInvoice(billId);
-        // this.router.navigateByUrl(`dashboard/salesbill`);
         const printContents = document.getElementById('printable-content')!.innerHTML;
         const originalContents = document.body.innerHTML;
-
         document.body.innerHTML = printContents;
         window.print();
         this.printButtonVisiability = true;
         document.body.innerHTML = originalContents;
+        this.tostrService.success("bill is printed successfully ")
+        setTimeout(() => {
+          window.close();
+        }, 1500)
+
+
+
+
       }
     })
-
-
   }
 
   ngOnDestroy() {
     console.log("destorying sales-bill-invoice component")
   }
+
+  goToBillListPage() {
+    this.router.navigateByUrl("http://google.com")
+  }
+
 
 }

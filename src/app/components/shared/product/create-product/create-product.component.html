@@ -1,6 +1,6 @@
 <div class="popupHeading">
   <h2 class="fleft">Create Product</h2>
-  <a class="closeButton fright" (click)="destroyComp()"
+  <a class="closeButton fright" style="cursor: pointer" (click)="destroyComp()"
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
   <div class="cboth"></div>
@@ -232,13 +232,9 @@
                     "
                     class="form-control"
                     id="qtyPerUnit"
-                    
                     #qtyPerUnit="ngModel"
                     name="qtyPerUnit"
                     [(ngModel)]="product.qtyPerUnit"
-                   
-                    
-                    
                   />
                 </td>
                 <!-- <td class="col3">
@@ -324,24 +320,21 @@
               </tr>
 
               <tr>
-                <td class="col1 pt-2" >
+                <td class="col1 pt-2">
                   Tax :<span class="mandatorySign">*</span>
                 </td>
-                <td  >
+                <td>
                   <select
                     name="tax"
                     id="tax"
                     #tax="ngModel"
-                    style="width: 100% "
-                    class="form-control  form-select"
+                    style="width: 100%"
+                    class="form-control form-select"
                     [(ngModel)]="product.tax"
-                    
-                    
                   >
                     <option [value]="ap.id" *ngFor="let ap of typerate">
-                      {{ ap.id }}--{{ ap.vatRate }} 
+                      {{ ap.id }}--{{ ap.vatRate }}
                     </option>
-                    
                   </select>
                 </td>
                 <!-- <div
@@ -373,28 +366,23 @@
                 </td> -->
               </tr>
               <tr>
-                
                 <td class="col1 pt-2">
                   unit :<span class="mandatorySign">*</span>
                 </td>
-                  
-                  <td>
+
+                <td>
                   <select
-                 
-                  class="form-control form-select"
+                    class="form-control form-select"
                     name="unit"
                     id="unit"
                     #unit="ngModel"
                     [(ngModel)]="product.unit"
                     style="width: 100%"
-                    
                   >
-                    <option [value]="ap.name" *ngFor="let ap of Unit" >
-                      {{ ap.name }}  
+                    <option [value]="ap.name" *ngFor="let ap of Unit">
+                      {{ ap.name }}
                     </option>
-                    
                   </select>
-                 
                 </td>
                 <!-- <div
                   *ngIf="unit.errors && (unit.dirty || unit.touched)"

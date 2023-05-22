@@ -86,6 +86,7 @@ import { CreditNoteListComponent } from './components/shared/credit-note/credit-
 import { DebitNoteListComponent } from './components/shared/debit-note/debit-note-list/debit-note-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ConfirmAlertComponent } from './components/shared/confirm-alert/confirm-alert.component';
+import { RoundingPipe } from './custompipes/RoundingPipe';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { ConfirmAlertComponent } from './components/shared/confirm-alert/confirm
     SalesBillInvoiceComponent,
     SalesBillEditComponent,
     NumberToWordTransformPipe,
+    RoundingPipe,
     PopupComponent,
     CreateCustomerComponent,
     SelectCustomerComponent,

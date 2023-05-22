@@ -37,7 +37,6 @@ export class SalesBillingComponent {
   ) { }
 
   ngOnInit() {
-    console.log('sales-billingbasecomp');
     this.loggedUser = JSON.parse(localStorage.getItem('User')!);
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
@@ -225,6 +224,8 @@ export class SalesBillingComponent {
   }
 
   goForPrint(id: number) {
-    this.router.navigateByUrl(`dashboard/salesbill/invoice/${id}`);
+    // this.router.navigateByUrl(`dashboard/salesbill/invoice/${id}`);
+    window.open(`dashboard/salesbill/invoice/${id}`, '_blank');
+    window.focus();
   }
 }

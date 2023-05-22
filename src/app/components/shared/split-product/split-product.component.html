@@ -1,151 +1,151 @@
 <!-- View TABLE OF SPLIT QUANTUITY
   -->
-  <div class="contentRecordsTableContainer MainContainer">
-    <div class="recordTableWrapper">
-      <div class="recordCategory">
-        <h2 class="text-center" id="totalGroupCombinations"></h2>
+<div class="contentRecordsTableContainer MainContainer">
+  <div class="recordTableWrapper">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations"></h2>
+      <div class="cboth"></div>
+    </div>
+    <div class="searchCreateTableDiv">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText hintText"
+            type="text"
+            search="openForm"
+            value="bankName"
+          />
+          <input
+            type="image"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a href="#" class="genLink">Clear searchs</a>
+        </div>
+        <div class="fright" class="createCategoryDiv">
+          <a href="" id="createNewCategory" class="createNewTableRecord">
+            <img src="../../../../assets/resources/images/createProduct.png" />
+            <span (click)="openForm()"> split product</span>
+          </a>
+        </div>
         <div class="cboth"></div>
       </div>
-      <div class="searchCreateTableDiv">
-        <div class="searchCreateDiv">
-          <div class="fleft searchDiv" id="prodSearch">
-            <input
-              class="inputText hintText"
-              type="text"
-              search="openForm"
-              value="bankName"
-            />
-            <input
-              type="image"
-              src="../../../assets/resources/images/searchButton.png"
-              class="serachButton"
-              title="Search Term"
-            />
-            <a href="#" class="genLink">Clear searchs</a>
-          </div>
-          <div class="fright" class="createCategoryDiv">
-            <a href="" id="createNewCategory" class="createNewTableRecord">
-              <img src="../../../../assets/resources/images/createProduct.png" />
-              <span (click)="openForm()"> split product</span>
-            </a>
-          </div>
-          <div class="cboth"></div>
-        </div>
-        <div class="tableWrapper">
-          <div class="tablesettingDiv">
-            <div class="fleft filterListWrapper">
-              <div class="fleft">
-                <span class="italicText"></span>
-              </div>
-              <ul
-                class="fleft filtersDisplayList CategoriesTableFiltersDisplayList"
-              ></ul>
-              <div class="cboth"></div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fleft filterListWrapper">
+            <div class="fleft">
+              <span class="italicText"></span>
             </div>
-            <div class="fright configNavTableWrapper">
-              <div
-                class="fleft configTableDiv newFilterItem"
-                dropdownId="CategoriesTableFilters"
-              >
-                <a href="" class="">
-                  <img
-                    src="../../../assets/resources/images/newfilter-bg.png"
-                    alt="New Filter"
-                    title="Add new filter"
-                  />
-                  <span id="newCategoryFilter" search="off">New Filter</span>
-                </a>
+            <ul
+              class="fleft filtersDisplayList CategoriesTableFiltersDisplayList"
+            ></ul>
+            <div class="cboth"></div>
+          </div>
+          <div class="fright configNavTableWrapper">
+            <div
+              class="fleft configTableDiv newFilterItem"
+              dropdownId="CategoriesTableFilters"
+            >
+              <a href="" class="">
+                <img
+                  src="../../../assets/resources/images/newfilter-bg.png"
+                  alt="New Filter"
+                  title="Add new filter"
+                />
+                <span id="newCategoryFilter" search="off">New Filter</span>
+              </a>
+            </div>
+            <div class="fleft configTableDiv">
+              <a href="" class="configTableLink">
+                <img src="../../../assets/resources/images/config-bg.png" />
+                <span>Configure Table</span>
+                <img src="../../../assets/resources/images/th-sort-down.png" />
+              </a>
+              <div class="configTableDropdown" id="CategoriesTableFilters">
+                <ul class="configOptionList" id="CategoryConfigList">
+                  <li class="filterItem">
+                    <span>Recent Filters</span>
+                    <ul class="filterList" id="CategoryFilterList">
+                      <!-- <c:if test="${not empty CategoryFilters}"> -->
+                      <!-- <c:forEach items="${CategoryFilters}" var="filter"> -->
+                      <li>
+                        <a
+                          href=""
+                          class="filterLink CategoryFilterName"
+                          style="
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          "
+                          >filter.name</a
+                        >
+                        <span class="CategoryFilterId" style="display: none"
+                          >filter.id</span
+                        >
+                        <div
+                          class="CategoryFilterReqData hoverData"
+                          style="display: none"
+                        >
+                          filter.reqData
+                        </div>
+                      </li>
+                      <!-- </c:forEach> -->
+                      <!-- </c:if> -->
+                      <!-- <c:if test="${not empty CategoryFilterSeeMore}"> -->
+                      <li class="seeAllFilterLink">
+                        <a href="" class="seeMoreLink">See More</a>
+                        <ul class="allFiltersList CategoryAllFilterList">
+                          <!-- <c:forEach items="${CategoryFilterSeeMore}" var="filter"> -->
+                          <li>
+                            <a
+                              href=""
+                              class="filterLink CategoryFilterName"
+                              style="
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                              "
+                              >filter.name</a
+                            >
+                            <span class="CategoryFilterId" style="display: none"
+                              >filter.id</span
+                            >
+                            <div
+                              class="CategoryFilterReqData hoverData"
+                              style="display: none"
+                            >
+                              filter.reqData
+                            </div>
+                          </li>
+                          <!-- </c:forEach> -->
+                        </ul>
+                      </li>
+                      <!-- </c:if> -->
+                    </ul>
+                  </li>
+                  <li class="chooseCol">
+                    <a href="">Choose Columns</a>
+                  </li>
+                  <li class="recordsPerPage">
+                    <a href="">Records Per Page</a>
+                  </li>
+                  <li class="exportTableLink">
+                    <a href="">Export Table</a>
+                  </li>
+                </ul>
               </div>
-              <div class="fleft configTableDiv">
-                <a href="" class="configTableLink">
-                  <img src="../../../assets/resources/images/config-bg.png" />
-                  <span>Configure Table</span>
-                  <img src="../../../assets/resources/images/th-sort-down.png" />
-                </a>
-                <div class="configTableDropdown" id="CategoriesTableFilters">
-                  <ul class="configOptionList" id="CategoryConfigList">
-                    <li class="filterItem">
-                      <span>Recent Filters</span>
-                      <ul class="filterList" id="CategoryFilterList">
-                        <!-- <c:if test="${not empty CategoryFilters}"> -->
-                        <!-- <c:forEach items="${CategoryFilters}" var="filter"> -->
-                        <li>
-                          <a
-                            href=""
-                            class="filterLink CategoryFilterName"
-                            style="
-                              white-space: nowrap;
-                              overflow: hidden;
-                              text-overflow: ellipsis;
-                            "
-                            >filter.name</a
-                          >
-                          <span class="CategoryFilterId" style="display: none"
-                            >filter.id</span
-                          >
-                          <div
-                            class="CategoryFilterReqData hoverData"
-                            style="display: none"
-                          >
-                            filter.reqData
-                          </div>
-                        </li>
-                        <!-- </c:forEach> -->
-                        <!-- </c:if> -->
-                        <!-- <c:if test="${not empty CategoryFilterSeeMore}"> -->
-                        <li class="seeAllFilterLink">
-                          <a href="" class="seeMoreLink">See More</a>
-                          <ul class="allFiltersList CategoryAllFilterList">
-                            <!-- <c:forEach items="${CategoryFilterSeeMore}" var="filter"> -->
-                            <li>
-                              <a
-                                href=""
-                                class="filterLink CategoryFilterName"
-                                style="
-                                  white-space: nowrap;
-                                  overflow: hidden;
-                                  text-overflow: ellipsis;
-                                "
-                                >filter.name</a
-                              >
-                              <span class="CategoryFilterId" style="display: none"
-                                >filter.id</span
-                              >
-                              <div
-                                class="CategoryFilterReqData hoverData"
-                                style="display: none"
-                              >
-                                filter.reqData
-                              </div>
-                            </li>
-                            <!-- </c:forEach> -->
-                          </ul>
-                        </li>
-                        <!-- </c:if> -->
-                      </ul>
-                    </li>
-                    <li class="chooseCol">
-                      <a href="">Choose Columns</a>
-                    </li>
-                    <li class="recordsPerPage">
-                      <a href="">Records Per Page</a>
-                    </li>
-                    <li class="exportTableLink">
-                      <a href="">Export Table</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="fleft tableNavDiv" id="CategoriesTablePagination">
-                <a href="" class="first first-page pageNumber">
-                  <img src="../../../assets/resources/images/first-page.png" />
-                </a>
-                <a href="" class="prev pageNumber">
-                  <img src="../../../assets/resources/images/prev-page.png" />
-                </a>
-                <span class="showingText">Page</span>
-                <span class="pagedisplay"><span class="pageNum">1</span> </span>
-                <!-- <c:choose>
+            </div>
+            <div class="fleft tableNavDiv" id="CategoriesTablePagination">
+              <a href="" class="first first-page pageNumber">
+                <img src="../../../assets/resources/images/first-page.png" />
+              </a>
+              <a href="" class="prev pageNumber">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+              <!-- <c:choose>
       <c:when test="${(totalCategoryRecords mod 10)!=0}">
       <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
       <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
@@ -157,84 +157,83 @@
       <span class="totalPage">${totalPage}</span>
       </c:otherwise>
       </c:choose> -->
-                <a href="" class="next pageNumber">
-                  <img src="../../../assets/resources/images/next-page.png" />
-                </a>
-                <a href="" class="last last-page pageNumber">
-                  <img src="../../../assets/resources/images/last-page.png" />
-                </a>
-              </div>
+              <a href="" class="next pageNumber">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <a href="" class="last last-page pageNumber">
+                <img src="../../../assets/resources/images/last-page.png" />
+              </a>
             </div>
-            <div class="cboth"></div>
           </div>
-          <div class="recordsTableDiv">
-            <table
-              cellspacing="0"
-              cellpadding="0"
-              class="recordsTable"
-              id="CategoriesRecordsTable"
-            >
-              <thead>
-                <tr>
-                  <th
-                    class="first-child sortable"
-                    sortDir="asc"
-                    sortCol="organization_id"
-                    id="productName"
-                  >
-                    productName
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="organization_name"
-                    id="updatedProductName"
-                  >
-                    updatedProductName
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="customer_name"
-                    id="qty"
-                  >
-                    qty
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="master_name"
-                    id="splitQty"
-                  >
-                    splitQty
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="master_name"
-                    id="price"
-                  >
-                    price
-                  </th>
-                  <th
-                    class="sortable"
-                    sortDir="asc"
-                    sortCol="master_name"
-                    id="unit"
-                  >
-                    unit
-                  </th>
-                 
-  
-                  <th class="last-child">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="prodTable">
-                <tr>
-                  <span class="noProdRecord">No records found</span>
-                </tr>
-                <!-- <c:forEach items="${Categories}" var="Category"> -->
-                <!-- <tr *ngFor="let cat of categoriesData">
+          <div class="cboth"></div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="CategoriesRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="first-child sortable"
+                  sortDir="asc"
+                  sortCol="organization_id"
+                  id="productName"
+                >
+                  productName
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                  id="updatedProductName"
+                >
+                  updatedProductName
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="customer_name"
+                  id="qty"
+                >
+                  qty
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="splitQty"
+                >
+                  splitQty
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="price"
+                >
+                  price
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="unit"
+                >
+                  unit
+                </th>
+
+                <th class="last-child">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <tr>
+                <span class="noProdRecord">No records found</span>
+              </tr>
+              <!-- <c:forEach items="${Categories}" var="Category"> -->
+              <!-- <tr *ngFor="let cat of categoriesData">
       <td>{{ cat.id }}</td>
       <td>{{ cat.name }}</td>
       <td>{{ cat.description }}</td>
@@ -248,65 +247,70 @@
       </a>
       </td>
       </tr> -->
-                <!-- </c:forEach> -->
-              </tbody>
-  
-              <tbody *ngFor="let splitProduct of splitProducts ; let i = index">
-                <tr>
-                  <td>{{ splitProduct.productName }}</td>
-                  <td>{{ splitProduct.updatedProductName }}</td>
-                  <td>{{ splitProduct.qty }}</td>
-                  <td>{{ splitProduct.splitQty }}</td>
-                  <td>{{ splitProduct.price }}</td>
-                  <td>{{ splitProduct.unit }}</td>
-                  
-                  <td class="last-child">
-                    <a
+              <!-- </c:forEach> -->
+            </tbody>
+
+            <tbody *ngFor="let splitProduct of splitProducts; let i = index">
+              <tr>
+                <td>{{ splitProduct.productName }}</td>
+                <td>{{ splitProduct.updatedProductName }}</td>
+                <td>{{ splitProduct.qty }}</td>
+                <td>{{ splitProduct.splitQty }}</td>
+                <td>{{ splitProduct.price }}</td>
+                <td>{{ splitProduct.unit }}</td>
+
+                <td class="last-child">
+                  <a
+                    id="createSplit"
+                    (click)="getTheProductForSplit(splitProduct.id)"
+                    class="createNewTableRecord"
+                  >
+                    <i
                       id="createSplit"
-                      (click)="getTheProductForSplit(splitProduct.id)"
-                      class="createNewTableRecord"
-                    >
-                      <i
-                        id="createSplit"  title=" split product"
-                        class="fas fa-sharp fa-light fa-arrows-split-up-and-left fa-xl"
-                        style="color: #34e00d; padding: auto"
-                      ></i>
-                    </a>
-                    <a
-                      id="createMerge" title="Merge product"
-                      (click)="getTheProductForMerge(splitProduct.id)"
-                      class="createNewTableRecord"
-                    >
-                      <i
-                        class="fas fa-regular fa-code-merge fa-xl"
-                        style="color: #165eda; padding-left: 15%"
-                      ></i>
-                    </a>
-                  </td>
-  
-                  <!-- <td class="last-child">
+                      title=" split product"
+                      class="fas fa-sharp fa-light fa-arrows-split-up-and-left fa-xl"
+                      style="color: #34e00d; padding: auto"
+                    ></i>
+                  </a>
+                  <a
+                    id="createMerge"
+                    title="Merge product"
+                    (click)="getTheProductForMerge(splitProduct.id)"
+                    class="createNewTableRecord"
+                  >
+                    <i
+                      class="fas fa-regular fa-code-merge fa-xl"
+                      style="color: #165eda; padding-left: 15%"
+                    ></i>
+                  </a>
+                </td>
+
+                <!-- <td class="last-child">
         <button id="createSplit" (click)="getTheProductForSplit(splitProduct.id)" class="createNewTableRecord blue" style="margin: 5px;">Re-split</button>
         <button id="createMerge" (click)="getTheProductForMerge(splitProduct.id)" class="createNewTableRecord blue" style="margin: 5px;">Merge</button>
-      
+
       </td> -->
-                </tr>
-              </tbody>
-            </table>
-          </div>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-  
-      <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-        <!-- <div class="popupContentWrapper"> -->
-        <div class="popupHeading  ">
-          <h2 class="fleft">splitProduct</h2>
-          <a class="closeButton fright" id="closeEditButton"
-            ><img
-              src="../../../assets/resources/images/removetablink.png"
-              alt="close"
-          /></a>
-          <div class="cboth"></div>
-          </div>
+    </div>
+
+    <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+      <!-- <div class="popupContentWrapper"> -->
+      <div class="popupHeading">
+        <h2 class="fleft">splitProduct</h2>
+        <a
+          class="closeButton fright"
+          style="cursor: pointer"
+          id="closeEditButton"
+          ><img
+            src="../../../assets/resources/images/removetablink.png"
+            alt="close"
+        /></a>
+        <div class="cboth"></div>
+      </div>
       <div class="popupContentWrapper" *ngIf="showForm">
         <div class="row">
           <div class="col-md-12">
@@ -319,9 +323,7 @@
               <div class="chooseColoumnsWrapper">
                 <div class="fieldDiv popUpFormSectionWrapper">
                   <table class="" cellpadding="0" cellspacing="0">
-                  
                     <tr>
-                      
                       <!-- <td class="col1 pt-2">
                         Product Name:<span class="mandatorySign">*</span>
                       </td> -->
@@ -331,22 +333,22 @@
                           name="productName"
                           id="productName"
                           [(ngModel)]="SplitProductObj.productName"
-                          
+
                           [items]="availableProducts"
                           bindLabel="name"
                           [searchable]="true"
                           [clearable]="true"
-                          
-                        
+
+
                         >
                           <ng-template ng-option-tmp let-item="item">
                             <option class="form-control"  [value]="item.name"  (click)="selectProductId(item.name)">{{ item.name }}</option>
-                            
+
                           </ng-template>
                         </ng-select> -->
-                        <!-- <h1>{{SplitProductObj.productName | json}}</h1> -->
+                      <!-- <h1>{{SplitProductObj.productName | json}}</h1> -->
                       <!-- </td> -->
-                      
+
                       <!-- <td class="col2">
                         <select
                         class="form-control form-select"
@@ -356,8 +358,8 @@
                           #productName="ngModel"
                           [(ngModel)]="SplitProductObj.productName"
                           (ngModelChange)="selectProductId($event)"
-                          
-                        >  
+
+                        >
                           <option
                             *ngFor="let product of availableProducts "
                             [value]="product.name"
@@ -365,8 +367,8 @@
                             {{ product.name }}
                           </option>
                         </select>
-  
-                      </td> 
+
+                      </td>
                       <td class="col3">
                         <i
                           class="submit_btn border-rad fas far fa-search"
@@ -378,8 +380,8 @@
                           class="createNewTableRecord"
                           style="display: none"
                         ></button>
-                      </td> 
-                      
+                      </td>
+
                        <td class="col3">
                         <small
                           class="text-danger"
@@ -390,26 +392,30 @@
                         >
                       </td>
                     </tr> -->
+                    </tr>
+
                     <tr>
                       <td class="col1 pt-2">
                         SearchProductName:<span class="mandatorySign">*</span>
                       </td>
                       <td class="col2">
                         <input
-                        type="text"
+                          type="text"
                           name="productName"
                           required
                           #productName
                           class="form-control"
                           id="productName"
                           (keydown.enter)="getNameWildCard(productName.value)"
-                        >
+                        />
                       </td>
-                      <button style="display:none"  id="selectProduct" class="createNewTableRecord"
-                      > selectProduct</button>
-
-                  
-
+                      <button
+                        style="display: none"
+                        id="selectProduct"
+                        class="createNewTableRecord"
+                      >
+                        selectProduct
+                      </button>
                     </tr>
                     <tr>
                       <td class="col1 pt-2">
@@ -419,14 +425,15 @@
                         <input
                           name="productName"
                           readonly
-                          [(ngModel)]="SplitProductObj.productName "
+                          [(ngModel)]="SplitProductObj.productName"
                           required
                           #productName="ngModel"
-                       
                           class="form-control"
                           id="productName"
-                        >
+                        />
                       </td>
+                    </tr>
+
                     <tr>
                       <td class="col1 pt-2">
                         Product ID:<span class="mandatorySign">*</span>
@@ -435,21 +442,21 @@
                         <input
                           name="productId"
                           readonly
-                          [(ngModel)]="SplitProductObj.productId "
+                          [(ngModel)]="SplitProductObj.productId"
                           required
                           #productId="ngModel"
                           [class.is-invalid]="
-                          productId.invalid && productId.touched
+                            productId.invalid && productId.touched
                           "
                           class="form-control"
                           id="productId"
-                        >
+                        />
                       </td>
                       <td class="col3">
                         <small
                           class="text-danger"
                           [class.d-none]="
-                          productId.valid || productId.untouched
+                            productId.valid || productId.untouched
                           "
                           >invalid description</small
                         >
@@ -463,23 +470,21 @@
                         <input
                           name="qty"
                           readonly
-                          [(ngModel)]=" SplitProductObj.qty"
+                          [(ngModel)]="SplitProductObj.qty"
                           required
                           #qty="ngModel"
-                          [class.is-invalid]="
-                          qty.invalid && qty.touched
-                          "
+                          [class.is-invalid]="qty.invalid && qty.touched"
                           class="form-control"
                           id="qty"
-                        >
+                        />
                       </td>
                       <td class="col3">
                         <small
                           class="text-danger"
                           [class.d-none]="
-                          productId.valid || productId.untouched
+                            productId.valid || productId.untouched
                           "
-                          >invalid  Spliting Ratio</small
+                          >invalid Spliting Ratio</small
                         >
                       </td>
                     </tr>
@@ -489,29 +494,26 @@
                       </td>
                       <td class="col2">
                         <input
-                        type="number"
+                          type="number"
                           name="splitQty"
                           title="check your stock "
-                          [(ngModel)]=" SplitProductObj.splitQty"
+                          [(ngModel)]="SplitProductObj.splitQty"
                           required
                           #splitQty="ngModel"
                           [class.is-invalid]="
-                          splitQty.invalid && splitQty.touched
+                            splitQty.invalid && splitQty.touched
                           "
                           min="0"
                           class="form-control"
                           id="splitQty"
-                        >
+                        />
                       </td>
                       <td class="col3">
                         <small
                           class="text-danger"
-                          [class.d-none]="
-                          splitQty.valid || splitQty.untouched
-                          "
+                          [class.d-none]="splitQty.valid || splitQty.untouched"
                           >invalid Spliting QUANTUITY</small
                         >
-                        
                       </td>
                     </tr>
                     <tr>
@@ -520,79 +522,73 @@
                       </td>
                       <td class="col2">
                         <input
-                        title="updated price pre {{SplitProductObj.unit}}"
+                          title="updated price pre {{ SplitProductObj.unit }}"
                           name="price"
                           type="number"
-                          [(ngModel)]=" SplitProductObj.price"
+                          [(ngModel)]="SplitProductObj.price"
                           required
                           #price="ngModel"
-                          [class.is-invalid]="
-                          price.invalid && price.touched
-                          "
-                          class="form-control "
+                          [class.is-invalid]="price.invalid && price.touched"
+                          class="form-control"
                           id="price"
-                        >
+                        />
                       </td>
                       <td class="col3">
                         <small
                           class="text-danger"
-                          [class.d-none]="
-                          price.valid || price.untouched
-                          "
+                          [class.d-none]="price.valid || price.untouched"
                           >invalid price</small
                         >
                       </td>
                     </tr>
                     <tr>
                       <td class="col1 pt-2">
-                        Splitted Product Name:<span class="mandatorySign">*</span>
+                        Splitted Product Name:<span class="mandatorySign"
+                          >*</span
+                        >
                       </td>
                       <td class="col2">
                         <input
-                        title="{{SplitProductObj.productName + SplitProductObj.unit}}"
+                          title="{{
+                            SplitProductObj.productName + SplitProductObj.unit
+                          }}"
                           name="updatedProductName"
-                          
-                          [(ngModel)]=" SplitProductObj.updatedProductName "
+                          [(ngModel)]="SplitProductObj.updatedProductName"
                           required
                           #updatedProductName="ngModel"
                           [class.is-invalid]="
-                          updatedProductName.invalid && updatedProductName.touched
+                            updatedProductName.invalid &&
+                            updatedProductName.touched
                           "
                           class="form-control"
                           id="updatedProductName"
-                        
-                        >
-                        
+                        />
                       </td>
                       <td class="col3">
-                        
                         <small
                           class="text-danger"
                           [class.d-none]="
-                          updatedProductName.valid || updatedProductName.untouched
+                            updatedProductName.valid ||
+                            updatedProductName.untouched
                           "
-                          >invalid updatedProductName </small
-                        >
+                          >invalid updatedProductName
+                        </small>
                       </td>
                     </tr>
-  
+
                     <tr>
                       <td class="col1 pt-2">
                         Product unit:<span class="mandatorySign">*</span>
                       </td>
                       <td class="col2">
                         <select
-                        class="form-control form-select"
+                          class="form-control form-select"
                           name="unit"
                           id="unit"
                           #unit="ngModel"
                           [(ngModel)]="SplitProductObj.unit"
-                          
                         >
-                          <option
-                            *ngFor="let ap of Unit"
-                            [value]="ap.name"
-                          >
+                          <option *ngFor="let ap of Unit" [value]="ap.name">
                             {{ ap.name }}
                           </option>
                         </select>
@@ -600,9 +596,7 @@
                       <td class="col3">
                         <small
                           class="text-danger"
-                          [class.d-none]="
-                          unit.valid || unit.untouched
-                          "
+                          [class.d-none]="unit.valid || unit.untouched"
                           >invalid productName</small
                         >
                       </td>
@@ -613,17 +607,13 @@
                       </td>
                       <td class="col2">
                         <select
-                        class="form-control form-select"
+                          class="form-control form-select"
                           name="tax"
                           id="tax"
                           #tax="ngModel"
                           [(ngModel)]="SplitProductObj.tax"
-                          
                         >
-                          <option
-                            *ngFor="let ap of typerate"
-                            [value]="ap.id"
-                          >
+                          <option *ngFor="let ap of typerate" [value]="ap.id">
                             {{ ap.vatRate }}
                           </option>
                         </select>
@@ -631,29 +621,23 @@
                       <td class="col3">
                         <small
                           class="text-danger"
-                          [class.d-none]="
-                          tax.valid || tax.untouched
-                          "
+                          [class.d-none]="tax.valid || tax.untouched"
                           >invalid VAT</small
                         >
                       </td>
                     </tr>
-                    
-                    
-     
-                  
                   </table>
                 </div>
               </div>
               <div class="submitDiv tCenter">
-                <input 
-                type="submit"
-                class="submit_btn border-rad"
-                id="submitCategoryPrd"
-                value="Split Product"
-                [disabled]="splitproductForm.form.invalid"
+                <input
+                  type="submit"
+                  class="submit_btn border-rad"
+                  id="submitCategoryPrd"
+                  value="Split Product"
+                  [disabled]="splitproductForm.form.invalid"
                 />
-  
+
                 <input
                   type="button"
                   value="Cancel"
@@ -666,40 +650,36 @@
       </div>
     </div>
   </div>
-  </div>
-  <!-- </div> -->
-  
-  <div class="popupWrapper" id="createSplitPopup" style="display: none">
-    <app-create-split-product *ngIf="enableCreateSplitComp" [id]="idForSplitComp"
+</div>
+<!-- </div> -->
+
+<div class="popupWrapper" id="createSplitPopup" style="display: none">
+  <app-create-split-product
+    *ngIf="enableCreateSplitComp"
+    [id]="idForSplitComp"
     (destroyCreatSpiltComponent)="destroyCreateSplitProductComponent($event)"
-    ></app-create-split-product>
-  </div>
-  
-  <div class="popupWrapper" id="createMergePopup">
-  
-    <app-merge-product *ngIf="enableCreateMergeComp" [id]="idForMergeComp"
+  ></app-create-split-product>
+</div>
+
+<div class="popupWrapper" id="createMergePopup">
+  <app-merge-product
+    *ngIf="enableCreateMergeComp"
+    [id]="idForMergeComp"
     (enableMergeComp)="destroyCreateMergeProductComponent($event)"
-    ></app-merge-product>
-  </div>
-  
-  
-  <div
-    class="popupWrapper"
-    id="selectProductPopup"
-    style="display: none; width: auto"
+  ></app-merge-product>
+</div>
+
+<div
+  class="popupWrapper"
+  id="selectProductPopup"
+  style="display: none; width: auto"
+>
+  <app-select-product
+    *ngIf="selectProductActive"
+    [selectMenusForProduct]="selectMenusForProduct"
+    (prodSelectEmitter)="setProductSelectedByName($event)"
+    (destroySelectProdEmitter)="destroySelectProductComponent($event)"
   >
-    <app-select-product
-      *ngIf="selectProductActive"
-      [selectMenusForProduct]="selectMenusForProduct"
-      (prodSelectEmitter)="setProductSelectedByName($event)"
-      (destroySelectProdEmitter)="destroySelectProductComponent($event)"
-  
-    >
     <!-- (fetchProductEventEmitter)="getNameWildCardAfterProductSelect()" -->
-    </app-select-product>
-  </div>
-  
-  
-  
-  
-  
+  </app-select-product>
+</div>
