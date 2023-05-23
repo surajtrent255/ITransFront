@@ -2,7 +2,6 @@
   <div class="recordTableWrapper" style="height: auto">
     <div class="recordCategory">
       <h2 class="text-center" id="totalGroupCombinations">Sales: Invoice</h2>
-      <div class="cboth"></div>
     </div>
 
     <div class="searchCreateTableDiv">
@@ -356,13 +355,28 @@
                     cancel
                   </button>
                 </td>
+                <!-- <button (click)="goForPrint(1)">Open New Browser</button> -->
+                <!-- <a href="http://www.google.com" target="null"
+                  >open in new window</a
+                > -->
+
                 <td>
+                  <!-- <i
+                    *ngIf="salesBill.status && !salesBill.draft"
+                    class="fa fa-print createNewTableRecord"
+                    id="billPrint"
+                    aria-hidden="true"
+                    (click)="goToBillPrint(salesBill.id)"
+                  ></i> -->
                   <i
                     *ngIf="salesBill.status && !salesBill.draft"
                     class="fa fa-print"
                     aria-hidden="true"
                     (click)="goForPrint(salesBill.id)"
                   ></i>
+                  <!-- (click)="goForPrint(salesBill.id)" -->
+                  <!-- id="billPrint" -->
+                  <!-- class="createNewTableRecord" -->
                 </td>
               </tr>
             </tbody>
@@ -376,8 +390,6 @@
       id="createNewsalesBillPopup"
       style="display: none"
     >
-      <div class="mb-2"></div>
-
       <app-create-sales
         *ngIf="activeSalesBillEntry"
         (salesBillDetailListEvent)="saleTheProducts($event)"
@@ -409,6 +421,11 @@
         "
       >
       </app-confirm-alert>
+    </div>
+
+    <div class="popupWrapper" id="billPrintPopup" style="display: none">
+      <app-sales-bill-invoice *ngIf="billPrintComponent">
+      </app-sales-bill-invoice>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SalesBill } from 'src/app/models/SalesBill';
 import { SalesBillDetail } from 'src/app/models/SalesBillDetail';
@@ -26,6 +26,9 @@ export class SalesBillingComponent {
   activeSalesBillEdit: boolean = false;
   confirmAlertDisplay: boolean = false;
   cancelBillId !: number;
+  billPrintComponent: boolean = false;
+  billId !: number;
+
 
   companyId!: number;
   branchId!: number;
@@ -33,7 +36,8 @@ export class SalesBillingComponent {
   constructor(
     private salesBillService: SalesBillServiceService,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit() {
@@ -225,7 +229,25 @@ export class SalesBillingComponent {
 
   goForPrint(id: number) {
     // this.router.navigateByUrl(`dashboard/salesbill/invoice/${id}`);
-    window.open(`dashboard/salesbill/invoice/${id}`, '_blank');
-    window.focus();
+    // window.open(`dashboard/salesbill/invoice/${id}`, "_blank", "height=1000, width=1000, left=250, top=100");
+
+    window.open(`salesBillPrint/${id}`, "_blank", "height=900, width=900, left=250, top=100");
+    this.router.navigateByUrl(`dashboard/salesbill`);
+
+    // window.focus();
   }
+
+  openNewBrowser() {
+    const newWindow = this.renderer.createElement('a');
+    newWindow.href = 'https://www.example.com'; // Replace with the desired URL
+    newWindow.target = '_blank';
+    this.renderer.appendChild(document.body, newWindow);
+    newWindow.click();
+  }
+
+  // goToBillPrint(id: number) {
+  //   this.billPrintComponent = true;
+  //   this.billId = id;
+  // }
+
 }

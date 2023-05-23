@@ -941,9 +941,10 @@ export class CreateSalesComponent {
       next: (data) => {
         console.log(data);
         if (draft === false) {
-          this.router.navigateByUrl(`dashboard/salesbill`);
+          // this.router.navigateByUrl(`dashboard/salesbill`);
 
-          window.open(`dashboard/salesbill/invoice/${data.data}`, '_blank');
+          window.open(`salesBillPrint/${data.data}`, "_blank", "height=900, width=900, left=250, top=100");
+          this.router.navigateByUrl(`dashboard/salesbill`);
 
         } else {
           alert('Draft has been saved ');
@@ -1037,7 +1038,6 @@ export class CreateSalesComponent {
     salesBill.totalAmount = totalAmount;
     salesBill.discount = discount;
   }
-
 
   customerAddedSuccessfully($event: number) {
     this.tostrService.success("Customer successfully added with id " + $event)

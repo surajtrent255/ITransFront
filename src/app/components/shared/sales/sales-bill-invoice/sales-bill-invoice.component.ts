@@ -21,11 +21,13 @@ export class SalesBillInvoiceComponent {
   // @Output() billNoEvent = new EventEmitter<number>();
 
   // @Output() activeSalesBillInvoiceEvent = new EventEmitter<boolean>();
+  // @Input() billId !: number;
+
   salesInvoice: SalesBillInvoice = new SalesBillInvoice;
   printButtonVisiability: boolean = true;
 
-
   company: any;
+  netAmount: number = 0;
   constructor(private salesBillService: SalesBillServiceService,
     private loginService: LoginService,
     private tostrService: ToastrService,
@@ -38,6 +40,7 @@ export class SalesBillInvoiceComponent {
     console.log("salebill init");
 
 
+
     // window.print();
 
   }
@@ -47,6 +50,11 @@ export class SalesBillInvoiceComponent {
       next: (data: RJResponse<SalesBillInvoice>) => {
         this.salesInvoice = data.data;
         this.salesInvoice.salesBillDTO.totalAmount = this.salesInvoice.salesBillDTO.totalAmount;
+        setTimeout(() => {
+          this.salesInvoice.salesBillDetailsWithProd.forEach(prod => {
+            this.netAmount += (prod.qty * prod.rate);
+          })
+        })
         // setTimeout(() => {
         //   const printContents = document.getElementById('printable-content')!.innerHTML;
         //   const originalContents = document.body.innerHTML;
@@ -78,14 +86,10 @@ export class SalesBillInvoiceComponent {
         window.print();
         this.printButtonVisiability = true;
         document.body.innerHTML = originalContents;
-        this.tostrService.success("bill is printed successfully ")
+        // this.tostrService.success("bill is printed successfully")
         setTimeout(() => {
           window.close();
         }, 1500)
-
-
-
-
       }
     })
   }

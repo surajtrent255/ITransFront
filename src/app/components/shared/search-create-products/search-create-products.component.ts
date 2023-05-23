@@ -46,7 +46,7 @@ export class SearchCreateProductsComponent {
     private elRef: ElementRef,
     private renderer: Renderer2,
     private loginService: LoginService
-  ) {}
+  ) { }
 
   companyId!: number;
   branchId!: number;
@@ -81,7 +81,7 @@ export class SearchCreateProductsComponent {
     this.product.userId = 1;
     this.product.sellerId = 1;
 
-    this.productService.addNewProduct(this.product,0).subscribe((data) => {
+    this.productService.addNewProduct(this.product, 0).subscribe((data) => {
       Swal.fire(
         'Product Created ! ',
         'A new product has been created with id ' + data.data,
@@ -92,8 +92,9 @@ export class SearchCreateProductsComponent {
     });
   }
 
+
   @ViewChild('container', { static: true }) container!: ElementRef;
-  letsAdd(catId: number, parentId: number, catName: string) {}
+  letsAdd(catId: number, parentId: number, catName: string) { }
 
   selCategoryName!: string;
   selectCategory(categoryId: number, catName: string) {
