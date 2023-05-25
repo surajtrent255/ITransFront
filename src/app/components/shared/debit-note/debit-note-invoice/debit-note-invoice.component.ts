@@ -36,11 +36,9 @@ export class DebitNoteInvoiceComponent {
     this.date = this.commonService.formatDate(Number(date));
 
     this.commonService.data$.subscribe((data) => {
-      console.log('JKKKJJK');
       this.billNo = data.billNo;
       this.serialNumber = data.SN;
       this.SelectedProduct = data.data;
-      console.log(data);
     });
 
     const total = this.SelectedProduct.map((item) => {
@@ -84,6 +82,7 @@ export class DebitNoteInvoiceComponent {
           companyId: this.LoginService.getCompnayId(),
           billNumber: this.purchaseInvoice.purchaseBillDTO.purchaseBillNo,
           branchId: this.LoginService.getBranchId(),
+          productUnit: String(data.unit),
         })
         .subscribe((res) => {});
     });

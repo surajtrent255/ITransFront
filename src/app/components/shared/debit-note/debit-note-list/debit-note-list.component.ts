@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { DebitNote } from 'src/app/models/Debit-Note/debitNote';
 import { DebitNoteDetails } from 'src/app/models/Debit-Note/debitNoteDetails';
 import { DebitNoteService } from 'src/app/service/shared/Debit-Note/debit-note.service';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
@@ -17,7 +19,9 @@ export class DebitNoteListComponent {
 
   constructor(
     private debitNoteService: DebitNoteService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private commonService: CommonService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -45,5 +49,12 @@ export class DebitNoteListComponent {
     this.debitNoteService.getDebitNoteDetails(billNumber).subscribe((res) => {
       this.debitNoteDetails = res.data;
     });
+  }
+
+  printData(debitNoteData: DebitNote) {
+    this.commonService.setData({
+      debitNoteData,
+    });
+    this.router.navigateByUrl('/dashboard/print-debit-note');
   }
 }
