@@ -11,7 +11,7 @@ import { RJResponse } from 'src/app/models/rjresponse';
   providedIn: 'root',
 })
 export class DebitNoteService {
-  constructor(private http: HttpClient, private ToastrService: ToastrService) {}
+  constructor(private http: HttpClient, private ToastrService: ToastrService) { }
 
   addDebitNote(debitNote: DebitNote): Observable<any> {
     return this.http.post(DEBIT_NOTE, debitNote).pipe(
@@ -46,6 +46,12 @@ export class DebitNoteService {
     return this.http.get<RJResponse<DebitNote[]>>(
       `${DEBIT_NOTE}?companyId=${companyId}&branchId=${branchId}`
     );
+  }
+
+
+  getLimitedDebitNotes(offset: number, pageTotalItems: number, compId: number, branchId: number): Observable<RJResponse<DebitNote[]>> {
+    let url = `${DEBIT_NOTE}/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<DebitNote[]>>(url);
   }
 
   getDebitNoteDetails(

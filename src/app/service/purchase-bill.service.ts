@@ -25,6 +25,11 @@ export class PurchaseBillService {
     return this.http.get<RJResponse<PurchaseBill[]>>(url);
   }
 
+  getLimitedPurchaseBill(offset: number, pageTotalItems: number, compId: number, branchId: number): Observable<RJResponse<PurchaseBill[]>> {
+    let url = `${BASE_URL}/purchaseBill/company/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<PurchaseBill[]>>(url);
+  }
+
   fetchPurchaseBillDetailForInvoice(billId: number, compId: number, branchId: number): Observable<RJResponse<PurchaseBillInvoice>> {
     let url = `${BASE_URL}/purchaseBillDetail?billId=${billId}&comapnyId=${compId}&branchId=${branchId}`;
     console.log(url)

@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, tap } from 'rxjs';
 import { GET_FIXED_ASSETS_DETAILS } from 'src/app/constants/urls';
 import { FixedAssets } from 'src/app/models/Fixed Assets/FixedAssets';
+import { RJResponse } from 'src/app/models/rjresponse';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +13,15 @@ export class FixedAssetsService {
   constructor(
     private http: HttpClient,
     private toastrSerivice: ToastrService
-  ) {}
+  ) { }
 
   getFixedAssetsDetails(compayId: number): Observable<any> {
     return this.http.get(`${GET_FIXED_ASSETS_DETAILS}?companyId=${compayId}`);
+  }
+
+  getLimitedFixedAssets(offset: number, pageTotalItems: number, compId: number, branchId: number): Observable<RJResponse<FixedAssets[]>> {
+    let url = `${GET_FIXED_ASSETS_DETAILS}/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<FixedAssets[]>>(url);
   }
 
   getFixedAssetsDetailsBySN(SN: number): Observable<any> {

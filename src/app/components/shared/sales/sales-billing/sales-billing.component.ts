@@ -1,5 +1,6 @@
 import { Component, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { SalesBill } from 'src/app/models/SalesBill';
 import { SalesBillDetail } from 'src/app/models/SalesBillDetail';
 import { SalesBillInvoice } from 'src/app/models/SalesBillInvoice';
@@ -33,11 +34,16 @@ export class SalesBillingComponent {
   companyId!: number;
   branchId!: number;
 
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 5;
+
+
   constructor(
     private salesBillService: SalesBillServiceService,
     private loginService: LoginService,
     private router: Router,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -243,6 +249,31 @@ export class SalesBillingComponent {
     newWindow.target = '_blank';
     this.renderer.appendChild(document.body, newWindow);
     newWindow.click();
+  }
+
+  changePage(type: string) {
+    if (type === "prev") {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.fetchLimitedSalesBill();
+    } else if (type === "next") {
+      this.currentPageNumber += 1;
+      this.fetchLimitedSalesBill();
+    }
+  }
+
+  fetchLimitedSalesBill() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.salesBillService.getLimitedSalesBill(offset, this.pageTotalItems, this.companyId, this.branchId).subscribe((res) => {
+      if (res.data.length === 0) {
+        this.toastrService.error("bills not found ")
+        this.currentPageNumber -= 1;
+      } else {
+        this.salesBills = res.data;
+
+      }
+    })
   }
 
   // goToBillPrint(id: number) {

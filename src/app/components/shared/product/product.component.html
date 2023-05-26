@@ -47,7 +47,6 @@
               <ul
                 class="fleft filtersDisplayList ProductsTableFiltersDisplayList"
               ></ul>
-              <div class="cboth"></div>
             </div>
             <div class="fright configNavTableWrapper">
               <div
@@ -148,28 +147,49 @@
                 </div>
               </div>
               <div class="fleft tableNavDiv" id="ProductsTablePagination">
-                <!-- <a href="" class="first first-page pageNumber">
+                <!-- <a
+                  (click)="changePage('start')"
+                  *ngIf="pagination.current > 1"
+                  style="cursor: pointer"
+                  class="first first-page pageNumber"
+                >
                   <img src="../../../assets/resources/images/first-page.png" />
-                </a>
-                <a href="" class="prev pageNumber">
+                </a> -->
+                <a
+                  (click)="changePage('prev')"
+                  style="cursor: pointer"
+                  *ngIf="pagination.current > 1"
+                  class="prev pageNumber"
+                >
                   <img src="../../../assets/resources/images/prev-page.png" />
                 </a>
                 <span class="showingText">Page</span>
-                <span class="pagedisplay"><span class="pageNum">1</span> </span> -->
-                <pagination-controls
+                <span class="pagedisplay"
+                  ><span class="pageNum">{{ pagination.current }}</span>
+                </span>
+                <!-- <pagination-controls
                   previousLabel="Prev"
                   nextLabel="Next"
                   (pageChange)="onTableDataChanges($event)"
-                ></pagination-controls>
-                <!-- <a href="" class="next pageNumber">
+                ></pagination-controls> -->
+                <a
+                  id="nextPage"
+                  (click)="changePage('next')"
+                  class="next pageNumber"
+                  style="cursor: pointer"
+                >
                   <img src="../../../assets/resources/images/next-page.png" />
                 </a>
-                <a href="" class="last last-page pageNumber">
+                <!-- <a
+                  id="endPage"
+                  (click)="changePage('end')"
+                  class="last last-page pageNumber"
+                  style="cursor: pointer"
+                >
                   <img src="../../../assets/resources/images/last-page.png" />
                 </a> -->
               </div>
             </div>
-            <div class="cboth"></div>
           </div>
           <div class="recordsTableDiv">
             <table
@@ -278,15 +298,7 @@
                 </tr>
                 <!-- <c:forEach items="${products}" var="product">  -->
                 <tr
-                  *ngFor="
-                    let product of availableProducts
-                      | paginate
-                        : {
-                            itemsPerPage: tableSize,
-                            currentPage: page,
-                            totalItems: count
-                          }
-                  "
+                  *ngFor="let product of availableProducts"
                   id="prod_{{ product.id }}"
                 >
                   <td>{{ product.id }}</td>

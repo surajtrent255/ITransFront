@@ -10,12 +10,16 @@ import { RJResponse } from 'src/app/models/rjresponse';
   providedIn: 'root',
 })
 export class ReceiptService {
-  constructor(private http: HttpClient, private toastrService: ToastrService) {}
+  constructor(private http: HttpClient, private toastrService: ToastrService) { }
 
   getReceipts(companyId: number): Observable<RJResponse<Receipts[]>> {
     return this.http.get<RJResponse<Receipts[]>>(`${RECEIPT_URL}/${companyId}`);
   }
 
+  getLimitedReceipts(offset: number, pageTotalItems: number, compId: number, branchId: number): Observable<RJResponse<Receipts[]>> {
+    let url = `${RECEIPT_URL}/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<Receipts[]>>(url);
+  }
   addReceipts(receipt: Receipts): Observable<any> {
     return this.http.post(RECEIPT_URL, receipt).pipe(
       tap({

@@ -144,14 +144,16 @@
               </div>
             </div>
             <div class="fleft tableNavDiv" id="salesBillsTablePagination">
-              <a href="" class="first first-page pageNumber">
+              <!-- <a href="" class="first first-page pageNumber">
                 <img src="../../../assets/resources/images/first-page.png" />
-              </a>
-              <a href="" class="prev pageNumber">
+              </a> -->
+              <a class="prev pageNumber" (click)="changePage('prev')">
                 <img src="../../../assets/resources/images/prev-page.png" />
               </a>
               <span class="showingText">Page</span>
-              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+              <span class="pagedisplay"
+                ><span class="pageNum">{{ currentPageNumber }}</span>
+              </span>
               <!-- <c:choose>
                               <c:when test="${(totalsalesBillRecords mod 10)!=0}">
                                   <c:set var="res" value="${(totalsalesBillRecords - (totalsalesBillRecords mod salesBillTableRecords))/salesBillTableRecords + 1}"/>
@@ -164,12 +166,12 @@
                                   <span class="totalPage">${totalPage}</span>
                               </c:otherwise>
                             </c:choose> -->
-              <a href="" class="next pageNumber">
+              <a class="next pageNumber" (click)="changePage('next')">
                 <img src="../../../assets/resources/images/next-page.png" />
               </a>
-              <a href="" class="last last-page pageNumber">
+              <!-- <a href="" class="last last-page pageNumber">
                 <img src="../../../assets/resources/images/last-page.png" />
-              </a>
+              </a> -->
             </div>
           </div>
           <div class="cboth"></div>

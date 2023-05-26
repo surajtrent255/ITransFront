@@ -10,13 +10,19 @@ import { RJResponse } from 'src/app/models/rjresponse';
   providedIn: 'root',
 })
 export class ExpenseService {
-  constructor(private http: HttpClient, private toastrService: ToastrService) {}
+  constructor(private http: HttpClient, private toastrService: ToastrService) { }
 
   getExpenseDetails(companyId: number): Observable<RJResponse<Expense[]>> {
     return this.http.get<RJResponse<Expense[]>>(
       `${GET_EXPENSE_DETAILS}?companyId=${companyId}`
     );
   }
+
+  getLimitedExpenseDetail(offset: number, pageTotalItems: number, compId: number, branchId: number): Observable<RJResponse<Expense[]>> {
+    let url = `${GET_EXPENSE_DETAILS}/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<Expense[]>>(url);
+  }
+
 
   getExpenseBySN(sn: number): Observable<any> {
     return this.http.get(`${GET_EXPENSE_DETAILS}/${sn}`);

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PaymentMode } from 'src/app/models/Payment/paymentMode';
 import { Receipts } from 'src/app/models/Receipt';
 import { PaymentService } from 'src/app/service/shared/Payment/payment.service';
@@ -19,6 +20,9 @@ export class ReceiptComponent {
   paymentMode!: PaymentMode[];
   IsAuditor!: boolean;
 
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 5;
+
   ReciptForm = new FormGroup({
     partyId: new FormControl('', [Validators.required]),
     amount: new FormControl('', [Validators.required]),
@@ -32,8 +36,9 @@ export class ReceiptComponent {
   constructor(
     private receiptService: ReceiptService,
     private loginService: LoginService,
-    private paymentService: PaymentService
-  ) {}
+    private paymentService: PaymentService,
+    private toastrService: ToastrService
+  ) { }
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
@@ -57,6 +62,7 @@ export class ReceiptComponent {
     });
   }
 
+
   formatDate(timestamp: number): string {
     const date = new Date(timestamp);
     const year = date.getFullYear();
@@ -67,6 +73,31 @@ export class ReceiptComponent {
 
   addZeroPadding(num: number): string {
     return num < 10 ? `0${num}` : `${num}`;
+  }
+
+  changePage(type: string) {
+    if (type === "prev") {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.fetchLimitedReceipts();
+    } else if (type === "next") {
+      this.currentPageNumber += 1;
+      this.fetchLimitedReceipts();
+    }
+  }
+
+  fetchLimitedReceipts() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.receiptService.getLimitedReceipts(offset, this.pageTotalItems, this.companyId, this.branchId).subscribe((res) => {
+      if (res.data.length === 0) {
+        this.toastrService.error("receipts not found ")
+        this.currentPageNumber -= 1;
+      } else {
+        this.receipts = res.data;
+
+      }
+    })
   }
 
   onSubmit() {

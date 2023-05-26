@@ -1,6 +1,7 @@
-import { Component, Output } from '@angular/core';
+import { Component, Output, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { PaginationCustom, PaginationType } from 'src/app/interfaces/PaginatinCustom';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { Product } from 'src/app/models/Product';
 import { VatRateTypes } from 'src/app/models/VatRateTypes';
@@ -17,25 +18,27 @@ import { LoginService } from 'src/app/service/shared/login.service';
 
 export class ProductComponent {
 
-  title = "pagination";
-  POSTS: any;
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 10;
-  tableSizes: any = [1, 10, 15, 20];
+  // title = "pagination";
+  // POSTS: any;
+  // page: number = 1;
+  // count: number = 0;
+  // tableSize: number = 10;
+  // tableSizes: any = [1, 10, 15, 20];
 
   searchProductName: string = ''
 
   availableProducts: Product[] = [];
   availableCategories: CategoryProduct[] = [];
   typerate: VatRateTypes[] = [];
+  pagination: PaginationCustom = new PaginationCustom;
 
   showableCreateProdDiv: boolean = false;
   constructor(
     private productService: ProductService,
     private loginService: LoginService,
     private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private renderer: Renderer2
   ) { }
 
   newProduct!: Product;
@@ -44,10 +47,13 @@ export class ProductComponent {
   productInfoForUpdateId!: number;
   compId!: number;
   branchId!: number;
+
+
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
-    this.fetchAllProducts(this.compId, this.branchId);
+    // this.fetchAllProducts(this.compId, this.branchId);
+    this.fetchLimitedProducts(PaginationType.START);
     let roles = localStorage.getItem('CompanyRoles');
     this.getAllVatRateTypes();
 
@@ -57,28 +63,75 @@ export class ProductComponent {
       this.IsAuditor = true;
     }
 
-    // pagination
-    this.tableSize = 1;
-    this.page = 1;
-    this.postList();
+    // angular pagination
+    // this.tableSize = 1;
+    // this.page = 1;
+    // this.postList();
 
   }
 
-  postList(): void {
-    this.productService.getAllPosts().subscribe((response) => {
-      this.POSTS = response;
-    })
+  // postList(): void {
+  //   this.productService.getAllPosts().subscribe((response) => {
+  //     this.POSTS = response;
+  //   })
+  // }
+
+  // onTableDataChanges(event: any) {
+  //   this.page = event;
+  //   this.postList();
+  // }
+
+  // onTableSizeChange(event: any): void {
+  //   this.tableSize = event.target.value;
+  //   this.page = 1;
+  //   this.postList();
+  // }
+  // angular pagination finish
+
+  fetchLimitedProducts(paginationType: PaginationType) {
+    let prodId = this.pagination.currentLastObjectId;
+    let prodLimit = this.pagination.productsLimit;
+    let compId = this.compId;
+    let branchId = this.branchId;
+    this.pagination.type = paginationType;
+    this.productService.getLimitedProducts(this.pagination, compId, branchId).subscribe((data) => {
+      if (data.data.length < 1) {
+        const nextPageEl = document.getElementById("nextPage") as HTMLElement;
+        this.renderer.setStyle(nextPageEl, "display", "none")
+        if (this.pagination.type === PaginationType.NEXT) {
+          this.pagination.current = this.pagination.current - 1;
+        }
+      } else {
+        this.availableProducts = data.data
+        const nextPageEl = document.getElementById("nextPage") as HTMLElement;
+        this.renderer.removeStyle(nextPageEl, "display")
+        this.pagination.currentFirstObjectId = this.availableProducts[0].id;
+        this.pagination.currentLastObjectId = this.availableProducts[this.availableProducts.length - 1].id;
+      }
+
+
+    });
   }
 
-  onTableDataChanges(event: any) {
-    this.page = event;
-    this.postList();
-  }
-
-  onTableSizeChange(event: any): void {
-    this.tableSize = event.target.value;
-    this.page = 1;
-    this.postList();
+  changePage(pageType: string) {
+    switch (pageType) {
+      case "start":
+        this.pagination.current = 1;
+        this.fetchLimitedProducts(PaginationType.START)
+        break;
+      case "prev":
+        this.pagination.current = this.pagination.current - 1;
+        this.fetchLimitedProducts(PaginationType.PREVIOUS)
+        break;
+      case "next":
+        this.pagination.current = this.pagination.current + 1;
+        this.fetchLimitedProducts(PaginationType.NEXT)
+        break;
+      case "end":
+        this.pagination.current = 1000;
+        this.fetchLimitedProducts(PaginationType.END)
+        break;
+    }
   }
 
   fetchAllProducts(compId: number, branchId: number) {

@@ -9,12 +9,13 @@ import {
   GET_PAYMENT_MODE,
 } from 'src/app/constants/urls';
 import { Payment } from 'src/app/models/Payment/payment';
+import { RJResponse } from 'src/app/models/rjresponse';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaymentService {
-  constructor(private http: HttpClient, private toastrService: ToastrService) {}
+  constructor(private http: HttpClient, private toastrService: ToastrService) { }
 
   // postdateCheck data
 
@@ -42,6 +43,12 @@ export class PaymentService {
   getPaymentDetails(companyId: number): Observable<any> {
     return this.http.get(`${GET_PAYMENT_DETAILS}?companyId=${companyId}`);
   }
+  // getLimitedPaymentDetails
+  getLimitedPaymentDetails(offset: number, pageTotalItems: number, compId: number, branchId: number): Observable<RJResponse<Payment[]>> {
+    let url = `${GET_PAYMENT_DETAILS}/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<Payment[]>>(url);
+  }
+
   getPaymentDetailsById(SN: number): Observable<any> {
     return this.http.get(`${GET_PAYMENT_DETAILS}/${SN}`);
   }

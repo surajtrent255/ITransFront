@@ -47,13 +47,17 @@ export class SplitProductComponent {
   selectProductActive: boolean = false;
   prodWildCard!: string;
 
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 5;
+
   constructor(
     private loginService: LoginService,
     private SplitProductService: SplitProductService,
     private productService: ProductService,
     private toastrService: ToastrService,
     private StockService: StockService
-  ) {}
+  ) { }
+
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
@@ -82,6 +86,33 @@ export class SplitProductComponent {
       console.log('get stock qty atul' + JSON.stringify(this.fetchstock));
     });
   }
+
+  changePage(type: string) {
+    if (type === "prev") {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.fetchLimitedSplitProducts();
+    } else if (type === "next") {
+      this.currentPageNumber += 1;
+      this.fetchLimitedSplitProducts();
+    }
+  }
+
+  fetchLimitedSplitProducts() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.SplitProductService.getLimitedSplitProduct(offset, this.pageTotalItems, this.companyId, this.branchId).subscribe((res) => {
+      if (res.data.length === 0) {
+        this.toastrService.error("bills not found ")
+        this.currentPageNumber -= 1;
+      } else {
+        this.splitProducts = res.data;
+
+      }
+    })
+  }
+
+
   getAllSplitProduct() {
     this.SplitProductService.getAllSplitProduct(
       this.companyId,

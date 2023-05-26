@@ -13,13 +13,18 @@ import { RJResponse } from 'src/app/models/rjresponse';
 })
 export class BankService {
   httpClient: any;
- 
+
 
   constructor(private http: HttpClient, private toastrService: ToastrService) { }
 
 
   getAllBanks(companyId: number, branchId: number): Observable<any> {
     return this.http.get(`${GET_ALL_BANK}?companyid=${companyId}&branchid=${branchId}`);
+  }
+
+  getLimitedBank(offset: number, pageTotalItems: number, compId: number, branchId: number): Observable<RJResponse<Bank[]>> {
+    let url = `${BASE_URL}/api/v1/bank/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<Bank[]>>(url);
   }
 
   getBankList(): Observable<RJResponse<BankList[]>> {
@@ -47,7 +52,7 @@ export class BankService {
         },
       })
     );
-    }
+  }
 
   deletebank(bankId: number) {
     let url = `${BASE_URL}/api/v1/bank/${bankId}`;

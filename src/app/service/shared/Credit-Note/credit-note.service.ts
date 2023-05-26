@@ -11,7 +11,7 @@ import { RJResponse } from 'src/app/models/rjresponse';
   providedIn: 'root',
 })
 export class CreditNoteService {
-  constructor(private http: HttpClient, private ToastrService: ToastrService) {}
+  constructor(private http: HttpClient, private ToastrService: ToastrService) { }
 
   addCreditNote(creditNote: CreditNote): Observable<any> {
     return this.http.post(CREDIT_NOTE, creditNote).pipe(
@@ -46,6 +46,12 @@ export class CreditNoteService {
     return this.http.get<RJResponse<CreditNote[]>>(
       `${CREDIT_NOTE}?companyId=${companyId}&branchId=${branchId}`
     );
+  }
+
+
+  getLimitedCreditNote(offset: number, pageTotalItems: number, compId: number, branchId: number): Observable<RJResponse<CreditNote[]>> {
+    let url = `${CREDIT_NOTE}/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<CreditNote[]>>(url);
   }
 
   getCreditNoteDetails(

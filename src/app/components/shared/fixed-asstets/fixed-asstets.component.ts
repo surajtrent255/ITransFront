@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { FixedAssets } from 'src/app/models/Fixed Assets/FixedAssets';
 import { FixedAssetsService } from 'src/app/service/shared/Assets And Expenses/fixed-assets.service';
 import { LoginService } from 'src/app/service/shared/login.service';
@@ -16,6 +17,8 @@ export class FixedAsstetsComponent {
   LoggedInBranchId!: number;
 
   IsAuditor!: boolean;
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 5;
 
   FixedAssetForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -29,8 +32,9 @@ export class FixedAsstetsComponent {
 
   constructor(
     private fixedAssetService: FixedAssetsService,
-    private LoginService: LoginService
-  ) {}
+    private LoginService: LoginService,
+    private toastrService: ToastrService
+  ) { }
 
   ngOnInit() {
     this.LoggedInCompanyId = this.LoginService.getCompnayId();
@@ -56,6 +60,30 @@ export class FixedAsstetsComponent {
 
   addZeroPadding(num: number): string {
     return num < 10 ? `0${num}` : `${num}`;
+  }
+
+  changePage(type: string) {
+    if (type === "prev") {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.fetchLimitedFixedAssets();
+    } else if (type === "next") {
+      this.currentPageNumber += 1;
+      this.fetchLimitedFixedAssets();
+    }
+  }
+
+  fetchLimitedFixedAssets() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.fixedAssetService.getLimitedFixedAssets(offset, this.pageTotalItems, this.LoggedInCompanyId, this.LoggedInBranchId).subscribe((res) => {
+      if (res.data.length === 0) {
+        this.toastrService.error("assets not found ")
+        this.currentPageNumber -= 1;
+      } else {
+        this.fixedAssets = res.data;
+      }
+    })
   }
 
   getFixedAssetsDetails() {

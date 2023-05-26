@@ -1,117 +1,120 @@
-  <!-- <div class="demoContainer" style="height: 545px; width: 100%;">
+<!-- <div class="demoContainer" style="height: 545px; width: 100%;">
       <button (click)="openForm()">Add Bank</button>
       <div class="recordTableWrapper" style="height: 545px; width: 100%;">
         <div class="recordCategory">
           <h2 class="text-center" id="totalGroupCombinations">Bank</h2>
           <div class="cboth"></div>
         </div>
-    
+
         <div>
           <table cellspacing="0" cellpadding="0" class="recordsTable pricingPrefTable">
             <thead>
               <tr>
                   <th>S.N</th> -->
-                <!-- <th>Bank Name</th>
+<!-- <th>Bank Name</th>
                 <th>Account Number</th>
                 <th>Account Type</th>
                 <th>Initial Banlance</th>
                 <th>Branch Id</th>
                 <th>Company Id</th> -->
-              <!-- </tr>
+<!-- </tr>
             </thead>
-    
+
             <tbody *ngFor="let bankData of Bank ; let i = index ; ">
               <tr *ngIf="bankData.branchId == UserbranchId && bankData.companyId == localStorageCompanyId">
                   <td >{{i}}</td> -->
-                <!-- <td>{{bankData.bankName}}</td>
+<!-- <td>{{bankData.bankName}}</td>
                 <td>{{bankData.accountNumber}}</td>
                 <td>{{bankData.accountType}}</td>
                 <td>{{bankData.initialAmount}}</td> -->
-                <!-- <td>{{bankData.branchId}}</td>
+<!-- <td>{{bankData.branchId}}</td>
                 <td>{{bankData.companyId}}</td> -->
-              <!-- </tr>
+<!-- </tr>
             </tbody>
           </table>
         </div>
-    
-        
-        
-    
+
+
+
+
        </div>
     </div> -->
 
+<div class="contentRecordsTableContainer MainContainer">
+  <div class="recordTableWrapper">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations">Deposit List</h2>
+      <div class="cboth"></div>
+    </div>
 
-
-    <div class="contentRecordsTableContainer MainContainer">
-     
-      <div class="recordTableWrapper">
-        <div class="recordCategory">
-          <h2 class="text-center" id="totalGroupCombinations">Deposit List</h2>
-          <div class="cboth"></div>
+    <div class="searchCreateTableDiv">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText hintText"
+            type="text"
+            search="openForm"
+            value="bankName"
+          />
+          <input
+            type="image"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a href="#" class="genLink">Clear searchs</a>
         </div>
-    
-        <div class="searchCreateTableDiv">
-          <div class="searchCreateDiv">
-            <div class="fleft searchDiv" id="prodSearch">
-              <input
-                class="inputText hintText"
-                type="text"
-                search="openForm"
-                value="bankName"
+        <div class="fright" class="createCategoryDiv">
+          <a href="" id="createNewCategory" class="createNewTableRecord">
+            <img src="../../../../assets/resources/images/createProduct.png" />
+            <span (click)="openForm()"> Create deposite</span>
+          </a>
+        </div>
+        <div class="fright configNavTableWrapper">
+          <div
+            class="fleft configTableDiv newFilterItem"
+            dropdownId="CategoriesTableFilters"
+          >
+            <a href="" class="">
+              <img
+                src="../../../assets/resources/images/newfilter-bg.png"
+                alt="New Filter"
+                title="Add new filter"
               />
-              <input
-                type="image"
-                src="../../../assets/resources/images/searchButton.png"
-                class="serachButton"
-                title="Search Term"
-              />
-              <a href="#" class="genLink">Clear searchs</a>
-            </div>
-            <div class="fright" class="createCategoryDiv">
-              <a href="" id="createNewCategory" class="createNewTableRecord">
-                <img src="../../../../assets/resources/images/createProduct.png" />
-                <span (click)="openForm()"> Create deposite</span>
+              <span id="newCategoryFilter" search="off">New Filter</span>
+            </a>
+          </div>
+          <div class="fright configNavTableWrapper">
+            <div
+              class="fleft configTableDiv newFilterItem"
+              dropdownId="CategoriesTableFilters"
+            >
+              <a href="#">
+                <img
+                  src="../../../assets/resources/images/newfilter-bg.png"
+                  alt="New Filter"
+                  title="Add new filter"
+                />
+                <span id="newCategoryFilter" search="on">New Filter</span>
               </a>
             </div>
-            <div class="fright configNavTableWrapper">
-              <div
-                class="fleft configTableDiv newFilterItem"
-                dropdownId="CategoriesTableFilters"
-              >
-                <a href="" class="">
-                  <img
-                    src="../../../assets/resources/images/newfilter-bg.png"
-                    alt="New Filter"
-                    title="Add new filter"
-                  />
-                  <span id="newCategoryFilter" search="off">New Filter</span>
-                </a>
-              </div>
-              <div class="fright configNavTableWrapper">
-                <div
-                  class="fleft configTableDiv newFilterItem"
-                  dropdownId="CategoriesTableFilters"
-                >
-                  <a href="#">
-                    <img
-                      src="../../../assets/resources/images/newfilter-bg.png"
-                      alt="New Filter"
-                      title="Add new filter"
-                    />
-                    <span id="newCategoryFilter" search="on">New Filter</span>
-                  </a>
-                </div>
-              </div>
-              <div class="fleft tableNavDiv" id="CategoriesTablePagination">
-                <a href="" class="first first-page pageNumber">
-                  <img src="../../../assets/resources/images/first-page.png" />
-                </a>
-                <a href="" class="prev pageNumber">
-                  <img src="../../../assets/resources/images/prev-page.png" />
-                </a>
-                <span class="showingText">Page</span>
-                <span class="pagedisplay"><span class="pageNum">1</span> </span>
-                <!-- <c:choose>
+          </div>
+          <div class="fleft tableNavDiv" id="CategoriesTablePagination">
+            <!-- <a href="" class="first first-page pageNumber">
+              <img src="../../../assets/resources/images/first-page.png" />
+            </a> -->
+            <a
+              (click)="changePage('prev')"
+              style="cursor: pointer"
+              class="prev pageNumber"
+            >
+              <img src="../../../assets/resources/images/prev-page.png" />
+            </a>
+            <span class="showingText">Page</span>
+            <span class="pagedisplay"
+              ><span class="pageNum">{{ currentPageNumber }}</span>
+            </span>
+            <!-- <c:choose>
                               <c:when test="${(totalCategoryRecords mod 10)!=0}">
                                   <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
                                   <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
@@ -123,56 +126,60 @@
                                   <span class="totalPage">${totalPage}</span>
                               </c:otherwise>
                             </c:choose> -->
-                <a href="" class="next pageNumber">
-                  <img src="../../../assets/resources/images/next-page.png" />
-                </a>
-                <a href="" class="last last-page pageNumber">
-                  <img src="../../../assets/resources/images/last-page.png" />
-                </a>
-              </div>
-            </div>
-            <div class="recordsTableDiv">
-              <table
-                cellspacing="0"
-                cellpadding="0"
-                class="recordsTable"
-                id="CategoriesRecordsTable"
-              >
-                <thead>
-                  <tr>
-                    <th
-                      class="first-child sortable"
-                      sortDir="asc"
-                      sortCol="organization_id"
-                      id="id"
-                    >
-                    BankId
-                    </th>
-                    <th
-                      class="sortable"
-                      sortDir="asc"
-                      sortCol="organization_name"
-                      id="name"
-                    >
-                      DepositeAmount
-                    </th>
-                    <th
-                      class="sortable"
-                      sortDir="asc"
-                      sortCol="customer_name"
-                      id="costprice"
-                    >
-                      DepositeType
-                    </th>
-                    <th
-                      class="sortable"
-                      sortDir="asc"
-                      sortCol="master_name"
-                      id="sellingprice"
-                    >
-                      ChequeNumber
-                    </th>
-                    <!-- <th
+            <a
+              (click)="changePage('next')"
+              style="cursor: pointer"
+              class="next pageNumber"
+            >
+              <img src="../../../assets/resources/images/next-page.png" />
+            </a>
+            <!-- <a href="" class="last last-page pageNumber">
+              <img src="../../../assets/resources/images/last-page.png" />
+            </a> -->
+          </div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="CategoriesRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="first-child sortable"
+                  sortDir="asc"
+                  sortCol="organization_id"
+                  id="id"
+                >
+                  BankId
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                  id="name"
+                >
+                  DepositeAmount
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="customer_name"
+                  id="costprice"
+                >
+                  DepositeType
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="sellingprice"
+                >
+                  ChequeNumber
+                </th>
+                <!-- <th
                       class="sortable"
                       sortDir="asc"
                       sortCol="master_name"
@@ -180,45 +187,48 @@
                     >
                     submiteDate
                     </th> -->
-    
-                    <th class="last-child">Actions</th>
-                  </tr>
-                </thead>
-                  <tbody *ngFor="let deposite of Deposite  ">
-                    <tr >
-                        <!-- {{deposite | json }} -->
-                      <td>{{deposite.bankId}}</td>
-                      <td>{{deposite.depositAmount}}</td> 
-                      <td>{{deposite.depositType}}</td> 
-                      <td>{{deposite.chequeNumber}}</td> 
-                      <!-- <td>{{ deposite.submiteDate | date: 'mediumDate' }}</td> -->
-                      <td class="last-child">
-                        <a href=" " class="">
-                          <img src="../../../assets/resources/images/editRow.png" />
-                        </a>
-                        <a (click)="deleteDeposite(deposite.branchId,deposite.depositId)" class="deleteRowLink deleteGroupCombo">
-                          <img src="../../../assets/resources/images/deleteRow.png" />
-                        </a>
-                      </td>
-                      
-                    </tr>
-                  
-                </tbody>
-              </table> 
-            </div>
-          </div> 
+
+                <th class="last-child">Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let deposite of Deposite">
+              <tr>
+                <!-- {{deposite | json }} -->
+                <td>{{ deposite.bankId }}</td>
+                <td>{{ deposite.depositAmount }}</td>
+                <td>{{ deposite.depositType }}</td>
+                <td>{{ deposite.chequeNumber }}</td>
+                <!-- <td>{{ deposite.submiteDate | date: 'mediumDate' }}</td> -->
+                <td class="last-child">
+                  <a href=" " class="">
+                    <img src="../../../assets/resources/images/editRow.png" />
+                  </a>
+                  <a
+                    (click)="
+                      deleteDeposite(deposite.branchId, deposite.depositId)
+                    "
+                    class="deleteRowLink deleteGroupCombo"
+                  >
+                    <img src="../../../assets/resources/images/deleteRow.png" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-    
-        <!-- <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+      </div>
+    </div>
+
+    <!-- <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
           <div class="mb-2"></div>
           <div class="popupContentWrapper">
             <div class="row">
               <div class="col-md-12">
               <app-popup class="m-4"></app-popup> -->
-                <!-- <form
-                
+    <!-- <form
+
                   name="createCategoryProd"
-                
+
                   id="createProductForm"
                 >
                   <div class="chooseColoumnsWrapper">
@@ -244,10 +254,10 @@
                                 <label for="chequeNumber">chequeNumber</label>
                                 <input type="text" id="chequeNumber" name="chequeNumber"  required>
                               </div>
-                              <div> 
+                              <div>
                                  <button type="submit" (click)="submitForm()">Submit</button>
                                 <button  (click)="cancel_btn()">Cancel</button> -->
-                              <!-- </div>
+    <!-- </div>
                             </form>
                           </div>
                           </div>
@@ -260,9 +270,9 @@
                       class="submit_btn border-rad"
                       id="submitCategoryPrd"
                       value="Add Deposit"
-                    
+
                     />
-          
+
                     <input
                       type="button"
                       value="Cancel form"
@@ -274,21 +284,20 @@
               </div>
             </div>
           </div>
-      
-        
-    
+
+
+
         <div
           class="popupWrapper"
           id="editCategoryPopup"
           style="display: none"
         ></div>-->
-      <!-- </div> 
+    <!-- </div>
     </div>  -->
-
 
     <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
       <!-- <div class="popupContentWrapper"> -->
-      <div class="popupHeading  ">
+      <div class="popupHeading">
         <h2 class="fleft">Create deposite</h2>
         <a class="closeButton fright" id="closeEditButton"
           ><img
@@ -296,158 +305,142 @@
             alt="close"
         /></a>
         <div class="cboth"></div>
-        </div>
-    <div class="popupContentWrapper" *ngIf="showForm">
-      <div class="row">
-        <div class="col-md-12">
-          <form
-          #createDepositeForm="ngForm"
-          name="createDepositeForm"
-          id="createDepositeForm"
-          (ngSubmit)="creatdepostie(createDepositeForm)"
-          >
-            <div class="chooseColoumnsWrapper">
-              <div class="fieldDiv popUpFormSectionWrapper">
-                <table class="" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td class="col1 pt-2">
-                     Bank Name:<span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2">
-                      <select
-                      class="form-control  form-select"
-                        name="bankId"
-                        id="bankId"
-                        name="bankId"
-                        #bankId="ngModel"
-                        [(ngModel)]="objdeposite.bankId"
-                        [class.is-invalid]="
-                        bankId.invalid && bankId.touched
-                        "
-                      ><option value="" selected disabled>select Bank Name</option>
-                        <option
-                          *ngFor="let option of banks"
-                          [value]="option.bankId"
+      </div>
+      <div class="popupContentWrapper" *ngIf="showForm">
+        <div class="row">
+          <div class="col-md-12">
+            <form
+              #createDepositeForm="ngForm"
+              name="createDepositeForm"
+              id="createDepositeForm"
+              (ngSubmit)="creatdepostie(createDepositeForm)"
+            >
+              <div class="chooseColoumnsWrapper">
+                <div class="fieldDiv popUpFormSectionWrapper">
+                  <table class="" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td class="col1 pt-2">
+                        Bank Name:<span class="mandatorySign">*</span>
+                      </td>
+                      <td class="col2">
+                        <select
+                          class="form-control form-select"
+                          name="bankId"
+                          id="bankId"
+                          name="bankId"
+                          #bankId="ngModel"
+                          [(ngModel)]="objdeposite.bankId"
+                          [class.is-invalid]="bankId.invalid && bankId.touched"
                         >
-                          {{ option.bankName }}
-                        </option>
-                      </select>
-                    </td>
-                    <td class="col3">
-                      <small
-                        class="text-danger"
-                        [class.d-none]="
-                          bankId.valid || bankId.untouched
-                        "
-                        >invalid name</small
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col1 pt-2">
-                      Deposit Amount:<span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2">
-                      <input
-                      type="number"
-                        name="depositAmount"
-                        
-                        [(ngModel)]="objdeposite.depositAmount"
-                        required
-                        #depositAmount="ngModel"
-                        [class.is-invalid]="
-                        depositAmount.invalid && depositAmount.touched
-                        "
-                        class="form-control"
-                        id="depositAmount"
-                      >
-                    </td>
-                    <td class="col3">
-                      <small
-                        class="text-danger"
-                        [class.d-none]="
-                        depositAmount.valid || depositAmount.untouched
-                        "
-                        >invalid anount</small
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col1 pt-2">
-                      DepositType:<span class="mandatorySign">*</span>
-                    </td>
-                    <td class="col2">
-                      <input
-                        name="depositType"
-                        
-                        [(ngModel)]=" objdeposite.depositType"
-                        required
-                        #depositType="ngModel"
-                        [class.is-invalid]="
-                        depositType.invalid && depositType.touched
-                        "
-                        class="form-control"
-                        id="depositType"
-                      >
-                    </td>
-                    <td class="col3">
-                      <small
-                        class="text-danger"
-                        [class.d-none]="
-                        depositType.valid || depositType.untouched
-                        "
-                        >invalid depositType</small
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col1 pt-2">
-                      chequeNumber:
-                    </td>
-                    <td class="col2">
-                      <input
-                        name="chequeNumber"
-                        title="check your stock "
-                        [(ngModel)]=" objdeposite.chequeNumber"
-                        #chequeNumber="ngModel"
-                        class="form-control"
-                        id="chequeNumber"
-                      >
-                    </td>
-                    
-                  </tr>
-                
-                  
-                  
-   
-                
-                </table>
+                          <option value="" selected disabled>
+                            select Bank Name
+                          </option>
+                          <option
+                            *ngFor="let option of banks"
+                            [value]="option.bankId"
+                          >
+                            {{ option.bankName }}
+                          </option>
+                        </select>
+                      </td>
+                      <td class="col3">
+                        <small
+                          class="text-danger"
+                          [class.d-none]="bankId.valid || bankId.untouched"
+                          >invalid name</small
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col1 pt-2">
+                        Deposit Amount:<span class="mandatorySign">*</span>
+                      </td>
+                      <td class="col2">
+                        <input
+                          type="number"
+                          name="depositAmount"
+                          [(ngModel)]="objdeposite.depositAmount"
+                          required
+                          #depositAmount="ngModel"
+                          [class.is-invalid]="
+                            depositAmount.invalid && depositAmount.touched
+                          "
+                          class="form-control"
+                          id="depositAmount"
+                        />
+                      </td>
+                      <td class="col3">
+                        <small
+                          class="text-danger"
+                          [class.d-none]="
+                            depositAmount.valid || depositAmount.untouched
+                          "
+                          >invalid anount</small
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col1 pt-2">
+                        DepositType:<span class="mandatorySign">*</span>
+                      </td>
+                      <td class="col2">
+                        <input
+                          name="depositType"
+                          [(ngModel)]="objdeposite.depositType"
+                          required
+                          #depositType="ngModel"
+                          [class.is-invalid]="
+                            depositType.invalid && depositType.touched
+                          "
+                          class="form-control"
+                          id="depositType"
+                        />
+                      </td>
+                      <td class="col3">
+                        <small
+                          class="text-danger"
+                          [class.d-none]="
+                            depositType.valid || depositType.untouched
+                          "
+                          >invalid depositType</small
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col1 pt-2">chequeNumber:</td>
+                      <td class="col2">
+                        <input
+                          name="chequeNumber"
+                          title="check your stock "
+                          [(ngModel)]="objdeposite.chequeNumber"
+                          #chequeNumber="ngModel"
+                          class="form-control"
+                          id="chequeNumber"
+                        />
+                      </td>
+                    </tr>
+                  </table>
+                </div>
               </div>
-            </div>
-            <div class="submitDiv tCenter">
-              <input 
-              type="submit"
-              class="submit_btn border-rad"
-              id="submitCategoryPrd"
-              value="Add Deposit"
-              [disabled]="createDepositeForm.form.invalid"
-               
-              />
+              <div class="submitDiv tCenter">
+                <input
+                  type="submit"
+                  class="submit_btn border-rad"
+                  id="submitCategoryPrd"
+                  value="Add Deposit"
+                  [disabled]="createDepositeForm.form.invalid"
+                />
 
-              <input
-                type="button"
-                value="Cancel"
-                class="submit_btn cancel_btn border-rad ml-2"
-              />
-            </div>
-          </form>
+                <input
+                  type="button"
+                  value="Cancel"
+                  class="submit_btn cancel_btn border-rad ml-2"
+                />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-</div>
-    
-
-
-   

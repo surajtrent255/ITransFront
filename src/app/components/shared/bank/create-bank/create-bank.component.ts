@@ -33,6 +33,9 @@ export class CreateBankComponent {
 
   bankObj: Bank = new Bank();
 
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 5;
+
   constructor(
     private bankService: BankService,
     private toastrService: ToastrService,
@@ -41,7 +44,7 @@ export class CreateBankComponent {
 
   ngOnInit() {
     this.localStorageCompanyId = this.loginService.getCompnayId();
-   
+
     this.UserbranchId = this.loginService.getBranchId();
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
@@ -65,6 +68,31 @@ export class CreateBankComponent {
       });
   }
 
+  changePage(type: string) {
+    if (type === "prev") {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.fetchLimitedBanks();
+    } else if (type === "next") {
+      this.currentPageNumber += 1;
+      this.fetchLimitedBanks();
+    }
+  }
+
+
+  fetchLimitedBanks() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.bankService.getLimitedBank(offset, this.pageTotalItems, this.companyId, this.branchId).subscribe((res) => {
+      if (res.data.length === 0) {
+        this.toastrService.error("banks not found ")
+        this.currentPageNumber -= 1;
+      } else {
+        this.Bank = res.data;
+
+      }
+    })
+  }
   getAllBankNames() { }
 
   getAllAccountTypes() {
@@ -158,6 +186,6 @@ export class CreateBankComponent {
   }
   resetForm() {
     this.bankObj = new Bank();
-  } 
+  }
 
 }

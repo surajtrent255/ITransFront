@@ -120,6 +120,8 @@ export class CreateSalesComponent {
   featureObjs: UserFeature[] = [];
   searchByBarCode: boolean = false;
 
+  pageNumber: number = 1;
+
 
   constructor(
     private salesCartService: SalesCartService,

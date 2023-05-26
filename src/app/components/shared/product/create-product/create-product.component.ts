@@ -10,6 +10,7 @@ import { LoginService } from 'src/app/service/shared/login.service';
 import { SelectCategoryServiceService } from '../../categoryprod/select-category-service.service';
 import { VatRateTypes } from 'src/app/models/VatRateTypes';
 import { Unit } from 'src/app/models/Unit';
+import { PaginationCustom } from 'src/app/interfaces/PaginatinCustom';
 
 @Component({
   selector: 'app-create-product',
@@ -26,9 +27,6 @@ export class CreateProductComponent {
   selectedCategory: CategoryProduct = new CategoryProduct;
   typerate: VatRateTypes[] = [];
   Unit: Unit[] = [];
-
-
-
 
 
   constructor(
@@ -51,7 +49,7 @@ export class CreateProductComponent {
   selectMenusForCompanies !: Company[];
   selectMenusForCompaniesSize !: number;
   selectedSellerCompanyId !: number;
-  unit:string='other';
+  unit: string = 'other';
 
 
 
@@ -156,7 +154,7 @@ export class CreateProductComponent {
 
     console.log("functionout" + this.product.unit);
     console.log('product.component.ts');
-    form.reset({ discount: 0 , qtyPerUnit: 1 , unit:'other' ,tax: 3 });
+    form.reset({ discount: 0, qtyPerUnit: 1, unit: 'other', tax: 3 });
   }
 
   customerAdded($event) {
