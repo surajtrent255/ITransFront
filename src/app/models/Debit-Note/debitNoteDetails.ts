@@ -8,4 +8,5 @@ export class DebitNoteDetails {
   companyId!: number;
   branchId!: number;
   billNumber!: number;
+  productUnit !: string;
 }

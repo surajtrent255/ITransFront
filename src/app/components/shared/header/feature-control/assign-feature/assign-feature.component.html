@@ -50,15 +50,16 @@
           </table>
         </div>
         <div class="container" style="margin-top: 10px">
-          <span>Controls</span>
+          <span>Controls </span>
           <div style="border-bottom: 2px solid #bdbdbd"></div>
           <div style="margin: 4px" *ngFor="let control of feature">
             <div style="margin: 1px">
               <input
-                type="checkbox"
+                type="radio"
+                name="feature"
                 [checked]="hasControl(control.feature)"
                 (click)="AddFeature($event, control.id)"
-                value="admin"
+                value="feature"
               />
               <Label>{{ control.feature }} </Label>
             </div>

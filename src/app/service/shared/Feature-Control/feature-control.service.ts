@@ -18,7 +18,7 @@ export class FeatureControlService {
   }
 
   assignFeatureControlToUser(
-    featureId: number[],
+    featureId: number,
     userId: number,
     companyId: number
   ) {

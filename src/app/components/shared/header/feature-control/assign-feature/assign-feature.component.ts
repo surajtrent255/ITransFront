@@ -17,7 +17,7 @@ export class AssignFeatureComponent {
   userFeature!: UserFeature[];
   SelectedUser!: number;
   companyName!: string;
-  controls: number[] = [];
+  controls!: number;
 
   constructor(
     private featureControlService: FeatureControlService,
@@ -65,15 +65,16 @@ export class AssignFeatureComponent {
 
   AddFeature(e: any, featureId: number) {
     let status = e.target.checked;
-    if (status === true) {
-      this.controls.push(featureId);
-    } else {
-      this.controls.pop();
-    }
+    this.controls = featureId;
+    // if (status === true) {
+    //   this.controls.push(featureId);
+    // } else {
+    //   this.controls.pop();
+    // }
   }
 
   AssignControl() {
-    if (this.controls.length !== 0) {
+    if (this.controls) {
       this.featureControlService
         .assignFeatureControlToUser(
           this.controls,
@@ -82,7 +83,6 @@ export class AssignFeatureComponent {
         )
         .subscribe({
           next: (res) => {
-            this.controls = [];
             this.getAllFeatureControlOfUserByUserId();
             this.ControlAssignedSuccess.emit(true);
           },

@@ -112,7 +112,9 @@
                         class="fa-solid fa-gauge fa-xl"
                         style="color: #668fcd"
                       ></i>
-                      <span style="padding-left: 17px">Dashboard</span>
+                      <span class="MainMenu" style="padding-left: 17px"
+                        >Dashboard</span
+                      >
                     </a>
                   </li>
                   <li class="nav-item has-submenu">
@@ -121,7 +123,9 @@
                         class="fas fa-regular fa-boxes-stacked fa-xl"
                         style="color: #d1c73a"
                       ></i>
-                      <span style="padding-left: 15px">Inventory</span>
+                      <span class="MainMenu" style="padding-left: 15px"
+                        >Inventory</span
+                      >
                       <i class="bi small bi-caret-down-fill"></i>
                     </a>
                     <ul *ngIf="!IsStaff" class="submenu collapse"></ul>
@@ -155,7 +159,9 @@
                         class="fas fa-regular fa-wallet fa-xl"
                         style="color: #e96a6a"
                       ></i>
-                      <span style="padding-left: 16px">Sales</span>
+                      <span class="MainMenu" style="padding-left: 16px"
+                        >Sales</span
+                      >
                       <i class="bi small bi-caret-down-fill"></i>
                     </a>
                     <ul class="submenu collapse">
@@ -191,7 +197,9 @@
                         class="fas fa-regular fa-cart-arrow-down fa-xl"
                         style="color: #378958"
                       ></i>
-                      <span style="padding-left: 13px">Purchase</span>
+                      <span class="MainMenu" style="padding-left: 13px"
+                        >Purchase</span
+                      >
                       <i class="bi small bi-caret-down-fill"></i>
                     </a>
                     <ul *ngIf="!IsStaff" class="submenu collapse"></ul>
@@ -239,7 +247,8 @@
                         style="color: #464f5d"
                       ></i>
 
-                      <span style="padding-left: 15px">Bank</span
+                      <span class="MainMenu" style="padding-left: 15px"
+                        >Bank</span
                       ><i class="bi small bi-caret-down-fill"></i>
                     </a>
                     <ul *ngIf="!IsStaff" class="submenu collapse"></ul>
@@ -272,15 +281,46 @@
                     </ul>
                   </li>
 
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a class="nav-link" href="#"
                       ><i
                         class="fas fa-regular fa-file-alt fa-xl"
                         style="color: #9ba0a7"
                       ></i>
 
-                      <span style="padding-left: 20px">Reports</span>
+                      <span class="MainMenu" style="padding-left: 20px"
+                        >Reports</span
+                      ><i class="bi small bi-caret-down-fill"></i>
+                      <ul class="submenu collapse">
+                        <li>
+                          <a class="nav-link" href="/dashboard/creditNoteList"
+                            >Credit Note
+                          </a>
+                        </li>
+                      </ul>
                     </a>
+                  </li> -->
+                  <li class="nav-item has-submenu">
+                    <a class="nav-link" href="#">
+                      <i
+                        class="fas fa-regular fa-landmark fa-xl"
+                        style="color: #464f5d"
+                      ></i>
+
+                      <span class="MainMenu" style="padding-left: 15px"
+                        >Report</span
+                      ><i class="bi small bi-caret-down-fill"></i>
+                    </a>
+                    <ul *ngIf="!IsStaff" class="submenu collapse"></ul>
+                    <ul *ngIf="IsStaff" class="submenu collapse">
+                      <li>
+                        <a
+                          class="nav-link"
+                          routerLink="/dashboard/creditNoteList"
+                          >Credit Note
+                        </a>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </nav>

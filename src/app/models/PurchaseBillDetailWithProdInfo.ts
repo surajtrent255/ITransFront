@@ -10,4 +10,5 @@ export class PurchaseBillDetailWithProdInfo {
   companyId!: number;
   productName!: string;
   debitReason: string = '';
+  unit !: string
 }

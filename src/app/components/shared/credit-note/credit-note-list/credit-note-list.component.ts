@@ -16,6 +16,7 @@ export class CreditNoteListComponent {
 
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
+  IsAuditor!: boolean;
 
   constructor(
     private loginService: LoginService,
@@ -26,6 +27,13 @@ export class CreditNoteListComponent {
 
   ngOnInit() {
     this.getCreditNote();
+
+    let roles = localStorage.getItem('CompanyRoles');
+    if (roles?.includes('AUDITOR')) {
+      this.IsAuditor = false;
+    } else {
+      this.IsAuditor = true;
+    }
   }
 
   getCreditNote() {

@@ -455,7 +455,8 @@ a.genLink {
   border-radius: 3px;
   border-radius: 8px;
   /* min-height: 700px; */
-  min-height: auto;
+  min-height: 650px;
+  height: auto;
 }
 
 .demoContainer {
@@ -796,7 +797,7 @@ a.genLink {
 .popupHeading {
   background: url("../images/popheading-bg.jpg") repeat-x;
   padding: 4px 10px;
-  color: #3c4858;
+  background-color: #3c4858;
   font-size: 13px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -807,9 +808,10 @@ a.genLink {
   border-bottom: 1px solid #828282;
 }
 .popupSubHeadingDiv {
-  background: #fff no-repeat 95% center;
+  background: #c6e6ec no-repeat 95% center;
   padding: 12px;
   border-bottom: 1px solid #828282;
+  border-radius: 8px;
 }
 .popupSubHeadingDiv.createFilter {
   background-image: url("../images/newfilter-bg.png");
@@ -850,9 +852,10 @@ a.genLink {
   margin-bottom: 4px;
 }
 .popupContentWrapper {
-  background: #e3e6eb;
+  background: #93b2cf;
   padding: 12px;
   color: #333333;
+  border-radius: 8px;
 }
 .popupContentWrapper input,
 .popupContentWrapper label {
@@ -865,7 +868,7 @@ img.ui-datepicker-trigger {
 }
 .popupFormField {
   padding: 12px;
-  background: #fff;
+  background: #afcdd2;
   border: 1px solid #828282;
 }
 .popUpFormSectionWrapper {
@@ -972,8 +975,9 @@ input.rangeInput {
 .chooseColoumnsWrapper .popUpFormSectionWrapper {
   padding-bottom: 15px;
   margin-bottom: 15px;
-  border-bottom: 1px solid #bdbdbd;
-  box-shadow: 0px 1px 0px #fff;
+  /* border-bottom: 1px solid #bdbdbd; */
+  border-radius: 5px;
+  box-shadow: 0.5px 5px 8px rgba(0, 0, 0, 0.6);
 }
 .chooseColoumnsWrapepr table.chooseColoumnsTable {
   border-collapse: collapse;
@@ -1534,7 +1538,7 @@ table.chooseColoumnsTable td select.columnsSelect {
 }
 .queryResultWrapper {
   margin-top: 15px;
-  border: 1px solid #afaeac;
+  /* border: 1px solid #afaeac; */
   min-height: 80px;
 }
 .querySelect {
