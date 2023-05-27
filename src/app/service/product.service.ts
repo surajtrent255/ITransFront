@@ -7,7 +7,7 @@ import { Product } from '../models/Product';
 import { RJResponse } from '../models/rjresponse';
 import { VatRateTypes } from '../models/VatRateTypes';
 import { Unit } from '../models/Unit';
-import { PaginationCustom, PaginationType } from '../interfaces/PaginatinCustom';
+import { PaginationCustom } from '../interfaces/PaginatinCustom';
 const productURL = 'product';
 const endpoint = 'https://jsonplaceholder.typicode.com/posts'
 
@@ -28,10 +28,11 @@ export class ProductService {
     return this.httpClient.get<RJResponse<Product[]>>(url);
   }
 
-  getLimitedProducts(pagination: PaginationCustom, compId: number, branchId: number): Observable<RJResponse<Product[]>> {
-    let url = `${BASE_URL}/${productURL}/limited?compId=${compId}&branchId=${branchId}`;
-    return this.httpClient.post<RJResponse<Product[]>>(url, pagination);
+  getLimitedProducts(offset: number, pageTotalItems: number, searchBy: string, searchWildCard: string, sortBy: string, compId: number, branchId: number): Observable<RJResponse<Product[]>> {
+    let url = `${BASE_URL}/${productURL}/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&searchBy=${searchBy}&searchWildCard=${searchWildCard}&sortBy=${sortBy}&compId=${compId}&branchId=${branchId}`;
+    return this.httpClient.get<RJResponse<Product[]>>(url);
   }
+
 
   getProductById(
     id: number,

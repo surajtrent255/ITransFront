@@ -8,18 +8,27 @@
       <div class="searchCreateDiv">
         <div class="fleft searchDiv" id="prodSearch">
           <input
-            class="inputText hintText"
+            class="inputText"
             type="text"
-            search="off"
-            value="Enter CustomerPartName/MasterPartName to Search"
+            [(ngModel)]="searchWildCard"
+            (keydown.enter)="fetchLimitedSalesBill()"
           />
           <input
             type="image"
+            (click)="fetchLimitedSalesBill()"
             src="../../../assets/resources/images/searchButton.png"
             class="serachButton"
             title="Search Term"
           />
-          <a href="#" class="genLink">Clear searchs</a>
+          <a class="genLink">Clear searchs</a>
+          <span>search by: </span>
+          <select name="s" [(ngModel)]="searchBy" id="">
+            <option value="bill_no">Bill no</option>
+            <!-- <option value="customer_name">Customer name</option>
+            <option value="customer_pan">Barcode</option>
+            <option value="payment_method">Vat Refund Amount</option>
+            <option value="tax_approach">Tax Approach</option> -->
+          </select>
         </div>
         <div class="fright" class="createsalesBillDiv">
           <a

@@ -1,9 +1,7 @@
 <div class="contentRecordsTableContainer MainContainer">
   <div class="recordTableWrapper" style="height: auto">
     <div class="recordCategory">
-      <h2 class="text-center" id="totalGroupCombinations">
-        Product List{{ searchProductName }}
-      </h2>
+      <h2 class="text-center" id="totalGroupCombinations">Product List</h2>
       <div class="cboth"></div>
     </div>
     <div>
@@ -11,19 +9,25 @@
         <div class="searchCreateDiv">
           <div class="fleft searchDiv" id="prodSearch">
             <input
-              class="inputText hintText"
+              class="inputText"
               type="text"
-              search="off"
-              [(ngModel)]="searchProductName"
-              value="Enter product name to search"
+              [(ngModel)]="searchWildCard"
+              (keydown.enter)="fetchLimitedProducts()"
             />
             <input
               type="image"
+              (click)="fetchLimitedProducts()"
               src="../../../assets/resources/images/searchButton.png"
               class="serachButton"
               title="Search Term"
             />
-            <a href="#" class="genLink">Clear searchs</a>
+            <a class="genLink">Clear searchs</a>
+            <span>search by: </span>
+            <select name="s" [(ngModel)]="searchBy" id="">
+              <option value="id">ID</option>
+              <option value="name">NAME</option>
+              <option value="barcode">Barcode</option>
+            </select>
           </div>
           <div class="fright" class="createProductDiv">
             <a
@@ -36,7 +40,6 @@
               <span> Create Product</span>
             </a>
           </div>
-          <div class="cboth"></div>
         </div>
         <div class="tableWrapper">
           <div class="tablesettingDiv">
@@ -158,14 +161,13 @@
                 <a
                   (click)="changePage('prev')"
                   style="cursor: pointer"
-                  *ngIf="pagination.current > 1"
                   class="prev pageNumber"
                 >
                   <img src="../../../assets/resources/images/prev-page.png" />
                 </a>
                 <span class="showingText">Page</span>
                 <span class="pagedisplay"
-                  ><span class="pageNum">{{ pagination.current }}</span>
+                  ><span class="pageNum">{{ currentPageNumber }}</span>
                 </span>
                 <!-- <pagination-controls
                   previousLabel="Prev"

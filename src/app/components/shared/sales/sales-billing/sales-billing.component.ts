@@ -37,6 +37,10 @@ export class SalesBillingComponent {
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
 
+  searchBy: string = "bill_no";
+  searchWildCard: string = '';
+
+  sortBy: string = "id"
 
   constructor(
     private salesBillService: SalesBillServiceService,
@@ -50,7 +54,8 @@ export class SalesBillingComponent {
     this.loggedUser = JSON.parse(localStorage.getItem('User')!);
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
-    this.getSalesBillForCompanyBranch();
+    // this.getSalesBillForCompanyBranch();
+    this.fetchLimitedSalesBill();
     let roles = localStorage.getItem('CompanyRoles');
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
@@ -265,7 +270,7 @@ export class SalesBillingComponent {
   fetchLimitedSalesBill() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.salesBillService.getLimitedSalesBill(offset, this.pageTotalItems, this.companyId, this.branchId).subscribe((res) => {
+    this.salesBillService.getLimitedSalesBill(offset, this.pageTotalItems, this.searchBy, this.searchWildCard, this.sortBy, this.companyId, this.branchId).subscribe((res) => {
       if (res.data.length === 0) {
         this.toastrService.error("bills not found ")
         this.currentPageNumber -= 1;

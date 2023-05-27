@@ -1,7 +1,7 @@
 import { Component, Output, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { PaginationCustom, PaginationType } from 'src/app/interfaces/PaginatinCustom';
+import { PaginationCustom } from 'src/app/interfaces/PaginatinCustom';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { Product } from 'src/app/models/Product';
 import { VatRateTypes } from 'src/app/models/VatRateTypes';
@@ -25,12 +25,10 @@ export class ProductComponent {
   // tableSize: number = 10;
   // tableSizes: any = [1, 10, 15, 20];
 
-  searchProductName: string = ''
-
   availableProducts: Product[] = [];
   availableCategories: CategoryProduct[] = [];
   typerate: VatRateTypes[] = [];
-  pagination: PaginationCustom = new PaginationCustom;
+  // pagination: PaginationCustom = new PaginationCustom;
 
   showableCreateProdDiv: boolean = false;
   constructor(
@@ -48,12 +46,19 @@ export class ProductComponent {
   compId!: number;
   branchId!: number;
 
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 5;
+
+  searchBy: string = "name";
+  searchWildCard: string = '';
+
+  sortBy: string = "id"
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     // this.fetchAllProducts(this.compId, this.branchId);
-    this.fetchLimitedProducts(PaginationType.START);
+    this.fetchLimitedProducts();
     let roles = localStorage.getItem('CompanyRoles');
     this.getAllVatRateTypes();
 
@@ -88,50 +93,30 @@ export class ProductComponent {
   // }
   // angular pagination finish
 
-  fetchLimitedProducts(paginationType: PaginationType) {
-    let prodId = this.pagination.currentLastObjectId;
-    let prodLimit = this.pagination.productsLimit;
-    let compId = this.compId;
-    let branchId = this.branchId;
-    this.pagination.type = paginationType;
-    this.productService.getLimitedProducts(this.pagination, compId, branchId).subscribe((data) => {
-      if (data.data.length < 1) {
-        const nextPageEl = document.getElementById("nextPage") as HTMLElement;
-        this.renderer.setStyle(nextPageEl, "display", "none")
-        if (this.pagination.type === PaginationType.NEXT) {
-          this.pagination.current = this.pagination.current - 1;
-        }
-      } else {
-        this.availableProducts = data.data
-        const nextPageEl = document.getElementById("nextPage") as HTMLElement;
-        this.renderer.removeStyle(nextPageEl, "display")
-        this.pagination.currentFirstObjectId = this.availableProducts[0].id;
-        this.pagination.currentLastObjectId = this.availableProducts[this.availableProducts.length - 1].id;
-      }
 
 
-    });
+  changePage(type: string) {
+    if (type === "prev") {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.fetchLimitedProducts();
+    } else if (type === "next") {
+      this.currentPageNumber += 1;
+      this.fetchLimitedProducts();
+    }
   }
 
-  changePage(pageType: string) {
-    switch (pageType) {
-      case "start":
-        this.pagination.current = 1;
-        this.fetchLimitedProducts(PaginationType.START)
-        break;
-      case "prev":
-        this.pagination.current = this.pagination.current - 1;
-        this.fetchLimitedProducts(PaginationType.PREVIOUS)
-        break;
-      case "next":
-        this.pagination.current = this.pagination.current + 1;
-        this.fetchLimitedProducts(PaginationType.NEXT)
-        break;
-      case "end":
-        this.pagination.current = 1000;
-        this.fetchLimitedProducts(PaginationType.END)
-        break;
-    }
+  fetchLimitedProducts() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.productService.getLimitedProducts(offset, this.pageTotalItems, this.searchBy, this.searchWildCard, this.sortBy, this.compId, this.branchId).subscribe((res) => {
+      if (res.data.length === 0 || res.data === undefined) {
+        this.toastrService.error("products not found ")
+        this.currentPageNumber -= 1;
+      } else {
+        this.availableProducts = res.data;
+      }
+    })
   }
 
   fetchAllProducts(compId: number, branchId: number) {

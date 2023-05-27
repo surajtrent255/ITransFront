@@ -5,12 +5,5 @@ export class PaginationCustom {
   currentFirstObjectId !: number;
   currentLastObjectId: number = -1;
   productsLimit: number = 2
-  type !: PaginationType;
 }
 
-export enum PaginationType {
-  NEXT,
-  PREVIOUS,
-  START,
-  END
-}

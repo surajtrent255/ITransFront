@@ -22,8 +22,8 @@ export class SalesBillServiceService {
     return this.http.get<RJResponse<SalesBill[]>>(url);
   }
 
-  getLimitedSalesBill(offset: number, pageTotalItems: number, compId: number, branchId: number): Observable<RJResponse<SalesBill[]>> {
-    let url = `${BASE_URL}/salesBill/company/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&compId=${compId}&branchId=${branchId}`;
+  getLimitedSalesBill(offset: number, pageTotalItems: number, searchBy: string, searchWildCard: string, sortBy: string, compId: number, branchId: number): Observable<RJResponse<SalesBill[]>> {
+    let url = `${BASE_URL}/salesBill/company/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&searchBy=${searchBy}&searchWildCard=${searchWildCard}&sortBy=${sortBy}&compId=${compId}&branchId=${branchId}`;
     return this.http.get<RJResponse<SalesBill[]>>(url);
   }
 
