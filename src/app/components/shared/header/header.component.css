@@ -4,17 +4,7 @@
 }
 
 .profile-button {
-  border: none;
-  background: none;
   cursor: pointer;
-  padding: 0;
-  margin: 0;
-}
-
-.profile-button img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
 }
 
 .profile-card {

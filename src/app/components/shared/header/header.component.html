@@ -1,72 +1,5 @@
 <script src="../../../../assets/resources/js/main.js"></script>
 <div id="headerWrapper" class="headerWrapper" style="background-color: #9fb8d8">
-  <div class="logoutDiv">
-    <div class="fright" style="padding-right: 17px">
-      <div class="profile" #profile style="padding-right: 20px">
-        <button class="profile-button">
-          <img
-            src="../../../../assets/images/Users-Name-icon.png"
-            alt="Profile Image"
-          />
-        </button>
-        <div class="profile-card" #profileCard>
-          <div class="profile-card-header">
-            <img
-              src="../../../../assets/images/Users-Name-icon.png"
-              alt="Profile Image"
-            />
-            <div class="profile-card-header-info">
-              <h3>
-                {{ loggedInUser.user.firstname }}
-                {{ loggedInUser.user.lastname }}
-              </h3>
-              <p>{{ loggedInUser.user.email }}</p>
-            </div>
-          </div>
-          <div class="profile-card-body">
-            <ul>
-              <li>
-                <i
-                  class="fa-regular fa-pen-to-square fa-xl"
-                  style="color: #23592c"
-                ></i>
-                <span style="padding-left: 10px">Edit</span>
-              </li>
-              <li>
-                <i
-                  class="fa-regular fa-building fa-xl"
-                  style="color: #23592c"
-                ></i>
-                <span style="padding-left: 10px">Company</span>
-              </li>
-
-              <li>
-                <a (click)="logout()" href="/login">
-                  <img
-                    src="../../../../assets/resources/images/logout-bg.png"
-                    class="logoutImage"
-                  />
-                  <span> logout</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="fright" style="padding-right: 30px; padding-top: 10px">
-      <a (click)="OnSwitchCompany()" href="/company">
-        <img
-          src="../../../../assets/resources/images/logout-bg.png"
-          class="logoutImage"
-        />
-        <span>Switch Company</span>
-      </a>
-    </div>
-
-    <div class="cboth"></div>
-  </div>
   <div class="headerNav">
     <div class="fleft">
       <img
@@ -120,8 +53,82 @@
             </ul>
           </div>
         </li>
+        <li style="padding-left: 15px">
+          <a class="profile-button" style="color: white">
+            <img src="../../../../assets/images/username-1-16.png" />
+            <span>profile</span>
+          </a>
+
+          <div style="margin-right: 5px" class="profile-card" #profileCard>
+            <div class="profile-card-header">
+              <img
+                src="../../../../assets/images/username-1-64.png"
+                alt="Profile Image"
+              />
+              <div class="profile-card-header-info">
+                <h3>
+                  {{ loggedInUser.user.firstname }}
+                  {{ loggedInUser.user.lastname }}
+                </h3>
+                <p>{{ loggedInUser.user.email }}</p>
+              </div>
+            </div>
+            <div class="profile-card-body">
+              <ul>
+                <li>
+                  <a style="background: none">
+                    <i
+                      class="fa-regular fa-pen-to-square fa-xl"
+                      style="color: #23592c"
+                    ></i>
+                    <span style="padding-left: 10px">Edit Profile</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a style="background: none">
+                    <i
+                      class="fa-regular fa-building fa-xl"
+                      style="color: #23592c"
+                    ></i>
+                    <span style="padding-left: 10px">Company</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    style="background: none"
+                    (click)="OnSwitchCompany()"
+                    routerLink="/company"
+                  >
+                    <img
+                      src="../../../../assets/resources/images/logout-bg.png"
+                      class="logoutImage"
+                    />
+                    <span>Switch Company</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    style="background: none"
+                    (click)="logout()"
+                    routerLink="/login"
+                  >
+                    <img
+                      src="../../../../assets/resources/images/logout-bg.png"
+                      class="logoutImage"
+                    />
+                    <span> logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
+
     <div class="cboth"></div>
   </div>
 

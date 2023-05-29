@@ -164,7 +164,7 @@ export class HeaderComponent {
     this.roleService
       .getUserRoleDetailsBasedOnCompanyIdAndUserId(
         this.localStorageCompanyId,
-        this.loggedInUser.user.id
+        this.loginService.getUserId()
       )
       .subscribe((res) => {
         res.data.map((role) => {
@@ -254,6 +254,11 @@ export class HeaderComponent {
   OnSwitchCompany() {
     localStorage.removeItem('CompanyRoles');
   }
+
+  logout() {
+    this.loginService.logout();
+  }
+
   getAllUser() {
     this.userConfigurationService
       .getAllUser(this.localStorageCompanyId)
@@ -530,10 +535,6 @@ export class HeaderComponent {
       .subscribe((res) => {
         this.municipality = res.data;
       });
-  }
-
-  logout() {
-    this.loginService.logout();
   }
 
   // userConfiguration Tabs logic
