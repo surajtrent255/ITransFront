@@ -22,6 +22,7 @@ import { Roles } from 'src/app/models/Roles';
 import { FeatureControl } from 'src/app/models/Feature Control/feature-control';
 import { FeatureControlService } from 'src/app/service/shared/Feature-Control/feature-control.service';
 import { CounterService } from 'src/app/service/shared/counter/counter.service';
+import { Logo } from 'src/app/models/company-logo/CompanyImage';
 
 @Component({
   selector: 'app-select-and-create-company',
@@ -36,6 +37,7 @@ export class SelectAndCreateCompanyComponent {
   IsAdmin!: boolean;
   user_id!: number;
   companyId!: number;
+  companyLogo!: Logo;
   company!: Company[];
   role!: Roles[];
   roles: string[] = [];

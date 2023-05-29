@@ -34,20 +34,18 @@ export class CreateProductComponent {
     private toastrService: ToastrService,
     private companyService: CompanyServiceService,
     private selectCategoryService: SelectCategoryServiceService
-  ) { }
+  ) {}
 
   compId!: number;
   branchId!: number;
   catSelected: boolean = false;
 
   customerSearchMethod: number = 1;
-  custPhoneOrPan !: number;
-  selectMenusForCompanies !: Company[];
-  selectMenusForCompaniesSize !: number;
-  selectedSellerCompanyId !: number;
+  custPhoneOrPan!: number;
+  selectMenusForCompanies!: Company[];
+  selectMenusForCompaniesSize!: number;
+  selectedSellerCompanyId!: number;
   unit: string = 'other';
-
-
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();

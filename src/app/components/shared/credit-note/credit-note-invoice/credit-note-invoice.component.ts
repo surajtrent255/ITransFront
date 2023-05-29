@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Product } from 'src/app/models/Product';
 import { SalesBillDetailWithProdInfo } from 'src/app/models/SalesBillDetailWithProdInfo';
 import { SalesBillInvoice } from 'src/app/models/SalesBillInvoice';
 import { ProductService } from 'src/app/service/product.service';
@@ -9,7 +8,6 @@ import { SalesBillServiceService } from 'src/app/service/sales-bill-service.serv
 import { CreditNoteService } from 'src/app/service/shared/Credit-Note/credit-note.service';
 import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
-import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-credit-note-invoice',
@@ -43,6 +41,7 @@ export class CreditNoteInvoiceComponent {
     this.date = this.commonService.formatDate(Number(date));
 
     this.commonService.data$.subscribe((data) => {
+      console.log(data);
       this.serialNumber = data.SN;
       this.billNo = data.billNo;
       this.SelectedProduct = data.data;
@@ -74,40 +73,6 @@ export class CreditNoteInvoiceComponent {
       });
   }
 
-  exportToExcel() {
-    const table = document.getElementById('httptrace-table');
-    const tableHtml = table?.outerHTML.replace(/ /g, '%20');
-
-    // Create a new workbook
-    const workbook = XLSX.utils.book_new();
-
-    // Convert the HTML table to a worksheet
-    const worksheet = XLSX.utils.table_to_sheet(table);
-
-    // Add the worksheet to the workbook
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-
-    // Convert the workbook to an Excel file
-    const excelBuffer = XLSX.write(workbook, {
-      bookType: 'xlsx',
-      type: 'array',
-    });
-
-    // Create a Blob from the Excel data
-    const blob = new Blob([excelBuffer], {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    });
-
-    // Create a download link and trigger the download
-    const downloadLink = document.createElement('a');
-    downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = 'httptrace.xlsx';
-    downloadLink.click();
-
-    // Clean up the URL object
-    URL.revokeObjectURL(downloadLink.href);
-  }
-
   submit() {
     this.SelectedProduct.map((data) => {
       this.creditNoteService
@@ -121,6 +86,10 @@ export class CreditNoteInvoiceComponent {
           productName: data.productName,
           branchId: this.loginService.getBranchId(),
           billNumber: this.salesInvoice.salesBillDTO.billNo,
+          productQty: data.qty,
+          productUnit: data.unit,
+          totalCreditAmount:
+            ((data.rate * data.taxRate) / 100 + data.rate) * data.qty,
         })
         .subscribe((res) => {});
     });

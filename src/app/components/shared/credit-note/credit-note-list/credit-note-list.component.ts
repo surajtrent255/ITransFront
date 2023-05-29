@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CreditNote } from 'src/app/models/Credit-Note/creditNote';
 import { CreditNoteDetails } from 'src/app/models/Credit-Note/creditNoteDetails';
 import { CreditNoteService } from 'src/app/service/shared/Credit-Note/credit-note.service';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
@@ -14,16 +16,17 @@ export class CreditNoteListComponent {
   creditNote!: CreditNote[];
   creditNoteDtails!: CreditNoteDetails[];
 
+  IsAuditor!: boolean;
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
-  IsAuditor!: boolean;
 
   constructor(
     private loginService: LoginService,
     private creditNoteService: CreditNoteService,
-    private toastrService: ToastrService,
-
-  ) { }
+    private commonService: CommonService,
+    private router: Router,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getCreditNote();
@@ -34,6 +37,13 @@ export class CreditNoteListComponent {
     } else {
       this.IsAuditor = true;
     }
+  }
+
+  printData(printData: CreditNote) {
+    this.commonService.setData({
+      printData,
+    });
+    this.router.navigateByUrl('/dashboard/print-credit-note');
   }
 
   getCreditNote() {
@@ -48,11 +58,11 @@ export class CreditNoteListComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.getLimitedCreditNote();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.getLimitedCreditNote();
     }
@@ -61,15 +71,21 @@ export class CreditNoteListComponent {
   getLimitedCreditNote() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.creditNoteService.getLimitedCreditNote(offset, this.pageTotalItems, this.loginService.getCompnayId(), this.loginService.getBranchId()).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("notes not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.creditNote = res.data;
-
-      }
-    })
+    this.creditNoteService
+      .getLimitedCreditNote(
+        offset,
+        this.pageTotalItems,
+        this.loginService.getCompnayId(),
+        this.loginService.getBranchId()
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('notes not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.creditNote = res.data;
+        }
+      });
   }
 
   details(billNumber: string) {

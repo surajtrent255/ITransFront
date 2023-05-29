@@ -5,6 +5,7 @@ export class SalesBillDetailWithProdInfo {
   date: Date = new Date();
   discountPerUnit: number = 0.0;
   rate: number = 0.0;
+  unit!: string;
   billId!: number;
   companyId!: number;
   productName!: string;

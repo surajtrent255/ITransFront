@@ -310,9 +310,8 @@ export class CreateSalesComponent {
       discountEl.value = String(salesProd.discountPerUnit);
       totalAmountEl.innerText = String(salesProd.rowTotal);
       setTimeout(() => {
-        this.updateTotalAmount(index)
-
-      })
+        this.updateTotalAmount(index);
+      });
     });
   }
 
@@ -493,7 +492,7 @@ export class CreateSalesComponent {
       error: (error) => {
         console.error(error);
       },
-      complete: () => { },
+      complete: () => {},
     });
   }
 
@@ -580,7 +579,7 @@ export class CreateSalesComponent {
                   } else if (prod.taxApproach === 2) {
                     sellingPriceEl.value = String(
                       prod.sellingPrice +
-                      (eachVatRateNum / 100) * prod.sellingPrice
+                        (eachVatRateNum / 100) * prod.sellingPrice
                     );
                   }
                 } else if (this.taxApproach === 2) {
@@ -588,7 +587,7 @@ export class CreateSalesComponent {
                     let actSp =
                       prod.sellingPrice -
                       (eachVatRateNum / (100 + eachVatRateNum)) *
-                      prod.sellingPrice;
+                        prod.sellingPrice;
                     sellingPriceEl.value = String(actSp);
                   } else if (prod.taxApproach === 2) {
                     sellingPriceEl.value = String(prod.sellingPrice);
@@ -608,11 +607,6 @@ export class CreateSalesComponent {
             });
             this.prodQtyInput.nativeElement.focus();
             this.prodQtyInput.nativeElement.select();
-          }
-          if (data.data !== null) {
-            this.prodQtyInput.nativeElement.focus();
-          } else {
-            this.productBarCodeInput.nativeElement.focus();
           }
         },
       });
@@ -672,9 +666,9 @@ export class CreateSalesComponent {
 
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
-          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
-          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
+            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
+            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
+            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       } else if (prod.taxApproach === 2) {
         sellingPriceEl.value = String(
@@ -685,9 +679,9 @@ export class CreateSalesComponent {
         ) as HTMLInputElement;
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
-          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
-          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
+            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
+            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
+            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       } else if (prod.taxApproach === 0) {
         sellingPriceEl.value = String(
@@ -698,9 +692,9 @@ export class CreateSalesComponent {
         ) as HTMLInputElement;
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
-          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
-          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
+            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
+            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
+            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       }
     } else if (this.taxApproach === 2) {
@@ -714,7 +708,7 @@ export class CreateSalesComponent {
         ) as HTMLInputElement;
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
+            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       } else if (prod.taxApproach === 2) {
         sellingPriceEl.value = String(prod.sellingPrice);
@@ -723,7 +717,7 @@ export class CreateSalesComponent {
         ) as HTMLInputElement;
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
+            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       } else if (prod.taxApproach === 0) {
         sellingPriceEl.value = String(prod.sellingPrice);
@@ -732,7 +726,7 @@ export class CreateSalesComponent {
         ) as HTMLInputElement;
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
+            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       }
     }
@@ -864,7 +858,7 @@ export class CreateSalesComponent {
 
     // for abbrevationBill
     if (this.isAbbrFeature) {
-      if (this.unknownCustomer || (!this.doesCustomerhavePan)) {
+      if (this.unknownCustomer || !this.doesCustomerhavePan) {
         if (this.bsTotal < 1000) {
           this.hasAbbr = true;
         } else {
@@ -991,9 +985,12 @@ export class CreateSalesComponent {
         if (draft === false) {
           // this.router.navigateByUrl(`dashboard/salesbill`);
 
-          window.open(`salesBillPrint/${data.data}`, "_blank", "height=900, width=900, left=250, top=100");
+          window.open(
+            `salesBillPrint/${data.data}`,
+            '_blank',
+            'height=900, width=900, left=250, top=100'
+          );
           this.router.navigateByUrl(`dashboard/salesbill`);
-
         } else {
           alert('Draft has been saved ');
           this.router.navigateByUrl('dashboard/salesbill');

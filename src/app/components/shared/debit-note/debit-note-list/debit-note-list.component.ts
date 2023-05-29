@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DebitNote } from 'src/app/models/Debit-Note/debitNote';
 import { DebitNoteDetails } from 'src/app/models/Debit-Note/debitNoteDetails';
 import { DebitNoteService } from 'src/app/service/shared/Debit-Note/debit-note.service';
@@ -16,17 +16,17 @@ export class DebitNoteListComponent {
   debitNote!: DebitNote[];
   debitNoteDetails!: DebitNoteDetails[];
 
+  IsAuditor!: boolean;
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
-  IsAuditor!: boolean;
 
   constructor(
     private debitNoteService: DebitNoteService,
     private loginService: LoginService,
-    private toastrService: ToastrService,
     private commonService: CommonService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getDebitNote();
@@ -51,11 +51,11 @@ export class DebitNoteListComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedDebitNotes();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedDebitNotes();
     }
@@ -64,17 +64,22 @@ export class DebitNoteListComponent {
   fetchLimitedDebitNotes() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.debitNoteService.getLimitedDebitNotes(offset, this.pageTotalItems, this.loginService.getCompnayId(), this.loginService.getBranchId()).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("bills not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.debitNote = res.data;
-
-      }
-    })
+    this.debitNoteService
+      .getLimitedDebitNotes(
+        offset,
+        this.pageTotalItems,
+        this.loginService.getCompnayId(),
+        this.loginService.getBranchId()
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('bills not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.debitNote = res.data;
+        }
+      });
   }
-
 
   details(billNumber: number) {
     this.debitNoteService.getDebitNoteDetails(billNumber).subscribe((res) => {

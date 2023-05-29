@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { RoleService } from '../role.service';
-import { LoginService } from '../login.service';
 import { BehaviorSubject, Subject } from 'rxjs';
+import * as html2pdf from 'html2pdf.js';
+import { utils, writeFile } from 'xlsx';
 
 @Injectable({
   providedIn: 'root',
@@ -32,5 +32,40 @@ export class CommonService {
 
   addZeroPadding(num: number): string {
     return num < 10 ? `0${num}` : `${num}`;
+  }
+
+  // html to pdf conversion
+  convertToPdf(elementId: string, fileName: string) {
+    const element = document.getElementById(elementId);
+    const options = {
+      filename: `${fileName}.pdf`,
+      margin: [10, 10],
+      orientation: 'landscape',
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+    };
+
+    html2pdf().set(options).from(element).save();
+  }
+
+  // html to Excel conversion
+  convertToExcel(elementId: string, fileName: string) {
+    const htmlContent = document.getElementById(elementId)?.outerHTML;
+
+    if (htmlContent) {
+      const tempTable = document.createElement('table');
+      tempTable.innerHTML = htmlContent;
+
+      const worksheet = utils.table_to_sheet(tempTable);
+      const workbook = {
+        Sheets: { Sheet1: worksheet },
+        SheetNames: ['Sheet1'],
+      };
+
+      writeFile(workbook, `${fileName}.xlsx`, {
+        bookType: 'xlsx',
+        type: 'array',
+      });
+    }
   }
 }
