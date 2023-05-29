@@ -136,4 +136,9 @@ export class LoginService {
     return featureObjs;
   }
 
+  getCompany(): number {
+    var company: any = JSON.parse(localStorage.getItem('companyDetails')!);
+    return company;
+  }
+
 }

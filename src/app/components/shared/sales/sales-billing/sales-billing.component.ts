@@ -1,5 +1,6 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { SalesBill } from 'src/app/models/SalesBill';
 import { SalesBillDetail } from 'src/app/models/SalesBillDetail';
 import { SalesBillInvoice } from 'src/app/models/SalesBillInvoice';
@@ -26,22 +27,35 @@ export class SalesBillingComponent {
   activeSalesBillEdit: boolean = false;
   confirmAlertDisplay: boolean = false;
   cancelBillId !: number;
+  billPrintComponent: boolean = false;
+  billId !: number;
+
 
   companyId!: number;
   branchId!: number;
 
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 5;
+
+  searchBy: string = "bill_no";
+  searchWildCard: string = '';
+
+  sortBy: string = "id"
+
   constructor(
     private salesBillService: SalesBillServiceService,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
-    console.log('sales-billingbasecomp');
     this.loggedUser = JSON.parse(localStorage.getItem('User')!);
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
-    this.getSalesBillForCompanyBranch();
+    // this.getSalesBillForCompanyBranch();
+    this.fetchLimitedSalesBill();
     let roles = localStorage.getItem('CompanyRoles');
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
@@ -225,6 +239,51 @@ export class SalesBillingComponent {
   }
 
   goForPrint(id: number) {
-    this.router.navigateByUrl(`dashboard/salesbill/invoice/${id}`);
+    // this.router.navigateByUrl(`dashboard/salesbill/invoice/${id}`);
+    // window.open(`dashboard/salesbill/invoice/${id}`, "_blank", "height=1000, width=1000, left=250, top=100");
+
+    window.open(`salesBillPrint/${id}`, "_blank", "height=900, width=900, left=250, top=100");
+    this.router.navigateByUrl(`dashboard/salesbill`);
+
+    // window.focus();
   }
+
+  openNewBrowser() {
+    const newWindow = this.renderer.createElement('a');
+    newWindow.href = 'https://www.example.com'; // Replace with the desired URL
+    newWindow.target = '_blank';
+    this.renderer.appendChild(document.body, newWindow);
+    newWindow.click();
+  }
+
+  changePage(type: string) {
+    if (type === "prev") {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.fetchLimitedSalesBill();
+    } else if (type === "next") {
+      this.currentPageNumber += 1;
+      this.fetchLimitedSalesBill();
+    }
+  }
+
+  fetchLimitedSalesBill() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.salesBillService.getLimitedSalesBill(offset, this.pageTotalItems, this.searchBy, this.searchWildCard, this.sortBy, this.companyId, this.branchId).subscribe((res) => {
+      if (res.data.length === 0) {
+        this.toastrService.error("bills not found ")
+        this.currentPageNumber -= 1;
+      } else {
+        this.salesBills = res.data;
+
+      }
+    })
+  }
+
+  // goToBillPrint(id: number) {
+  //   this.billPrintComponent = true;
+  //   this.billId = id;
+  // }
+
 }

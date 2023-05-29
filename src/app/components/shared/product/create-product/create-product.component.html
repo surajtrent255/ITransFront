@@ -1,6 +1,6 @@
 <div class="popupHeading">
   <h2 class="fleft">Create Product</h2>
-  <a class="closeButton fright" (click)="destroyComp()"
+  <a class="closeButton fright" style="cursor: pointer" (click)="destroyComp()"
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
   <div class="cboth"></div>
@@ -333,7 +333,7 @@
                     [(ngModel)]="product.tax"
                   >
                     <option [value]="ap.id" *ngFor="let ap of typerate">
-                      {{ ap.id }}--{{ ap.vatRate }}
+                      {{ ap.vatRate }}
                     </option>
                   </select>
                 </td>

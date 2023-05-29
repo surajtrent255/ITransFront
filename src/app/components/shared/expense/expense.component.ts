@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Expense } from 'src/app/models/Expense/Expense';
 import { ExpenseService } from 'src/app/service/shared/Assets And Expenses/expense.service';
 import { LoginService } from 'src/app/service/shared/login.service';
@@ -19,6 +20,9 @@ export class ExpenseComponent {
 
   IsAuditor!: boolean;
 
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 5;
+
   ExpenseForm = new FormGroup({
     amount: new FormControl('', [Validators.required]),
     topic: new FormControl('', [Validators.required]),
@@ -29,8 +33,9 @@ export class ExpenseComponent {
 
   constructor(
     private expenseService: ExpenseService,
-    private loginService: LoginService
-  ) {}
+    private loginService: LoginService,
+    private tostrService: ToastrService
+  ) { }
 
   ngOnInit() {
     this.LoggedInBranchId = this.loginService.getBranchId();
@@ -43,6 +48,32 @@ export class ExpenseComponent {
       this.IsAuditor = true;
     }
   }
+
+  changePage(type: string) {
+    if (type === "prev") {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.fetchLimitedExpensesDetail();
+    } else if (type === "next") {
+      this.currentPageNumber += 1;
+      this.fetchLimitedExpensesDetail();
+    }
+  }
+
+  fetchLimitedExpensesDetail() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.expenseService.getLimitedExpenseDetail(offset, this.pageTotalItems, this.LoggedInCompanyId, this.LoggedInBranchId).subscribe((res) => {
+      if (res.data.length === 0) {
+        this.tostrService.error("expense not found ")
+        this.currentPageNumber -= 1;
+      } else {
+        this.expense = res.data;
+
+      }
+    })
+  }
+
 
   getExpenseDetails() {
     this.expenseService

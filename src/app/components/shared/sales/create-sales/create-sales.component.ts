@@ -4,6 +4,7 @@ import {
   EventEmitter,
   HostListener,
   Output,
+  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -128,7 +129,8 @@ export class CreateSalesComponent {
     private companyService: CompanyServiceService,
     private vatRateTypeService: VatRateTypesService,
     private activatedRoute: ActivatedRoute,
-    private tostrService: ToastrService
+    private tostrService: ToastrService,
+    private renderer: Renderer2
   ) {
     const currentDateObj = new Date();
     const datePipe = new DatePipe('en-US');
@@ -258,8 +260,8 @@ export class CreateSalesComponent {
 
         this.customerId = salesBillInvoice.salesBillDTO.customerId;
         this.customerName = salesBillInvoice.salesBillDTO.customerName;
-        const toEl = document.getElementById('to') as HTMLSpanElement;
-        toEl.innerText = this.customerName;
+        const toEl = document.getElementById("to") as HTMLSpanElement;
+        toEl.innerText = this.customerName
         this.customerPan = salesBillInvoice.salesBillDTO.customerPan;
 
         let productsIds: number[] = [];
@@ -308,8 +310,9 @@ export class CreateSalesComponent {
       discountEl.value = String(salesProd.discountPerUnit);
       totalAmountEl.innerText = String(salesProd.rowTotal);
       setTimeout(() => {
-        this.updateTotalAmount(index);
-      });
+        this.updateTotalAmount(index)
+
+      })
     });
   }
 
@@ -553,7 +556,6 @@ export class CreateSalesComponent {
           if (data.data === null)
             this.tostrService.error('product not available');
           this.productBarCodeInput.nativeElement.focus();
-
           if (data.data !== null) {
             this.prodWildCard = data.data.name;
             this.productsUserWantTosale.push(data.data);
@@ -604,12 +606,12 @@ export class CreateSalesComponent {
               // this.prodQtyInput.nativeElement.focus();
               // for focusing ends
             });
-          }
-          if (data.data !== null) {
             this.prodQtyInput.nativeElement.focus();
-          } else {
-            this.productBarCodeInput.nativeElement.focus();
+            this.prodQtyInput.nativeElement.select();
           }
+
+
+
         },
       });
   }
@@ -744,6 +746,7 @@ export class CreateSalesComponent {
     addedProductQtyEl.value = String(this.productQty);
     this.updateTotalAmount(this.productsUserWantTosale.length - 1); // lenght -1 give array cureent last element index
     this.productBarCodeInput.nativeElement.focus();
+    this.productBarCodeInput.nativeElement.select();
   }
 
   updateBillSummary() {
@@ -859,7 +862,7 @@ export class CreateSalesComponent {
 
     // for abbrevationBill
     if (this.isAbbrFeature) {
-      if (this.unknownCustomer || !this.doesCustomerhavePan) {
+      if (this.unknownCustomer || (!this.doesCustomerhavePan)) {
         if (this.bsTotal < 1000) {
           this.hasAbbr = true;
         } else {
@@ -984,7 +987,11 @@ export class CreateSalesComponent {
       next: (data) => {
         console.log(data);
         if (draft === false) {
-          this.router.navigateByUrl(`dashboard/salesbill/invoice/${data.data}`);
+          // this.router.navigateByUrl(`dashboard/salesbill`);
+
+          window.open(`salesBillPrint/${data.data}`, "_blank", "height=900, width=900, left=250, top=100");
+          this.router.navigateByUrl(`dashboard/salesbill`);
+
         } else {
           alert('Draft has been saved ');
           this.router.navigateByUrl('dashboard/salesbill');

@@ -4,7 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class NumberToWordTransformPipe implements PipeTransform {
   transform(value: any): string {
+
     if (value && isInteger(value))
+
       return numToWords(value);
 
     return value;

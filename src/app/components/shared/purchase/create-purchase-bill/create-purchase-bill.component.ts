@@ -36,6 +36,7 @@ export class CreatePurchaseBillComponent {
   @ViewChild('prodIdInput', { static: false }) prodIdInput!: ElementRef;
   @ViewChild('#insuranceField', { static: false }) insuranceInput!: ElementRef;
   @ViewChild('other', { static: false }) otherInput!: ElementRef;
+  @ViewChild("prodQtyInput", { static: false }) prodQtyInput !: ElementRef
   selectSenderActive: boolean = false;
 
   billNo: number = 0;
@@ -73,7 +74,7 @@ export class CreatePurchaseBillComponent {
   otherTaxType: number = 3;
 
   prodWildCard!: string;
-
+  productQty: number = 1
   constructor(
     private salesCartService: SalesCartService,
     private productService: ProductService,
@@ -124,6 +125,9 @@ export class CreatePurchaseBillComponent {
         if (data.data !== null) {
           this.productsUserWantToPurchase.push(data.data);
           this.productBarCodeId = undefined;
+          this.prodWildCard = data.data.name
+          this.prodQtyInput.nativeElement.focus();
+          this.prodQtyInput.nativeElement.select();
         } else if (data.data === null) {
           this.tostrService.error('product not available');
         }
@@ -144,32 +148,40 @@ export class CreatePurchaseBillComponent {
       error: (error) => {
         console.error(error);
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
+  changeProductQuantity() {
+    this.productQty;
+    const addedProductQtyEl = document.getElementById(`qtyProd${this.productsUserWantToPurchase.length - 1}`) as HTMLInputElement
 
+    addedProductQtyEl.value = String(this.productQty);
+    this.updateTotalAmount()
+    this.prodIdInput.nativeElement.focus();
+    this.prodIdInput.nativeElement.select();
+  }
   sellerSearch(id: number) {
     this.sellerSearchMethod = id;
   }
 
-  updateProdQtyUserWantToPurchase($event: any, prodIndex: number) {
-    if ($event.target.value === undefined) {
-      return;
-    }
 
-    let qtyProd = $event.target.value;
-    const prodtotalAmountElement = document.getElementById(
-      'totalAmount' + prodIndex
-    ) as HTMLElement;
+  updateTotalAmount() {
+    this.productsUserWantToPurchase.forEach((prod, index) => {
+      const prodQtyEl = document.getElementById(`qtyProd${index}`) as HTMLInputElement;
+      let qtyProd: number = Number(prodQtyEl.value);
+      const prodtotalAmountElement = document.getElementById(
+        'totalAmount' + index
+      ) as HTMLElement;
 
-    const unitPriceEl = document.getElementById(
-      'unitPrice' + prodIndex
-    ) as HTMLInputElement;
-    let sp: number = Number(unitPriceEl.value);
-    let prodTotalAmount = Number(qtyProd) * sp;
-    prodtotalAmountElement.innerText = '' + prodTotalAmount;
+      const unitPriceEl = document.getElementById(
+        'unitPrice' + index
+      ) as HTMLInputElement;
+      let sp: number = Number(unitPriceEl.value);
+      let prodTotalAmount = Number(qtyProd) * sp;
+      prodtotalAmountElement.innerText = '' + prodTotalAmount;
+    })
+
   }
-
   setSellerInfo(compId: number) {
     let comp: Company = this.selectMenusForCompanies.find(
       (comp) => Number(comp.companyId) === Number(compId)
@@ -418,7 +430,7 @@ export class CreatePurchaseBillComponent {
       });
   }
 
-  createNewProduct($event: any) {}
+  createNewProduct($event: any) { }
 }
 
 interface InputEvent extends Event {

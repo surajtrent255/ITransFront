@@ -3,7 +3,6 @@
   <div class="recordTableWrapper">
     <div class="recordCategory">
       <h2 class="text-center" id="totalGroupCombinations">Category List</h2>
-      <div class="cboth"></div>
     </div>
 
     <div class="searchCreateTableDiv">
@@ -35,7 +34,6 @@
             <span> Create Category</span>
           </a>
         </div>
-        <div class="cboth"></div>
       </div>
       <div class="tableWrapper">
         <div class="tablesettingDiv">
@@ -46,7 +44,6 @@
             <ul
               class="fleft filtersDisplayList CategoriesTableFiltersDisplayList"
             ></ul>
-            <div class="cboth"></div>
           </div>
           <div class="fright configNavTableWrapper">
             <div
@@ -171,7 +168,6 @@
               </a>
             </div>
           </div>
-          <div class="cboth"></div>
         </div>
         <div class="recordsTableDiv">
           <table
@@ -249,8 +245,6 @@
     </div>
 
     <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-      <div class="mb-2"></div>
-
       <app-createcategory
         *ngIf="createCategoryShow"
         (categorySuccessInfoEvent)="createNewCategory($event)"

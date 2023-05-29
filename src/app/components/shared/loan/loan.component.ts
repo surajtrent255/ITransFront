@@ -26,11 +26,14 @@ export class LoanComponent {
   branchId!: number;
 
   loanForUpdateId!: number;
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 5;
+
   constructor(
     private loanService: LoanService,
     private loginService: LoginService,
     private toastrService: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.branchId = this.loginService.getBranchId();
@@ -48,6 +51,30 @@ export class LoanComponent {
     this.loanService.getLoans(this.compId, this.branchId).subscribe((data) => {
       this.loans = data.data;
     });
+  }
+
+  changePage(type: string) {
+    if (type === "prev") {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.fetchLimitedLoans();
+    } else if (type === "next") {
+      this.currentPageNumber += 1;
+      this.fetchLimitedLoans();
+    }
+  }
+
+  fetchLimitedLoans() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.loanService.getLimitedLoans(offset, this.pageTotalItems, this.compId, this.branchId).subscribe((res) => {
+      if (res.data.length === 0) {
+        this.toastrService.error("loan infos not found ")
+        this.currentPageNumber -= 1;
+      } else {
+        this.loans = res.data;
+      }
+    })
   }
 
   disableLoanComponent($event: boolean) {

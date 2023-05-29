@@ -50,7 +50,7 @@ export class SelectAndCreateCompanyComponent {
     private roleService: RoleService,
     private featureControlService: FeatureControlService,
     private counterService: CounterService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginService.userObservable.subscribe((LogggedInUser) => {

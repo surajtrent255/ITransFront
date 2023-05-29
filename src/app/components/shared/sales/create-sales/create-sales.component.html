@@ -54,7 +54,7 @@
                 </span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-4">
               <span class="inputItems"
                 >To:
                 <p id="to">{{ customerName }}</p></span
@@ -65,6 +65,7 @@
                   id="custPanOrPhoneInput"
                   [(ngModel)]="custPhoneOrPan"
                   class="input-field"
+                  placeholder="pan or phone "
                   style="margin: 0 4px"
                   [readOnly]="unknownCustomer"
                   (keydown.enter)="fetchCustomerInfo()"
@@ -84,14 +85,14 @@
                   style="display: none"
                 ></button>
               </div>
-              <div class="ml-2 mt-2">
+              <!-- <div class="ml-2 mt-2">
                 <span>Search By Pan or Phone</span>
                 <div>
                   <span
                     ><small>10 digits for phone, 9 digits for pan</small></span
                   >
                 </div>
-              </div>
+              </div> -->
               <div style="display: inline-block; margin-left: 5px">
                 <input
                   type="checkbox"
@@ -154,14 +155,14 @@
   </div> -->
             </div>
             <div
-              class="col-md-3 mt-2"
+              class="col-md-3 mt-5"
               style="
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
               "
             >
-              <span>
+              <span class="mt-1">
                 <button
                   id="createNewCustomer1"
                   class="createNewTableRecord mr-2"
@@ -175,7 +176,7 @@
                 Add Customer</span
               >
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-3">
               <span class="inputItems">Date:</span>
               <input
                 class="inputItems input-field"
@@ -185,8 +186,8 @@
                 readonly
               />
             </div>
-            <div class="col-md-3">
-              <div style="display: inline-block">
+            <div class="col-md-3 mt-4">
+              <div style="display: inline-block; margin-top: 29px">
                 <input
                   type="radio"
                   style="
@@ -451,6 +452,7 @@
                       type="number"
                       style="width: 20%"
                       id="qtyProd{{ i }}"
+                      value="1"
                       (change)="updateTotalAmount(i); updateBillSummary()"
                       (keydown.enter)="goToProductId()"
                     />

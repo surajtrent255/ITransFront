@@ -43,21 +43,31 @@
           </div>
           <div class="fright configNavTableWrapper">
             <div class="fleft tableNavDiv" id="ProductsTablePagination">
-              <a href="" class="first first-page pageNumber">
+              <!-- <a href="" class="first first-page pageNumber">
                 <img src="../../../assets/resources/images/first-page.png" />
-              </a>
-              <a href="" class="prev pageNumber">
+              </a> -->
+              <a
+                (click)="changePage('prev')"
+                style="cursor: pointer"
+                class="prev pageNumber"
+              >
                 <img src="../../../assets/resources/images/prev-page.png" />
               </a>
               <span class="showingText">Page</span>
-              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+              <span class="pagedisplay"
+                ><span class="pageNum">{{ currentPageNumber }}</span>
+              </span>
 
-              <a href="" class="next pageNumber">
+              <a
+                (click)="changePage('next')"
+                style="cursor: pointer"
+                class="next pageNumber"
+              >
                 <img src="../../../assets/resources/images/next-page.png" />
               </a>
-              <a href="" class="last last-page pageNumber">
+              <!-- <a href="" class="last last-page pageNumber">
                 <img src="../../../assets/resources/images/last-page.png" />
-              </a>
+              </a> -->
             </div>
           </div>
           <div class="cboth"></div>

@@ -1,117 +1,161 @@
-<div
-    class="contentRecordsTableContainer MainContainer">
-    <!-- 405px -->
-    <div class="recordTableWrapper">
-        <div class="recordCategory">
-            <h2 class="text-center" id="totalGroupCombinations"><!-- Bank List {{ bankList[0].location }} -->
-                <!-- <span *ngFor="let b of bankList">{{ b[0].name }}</span> -->
-            </h2>
-            <div class="cboth"></div>
-        </div>
+<div class="contentRecordsTableContainer MainContainer">
+  <!-- 405px -->
+  <div class="recordTableWrapper">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations">
+        <!-- Bank List {{ bankList[0].location }} -->
+        <!-- <span *ngFor="let b of bankList">{{ b[0].name }}</span> -->
+      </h2>
+      <div class="cboth"></div>
+    </div>
 
-        <div class="searchCreateTableDiv">
-            <div class="searchCreateDiv">
-                <div class="fleft searchDiv" id="prodSearch">
-                    <input class="inputText hintText" type="text" search="openForm" value="bankName"/>
-                    <input type="image" src="../../../assets/resources/images/searchButton.png" class="serachButton" title="Search Term"/>
-                    <a href="#" class="genLink">Clear searchs</a>
-                </div>
-                <div class="fright" class="createCategoryDiv">
-                    <a href="" id="createNewCategory" class="createNewTableRecord">
-                        <img src="../../../../assets/resources/images/createProduct.png"/>
-                        <span (click)="openForm()">
-                            Create Bank</span>
-                    </a>
-                </div>
-                <div class="cboth"></div>
+    <div class="searchCreateTableDiv">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText hintText"
+            type="text"
+            search="openForm"
+            value="bankName"
+          />
+          <input
+            type="image"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a href="#" class="genLink">Clear searchs</a>
+        </div>
+        <div class="fright" class="createCategoryDiv">
+          <a href="" id="createNewCategory" class="createNewTableRecord">
+            <img src="../../../../assets/resources/images/createProduct.png" />
+            <span (click)="openForm()"> Create Bank</span>
+          </a>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fleft filterListWrapper">
+            <div class="fleft">
+              <span class="italicText"></span>
             </div>
-            <div class="tableWrapper">
-                <div class="tablesettingDiv">
-                    <div class="fleft filterListWrapper">
-                        <div class="fleft">
-                            <span class="italicText"></span>
+            <ul
+              class="fleft filtersDisplayList CategoriesTableFiltersDisplayList"
+            ></ul>
+            <div class="cboth"></div>
+          </div>
+          <div class="fright configNavTableWrapper">
+            <div
+              class="fleft configTableDiv newFilterItem"
+              dropdownId="CategoriesTableFilters"
+            >
+              <a href="" class="">
+                <img
+                  src="../../../assets/resources/images/newfilter-bg.png"
+                  alt="New Filter"
+                  title="Add new filter"
+                />
+                <span id="newCategoryFilter" search="off">New Filter</span>
+              </a>
+            </div>
+            <div class="fleft configTableDiv">
+              <a href="" class="configTableLink">
+                <img src="../../../assets/resources/images/config-bg.png" />
+                <span>Configure Table</span>
+                <img src="../../../assets/resources/images/th-sort-down.png" />
+              </a>
+              <div class="configTableDropdown" id="CategoriesTableFilters">
+                <ul class="configOptionList" id="CategoryConfigList">
+                  <li class="filterItem">
+                    <span>Recent Filters</span>
+                    <ul class="filterList" id="CategoryFilterList">
+                      <!-- <c:if test="${not empty CategoryFilters}"> -->
+                      <!-- <c:forEach items="${CategoryFilters}" var="filter"> -->
+                      <li>
+                        <a
+                          href=""
+                          class="filterLink CategoryFilterName"
+                          style="
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          "
+                        >
+                          filter.name</a
+                        >
+                        <span class="CategoryFilterId" style="display: none"
+                          >filter.id</span
+                        >
+                        <div
+                          class="CategoryFilterReqData hoverData"
+                          style="display: none"
+                        >
+                          filter.reqData
                         </div>
-                        <ul class="fleft filtersDisplayList CategoriesTableFiltersDisplayList"></ul>
-                        <div class="cboth"></div>
-                    </div>
-                    <div class="fright configNavTableWrapper">
-                        <div class="fleft configTableDiv newFilterItem" dropdownId="CategoriesTableFilters">
-                            <a href="" class="">
-                                <img src="../../../assets/resources/images/newfilter-bg.png" alt="New Filter" title="Add new filter"/>
-                                <span id="newCategoryFilter" search="off">New Filter</span>
-                            </a>
-                        </div>
-                        <div class="fleft configTableDiv">
-                            <a href="" class="configTableLink">
-                                <img src="../../../assets/resources/images/config-bg.png"/>
-                                <span>Configure Table</span>
-                                <img src="../../../assets/resources/images/th-sort-down.png"/>
-                            </a>
-                            <div class="configTableDropdown" id="CategoriesTableFilters">
-                                <ul class="configOptionList" id="CategoryConfigList">
-                                    <li class="filterItem">
-                                        <span>Recent Filters</span>
-                                        <ul class="filterList" id="CategoryFilterList">
-                                            <!-- <c:if test="${not empty CategoryFilters}"> -->
-                                            <!-- <c:forEach items="${CategoryFilters}" var="filter"> -->
-                                                <li><a href="" class="filterLink CategoryFilterName" style="
-                                                      white-space: nowrap;
-                                                      overflow: hidden;
-                                                      text-overflow: ellipsis;
-                                                      "> filter.name</a>
-                                                <span class="CategoryFilterId" style="display: none">filter.id</span>
-                                                <div class="CategoryFilterReqData hoverData" style="display: none">
-                                                    filter.reqData
-                                                </div>
-                                            </li>
-                                            <!-- </c:forEach> -->
-                                            <!-- </c:if> -->
-                                            <!-- <c:if test="${not empty CategoryFilterSeeMore}"> -->
-                                                <li class="seeAllFilterLink"> <a href="" class="seeMoreLink">See More</a>
-                                                <ul
-                                                    class="allFiltersList CategoryAllFilterList">
-                                                    <!-- <c:forEach items="${CategoryFilterSeeMore}" var="filter"> -->
-                                                    <li>
-                                                        <a href="" class="filterLink CategoryFilterName" style="
-                                                              white-space: nowrap;
-                                                              overflow: hidden;
-                                                              text-overflow: ellipsis;
-                                                              ">filter.name</a>
-                                                        <span class="CategoryFilterId" style="display: none">filter.id</span>
-                                                        <div class="CategoryFilterReqData hoverData" style="display: none">
-                                                            filter.reqData
-                                                        </div>
-                                                    </li>
-                                                    <!-- </c:forEach> -->
-                                                </ul>
-                                            </li>
-                                            <!-- </c:if> -->
-                                        </ul>
-                                    </li>
-                                    <li class="chooseCol">
-                                        <a href="">Choose Columns</a>
-                                    </li>
-                                    <li class="recordsPerPage">
-                                        <a href="">Records Per Page</a>
-                                    </li>
-                                    <li class="exportTableLink">
-                                        <a href="">Export Table</a>
-                                    </li>
-                                </ul>
+                      </li>
+                      <!-- </c:forEach> -->
+                      <!-- </c:if> -->
+                      <!-- <c:if test="${not empty CategoryFilterSeeMore}"> -->
+                      <li class="seeAllFilterLink">
+                        <a href="" class="seeMoreLink">See More</a>
+                        <ul class="allFiltersList CategoryAllFilterList">
+                          <!-- <c:forEach items="${CategoryFilterSeeMore}" var="filter"> -->
+                          <li>
+                            <a
+                              href=""
+                              class="filterLink CategoryFilterName"
+                              style="
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                              "
+                              >filter.name</a
+                            >
+                            <span class="CategoryFilterId" style="display: none"
+                              >filter.id</span
+                            >
+                            <div
+                              class="CategoryFilterReqData hoverData"
+                              style="display: none"
+                            >
+                              filter.reqData
                             </div>
-                        </div>
-                        <div class="fleft tableNavDiv" id="CategoriesTablePagination">
-                            <a href="" class="first first-page pageNumber">
+                          </li>
+                          <!-- </c:forEach> -->
+                        </ul>
+                      </li>
+                      <!-- </c:if> -->
+                    </ul>
+                  </li>
+                  <li class="chooseCol">
+                    <a href="">Choose Columns</a>
+                  </li>
+                  <li class="recordsPerPage">
+                    <a href="">Records Per Page</a>
+                  </li>
+                  <li class="exportTableLink">
+                    <a href="">Export Table</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="fleft tableNavDiv" id="CategoriesTablePagination">
+              <!-- <a href="" class="first first-page pageNumber">
                                 <img src="../../../assets/resources/images/first-page.png"/>
-                            </a>
-                            <a href="" class="prev pageNumber">
-                                <img src="../../../assets/resources/images/prev-page.png"/>
-                            </a>
-                            <span class="showingText">Page</span>
-                            <span class="pagedisplay">
-                                <span class="pageNum">1</span>
-                            </span>
-                            <!-- <c:choose>
+                            </a> -->
+              <a
+                (click)="changePage('prev')"
+                style="cursor: pointer"
+                class="prev pageNumber"
+              >
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay">
+                <span class="pageNum">{{ currentPageNumber }}</span>
+              </span>
+              <!-- <c:choose>
                               <c:when test="${(totalCategoryRecords mod 10)!=0}">
                               <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
                               <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
@@ -123,42 +167,71 @@
                               <span class="totalPage">${totalPage}</span>
                               </c:otherwise>
                               </c:choose> -->
-                            <a href="" class="next pageNumber">
-                                <img src="../../../assets/resources/images/next-page.png"/>
-                            </a>
-                            <a href="" class="last last-page pageNumber">
+              <a
+                (click)="changePage('next')"
+                style="cursor: pointer"
+                class="next pageNumber"
+              >
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+              <!-- <a href="" class="last last-page pageNumber">
                                 <img src="../../../assets/resources/images/last-page.png"/>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="cboth"></div>
-                </div>
-                <div class="recordsTableDiv">
-                    <table cellspacing="0" cellpadding="0" class="recordsTable" id="CategoriesRecordsTable">
-                        <thead>
-                            <tr>
-                                <th class="first-child sortable" sortDir="asc" sortCol="organization_id" id="id">
-                                    BankName
-                                </th>
-                                <th class="sortable" sortDir="asc" sortCol="organization_name" id="name">
-                                    accountNumber
-                                </th>
-                                <th class="sortable" sortDir="asc" sortCol="customer_name" id="costprice">
-                                    initialAmount
-                                </th>
-                                <th class="sortable" sortDir="asc" sortCol="master_name" id="sellingprice">
-                                    accountType
-                                </th>
+                            </a> -->
+            </div>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="CategoriesRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="first-child sortable"
+                  sortDir="asc"
+                  sortCol="organization_id"
+                  id="id"
+                >
+                  BankName
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                  id="name"
+                >
+                  accountNumber
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="customer_name"
+                  id="costprice"
+                >
+                  initialAmount
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="sellingprice"
+                >
+                  accountType
+                </th>
 
-                                <th class="last-child">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="prodTable">
-                            <tr>
-                                <span class="noProdRecord">No records found</span>
-                            </tr>
-                            <!-- <c:forEach items="${Categories}" var="Category"> -->
-                        <!-- <tr *ngFor="let cat of categoriesData">
+                <th class="last-child">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <tr>
+                <span class="noProdRecord">No records found</span>
+              </tr>
+              <!-- <c:forEach items="${Categories}" var="Category"> -->
+              <!-- <tr *ngFor="let cat of categoriesData">
                           <td>{{ cat.id }}</td>
                           <td>{{ cat.name }}</td>
                           <td>{{ cat.description }}</td>
@@ -172,133 +245,199 @@
                           </a>
                           </td>
                           </tr> -->
-                            <!-- </c:forEach> -->
-                        </tbody>
+              <!-- </c:forEach> -->
+            </tbody>
 
-                        <tbody *ngFor="let bankData of Bank; let i = index">
-
-                            <tr>
-                                <!-- {{bankData[0]}}
+            <tbody *ngFor="let bankData of Bank; let i = index">
+              <tr>
+                <!-- {{bankData[0]}}
                                     <td>{{bankData.bankId}}</td> -->
-                                <td>{{ bankData.bankName }}</td>
-                                <td>{{ bankData.accountNumber }}</td>
-                                <td>{{ bankData.initialAmount }}</td>
-                                <td>{{ bankData.accountType }}</td>
-                                <td class="last-child">
-                                    <a href="" class="">
-                                        <img src="../../../assets/resources/images/editRow.png"/>
-                                    </a>
-                                    <a (click)="deleteBank(bankData.bankId)" class="deleteRowLink deleteGroupCombo">
-                                        <img src="../../../assets/resources/images/deleteRow.png"/>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                <td>{{ bankData.bankName }}</td>
+                <td>{{ bankData.accountNumber }}</td>
+                <td>{{ bankData.initialAmount }}</td>
+                <td>{{ bankData.accountType }}</td>
+                <td class="last-child">
+                  <a href="" class="">
+                    <img src="../../../assets/resources/images/editRow.png" />
+                  </a>
+                  <a
+                    (click)="deleteBank(bankData.bankId)"
+                    class="deleteRowLink deleteGroupCombo"
+                  >
+                    <img src="../../../assets/resources/images/deleteRow.png" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
+    </div>
 
-        <div
-            class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-            <!-- <div class="popupContentWrapper"> -->
-            <div class="popupHeading  ">
-                <h2 class="fleft">Create New Bank</h2>
-                <a class="closeButton fright" id="closeEditButton"><img src="../../../assets/resources/images/removetablink.png" alt="close"/></a>
-                <div class="cboth"></div>
-            </div>
-            <div class="popupContentWrapper" *ngIf="showForm">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form #createBankForm="ngForm" name="createBank" id="createBank" (ngSubmit)="createBank(createBankForm)">
-                            <div class="chooseColoumnsWrapper">
-                                <div class="fieldDiv popUpFormSectionWrapper">
-                                    <table class="" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td class="col1 pt-2">
-                                                BankName:<span class="mandatorySign">*</span>
-                                            </td>
-                                            <td
-                                                class="col2">
+    <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+      <!-- <div class="popupContentWrapper"> -->
+      <div class="popupHeading">
+        <h2 class="fleft">Create New Bank</h2>
+        <a class="closeButton fright" id="closeEditButton"
+          ><img
+            src="../../../assets/resources/images/removetablink.png"
+            alt="close"
+        /></a>
+        <div class="cboth"></div>
+      </div>
+      <div class="popupContentWrapper" *ngIf="showForm">
+        <div class="row">
+          <div class="col-md-12">
+            <form
+              #createBankForm="ngForm"
+              name="createBank"
+              id="createBank"
+              (ngSubmit)="createBank(createBankForm)"
+            >
+              <div class="chooseColoumnsWrapper">
+                <div class="fieldDiv popUpFormSectionWrapper">
+                  <table class="" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td class="col1 pt-2">
+                        BankName:<span class="mandatorySign">*</span>
+                      </td>
+                      <td class="col2">
+                        <!-- <i class=" fas fa-thin fa-circle-chevron-down"></i> -->
 
-                                                <!-- <i class=" fas fa-thin fa-circle-chevron-down"></i> -->
-
-
-                                                <select class="form-control  form-select" name="bankName" id="bankName" name="bankName" #bankName="ngModel" style="width: 100%; max-height: fit-content;" [(ngModel)]="bankObj.bankName" required placeholder="Select bank">
-
-                                                    <option *ngFor="let ap of bankList" [value]="ap.name">
-
-                                                        {{ ap.name }}
-                                                    </option>
-
-                                                </select>
-
-                                            </td>
-                                            <td class="col3">
-                                                <small class="text-danger" [class.d-none]="
-                                                                          bankName.valid || bankName.untouched
-                                                                          ">invalid bankName</small>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col1 pt-2">
-                                                Account Number:<span class="mandatorySign">*</span>
-                                            </td>
-                                            <td class="col2">
-                                                <input type="number" name="accountNumber" [(ngModel)]="bankObj.accountNumber" required #accountNumber="ngModel" [class.is-invalid]="
-                                                                          accountNumber.invalid && accountNumber.touched
-                                                                          " class="form-control" id="accountNumber" max="99999999999999999999"></td>
-                                                <td class="col3">
-                                                    <small class="text-danger" [class.d-none]="
-                                                                              accountNumber.valid || accountNumber.untouched
-                                                                              ">invalid Account Number:</small>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col1 pt-2">
-                                                    InitialAmount:<span class="mandatorySign">*</span>
-                                                </td>
-                                                <td class="col2">
-                                                    <input type="number" name="initialAmount" [(ngModel)]=" bankObj.initialAmount" required #initialAmount="ngModel" [class.is-invalid]="
-                                                                              initialAmount.invalid && initialAmount.touched
-                                                                              " class="form-control" id="initialAmount" required></td>
-                                                    <td class="col3">
-                                                        <small class="text-danger" [class.d-none]="
-                                                                                  initialAmount.valid || initialAmount.untouched
-                                                                                  ">invalid  initialAmount</small>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col1 pt-2">
-                                                        Account Type:<span class="mandatorySign">*</span>
-                                                    </td>
-                                                    <td class="col2">
-                                                        <select  class="form-control  form-select" name="accountType" id="accountType" #accountType="ngModel" [(ngModel)]="bankObj.accountType">
-                                                            <option *ngFor="let ap of accountTypes" [value]="ap.name">
-                                                                {{ ap.name }}
-                                                            </option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="col3">
-                                                        <small class="text-danger" [class.d-none]="
-                                                                                  accountType.valid || accountType.untouched
-                                                                                  ">invalid accountType</small>
-                                                    </td>
-                                                </tr>
-
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="submitDiv tCenter">
-                                        <input type="submit" class="submit_btn border-rad" id="submitCategoryPrd" value="create Bank" [disabled]="createBankForm.form.invalid"/>
-
-                                        <input type="button" value="Cancel" class="submit_btn cancel_btn border-rad ml-2"/>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                        <select
+                          class="form-control form-select"
+                          name="bankName"
+                          id="bankName"
+                          name="bankName"
+                          #bankName="ngModel"
+                          style="width: 100%; max-height: fit-content"
+                          [(ngModel)]="bankObj.bankName"
+                          required
+                          placeholder="Select bank"
+                        >
+                          <option *ngFor="let ap of bankList" [value]="ap.name">
+                            {{ ap.name }}
+                          </option>
+                        </select>
+                      </td>
+                      <td class="col3">
+                        <small
+                          class="text-danger"
+                          [class.d-none]="bankName.valid || bankName.untouched"
+                          >invalid bankName</small
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col1 pt-2">
+                        Account Number:<span class="mandatorySign">*</span>
+                      </td>
+                      <td class="col2">
+                        <input
+                          type="number"
+                          name="accountNumber"
+                          [(ngModel)]="bankObj.accountNumber"
+                          required
+                          #accountNumber="ngModel"
+                          [class.is-invalid]="
+                            accountNumber.invalid && accountNumber.touched
+                          "
+                          class="form-control"
+                          id="accountNumber"
+                          max="99999999999999999999"
+                        />
+                      </td>
+                      <td class="col3">
+                        <small
+                          class="text-danger"
+                          [class.d-none]="
+                            accountNumber.valid || accountNumber.untouched
+                          "
+                          >invalid Account Number:</small
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col1 pt-2">
+                        InitialAmount:<span class="mandatorySign">*</span>
+                      </td>
+                      <td class="col2">
+                        <input
+                          type="number"
+                          name="initialAmount"
+                          [(ngModel)]="bankObj.initialAmount"
+                          required
+                          #initialAmount="ngModel"
+                          [class.is-invalid]="
+                            initialAmount.invalid && initialAmount.touched
+                          "
+                          class="form-control"
+                          id="initialAmount"
+                          required
+                        />
+                      </td>
+                      <td class="col3">
+                        <small
+                          class="text-danger"
+                          [class.d-none]="
+                            initialAmount.valid || initialAmount.untouched
+                          "
+                          >invalid initialAmount</small
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col1 pt-2">
+                        Account Type:<span class="mandatorySign">*</span>
+                      </td>
+                      <td class="col2">
+                        <select
+                          class="form-control form-select"
+                          name="accountType"
+                          id="accountType"
+                          #accountType="ngModel"
+                          [(ngModel)]="bankObj.accountType"
+                        >
+                          <option
+                            *ngFor="let ap of accountTypes"
+                            [value]="ap.name"
+                          >
+                            {{ ap.name }}
+                          </option>
+                        </select>
+                      </td>
+                      <td class="col3">
+                        <small
+                          class="text-danger"
+                          [class.d-none]="
+                            accountType.valid || accountType.untouched
+                          "
+                          >invalid accountType</small
+                        >
+                      </td>
+                    </tr>
+                  </table>
                 </div>
-            </div>
+              </div>
+              <div class="submitDiv tCenter">
+                <input
+                  type="submit"
+                  class="submit_btn border-rad"
+                  id="submitCategoryPrd"
+                  value="create Bank"
+                  [disabled]="createBankForm.form.invalid"
+                />
+
+                <input
+                  type="button"
+                  value="Cancel"
+                  class="submit_btn cancel_btn border-rad ml-2"
+                />
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>

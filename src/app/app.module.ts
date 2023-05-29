@@ -87,6 +87,7 @@ import { DebitNoteListComponent } from './components/shared/debit-note/debit-not
 import { ConfirmAlertComponent } from './components/shared/confirm-alert/confirm-alert.component';
 import { CreditNoteInvoicePrintComponent } from './components/shared/credit-note/credit-note-invoice-print/credit-note-invoice-print.component';
 import { DebitNoteInvoicePrintComponent } from './components/shared/debit-note/debit-note-invoice-print/debit-note-invoice-print.component';
+import { RoundingPipe } from './custompipes/RoundingPipe';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { DebitNoteInvoicePrintComponent } from './components/shared/debit-note/d
     SalesBillInvoiceComponent,
     SalesBillEditComponent,
     NumberToWordTransformPipe,
+    RoundingPipe,
     PopupComponent,
     CreateCustomerComponent,
     SelectCustomerComponent,

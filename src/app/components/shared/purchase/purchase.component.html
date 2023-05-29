@@ -23,14 +23,15 @@
           <a href="#" class="genLink">Clear searchs</a>
         </div>
         <div class="fright" class="createpurchaseBillDiv">
+          <img
+            src="../../../../../assets/resources/images/createProduct.png "
+          />
           <a
+            href=""
             *ngIf="IsAuditor"
             (click)="createNewPurchaseBill()"
             class="createNewTableRecord"
             >Create Purchase Bill
-            <img
-              src="../../../../../assets/resources/images/createProduct.png "
-            />
           </a>
         </div>
         <div class="cboth"></div>
@@ -143,14 +144,20 @@
               </div>
             </div>
             <div class="fleft tableNavDiv" id="purchaseBillsTablePagination">
-              <a href="" class="first first-page pageNumber">
+              <!-- <a href="" class="first first-page pageNumber">
                 <img src="../../../assets/resources/images/first-page.png" />
-              </a>
-              <a href="" class="prev pageNumber">
+              </a> -->
+              <a
+                (click)="changePage('prev')"
+                class="prev pageNumber"
+                style="cursor: pointer"
+              >
                 <img src="../../../assets/resources/images/prev-page.png" />
               </a>
               <span class="showingText">Page</span>
-              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+              <span class="pagedisplay"
+                ><span class="pageNum">{{ currentPageNumber }}</span>
+              </span>
               <!-- <c:choose>
                               <c:when test="${(totalpurchaseBillRecords mod 10)!=0}">
                                   <c:set var="res" value="${(totalpurchaseBillRecords - (totalpurchaseBillRecords mod purchaseBillTableRecords))/purchaseBillTableRecords + 1}"/>
@@ -163,12 +170,16 @@
                                   <span class="totalPage">${totalPage}</span>
                               </c:otherwise>
                             </c:choose> -->
-              <a href="" class="next pageNumber">
+              <a
+                (click)="changePage('next')"
+                class="next pageNumber"
+                style="cursor: pointer"
+              >
                 <img src="../../../assets/resources/images/next-page.png" />
               </a>
-              <a href="" class="last last-page pageNumber">
+              <!-- <a href="" class="last last-page pageNumber">
                 <img src="../../../assets/resources/images/last-page.png" />
-              </a>
+              </a> -->
             </div>
           </div>
           <div class="cboth"></div>

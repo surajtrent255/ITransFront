@@ -1,5 +1,4 @@
 <div class="contentRecordsTableContainer MainContainer">
-     
   <div class="recordTableWrapper">
     <div class="recordCategory">
       <h2 class="text-center" id="totalGroupCombinations">withdraw List</h2>
@@ -59,14 +58,20 @@
             </div>
           </div>
           <div class="fleft tableNavDiv" id="CategoriesTablePagination">
-            <a href="" class="first first-page pageNumber">
+            <!-- <a href="" class="first first-page pageNumber">
               <img src="../../../assets/resources/images/first-page.png" />
-            </a>
-            <a href="" class="prev pageNumber">
+            </a> -->
+            <a
+              (click)="changePage('prev')"
+              style="cursor: pointer"
+              class="prev pageNumber"
+            >
               <img src="../../../assets/resources/images/prev-page.png" />
             </a>
             <span class="showingText">Page</span>
-            <span class="pagedisplay"><span class="pageNum">1</span> </span>
+            <span class="pagedisplay"
+              ><span class="pageNum"> {{ currentPageNumber }}</span>
+            </span>
             <!-- <c:choose>
                           <c:when test="${(totalCategoryRecords mod 10)!=0}">
                               <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
@@ -79,12 +84,16 @@
                               <span class="totalPage">${totalPage}</span>
                           </c:otherwise>
                         </c:choose> -->
-            <a href="" class="next pageNumber">
+            <a
+              (click)="changePage('next')"
+              style="cursor: pointer"
+              class="next pageNumber"
+            >
               <img src="../../../assets/resources/images/next-page.png" />
             </a>
-            <a href="" class="last last-page pageNumber">
+            <!-- <a href="" class="last last-page pageNumber">
               <img src="../../../assets/resources/images/last-page.png" />
-            </a>
+            </a> -->
           </div>
         </div>
         <div class="recordsTableDiv">
@@ -102,7 +111,7 @@
                   sortCol="organization_id"
                   id="id"
                 >
-                BankId
+                  BankId
                 </th>
                 <th
                   class="sortable"
@@ -127,41 +136,45 @@
                   id="sellingprice"
                 >
                   ChequeNumber
-                </th> <th
-                class="sortable"
-                sortDir="asc"
-                sortCol="master_name"
-                id="sellingprice"
-              >
-                date
-              </th>
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="sellingprice"
+                >
+                  date
+                </th>
 
                 <th class="last-child">Actions</th>
               </tr>
             </thead>
-              <tbody *ngFor="let withdraw of withdraw  ">
-                <!-- {{withdraw | json }} -->
-                <tr >
-                  <td>{{withdraw.bankId}}</td>
-                  <td>{{withdraw.withdrawAmount}}</td> 
-                  <td>{{withdraw.withdrawType}}</td> 
-                  <td>{{withdraw.chequeNumber}}</td> 
-                  <td>{{ withdraw.withdrawDate | date: 'mediumDate' }}</td>
-                  <td class="last-child">
-                    <a  class="">
-                      <img src="../../../assets/resources/images/editRow.png" />
-                    </a>
-                    <a (click)="deletewithdraw(withdraw.branchId,withdraw.withdrawId)" class="deleteRowLink deleteGroupCombo">
-                      <img src="../../../assets/resources/images/deleteRow.png" />
-                    </a>
-                  </td>
-                  
-                </tr>
-              
+            <tbody *ngFor="let withdraw of withdraw">
+              <!-- {{withdraw | json }} -->
+              <tr>
+                <td>{{ withdraw.bankId }}</td>
+                <td>{{ withdraw.withdrawAmount }}</td>
+                <td>{{ withdraw.withdrawType }}</td>
+                <td>{{ withdraw.chequeNumber }}</td>
+                <td>{{ withdraw.withdrawDate | date : "mediumDate" }}</td>
+                <td class="last-child">
+                  <a class="">
+                    <img src="../../../assets/resources/images/editRow.png" />
+                  </a>
+                  <a
+                    (click)="
+                      deletewithdraw(withdraw.branchId, withdraw.withdrawId)
+                    "
+                    class="deleteRowLink deleteGroupCombo"
+                  >
+                    <img src="../../../assets/resources/images/deleteRow.png" />
+                  </a>
+                </td>
+              </tr>
             </tbody>
-          </table> 
+          </table>
         </div>
-      </div> 
+      </div>
     </div>
 
     <!-- <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
@@ -170,10 +183,10 @@
         <div class="row">
           <div class="col-md-12">
           <app-popup class="m-4"></app-popup> -->
-            <!-- <form
-            
+    <!-- <form
+
               name="createCategoryProd"
-            
+
               id="createProductForm"
             >
               <div class="chooseColoumnsWrapper">
@@ -199,10 +212,10 @@
                             <label for="chequeNumber">chequeNumber</label>
                             <input type="text" id="chequeNumber" name="chequeNumber"  required>
                           </div>
-                          <div> 
+                          <div>
                              <button type="submit" (click)="submitForm()">Submit</button>
                             <button  (click)="cancel_btn()">Cancel</button> -->
-                          <!-- </div>
+    <!-- </div>
                         </form>
                       </div>
                       </div>
@@ -215,9 +228,9 @@
                   class="submit_btn border-rad"
                   id="submitCategoryPrd"
                   value="Add Deposit"
-                
+
                 />
-      
+
                 <input
                   type="button"
                   value="Cancel form"
@@ -229,175 +242,163 @@
           </div>
         </div>
       </div>
-  
-    
+
+
 
     <div
       class="popupWrapper"
       id="editCategoryPopup"
       style="display: none"
     ></div>-->
-  <!-- </div> 
+    <!-- </div>
 </div>  -->
 
-<div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
-  <!-- <div class="popupContentWrapper"> -->
-  <div class="popupHeading  ">
-    <h2 class="fleft"> ADD Withdraw </h2>
-    <a class="closeButton fright" id="closeEditButton"
-      ><img
-        src="../../../assets/resources/images/removetablink.png"
-        alt="close"
-    /></a>
-    <div class="cboth"></div>
-    </div>
-<div class="popupContentWrapper" *ngIf="showForm">
-  <div class="row">
-    <div class="col-md-12">
-      <form
-      #createWithdrawForm="ngForm"
-      name="createWithdrawForm"
-      id="createWithdrawForm"
-      (ngSubmit)="creatwithdraw(createWithdrawForm)"
-      >
-        <div class="chooseColoumnsWrapper">
-          <div class="fieldDiv popUpFormSectionWrapper">
-            <table class="" cellpadding="0" cellspacing="0">
-              <tr>
-                <td class="col1 pt-2">
-                 Bank Name:<span class="mandatorySign">*</span>
-                </td>
-                <td class="col2">
-                  <select
-                  class="form-control  form-select"
-                    name="bankId"
-                    id="bankId"
-                    name="bankId"
-                    #bankId="ngModel"
-                    [(ngModel)]="objwidthdraw.bankId"
-                    [class.is-invalid]="
-                    bankId.invalid && bankId.touched
-                    "
-                  ><option value="" selected disabled>select Bank Name</option>
-                    <option
-                      *ngFor="let option of banks"
-                      [value]="option.bankId"
-                    >
-                      {{ option.bankName }}
-                    </option>
-                  </select>
-                </td>
-                <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="
-                      bankId.valid || bankId.untouched
-                    "
-                    >invalid name</small
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td class="col1 pt-2">
-                  WithdrawAmount:<span class="mandatorySign">*</span>
-                </td>
-                <td class="col2">
-                  <input
-                  type="number"
-                    name="withdrawAmount"
-                    
-                    [(ngModel)]="objwidthdraw.withdrawAmount"
-                    required
-                    #withdrawAmount="ngModel"
-                    [class.is-invalid]="
-                    withdrawAmount.invalid && withdrawAmount.touched
-                    "
-                    class="form-control"
-                    id="withdrawAmount"
-                  >
-                </td>
-                <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="
-                    withdrawAmount.valid || withdrawAmount.untouched
-                    "
-                    >invalid withdrawAmount</small
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td class="col1 pt-2">
-                  WidthType:<span class="mandatorySign">*</span>
-                </td>
-                <td class="col2">
-                  <input
-                    name="withdrawType"
-                    
-                    [(ngModel)]=" objwidthdraw.withdrawType"
-                    required
-                    #withdrawType="ngModel"
-                    [class.is-invalid]="
-                    withdrawType.invalid && withdrawType.touched
-                    "
-                    class="form-control"
-                    id="withdrawType"
-                  >
-                </td>
-                <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="
-                    withdrawType.valid || withdrawType.untouched
-                    "
-                    >invalid withdrawType</small
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td class="col1 pt-2">
-                  chequeNumber:
-                </td>
-                <td class="col2">
-                  <input
-                    name="chequeNumber"
-                    title="check your stock "
-                    [(ngModel)]=" objwidthdraw.chequeNumber"
-                    #chequeNumber="ngModel"
-                    class="form-control"
-                    id="chequeNumber"
-                  >
-                </td>
-                
-              </tr>
-            
-            </table>
+    <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+      <!-- <div class="popupContentWrapper"> -->
+      <div class="popupHeading">
+        <h2 class="fleft">ADD Withdraw</h2>
+        <a class="closeButton fright" id="closeEditButton"
+          ><img
+            src="../../../assets/resources/images/removetablink.png"
+            alt="close"
+        /></a>
+        <div class="cboth"></div>
+      </div>
+      <div class="popupContentWrapper" *ngIf="showForm">
+        <div class="row">
+          <div class="col-md-12">
+            <form
+              #createWithdrawForm="ngForm"
+              name="createWithdrawForm"
+              id="createWithdrawForm"
+              (ngSubmit)="creatwithdraw(createWithdrawForm)"
+            >
+              <div class="chooseColoumnsWrapper">
+                <div class="fieldDiv popUpFormSectionWrapper">
+                  <table class="" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td class="col1 pt-2">
+                        Bank Name:<span class="mandatorySign">*</span>
+                      </td>
+                      <td class="col2">
+                        <select
+                          class="form-control form-select"
+                          name="bankId"
+                          id="bankId"
+                          name="bankId"
+                          #bankId="ngModel"
+                          [(ngModel)]="objwidthdraw.bankId"
+                          [class.is-invalid]="bankId.invalid && bankId.touched"
+                        >
+                          <option value="" selected disabled>
+                            select Bank Name
+                          </option>
+                          <option
+                            *ngFor="let option of banks"
+                            [value]="option.bankId"
+                          >
+                            {{ option.bankName }}
+                          </option>
+                        </select>
+                      </td>
+                      <td class="col3">
+                        <small
+                          class="text-danger"
+                          [class.d-none]="bankId.valid || bankId.untouched"
+                          >invalid name</small
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col1 pt-2">
+                        WithdrawAmount:<span class="mandatorySign">*</span>
+                      </td>
+                      <td class="col2">
+                        <input
+                          type="number"
+                          name="withdrawAmount"
+                          [(ngModel)]="objwidthdraw.withdrawAmount"
+                          required
+                          #withdrawAmount="ngModel"
+                          [class.is-invalid]="
+                            withdrawAmount.invalid && withdrawAmount.touched
+                          "
+                          class="form-control"
+                          id="withdrawAmount"
+                        />
+                      </td>
+                      <td class="col3">
+                        <small
+                          class="text-danger"
+                          [class.d-none]="
+                            withdrawAmount.valid || withdrawAmount.untouched
+                          "
+                          >invalid withdrawAmount</small
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col1 pt-2">
+                        WidthType:<span class="mandatorySign">*</span>
+                      </td>
+                      <td class="col2">
+                        <input
+                          name="withdrawType"
+                          [(ngModel)]="objwidthdraw.withdrawType"
+                          required
+                          #withdrawType="ngModel"
+                          [class.is-invalid]="
+                            withdrawType.invalid && withdrawType.touched
+                          "
+                          class="form-control"
+                          id="withdrawType"
+                        />
+                      </td>
+                      <td class="col3">
+                        <small
+                          class="text-danger"
+                          [class.d-none]="
+                            withdrawType.valid || withdrawType.untouched
+                          "
+                          >invalid withdrawType</small
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col1 pt-2">chequeNumber:</td>
+                      <td class="col2">
+                        <input
+                          name="chequeNumber"
+                          title="check your stock "
+                          [(ngModel)]="objwidthdraw.chequeNumber"
+                          #chequeNumber="ngModel"
+                          class="form-control"
+                          id="chequeNumber"
+                        />
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <div class="submitDiv tCenter">
+                <input
+                  type="submit"
+                  class="submit_btn border-rad"
+                  id="submitCategoryPrd"
+                  value="Add withdraw"
+                  [disabled]="createWithdrawForm.form.invalid"
+                />
+
+                <input
+                  type="button"
+                  value="Cancel"
+                  class="submit_btn cancel_btn border-rad ml-2"
+                />
+              </div>
+            </form>
           </div>
         </div>
-        <div class="submitDiv tCenter">
-          <input 
-          type="submit"
-          class="submit_btn border-rad"
-          id="submitCategoryPrd"
-          value="Add withdraw"
-          [disabled]="createWithdrawForm.form.invalid"
-           
-          />
-
-          <input
-            type="button"
-            value="Cancel"
-            class="submit_btn cancel_btn border-rad ml-2"
-          />
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
-</div>
-</div>
-</div>
- 
-
-
- 

@@ -10,6 +10,7 @@ import { LoginService } from 'src/app/service/shared/login.service';
 import { SelectCategoryServiceService } from '../../categoryprod/select-category-service.service';
 import { VatRateTypes } from 'src/app/models/VatRateTypes';
 import { Unit } from 'src/app/models/Unit';
+import { PaginationCustom } from 'src/app/interfaces/PaginatinCustom';
 
 @Component({
   selector: 'app-create-product',

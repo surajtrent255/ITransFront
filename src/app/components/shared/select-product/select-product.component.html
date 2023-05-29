@@ -2,6 +2,7 @@
   <a
     class="Customer1CloseButton fright"
     id="closeSelectProductPop"
+    style="cursor: pointer"
     (click)="destroySelectProduct()"
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
@@ -23,6 +24,11 @@
       <h1 class="heading">
         <i class="fa-solid fa-circle-exclamation"></i> No record found. Would
         you like to create product ? ?
+        <a (click)="destroySelectProduct()" style="cursor: pointer"
+          ><img
+            src="../../../assets/resources/images/removetablink.png"
+            alt="close"
+        /></a>
       </h1>
     </div>
     <div class="popupContentWrapper">
@@ -121,9 +127,7 @@
               <td>{{ product.name }}</td>
               <td>{{ product.sellingPrice }}</td>
               <td>{{ product.discount }}</td>
-              <td>{{product.unit}}</td>
-
-              
+              <td>{{ product.unit }}</td>
             </tr>
           </tbody>
         </table>

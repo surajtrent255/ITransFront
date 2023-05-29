@@ -10,6 +10,7 @@ import { PurchaseBillService } from 'src/app/service/purchase-bill.service';
 import { PurchaseBill } from 'src/app/models/PurchaseBill';
 import { PurchaseBillMaster } from 'src/app/models/PurchaseBillMaster';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-purchase',
@@ -22,11 +23,16 @@ export class PurchaseComponent {
   compId!: number;
   branchId!: number;
   purchaseBillMaster!: PurchaseBillMaster;
+
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 3;
+
   constructor(
     private purchaseBillService: PurchaseBillService,
     private router: Router,
-    private loginService: LoginService
-  ) {}
+    private loginService: LoginService,
+    private toastrService: ToastrService
+  ) { }
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
@@ -53,6 +59,32 @@ export class PurchaseComponent {
         },
       });
   }
+
+  changePage(type: string) {
+    if (type === "prev") {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.fetchLimitedPurchaseBill();
+    } else if (type === "next") {
+      this.currentPageNumber += 1;
+      this.fetchLimitedPurchaseBill();
+    }
+  }
+
+  fetchLimitedPurchaseBill() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.purchaseBillService.getLimitedPurchaseBill(offset, this.pageTotalItems, this.compId, this.branchId).subscribe((res) => {
+      if (res.data.length === 0) {
+        this.toastrService.error("bills not found ")
+        this.currentPageNumber -= 1;
+      } else {
+        this.purchaseBills = res.data;
+
+      }
+    })
+  }
+
 
   createNewPurchaseBill() {
     this.router.navigateByUrl('dashboard/purchase/create');

@@ -43,6 +43,10 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
+    path: 'salesBillPrint/:billId',
+    component: SalesBillInvoiceComponent
+  },
+  {
     path: 'demo',
     component: DemoComponent,
   },
@@ -188,4 +192,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

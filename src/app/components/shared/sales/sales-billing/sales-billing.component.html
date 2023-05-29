@@ -2,25 +2,33 @@
   <div class="recordTableWrapper" style="height: auto">
     <div class="recordCategory">
       <h2 class="text-center" id="totalGroupCombinations">Sales: Invoice</h2>
-      <div class="cboth"></div>
     </div>
 
     <div class="searchCreateTableDiv">
       <div class="searchCreateDiv">
         <div class="fleft searchDiv" id="prodSearch">
           <input
-            class="inputText hintText"
+            class="inputText"
             type="text"
-            search="off"
-            value="Enter CustomerPartName/MasterPartName to Search"
+            [(ngModel)]="searchWildCard"
+            (keydown.enter)="fetchLimitedSalesBill()"
           />
           <input
             type="image"
+            (click)="fetchLimitedSalesBill()"
             src="../../../assets/resources/images/searchButton.png"
             class="serachButton"
             title="Search Term"
           />
-          <a href="#" class="genLink">Clear searchs</a>
+          <a class="genLink">Clear searchs</a>
+          <span>search by: </span>
+          <select name="s" [(ngModel)]="searchBy" id="">
+            <option value="bill_no">Bill no</option>
+            <!-- <option value="customer_name">Customer name</option>
+            <option value="customer_pan">Barcode</option>
+            <option value="payment_method">Vat Refund Amount</option>
+            <option value="tax_approach">Tax Approach</option> -->
+          </select>
         </div>
         <div class="fright" class="createsalesBillDiv">
           <a
@@ -145,14 +153,16 @@
               </div>
             </div>
             <div class="fleft tableNavDiv" id="salesBillsTablePagination">
-              <a href="" class="first first-page pageNumber">
+              <!-- <a href="" class="first first-page pageNumber">
                 <img src="../../../assets/resources/images/first-page.png" />
-              </a>
-              <a href="" class="prev pageNumber">
+              </a> -->
+              <a class="prev pageNumber" (click)="changePage('prev')">
                 <img src="../../../assets/resources/images/prev-page.png" />
               </a>
               <span class="showingText">Page</span>
-              <span class="pagedisplay"><span class="pageNum">1</span> </span>
+              <span class="pagedisplay"
+                ><span class="pageNum">{{ currentPageNumber }}</span>
+              </span>
               <!-- <c:choose>
                               <c:when test="${(totalsalesBillRecords mod 10)!=0}">
                                   <c:set var="res" value="${(totalsalesBillRecords - (totalsalesBillRecords mod salesBillTableRecords))/salesBillTableRecords + 1}"/>
@@ -165,12 +175,12 @@
                                   <span class="totalPage">${totalPage}</span>
                               </c:otherwise>
                             </c:choose> -->
-              <a href="" class="next pageNumber">
+              <a class="next pageNumber" (click)="changePage('next')">
                 <img src="../../../assets/resources/images/next-page.png" />
               </a>
-              <a href="" class="last last-page pageNumber">
+              <!-- <a href="" class="last last-page pageNumber">
                 <img src="../../../assets/resources/images/last-page.png" />
-              </a>
+              </a> -->
             </div>
           </div>
           <div class="cboth"></div>
@@ -356,13 +366,28 @@
                     cancel
                   </button>
                 </td>
+                <!-- <button (click)="goForPrint(1)">Open New Browser</button> -->
+                <!-- <a href="http://www.google.com" target="null"
+                  >open in new window</a
+                > -->
+
                 <td>
+                  <!-- <i
+                    *ngIf="salesBill.status && !salesBill.draft"
+                    class="fa fa-print createNewTableRecord"
+                    id="billPrint"
+                    aria-hidden="true"
+                    (click)="goToBillPrint(salesBill.id)"
+                  ></i> -->
                   <i
                     *ngIf="salesBill.status && !salesBill.draft"
                     class="fa fa-print"
                     aria-hidden="true"
                     (click)="goForPrint(salesBill.id)"
                   ></i>
+                  <!-- (click)="goForPrint(salesBill.id)" -->
+                  <!-- id="billPrint" -->
+                  <!-- class="createNewTableRecord" -->
                 </td>
               </tr>
             </tbody>
@@ -376,8 +401,6 @@
       id="createNewsalesBillPopup"
       style="display: none"
     >
-      <div class="mb-2"></div>
-
       <app-create-sales
         *ngIf="activeSalesBillEntry"
         (salesBillDetailListEvent)="saleTheProducts($event)"
@@ -409,6 +432,11 @@
         "
       >
       </app-confirm-alert>
+    </div>
+
+    <div class="popupWrapper" id="billPrintPopup" style="display: none">
+      <app-sales-bill-invoice *ngIf="billPrintComponent">
+      </app-sales-bill-invoice>
     </div>
   </div>
 </div>

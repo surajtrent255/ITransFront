@@ -4,199 +4,221 @@
       <h2 class="text-center" id="totalGroupCombinations">Product List</h2>
       <div class="cboth"></div>
     </div>
-
-    <div class="searchCreateTableDiv" style="height: 513px">
-      <div class="searchCreateDiv">
-        <div class="fleft searchDiv" id="prodSearch">
-          <input
-            class="inputText hintText"
-            type="text"
-            search="off"
-            value="Enter CustomerPartName/MasterPartName to Search"
-          />
-          <input
-            type="image"
-            src="../../../assets/resources/images/searchButton.png"
-            class="serachButton"
-            title="Search Term"
-          />
-          <a href="#" class="genLink">Clear searchs</a>
-        </div>
-        <div class="fright" class="createProductDiv">
-          <a
-            *ngIf="IsAuditor"
-            href=""
-            id="createNewProduct"
-            class="createNewTableRecord"
-          >
-            <img src="../../../assets/resources/images/createProduct.png" />
-            <span> Create Product</span>
-          </a>
-        </div>
-        <div class="cboth"></div>
-      </div>
-      <div class="tableWrapper">
-        <div class="tablesettingDiv">
-          <div class="fleft filterListWrapper">
-            <div class="fleft">
-              <span class="italicText"></span>
-            </div>
-            <ul
-              class="fleft filtersDisplayList ProductsTableFiltersDisplayList"
-            ></ul>
-            <div class="cboth"></div>
+    <div>
+      <div class="searchCreateTableDiv" style="height: 513px">
+        <div class="searchCreateDiv">
+          <div class="fleft searchDiv" id="prodSearch">
+            <input
+              class="inputText"
+              type="text"
+              [(ngModel)]="searchWildCard"
+              (keydown.enter)="fetchLimitedProducts()"
+            />
+            <input
+              type="image"
+              (click)="fetchLimitedProducts()"
+              src="../../../assets/resources/images/searchButton.png"
+              class="serachButton"
+              title="Search Term"
+            />
+            <a class="genLink">Clear searchs</a>
+            <span>search by: </span>
+            <select name="s" [(ngModel)]="searchBy" id="">
+              <option value="id">ID</option>
+              <option value="name">NAME</option>
+              <option value="barcode">Barcode</option>
+            </select>
           </div>
-          <div class="fright configNavTableWrapper">
-            <div
-              class="fleft configTableDiv newFilterItem"
-              dropdownId="ProductsTableFilters"
+          <div class="fright" class="createProductDiv">
+            <a
+              *ngIf="IsAuditor"
+              href=""
+              id="createNewProduct"
+              class="createNewTableRecord"
             >
-              <a href="" class="">
-                <img
-                  src="../../../assets/resources/images/newfilter-bg.png"
-                  alt="New Filter"
-                  title="Add new filter"
-                />
-                <span id="newProductFilter" search="off">New Filter</span>
-              </a>
+              <img src="../../../assets/resources/images/createProduct.png" />
+              <span> Create Product</span>
+            </a>
+          </div>
+        </div>
+        <div class="tableWrapper">
+          <div class="tablesettingDiv">
+            <div class="fleft filterListWrapper">
+              <div class="fleft">
+                <span class="italicText"></span>
+              </div>
+              <ul
+                class="fleft filtersDisplayList ProductsTableFiltersDisplayList"
+              ></ul>
             </div>
-            <div class="fleft configTableDiv">
-              <a href="" class="configTableLink">
-                <img src="../../../assets/resources/images/config-bg.png" />
-                <span>Configure Table</span>
-                <img src="../../../assets/resources/images/th-sort-down.png" />
-              </a>
-              <div class="configTableDropdown" id="ProductsTableFilters">
-                <ul class="configOptionList" id="ProductConfigList">
-                  <li class="filterItem">
-                    <span>Recent Filters</span>
-                    <ul class="filterList" id="ProductFilterList">
-                      <!-- <c:if test="${not empty ProductFilters}"> -->
-                      <!-- <c:forEach items="${ProductFilters}" var="filter"> -->
-                      <li>
-                        <a
-                          href=""
-                          class="filterLink ProductFilterName"
-                          style="
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                          "
-                          >filter.name</a
-                        >
-                        <span class="ProductFilterId" style="display: none"
-                          >filter.id</span
-                        >
-                        <div
-                          class="ProductFilterReqData hoverData"
-                          style="display: none"
-                        >
-                          filter.reqData
-                        </div>
-                      </li>
-                      <!-- </c:forEach> -->
-                      <!-- </c:if> -->
-                      <!-- <c:if test="${not empty ProductFilterSeeMore}"> -->
-                      <li class="seeAllFilterLink">
-                        <a href="" class="seeMoreLink">See More</a>
-                        <ul class="allFiltersList ProductAllFilterList">
-                          <!-- <c:forEach items="${ProductFilterSeeMore}" var="filter"> -->
-                          <li>
-                            <a
-                              href=""
-                              class="filterLink ProductFilterName"
-                              style="
-                                white-space: nowrap;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                              "
-                              >filter.name</a
-                            >
-                            <span class="ProductFilterId" style="display: none"
-                              >filter.id</span
-                            >
-                            <div
-                              class="ProductFilterReqData hoverData"
-                              style="display: none"
-                            >
-                              filter.reqData
-                            </div>
-                          </li>
-                          <!-- </c:forEach> -->
-                        </ul>
-                      </li>
-                      <!-- </c:if> -->
-                    </ul>
-                  </li>
-                  <li class="chooseCol">
-                    <a href="">Choose Columns</a>
-                  </li>
-                  <li class="recordsPerPage">
-                    <a href="">Records Per Page</a>
-                  </li>
-                  <li class="exportTableLink">
-                    <a href="">Export Table</a>
-                  </li>
-                </ul>
+            <div class="fright configNavTableWrapper">
+              <div
+                class="fleft configTableDiv newFilterItem"
+                dropdownId="ProductsTableFilters"
+              >
+                <a href="" class="">
+                  <img
+                    src="../../../assets/resources/images/newfilter-bg.png"
+                    alt="New Filter"
+                    title="Add new filter"
+                  />
+                  <span id="newProductFilter" search="off">New Filter</span>
+                </a>
+              </div>
+              <div class="fleft configTableDiv">
+                <a href="" class="configTableLink">
+                  <img src="../../../assets/resources/images/config-bg.png" />
+                  <span>Configure Table</span>
+                  <img
+                    src="../../../assets/resources/images/th-sort-down.png"
+                  />
+                </a>
+                <div class="configTableDropdown" id="ProductsTableFilters">
+                  <ul class="configOptionList" id="ProductConfigList">
+                    <li class="filterItem">
+                      <span>Recent Filters</span>
+                      <ul class="filterList" id="ProductFilterList">
+                        <!-- <c:if test="${not empty ProductFilters}"> -->
+                        <!-- <c:forEach items="${ProductFilters}" var="filter"> -->
+                        <li>
+                          <a
+                            href=""
+                            class="filterLink ProductFilterName"
+                            style="
+                              white-space: nowrap;
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                            "
+                            >filter.name</a
+                          >
+                          <span class="ProductFilterId" style="display: none"
+                            >filter.id</span
+                          >
+                          <div
+                            class="ProductFilterReqData hoverData"
+                            style="display: none"
+                          >
+                            filter.reqData
+                          </div>
+                        </li>
+                        <!-- </c:forEach> -->
+                        <!-- </c:if> -->
+                        <!-- <c:if test="${not empty ProductFilterSeeMore}"> -->
+                        <li class="seeAllFilterLink">
+                          <a href="" class="seeMoreLink">See More</a>
+                          <ul class="allFiltersList ProductAllFilterList">
+                            <!-- <c:forEach items="${ProductFilterSeeMore}" var="filter"> -->
+                            <li>
+                              <a
+                                href=""
+                                class="filterLink ProductFilterName"
+                                style="
+                                  white-space: nowrap;
+                                  overflow: hidden;
+                                  text-overflow: ellipsis;
+                                "
+                                >filter.name</a
+                              >
+                              <span
+                                class="ProductFilterId"
+                                style="display: none"
+                                >filter.id</span
+                              >
+                              <div
+                                class="ProductFilterReqData hoverData"
+                                style="display: none"
+                              >
+                                filter.reqData
+                              </div>
+                            </li>
+                            <!-- </c:forEach> -->
+                          </ul>
+                        </li>
+                        <!-- </c:if> -->
+                      </ul>
+                    </li>
+                    <li class="chooseCol">
+                      <a href="">Choose Columns</a>
+                    </li>
+                    <li class="recordsPerPage">
+                      <a href="">Records Per Page</a>
+                    </li>
+                    <li class="exportTableLink">
+                      <a href="">Export Table</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="fleft tableNavDiv" id="ProductsTablePagination">
+                <!-- <a
+                  (click)="changePage('start')"
+                  *ngIf="pagination.current > 1"
+                  style="cursor: pointer"
+                  class="first first-page pageNumber"
+                >
+                  <img src="../../../assets/resources/images/first-page.png" />
+                </a> -->
+                <a
+                  (click)="changePage('prev')"
+                  style="cursor: pointer"
+                  class="prev pageNumber"
+                >
+                  <img src="../../../assets/resources/images/prev-page.png" />
+                </a>
+                <span class="showingText">Page</span>
+                <span class="pagedisplay"
+                  ><span class="pageNum">{{ currentPageNumber }}</span>
+                </span>
+                <!-- <pagination-controls
+                  previousLabel="Prev"
+                  nextLabel="Next"
+                  (pageChange)="onTableDataChanges($event)"
+                ></pagination-controls> -->
+                <a
+                  id="nextPage"
+                  (click)="changePage('next')"
+                  class="next pageNumber"
+                  style="cursor: pointer"
+                >
+                  <img src="../../../assets/resources/images/next-page.png" />
+                </a>
+                <!-- <a
+                  id="endPage"
+                  (click)="changePage('end')"
+                  class="last last-page pageNumber"
+                  style="cursor: pointer"
+                >
+                  <img src="../../../assets/resources/images/last-page.png" />
+                </a> -->
               </div>
             </div>
-            <div class="fleft tableNavDiv" id="ProductsTablePagination">
-              <a href="" class="first first-page pageNumber">
-                <img src="../../../assets/resources/images/first-page.png" />
-              </a>
-              <a href="" class="prev pageNumber">
-                <img src="../../../assets/resources/images/prev-page.png" />
-              </a>
-              <span class="showingText">Page</span>
-              <span class="pagedisplay"><span class="pageNum">1</span> </span>
-              <!-- <c:choose>
-                              <c:when test="${(totalProductRecords mod 10)!=0}">
-                                  <c:set var="res" value="${(totalProductRecords - (totalProductRecords mod ProductTableRecords))/ProductTableRecords + 1}"/>
-                                  <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
-                                  <span class="totalPage">${totalPage}</span>
-                              </c:when>
-                              <c:otherwise>
-                                  <c:set var="res" value="${totalProductRecords/10}"/>
-                                  <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
-                                  <span class="totalPage">${totalPage}</span>
-                              </c:otherwise>
-                            </c:choose> -->
-              <a href="" class="next pageNumber">
-                <img src="../../../assets/resources/images/next-page.png" />
-              </a>
-              <a href="" class="last last-page pageNumber">
-                <img src="../../../assets/resources/images/last-page.png" />
-              </a>
-            </div>
           </div>
-          <div class="cboth"></div>
-        </div>
-        <div class="recordsTableDiv">
-          <table
-            cellspacing="0"
-            cellpadding="0"
-            class="recordsTable"
-            id="ProductsRecordsTable"
-          >
-            <thead>
-              <tr>
-                <th
-                  class="first-child sortable"
-                  sortDir="asc"
-                  sortCol="organization_id"
-                  id="id"
-                >
-                  Product Id
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="organization_name"
-                  id="name"
-                >
-                  Product Name
-                </th>
-                <!-- <th
+          <div class="recordsTableDiv">
+            <table
+              cellspacing="0"
+              cellpadding="0"
+              class="recordsTable"
+              id="ProductsRecordsTable"
+            >
+              <thead>
+                <tr>
+                  <th
+                    class="first-child sortable"
+                    sortDir="asc"
+                    sortCol="organization_id"
+                    id="id"
+                  >
+                    Product Id
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="organization_name"
+                    id="name"
+                  >
+                    Product Name
+                  </th>
+                  <!-- <th
                   class="sortable"
                   sortDir="asc"
                   sortCol="customer_name"
@@ -204,140 +226,178 @@
                 >
                   Cost Price
                 </th> -->
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="master_name"
-                  id="sellingprice"
-                >
-                  Selling Price
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="product_group_name"
-                  id="barcode"
-                >
-                  Barcode
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="product_group_name"
-                  id="discount"
-                >
-                  Discount
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="product_group_name"
-                  id="tax"
-                >
-                  Tax
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="product_group_name"
-                  id="userId"
-                >
-                  user id
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="product_group_name"
-                  id="companyId"
-                >
-                  company id
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="product_group_name"
-                  id="companyId"
-                >
-                  branch id
-                </th>
-                <th
-                  class="sortable"
-                  sortDir="asc"
-                  sortCol="product_group_name"
-                  id="Unit"
-                >
-                  Unit
-                </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="master_name"
+                    id="sellingprice"
+                  >
+                    Selling Price
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="product_group_name"
+                    id="barcode"
+                  >
+                    Barcode
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="product_group_name"
+                    id="discount"
+                  >
+                    Discount
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="product_group_name"
+                    id="tax"
+                  >
+                    Tax
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="product_group_name"
+                    id="userId"
+                  >
+                    user id
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="product_group_name"
+                    id="companyId"
+                  >
+                    company id
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="product_group_name"
+                    id="companyId"
+                  >
+                    branch id
+                  </th>
+                  <th
+                    class="sortable"
+                    sortDir="asc"
+                    sortCol="product_group_name"
+                    id="Unit"
+                  >
+                    Unit
+                  </th>
 
-                <th class="last-child">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="prodTable">
-              <tr>
-                <span class="noProdRecord">No records found</span>
-              </tr>
-              <!-- <c:forEach items="${products}" var="product">  -->
-              <tr
-                *ngFor="let product of availableProducts"
-                id="prod_{{ product.id }}"
-              >
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <!-- <td>{{ product.costPrice }}</td> -->
-                <td>{{ product.sellingPrice }}</td>
-                <td>{{ product.barcode }}</td>
-                <td>{{ product.discount }}</td>
-                <td>
-                  <ng-container *ngFor="let vat of typerate">
-                    <span *ngIf="vat.id === product.tax">{{
-                      vat.vatRate
-                    }}</span>
-                  </ng-container>
-                </td>
-                <td>{{ product.userId }}</td>
-                <td>{{ product.companyId }}</td>
-                <td>{{ product.branchId }}</td>
-                <td>{{ product.unit }}</td>
-                <td class="last-child">
-                  <a
-                    id="editProduct"
-                    *ngIf="IsAuditor"
-                    (click)="editProduct(product.id)"
-                    class="createNewTableRecord"
-                  >
-                    <img src="../../../assets/resources/images/editRow.png" />
-                  </a>
-                  <a
-                    *ngIf="IsAuditor"
-                    (click)="deleteProduct(product.id)"
-                    class=""
-                  >
-                    <img src="../../../assets/resources/images/deleteRow.png" />
-                  </a>
-                </td>
-              </tr>
-              <!-- </c:forEach>	 -->
-            </tbody>
-          </table>
+                  <th class="last-child">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="prodTable">
+                <tr>
+                  <span class="noProdRecord">No records found</span>
+                </tr>
+                <!-- <c:forEach items="${products}" var="product">  -->
+                <tr
+                  *ngFor="let product of availableProducts"
+                  id="prod_{{ product.id }}"
+                >
+                  <td>{{ product.id }}</td>
+                  <td>{{ product.name }}</td>
+                  <!-- <td>{{ product.costPrice }}</td> -->
+                  <td>{{ product.sellingPrice }}</td>
+                  <td>{{ product.barcode }}</td>
+                  <td>{{ product.discount }}</td>
+                  <td>
+                    <ng-container *ngFor="let vat of typerate">
+                      <span *ngIf="vat.id === product.tax">{{
+                        vat.vatRate
+                      }}</span>
+                    </ng-container>
+                  </td>
+                  <td>{{ product.userId }}</td>
+                  <td>{{ product.companyId }}</td>
+                  <td>{{ product.branchId }}</td>
+                  <td>{{ product.unit }}</td>
+                  <td class="last-child">
+                    <a
+                      id="editProduct"
+                      *ngIf="IsAuditor"
+                      (click)="editProduct(product.id)"
+                      class="createNewTableRecord"
+                    >
+                      <img src="../../../assets/resources/images/editRow.png" />
+                    </a>
+                    <a
+                      *ngIf="IsAuditor"
+                      (click)="deleteProduct(product.id)"
+                      class=""
+                    >
+                      <img
+                        src="../../../assets/resources/images/deleteRow.png"
+                      />
+                    </a>
+                  </td>
+                </tr>
+                <!-- </c:forEach>	 -->
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
 
-      <div
-        class="popupWrapper"
-        id="createNewProductPopup"
-        style="display: none"
-      >
-        <app-create-product
-          (productInfoEvent)="createNewProduct($event)"
-        ></app-create-product>
-      </div>
+        <div
+          class="popupWrapper"
+          id="createNewProductPopup"
+          style="display: none"
+        >
+          <app-create-product
+            (productInfoEvent)="createNewProduct($event)"
+          ></app-create-product>
+        </div>
 
-      <div class="popupWrapper" id="editProductPopup" style="display: none">
-        <app-editproduct
-          [productId]="productInfoForUpdateId"
-          (updatedSuccessful)="fetchAllProductsAfterEdit()"
-        ></app-editproduct>
+        <div class="popupWrapper" id="editProductPopup" style="display: none">
+          <app-editproduct
+            [productId]="productInfoForUpdateId"
+            (updatedSuccessful)="fetchAllProductsAfterEdit()"
+          ></app-editproduct>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<!--
+<select name="" (change)="onTableSizeChange($event)">
+  <option *ngFor="let size of tableSizes" value="{{ size }}">
+    {{ size }}
+  </option>
+</select>
+<table class="table">
+  <thead>
+    <th>ID</th>
+    <th>ID</th>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let product of POSTS
+          | paginate
+            : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index
+      "
+    >
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+    </tr>
+  </tbody>
+  <pagination-controls
+    previousLabel="Prev"
+    nextLabel="Next"
+    (pageChange)="onTableDataChanges($event)"
+  ></pagination-controls>
+</table> -->
