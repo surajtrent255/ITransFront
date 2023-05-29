@@ -260,8 +260,8 @@ export class CreateSalesComponent {
 
         this.customerId = salesBillInvoice.salesBillDTO.customerId;
         this.customerName = salesBillInvoice.salesBillDTO.customerName;
-        const toEl = document.getElementById("to") as HTMLSpanElement;
-        toEl.innerText = this.customerName
+        const toEl = document.getElementById('to') as HTMLSpanElement;
+        toEl.innerText = this.customerName;
         this.customerPan = salesBillInvoice.salesBillDTO.customerPan;
 
         let productsIds: number[] = [];
@@ -310,9 +310,8 @@ export class CreateSalesComponent {
       discountEl.value = String(salesProd.discountPerUnit);
       totalAmountEl.innerText = String(salesProd.rowTotal);
       setTimeout(() => {
-        this.updateTotalAmount(index)
-
-      })
+        this.updateTotalAmount(index);
+      });
     });
   }
 
@@ -609,9 +608,6 @@ export class CreateSalesComponent {
             this.prodQtyInput.nativeElement.focus();
             this.prodQtyInput.nativeElement.select();
           }
-
-
-
         },
       });
   }
@@ -862,7 +858,7 @@ export class CreateSalesComponent {
 
     // for abbrevationBill
     if (this.isAbbrFeature) {
-      if (this.unknownCustomer || (!this.doesCustomerhavePan)) {
+      if (this.unknownCustomer || !this.doesCustomerhavePan) {
         if (this.bsTotal < 1000) {
           this.hasAbbr = true;
         } else {
@@ -989,9 +985,12 @@ export class CreateSalesComponent {
         if (draft === false) {
           // this.router.navigateByUrl(`dashboard/salesbill`);
 
-          window.open(`salesBillPrint/${data.data}`, "_blank", "height=900, width=900, left=250, top=100");
+          window.open(
+            `salesBillPrint/${data.data}`,
+            '_blank',
+            'height=900, width=900, left=250, top=100'
+          );
           this.router.navigateByUrl(`dashboard/salesbill`);
-
         } else {
           alert('Draft has been saved ');
           this.router.navigateByUrl('dashboard/salesbill');
