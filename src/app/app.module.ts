@@ -85,6 +85,8 @@ import { CreditNoteInvoiceComponent } from './components/shared/credit-note/cred
 import { CreditNoteListComponent } from './components/shared/credit-note/credit-note-list/credit-note-list.component';
 import { DebitNoteListComponent } from './components/shared/debit-note/debit-note-list/debit-note-list.component';
 import { ConfirmAlertComponent } from './components/shared/confirm-alert/confirm-alert.component';
+import { CreditNoteInvoicePrintComponent } from './components/shared/credit-note/credit-note-invoice-print/credit-note-invoice-print.component';
+import { DebitNoteInvoicePrintComponent } from './components/shared/debit-note/debit-note-invoice-print/debit-note-invoice-print.component';
 
 @NgModule({
   declarations: [
@@ -152,6 +154,8 @@ import { ConfirmAlertComponent } from './components/shared/confirm-alert/confirm
     CreditNoteListComponent,
     DebitNoteListComponent,
     ConfirmAlertComponent,
+    CreditNoteInvoicePrintComponent,
+    DebitNoteInvoicePrintComponent,
   ],
   imports: [
     BrowserModule,

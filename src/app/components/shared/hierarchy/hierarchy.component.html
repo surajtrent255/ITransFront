@@ -180,14 +180,6 @@
                       <li *ngIf="IsStaff">
                         <a class="nav-link"> Customers </a>
                       </li>
-                      <li *ngIf="IsStaff">
-                        <a
-                          class="nav-link"
-                          routerLink="/dashboard/creditNoteList"
-                        >
-                          Credit Note
-                        </a>
-                      </li>
                     </ul>
                   </li>
 
@@ -230,13 +222,6 @@
                           >Receipts
                         </a>
                       </li>
-                      <li>
-                        <a
-                          class="nav-link"
-                          routerLink="/dashboard/debitNoteList"
-                          >Debit Note
-                        </a>
-                      </li>
                     </ul>
                   </li>
 
@@ -254,17 +239,19 @@
                     <ul *ngIf="!IsStaff" class="submenu collapse"></ul>
                     <ul *ngIf="IsStaff" class="submenu collapse">
                       <li>
-                        <a class="nav-link" href="/dashboard/create/bank"
+                        <a class="nav-link" routerLink="/dashboard/create/bank"
                           >Create Bank
                         </a>
                       </li>
                       <li>
-                        <a class="nav-link" href="/dashboard/bank/deposit"
+                        <a class="nav-link" routerLink="/dashboard/bank/deposit"
                           >Deposit
                         </a>
                       </li>
                       <li>
-                        <a class="nav-link" href="/dashboard/bank/withdraw"
+                        <a
+                          class="nav-link"
+                          routerLink="/dashboard/bank/withdraw"
                           >Withdraw
                         </a>
                       </li>
@@ -281,17 +268,35 @@
                     </ul>
                   </li>
 
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"
-                      ><i
+                  <li class="nav-item has-submenu">
+                    <a class="nav-link" href="#">
+                      <i
                         class="fas fa-regular fa-file-alt fa-xl"
                         style="color: #9ba0a7"
                       ></i>
-
-                      <span class="MainMenu" style="padding-left: 20px"
-                        >Reports</span
+                      <span class="MainMenu" style="padding-left: 16px"
+                        >Report</span
                       >
+                      <i class="bi small bi-caret-down-fill"></i>
                     </a>
+                    <ul class="submenu collapse">
+                      <li>
+                        <a
+                          class="nav-link"
+                          routerLink="/dashboard/debitNoteList"
+                          >Debit Note
+                        </a>
+                      </li>
+
+                      <li *ngIf="IsStaff">
+                        <a
+                          class="nav-link"
+                          routerLink="/dashboard/creditNoteList"
+                        >
+                          Credit Note
+                        </a>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </nav>

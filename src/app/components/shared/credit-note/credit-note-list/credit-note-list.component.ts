@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CreditNote } from 'src/app/models/Credit-Note/creditNote';
 import { CreditNoteDetails } from 'src/app/models/Credit-Note/creditNoteDetails';
 import { CreditNoteService } from 'src/app/service/shared/Credit-Note/credit-note.service';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
@@ -17,7 +19,9 @@ export class CreditNoteListComponent {
 
   constructor(
     private loginService: LoginService,
-    private creditNoteService: CreditNoteService
+    private creditNoteService: CreditNoteService,
+    private commonService: CommonService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -29,6 +33,13 @@ export class CreditNoteListComponent {
     } else {
       this.IsAuditor = true;
     }
+  }
+
+  printData(printData: CreditNote) {
+    this.commonService.setData({
+      printData,
+    });
+    this.router.navigateByUrl('/dashboard/print-credit-note');
   }
 
   getCreditNote() {

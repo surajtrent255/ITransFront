@@ -21,6 +21,7 @@ export class CreateCompanyComponent {
   province!: Province[];
   municipality!: Municipality[];
 
+  selectedFile!: File;
   // for select  value Accquire
   provinceId!: number;
   districtId!: number;
@@ -42,13 +43,17 @@ export class CreateCompanyComponent {
     private loginService: LoginService,
     private districtAndProvinceService: DistrictAndProvinceService,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.districtAndProvinceService.getAllProvince().subscribe((res) => {
       console.log(res.data);
       this.province = res.data;
     });
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 
   registerCompany() {
@@ -73,10 +78,9 @@ export class CreateCompanyComponent {
         },
         this.user_id
       )
-      .subscribe(() => {
+      .subscribe((res) => {
         this.successfullyAdded.emit(true);
         this.toastrService.success('Company Added Successfully');
-
       });
   }
 

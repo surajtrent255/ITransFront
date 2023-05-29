@@ -9,6 +9,7 @@ import {
 } from 'src/app/constants/urls';
 
 import { Company } from 'src/app/models/company';
+import { Logo } from 'src/app/models/company-logo/CompanyImage';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { User } from 'src/app/models/user';
 
@@ -19,7 +20,7 @@ export class CompanyServiceService {
   constructor(
     private httpClient: HttpClient,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   getCompnayDetails(user_id: number): Observable<any> {
     return this.httpClient.get(`${USER_COMPANY_URL}/${user_id}`);
@@ -62,5 +63,32 @@ export class CompanyServiceService {
     let url = `${COMPANY_BASE_URL}/searchBy?searchMethod=${searchMethod}&customerPhoneOrPan=${customerPhoneOrPan}`;
     console.log(url);
     return this.httpClient.get<RJResponse<Company[]>>(url);
+  }
+
+  // company Logo
+
+  getCompanyLogo(companyId: number): Observable<RJResponse<Logo>> {
+    return this.httpClient.get<RJResponse<Logo>>(
+      `${COMPANY_BASE_URL}/image?companyId=${companyId}`
+    );
+  }
+
+  addCompanyLogo(file: File, companyId: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('companyId', String(companyId));
+    return this.httpClient
+      .post(`${COMPANY_BASE_URL}/image/upload`, formData)
+      .pipe(
+        tap({
+          next: (respone) => {
+            this.toastrService.success('Successfully Addded');
+          },
+          error: (err) => {
+            console.log(err);
+            this.toastrService.error('Something Went Wrong');
+          },
+        })
+      );
   }
 }
