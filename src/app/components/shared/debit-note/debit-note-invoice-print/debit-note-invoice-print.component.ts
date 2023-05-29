@@ -18,7 +18,7 @@ export class DebitNoteInvoicePrintComponent {
   constructor(
     private debitNoteService: DebitNoteService,
     private commonService: CommonService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.commonService.data$.subscribe((res) => {
@@ -31,7 +31,7 @@ export class DebitNoteInvoicePrintComponent {
           this.debitNoteDetails = res.data;
           this.fileName = String(
             this.debitNoteDetails[0].billNumber +
-              this.debitNoteDetails[0].serialNumber
+            this.debitNoteDetails[0].serialNumber
           );
         });
     });

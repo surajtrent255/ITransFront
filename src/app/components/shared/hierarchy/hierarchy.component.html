@@ -311,12 +311,10 @@
                         >Report</span
                       ><i class="bi small bi-caret-down-fill"></i>
                     </a>
-                    <ul *ngIf="!IsStaff" class="submenu collapse"></ul>
-                    <ul *ngIf="IsStaff" class="submenu collapse">
+                    <ul class="submenu collapse"></ul>
+                    <ul class="submenu collapse">
                       <li>
-                        <a
-                          class="nav-link"
-                          routerLink="/dashboard/creditNoteList"
+                        <a class="nav-link" routerLink="/dashboard/creditnote"
                           >Credit Note
                         </a>
                       </li>
