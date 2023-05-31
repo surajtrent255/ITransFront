@@ -90,6 +90,10 @@ import { DebitNoteInvoicePrintComponent } from './components/shared/debit-note/d
 import { RoundingPipe } from './custompipes/RoundingPipe';
 import { CreditNoteReportComponent } from './components/shared/credit-note/credit-note-report/credit-note-report.component';
 import { DebitNoteReportComponent } from './components/shared/debit-note/debit-note-report/debit-note-report.component';
+import { PurchaseReportComponent } from './components/shared/purchase/purchase-report/purchase-report.component';
+import { SalesReportComponent } from './components/shared/sales/sales-report/sales-report.component';
+import { SalesReportDetailComponent } from './components/shared/sales/sales-report/sales-report-detail/sales-report-detail.component';
+import { PurchaseReportDetailComponent } from './components/shared/purchase/purchase-report/purchase-report-detail/purchase-report-detail.component';
 
 @NgModule({
   declarations: [
@@ -162,6 +166,10 @@ import { DebitNoteReportComponent } from './components/shared/debit-note/debit-n
     DebitNoteInvoicePrintComponent,
     CreditNoteReportComponent,
     DebitNoteReportComponent,
+    PurchaseReportComponent,
+    SalesReportComponent,
+    SalesReportDetailComponent,
+    PurchaseReportDetailComponent,
   ],
   imports: [
     BrowserModule,

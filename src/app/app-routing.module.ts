@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DemoComponent } from './components/demo/demo/demo.component';
 import { CategoryprodComponent } from './components/shared/categoryprod/categoryprod.component';
@@ -37,6 +37,10 @@ import { CreditNoteInvoicePrintComponent } from './components/shared/credit-note
 import { DebitNoteInvoicePrintComponent } from './components/shared/debit-note/debit-note-invoice-print/debit-note-invoice-print.component';
 import { CreditNoteReportComponent } from './components/shared/credit-note/credit-note-report/credit-note-report.component';
 import { DebitNoteReportComponent } from './components/shared/debit-note/debit-note-report/debit-note-report.component';
+import { SalesReportComponent } from './components/shared/sales/sales-report/sales-report.component';
+import { SalesReportDetailComponent } from './components/shared/sales/sales-report/sales-report-detail/sales-report-detail.component';
+import { PurchaseReportComponent } from './components/shared/purchase/purchase-report/purchase-report.component';
+import { PurchaseReportDetailComponent } from './components/shared/purchase/purchase-report/purchase-report-detail/purchase-report-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -75,6 +79,14 @@ const routes: Routes = [
         component: CreateSalesComponent,
       },
       {
+        path: 'salesbill/report',
+        component: SalesReportComponent,
+      },
+      {
+        path: 'salesbill/report/:id',
+        component: SalesReportDetailComponent,
+      },
+      {
         path: 'salesbill/:billId',
         component: SalesBillEditComponent,
       },
@@ -82,6 +94,7 @@ const routes: Routes = [
         path: 'salesbill/invoice/:billId',
         component: SalesBillInvoiceComponent,
       },
+
       {
         path: 'categoryprod',
         component: CategoryprodComponent,
@@ -93,6 +106,14 @@ const routes: Routes = [
       {
         path: 'purchasebills',
         component: PurchaseComponent,
+      },
+      {
+        path: 'purchasebills/report',
+        component: PurchaseReportComponent,
+      },
+      {
+        path: 'purchasebills/report/:id',
+        component: PurchaseReportDetailComponent,
       },
       {
         path: 'purchasebills/:billNo',

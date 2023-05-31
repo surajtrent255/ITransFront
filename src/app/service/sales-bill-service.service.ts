@@ -19,6 +19,7 @@ export class SalesBillServiceService {
 
   getAllSalesBill(id: number, branchId: number): Observable<RJResponse<SalesBill[]>> {
     let url = `${BASE_URL}/salesBill/company?compId=${id}&branchId=${branchId}`;
+    alert(url);
     return this.http.get<RJResponse<SalesBill[]>>(url);
   }
 

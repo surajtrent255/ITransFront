@@ -1,0 +1,332 @@
+<div class="contentRecordsTableContainer MainContainer">
+  <div class="recordTableWrapper" style="height: auto">
+    <div class="recordCategory">
+      <h2 class="text-center" id="totalGroupCombinations">Sales: Invoice</h2>
+    </div>
+
+    <div class="searchCreateTableDiv">
+      <div class="searchCreateDiv">
+        <div class="fleft searchDiv" id="prodSearch">
+          <input
+            class="inputText"
+            type="text"
+            [(ngModel)]="searchWildCard"
+            (keydown.enter)="fetchLimitedSalesBill()"
+          />
+          <input
+            type="image"
+            (click)="fetchLimitedSalesBill()"
+            src="../../../assets/resources/images/searchButton.png"
+            class="serachButton"
+            title="Search Term"
+          />
+          <a class="genLink">Clear searchs</a>
+          <span>search by: </span>
+          <select name="s" [(ngModel)]="searchBy" id="">
+            <option value="bill_no">Bill no</option>
+          </select>
+        </div>
+        <div class="cboth"></div>
+      </div>
+      <div class="tableWrapper">
+        <div class="tablesettingDiv">
+          <div class="fleft filterListWrapper">
+            <div class="fleft">
+              <span class="italicText"></span>
+            </div>
+            <ul
+              class="fleft filtersDisplayList salesBillsTableFiltersDisplayList"
+            ></ul>
+            <div class="cboth"></div>
+          </div>
+          <div class="fright configNavTableWrapper">
+            <div
+              class="fleft configTableDiv newFilterItem"
+              dropdownId="salesBillsTableFilters"
+            >
+              <a href="" class="">
+                <img
+                  src="../../../assets/resources/images/newfilter-bg.png"
+                  alt="New Filter"
+                  title="Add new filter"
+                />
+                <span id="newsalesBillFilter" search="off">New Filter</span>
+              </a>
+            </div>
+            <div class="fleft configTableDiv">
+              <a href="" class="configTableLink">
+                <img src="../../../assets/resources/images/config-bg.png" />
+                <span>Configure Table</span>
+                <img src="../../../assets/resources/images/th-sort-down.png" />
+              </a>
+              <div class="configTableDropdown" id="salesBillsTableFilters">
+                <ul class="configOptionList" id="salesBillConfigList">
+                  <li class="filterItem">
+                    <span>Recent Filters</span>
+                    <ul class="filterList" id="salesBillFilterList">
+                      <li>
+                        <a
+                          href=""
+                          class="filterLink salesBillFilterName"
+                          style="
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                          "
+                          >filter.name</a
+                        >
+                        <span class="salesBillFilterId" style="display: none"
+                          >filter.id</span
+                        >
+                        <div
+                          class="salesBillFilterReqData hoverData"
+                          style="display: none"
+                        >
+                          filter.reqData
+                        </div>
+                      </li>
+                      <li class="seeAllFilterLink">
+                        <a href="" class="seeMoreLink">See More</a>
+                        <ul class="allFiltersList salesBillAllFilterList">
+                          <li>
+                            <a
+                              href=""
+                              class="filterLink salesBillFilterName"
+                              style="
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                              "
+                              >filter.name</a
+                            >
+                            <span
+                              class="salesBillFilterId"
+                              style="display: none"
+                              >filter.id</span
+                            >
+                            <div
+                              class="salesBillFilterReqData hoverData"
+                              style="display: none"
+                            >
+                              filter.reqData
+                            </div>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="chooseCol">
+                    <a href="">Choose Columns</a>
+                  </li>
+                  <li class="recordsPerPage">
+                    <a href="">Records Per Page</a>
+                  </li>
+                  <li class="exportTableLink">
+                    <a href="">Export Table</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="fleft tableNavDiv" id="salesBillsTablePagination">
+              <a class="prev pageNumber" (click)="changePage('prev')">
+                <img src="../../../assets/resources/images/prev-page.png" />
+              </a>
+              <span class="showingText">Page</span>
+              <span class="pagedisplay"
+                ><span class="pageNum">{{ currentPageNumber }}</span>
+              </span>
+              <a class="next pageNumber" (click)="changePage('next')">
+                <img src="../../../assets/resources/images/next-page.png" />
+              </a>
+            </div>
+          </div>
+          <div class="cboth"></div>
+        </div>
+        <div class="recordsTableDiv">
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            class="recordsTable"
+            id="salesBillsRecordsTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="customer_name"
+                  id="costprice"
+                >
+                  Bill No
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="salesBill_group_name"
+                  id="actions"
+                >
+                  Draft
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="organization_name"
+                  id="name"
+                >
+                  Fiscal Year
+                </th>
+
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="master_name"
+                  id="sellingprice"
+                >
+                  Customer Name
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="salesBill_group_name"
+                  id="barcode"
+                >
+                  Total Amount
+                </th>
+
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="salesBill_group_name"
+                  id="tax"
+                >
+                  Tax
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="salesBill_group_name"
+                  id="tax"
+                >
+                  syncWithIrd
+                </th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="salesBill_group_name"
+                  id="tax"
+                >
+                  printedTime
+                </th>
+                <th>Status</th>
+                <th>Sale Type</th>
+                <th
+                  class="sortable"
+                  sortDir="asc"
+                  sortCol="salesBill_group_name"
+                  id="actions"
+                >
+                  Actions
+                </th>
+
+                <th class="last-child">Report</th>
+              </tr>
+            </thead>
+            <tbody id="prodTable">
+              <tr>
+                <span class="noProdRecord">No records found</span>
+              </tr>
+              <tr
+                *ngFor="let salesBill of salesBills"
+                id="saleBill_{{ salesBill.billNo }}"
+              >
+                <td>{{ salesBill.billNo }}</td>
+                <td>
+                  <span *ngIf="salesBill.draft"> Yes </span>
+                  <span *ngIf="!salesBill.draft">No</span>
+
+                  <i
+                    *ngIf="salesBill.draft && salesBill.status"
+                    class="fas fa-hand-pointer"
+                    aria-hidden="true"
+                    style="float: right"
+                    (click)="ApproveTheBill(salesBill.id)"
+                  >
+                    Inspect
+                  </i>
+
+                  <i
+                    *ngIf="salesBill.draft && salesBill.status === false"
+                    class="fas fa-hand-pointer"
+                    aria-hidden="true"
+                    style="float: right; text-decoration: line-through"
+                  >
+                    Inspect
+                  </i>
+                </td>
+                <td>{{ salesBill.fiscalYear }}</td>
+                <td>{{ salesBill.customerName }}</td>
+                <td>{{ salesBill.totalAmount | number : "1.0-0" }}</td>
+                <td>{{ salesBill.taxAmount | number : "1.0-0" }}</td>
+                <td>{{ salesBill.syncWithIrd }}</td>
+                <td>
+                  {{
+                    salesBill.printedTime
+                      ? (salesBill.printedTime | date)
+                      : "not yet"
+                  }}
+                </td>
+                <td>
+                  <span
+                    *ngIf="salesBill.status && salesBill.draft"
+                    style="color: orange"
+                    >DRAFT</span
+                  >
+                  <span
+                    *ngIf="!salesBill.draft && salesBill.status"
+                    style="color: green"
+                    >ACTIVE</span
+                  >
+                  <span *ngIf="!salesBill.status" style="color: red"
+                    >CANCELED</span
+                  >
+                </td>
+                <td>
+                  <span *ngIf="salesBill.saleType === 1">Cash</span>
+                  <span *ngIf="salesBill.saleType === 2"> Credit </span>
+                </td>
+                <td class="last-child">
+                  <a
+                    *ngIf="IsAuditor"
+                    routerLink="/dashboard/salesbill/{{ salesBill.id }}"
+                    ><i class="fa fa-info-circle" aria-hidden="true"></i
+                  ></a>
+                </td>
+
+                <td>
+                  <i
+                    class="fa-solid fa-bug"
+                    routerLink="/dashboard/salesbill/report/{{ salesBill.id }}"
+                  ></i>
+                  <!-- <i
+                    *ngIf="salesBill.status && !salesBill.draft"
+                    class="fa fa-print"
+                    aria-hidden="true"
+                    (click)="goForReport(salesBill.id)"
+                  ></i> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="popupWrapper" id="editSalesBillPopup" style="display: none">
+      <app-sales-bill-edit
+        *ngIf="activeSalesBillEdit"
+        (activeSalesBillEditEvent)="deactivateSalesBillEdit($event)"
+      >
+      </app-sales-bill-edit>
+    </div>
+  </div>
+</div>

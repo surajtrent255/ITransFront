@@ -7,7 +7,7 @@ import { utils, writeFile } from 'xlsx';
   providedIn: 'root',
 })
 export class CommonService {
-  constructor() {}
+  constructor() { }
 
   private dataSubject = new BehaviorSubject<any>(null);
   public data$ = this.dataSubject.asObservable();
