@@ -39,13 +39,6 @@ export class CreditNoteListComponent {
     }
   }
 
-  printData(printData: CreditNote) {
-    this.commonService.setData({
-      printData,
-    });
-    this.router.navigateByUrl('/dashboard/print-credit-note');
-  }
-
   getCreditNote() {
     this.creditNoteService
       .getCreditNote(

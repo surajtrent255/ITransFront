@@ -35,6 +35,8 @@ import { CreditNoteListComponent } from './components/shared/credit-note/credit-
 import { DebitNoteListComponent } from './components/shared/debit-note/debit-note-list/debit-note-list.component';
 import { CreditNoteInvoicePrintComponent } from './components/shared/credit-note/credit-note-invoice-print/credit-note-invoice-print.component';
 import { DebitNoteInvoicePrintComponent } from './components/shared/debit-note/debit-note-invoice-print/debit-note-invoice-print.component';
+import { CreditNoteReportComponent } from './components/shared/credit-note/credit-note-report/credit-note-report.component';
+import { DebitNoteReportComponent } from './components/shared/debit-note/debit-note-report/debit-note-report.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -44,7 +46,7 @@ const routes: Routes = [
   },
   {
     path: 'salesBillPrint/:billId',
-    component: SalesBillInvoiceComponent
+    component: SalesBillInvoiceComponent,
   },
   {
     path: 'demo',
@@ -173,6 +175,10 @@ const routes: Routes = [
         component: CreditNoteListComponent,
       },
       {
+        path: 'credit-note-report',
+        component: CreditNoteReportComponent,
+      },
+      {
         path: 'print-credit-note',
         component: CreditNoteInvoicePrintComponent,
       },
@@ -184,6 +190,10 @@ const routes: Routes = [
         path: 'print-debit-note',
         component: DebitNoteInvoicePrintComponent,
       },
+      {
+        path: 'debit-note-report',
+        component: DebitNoteReportComponent,
+      },
     ],
   },
 ];
@@ -192,4 +202,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

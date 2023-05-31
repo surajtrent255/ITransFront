@@ -561,4 +561,40 @@ export class HeaderComponent {
         });
     }
   }
+
+  // Testing Only
+  isDragging = false;
+  popupPosition = { x: 0, y: 0 };
+  headerPosition = { x: 0, y: 0 };
+
+  onHeaderMouseDown(event: MouseEvent) {
+    event.stopPropagation(); // Prevent event bubbling to child elements
+    this.isDragging = true;
+    this.headerPosition = { x: event.clientX, y: event.clientY };
+  }
+
+  @HostListener('document:mouseup')
+  onMouseUp() {
+    this.isDragging = false;
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (this.isDragging) {
+      const offsetX = event.clientX - this.headerPosition.x;
+      const offsetY = event.clientY - this.headerPosition.y;
+
+      // Update the popup position
+      this.popupPosition = {
+        x: this.popupPosition.x + offsetX,
+        y: this.popupPosition.y + offsetY,
+      };
+
+      // Update the header position
+      this.headerPosition = {
+        x: event.clientX,
+        y: event.clientY,
+      };
+    }
+  }
 }

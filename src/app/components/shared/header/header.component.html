@@ -1,5 +1,5 @@
 <script src="../../../../assets/resources/js/main.js"></script>
-<div id="headerWrapper" class="headerWrapper" style="background-color: #9fb8d8">
+<div id="headerWrapper" class="headerWrapper">
   <div class="headerNav">
     <div class="fleft">
       <img
@@ -138,7 +138,7 @@
     id="configurationSettingPopup"
     style="width: auto"
   >
-    <div class="popupHeading" style="background-color: #3c4858">
+    <div class="popupHeading" style="background-color: #dce2f9">
       <h2 class="fleft">Configuration</h2>
       <a href="" class="MainPageCloseButton fright"
         ><img
@@ -936,9 +936,15 @@
 <div
   class="popupWrapper PopupCloser"
   id="createNewBranchPopup"
+  [style.left.px]="popupPosition.x"
+  [style.top.px]="popupPosition.y"
   style="display: none"
 >
-  <div class="popupHeading" style="background-color: #3c4858">
+  <div
+    class="popupHeading"
+    (mousedown)="onHeaderMouseDown($event)"
+    style="background-color: #3c4858"
+  >
     <h2 class="fleft">Branch</h2>
     <a href="" class="JoshiCloseButton fright"
       ><img

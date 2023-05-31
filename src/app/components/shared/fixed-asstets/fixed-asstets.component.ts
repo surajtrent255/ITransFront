@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { FixedAssets } from 'src/app/models/Fixed Assets/FixedAssets';
 import { FixedAssetsService } from 'src/app/service/shared/Assets And Expenses/fixed-assets.service';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
@@ -33,8 +34,10 @@ export class FixedAsstetsComponent {
   constructor(
     private fixedAssetService: FixedAssetsService,
     private LoginService: LoginService,
-    private toastrService: ToastrService
-  ) { }
+    private toastrService: ToastrService,
+    private commonService: CommonService,
+    private elementRef: ElementRef
+  ) {}
 
   ngOnInit() {
     this.LoggedInCompanyId = this.LoginService.getCompnayId();
@@ -48,6 +51,10 @@ export class FixedAsstetsComponent {
     } else {
       this.IsAuditor = true;
     }
+
+    const popupElement =
+      this.elementRef.nativeElement.querySelector('#createAssetsPopup');
+    this.commonService.dragablePopUp(popupElement);
   }
 
   formatDate(timestamp: number): string {
@@ -63,11 +70,11 @@ export class FixedAsstetsComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedFixedAssets();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedFixedAssets();
     }
@@ -76,14 +83,21 @@ export class FixedAsstetsComponent {
   fetchLimitedFixedAssets() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.fixedAssetService.getLimitedFixedAssets(offset, this.pageTotalItems, this.LoggedInCompanyId, this.LoggedInBranchId).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("assets not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.fixedAssets = res.data;
-      }
-    })
+    this.fixedAssetService
+      .getLimitedFixedAssets(
+        offset,
+        this.pageTotalItems,
+        this.LoggedInCompanyId,
+        this.LoggedInBranchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('assets not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.fixedAssets = res.data;
+        }
+      });
   }
 
   getFixedAssetsDetails() {
