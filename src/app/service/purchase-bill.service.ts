@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PurchaseBill } from '../models/PurchaseBill';
 import { PurchaseBillInvoice } from '../models/PurchaseBillInvoice';
+import { PurchaseReport } from '../models/PurchaseReport';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,11 @@ export class PurchaseBillService {
     let url = `${BASE_URL}/purchaseBillDetail?billId=${billId}&comapnyId=${compId}&branchId=${branchId}`;
     console.log(url)
     return this.http.get<RJResponse<PurchaseBillInvoice>>(url);
+  }
+
+  fetchPurchaseBillInfoForReport(billId: number, compId: number, branchId: number): Observable<RJResponse<PurchaseReport>> {
+    let url = `${BASE_URL}/purchaseBill/report/${billId}?compId=${compId}&branchId=${branchId}`;
+    return this.http.get<RJResponse<PurchaseReport>>(url);
   }
 
 }

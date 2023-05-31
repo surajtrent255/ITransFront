@@ -27,7 +27,7 @@ export class CreditNoteInvoicePrintComponent {
     private commonService: CommonService,
     private creditNoteService: CreditNoteService,
     private loginService: LoginService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.commonService.data$.subscribe((res) => {
@@ -42,7 +42,7 @@ export class CreditNoteInvoicePrintComponent {
           this.creditNoteDetails = res.data;
           this.fileName = String(
             this.creditNoteDetails[0].serialNumber +
-              this.creditNoteDetails[0].billNumber
+            this.creditNoteDetails[0].billNumber
           );
         });
     });

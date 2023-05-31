@@ -88,6 +88,10 @@ import { ConfirmAlertComponent } from './components/shared/confirm-alert/confirm
 import { CreditNoteInvoicePrintComponent } from './components/shared/credit-note/credit-note-invoice-print/credit-note-invoice-print.component';
 import { DebitNoteInvoicePrintComponent } from './components/shared/debit-note/debit-note-invoice-print/debit-note-invoice-print.component';
 import { RoundingPipe } from './custompipes/RoundingPipe';
+import { PurchaseReportComponent } from './components/shared/purchase/purchase-report/purchase-report.component';
+import { SalesReportComponent } from './components/shared/sales/sales-report/sales-report.component';
+import { SalesReportDetailComponent } from './components/shared/sales/sales-report/sales-report-detail/sales-report-detail.component';
+import { PurchaseReportDetailComponent } from './components/shared/purchase/purchase-report/purchase-report-detail/purchase-report-detail.component';
 
 @NgModule({
   declarations: [
@@ -158,6 +162,10 @@ import { RoundingPipe } from './custompipes/RoundingPipe';
     ConfirmAlertComponent,
     CreditNoteInvoicePrintComponent,
     DebitNoteInvoicePrintComponent,
+    PurchaseReportComponent,
+    SalesReportComponent,
+    SalesReportDetailComponent,
+    PurchaseReportDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -193,4 +201,4 @@ import { RoundingPipe } from './custompipes/RoundingPipe';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
