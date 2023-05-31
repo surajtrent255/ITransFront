@@ -10,8 +10,7 @@ section {
   padding: 40px 30px;
   height: auto;
   width: auto;
-  background-color: #bed2e8;
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
   margin: 40px 0;
 }
@@ -20,8 +19,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 30px;
-  background-color: #bac2cb;
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 th,
@@ -32,7 +30,7 @@ td {
 }
 
 th {
-  background-color: #bac2cb;
+  background-color: #f0f3f7;
   border-radius: 8px;
   font-weight: bold;
   color: #212121;
@@ -66,7 +64,7 @@ h2 {
   font-size: 20px;
   /* margin: 0 0 10px; */
   color: #212121;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 p {

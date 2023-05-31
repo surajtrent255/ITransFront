@@ -8,11 +8,11 @@ import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
-  selector: 'app-debit-note-list',
-  templateUrl: './debit-note-list.component.html',
-  styleUrls: ['./debit-note-list.component.css'],
+  selector: 'app-debit-note-report',
+  templateUrl: './debit-note-report.component.html',
+  styleUrls: ['./debit-note-report.component.css'],
 })
-export class DebitNoteListComponent {
+export class DebitNoteReportComponent {
   debitNote!: DebitNote[];
   debitNoteDetails!: DebitNoteDetails[];
 
@@ -85,5 +85,12 @@ export class DebitNoteListComponent {
     this.debitNoteService.getDebitNoteDetails(billNumber).subscribe((res) => {
       this.debitNoteDetails = res.data;
     });
+  }
+
+  printData(debitNoteData: DebitNote) {
+    this.commonService.setData({
+      debitNoteData,
+    });
+    this.router.navigateByUrl('/dashboard/print-debit-note');
   }
 }
