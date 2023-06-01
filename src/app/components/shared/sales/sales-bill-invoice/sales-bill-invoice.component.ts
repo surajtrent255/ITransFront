@@ -43,7 +43,6 @@ export class SalesBillInvoiceComponent {
 
   ngOnInit() {
     this.user = this.loginService.currentUser
-    alert(JSON.stringify(this.user))
     let billId: number = this.activatedRoute.snapshot.params['billId'];
     this.fetchSalesBillInvoice(billId);
     this.company = this.loginService.getCompany();

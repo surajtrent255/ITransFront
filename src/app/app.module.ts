@@ -88,7 +88,6 @@ import { ConfirmAlertComponent } from './components/shared/confirm-alert/confirm
 import { CreditNoteInvoicePrintComponent } from './components/shared/credit-note/credit-note-invoice-print/credit-note-invoice-print.component';
 import { DebitNoteInvoicePrintComponent } from './components/shared/debit-note/debit-note-invoice-print/debit-note-invoice-print.component';
 import { RoundingPipe } from './custompipes/RoundingPipe';
-import { CreditNoteReportComponent } from './components/shared/credit-note/credit-note-report/credit-note-report.component';
 import { DebitNoteReportComponent } from './components/shared/debit-note/debit-note-report/debit-note-report.component';
 import { PurchaseReportComponent } from './components/shared/purchase/purchase-report/purchase-report.component';
 import { SalesReportComponent } from './components/shared/sales/sales-report/sales-report.component';
@@ -164,7 +163,6 @@ import { PurchaseReportDetailComponent } from './components/shared/purchase/purc
     ConfirmAlertComponent,
     CreditNoteInvoicePrintComponent,
     DebitNoteInvoicePrintComponent,
-    CreditNoteReportComponent,
     DebitNoteReportComponent,
     PurchaseReportComponent,
     SalesReportComponent,
@@ -205,4 +203,4 @@ import { PurchaseReportDetailComponent } from './components/shared/purchase/purc
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
