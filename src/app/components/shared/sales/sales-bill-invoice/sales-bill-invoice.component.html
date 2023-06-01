@@ -12,10 +12,27 @@
     >
       <div class="recordTableWrapper" style="height: auto">
         <div class="recordCategory">
-          <h2 class="text-center" id="" style="font-weight: bold !important">
+          <h2
+            *ngIf="!salesInvoice.salesBillDTO.billPrinted"
+            class="text-center"
+            id=""
+            style="font-weight: bold !important"
+          >
             {{
               salesInvoice.salesBillDTO.hasAbbr
                 ? "ABBREVATED TAX INVOICE"
+                : "TAX INVOICE"
+            }}
+          </h2>
+          <h2
+            *ngIf="salesInvoice.salesBillDTO.billPrinted"
+            class="text-center"
+            id=""
+            style="font-weight: bold !important"
+          >
+            {{
+              salesInvoice.salesBillDTO.hasAbbr
+                ? "ABBREVATED INVOICE"
                 : "INVOICE"
             }}
           </h2>
@@ -32,18 +49,16 @@
         </div> -->
         <div class="row">
           <div class="text-center">
-            <span>Name: </span>
             <span>{{ company.name }}</span
             ><br />
-            <span>Address: </span>
             <span
               >{{ company.state }}, {{ company.district }},
               {{ company.munVdc }}</span
             ><br />
-            <span>Phone</span>
+            <span>Phone: </span>
             <span>{{ company.phone }}</span
             ><br />
-            <span>Pan No</span>
+            <span>VAT/PAN : </span>
             <span>{{ company.panNo }}</span
             ><br />
           </div>
@@ -52,7 +67,9 @@
           <div class="row">
             <div class="col-md-6">
               <span>
-                <span style="font-weight: bold !important">Bill Number:</span>
+                <span style="font-weight: bold !important"
+                  >Invoice Number:</span
+                >
                 {{
                   salesInvoice.salesBillDTO.hasAbbr
                     ? salesInvoice.salesBillDTO.billNo
@@ -74,34 +91,30 @@
                 {{ salesInvoice.sellerCompany.munVdc }}</span
               ><br />
               <span>
-                <span style="font-weight: bold !important"
-                  >Purchaser's Name:</span
-                >
+                <span style="font-weight: bold !important">Buyer's Name:</span>
                 {{
                   salesInvoice.salesBillDTO.customerName
                     ? salesInvoice.salesBillDTO.customerName
-                    : "NA"
+                    : "N/A"
                 }}</span
               ><br />
               <span>
                 <span style="font-weight: bold !important"
-                  >Purchaser Address:</span
+                  >Buyer's Address:</span
                 >
                 {{
                   salesInvoice.customerAddress
                     ? salesInvoice.customerAddress
-                    : "NA"
+                    : "N/A"
                 }} </span
               ><br />
               <span>
-                <span style="font-weight: bold !important"
-                  >Purchaser’s PAN:
-                </span>
+                <span style="font-weight: bold !important">Buyer's PAN: </span>
                 <p style="display: inline; margin: 0">
                   {{
                     salesInvoice.salesBillDTO.customerPan > 0
                       ? salesInvoice.salesBillDTO.customerPan
-                      : "NA"
+                      : "N/A"
                   }}
                 </p></span
               >
@@ -112,17 +125,10 @@
               <br />
             </div>
             <div class="col-md-4 offset-md-2">
+              <br />
               <span>
                 <span style="font-weight: bold !important"
-                  >Transaction Date:</span
-                >
-                {{
-                  salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd"
-                }}</span
-              ><br />
-              <span>
-                <span style="font-weight: bold !important"
-                  >Invoice issue Date:</span
+                  >Invoice Issue Date:</span
                 >
                 {{
                   salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd"
@@ -130,9 +136,13 @@
               ><br />
               <span>
                 <span style="font-weight: bold !important">
-                  MethodOfPayment:</span
+                  Mode Of Payment :</span
                 >
-                {{ salesInvoice.salesBillDTO.paymentMethod }}</span
+                {{
+                  salesInvoice.salesBillDTO.saleType === 1
+                    ? "Cash In Hand"
+                    : "Credit"
+                }}</span
               ><br />
             </div>
             <div class="row">
@@ -142,6 +152,8 @@
                     <th style="font-weight: bold !important">S.No</th>
                     <th style="font-weight: bold !important">Product Name</th>
                     <th style="font-weight: bold !important">Quantity</th>
+                    <th style="font-weight: bold !important">Unit</th>
+
                     <th style="font-weight: bold !important">
                       Per Unit Amount(Rs)
                     </th>
@@ -159,6 +171,7 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ invoice.productName }}</td>
                       <td>{{ invoice.qty }}</td>
+                      <td>{{ invoice.unit }}</td>
                       <td>{{ invoice.rate | number : "1.2-2" }}</td>
                       <td>
                         {{ invoice.qty * invoice.rate | number : "1.2-2" }}
@@ -166,6 +179,7 @@
                     </tr>
                     <tr></tr>
                     <tr>
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -181,6 +195,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
+                      <td></td>
                       <td><span class="text text-bg">Discount%: </span></td>
                       <td>
                         {{
@@ -189,6 +204,7 @@
                       </td>
                     </tr>
                     <tr *ngIf="salesInvoice.salesBillDTO.hasAbbr === false">
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -204,6 +220,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
+                      <td></td>
                       <td><span class="text text-bg">VAT 13%</span></td>
                       <td>
                         {{
@@ -212,6 +229,7 @@
                       </td>
                     </tr>
                     <tr>
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -227,7 +245,7 @@
                 </table>
               </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-md-12">
                 (In Words:
                 {{
@@ -235,6 +253,12 @@
                     | rounding
                     | numberToWords
                 }})
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-md-12">
+                (In Words:
+                {{ totalAmountInWords }})
               </div>
             </div>
             <div class="row">
@@ -244,6 +268,9 @@
                 </div>
                 <div class="row">
                   <b>Authorized Signature </b>
+                </div>
+                <div class="row">
+                  <p>{{ user.user.firstname }} {{ user.user.lastname }}</p>
                 </div>
               </div>
             </div>

@@ -492,7 +492,7 @@ export class CreateSalesComponent {
       error: (error) => {
         console.error(error);
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
 
@@ -520,6 +520,7 @@ export class CreateSalesComponent {
 
   setSaleType(id: number) {
     this.saleType = id;
+
   }
 
   goToProductQtyField() {
@@ -579,7 +580,7 @@ export class CreateSalesComponent {
                   } else if (prod.taxApproach === 2) {
                     sellingPriceEl.value = String(
                       prod.sellingPrice +
-                        (eachVatRateNum / 100) * prod.sellingPrice
+                      (eachVatRateNum / 100) * prod.sellingPrice
                     );
                   }
                 } else if (this.taxApproach === 2) {
@@ -587,7 +588,7 @@ export class CreateSalesComponent {
                     let actSp =
                       prod.sellingPrice -
                       (eachVatRateNum / (100 + eachVatRateNum)) *
-                        prod.sellingPrice;
+                      prod.sellingPrice;
                     sellingPriceEl.value = String(actSp);
                   } else if (prod.taxApproach === 2) {
                     sellingPriceEl.value = String(prod.sellingPrice);
@@ -666,9 +667,9 @@ export class CreateSalesComponent {
 
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
-            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
-            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
+          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
+          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
+          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       } else if (prod.taxApproach === 2) {
         sellingPriceEl.value = String(
@@ -679,9 +680,9 @@ export class CreateSalesComponent {
         ) as HTMLInputElement;
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
-            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
-            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
+          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
+          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
+          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       } else if (prod.taxApproach === 0) {
         sellingPriceEl.value = String(
@@ -692,9 +693,9 @@ export class CreateSalesComponent {
         ) as HTMLInputElement;
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
-            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
-            (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
+          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty -
+          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty +
+          (eachVatRateNum / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       }
     } else if (this.taxApproach === 2) {
@@ -708,7 +709,7 @@ export class CreateSalesComponent {
         ) as HTMLInputElement;
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
+          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       } else if (prod.taxApproach === 2) {
         sellingPriceEl.value = String(prod.sellingPrice);
@@ -717,7 +718,7 @@ export class CreateSalesComponent {
         ) as HTMLInputElement;
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
+          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       } else if (prod.taxApproach === 0) {
         sellingPriceEl.value = String(prod.sellingPrice);
@@ -726,7 +727,7 @@ export class CreateSalesComponent {
         ) as HTMLInputElement;
         totalAmountElement.innerText = String(
           Number(sellingPriceEl2.value) * prodQty -
-            (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
+          (discountPerc / 100) * Number(sellingPriceEl2.value) * prodQty
         );
       }
     }
@@ -957,12 +958,8 @@ export class CreateSalesComponent {
     salesBill.syncWithIrd = true;
     salesBill.billPrinted = false;
     salesBill.enteredBy = this.loginService.currentUser.user.email;
-    salesBill.paymentMethod = 'CashInHand';
-    console.log('start--------------------');
-    console.log(this.date);
+
     salesBill.billDate = new Date(this.date);
-    console.log(salesBill.billDate);
-    console.log('end-----------------------');
 
     salesBill.userId = this.loginService.currentUser.user.id;
     salesBill.companyId = this.loginService.getCompnayId();

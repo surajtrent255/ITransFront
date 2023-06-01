@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/service/shared/login.service';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { ToastrService } from 'ngx-toastr';
+import { NgxNepaliNumberToWordsService } from 'src/app/utils/nepaliNumerToWord/ngx-nepali-number-to-words.service';
+import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-sales-bill-invoice',
   templateUrl: './sales-bill-invoice.component.html',
@@ -28,18 +30,26 @@ export class SalesBillInvoiceComponent {
 
   company: any;
   netAmount: number = 0;
+  totalAmountInWords !: string;
+  user !: User;
+
   constructor(private salesBillService: SalesBillServiceService,
     private loginService: LoginService,
     private tostrService: ToastrService,
-    private activatedRoute: ActivatedRoute, private router: Router, private route: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private route: ActivatedRoute,
+    private nepaliNumbberToWord: NgxNepaliNumberToWordsService) { }
 
   ngOnInit() {
+    this.user = this.loginService.currentUser
+    alert(JSON.stringify(this.user))
     let billId: number = this.activatedRoute.snapshot.params['billId'];
     this.fetchSalesBillInvoice(billId);
     this.company = this.loginService.getCompany();
-    console.log("salebill init");
 
 
+    // this.salesInvoice.salesBillDTO.totalAmount
 
     // window.print();
 
@@ -50,6 +60,7 @@ export class SalesBillInvoiceComponent {
       next: (data: RJResponse<SalesBillInvoice>) => {
         this.salesInvoice = data.data;
         this.salesInvoice.salesBillDTO.totalAmount = this.salesInvoice.salesBillDTO.totalAmount;
+        this.totalAmountInWords = this.nepaliNumbberToWord.toWords(Math.round(this.salesInvoice.salesBillDTO.totalAmount))
         setTimeout(() => {
           this.salesInvoice.salesBillDetailsWithProd.forEach(prod => {
             this.netAmount += (prod.qty * prod.rate);

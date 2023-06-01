@@ -128,7 +128,6 @@ export class SalesBillingComponent {
   }
 
   viewSaleBillDetail(billNo: number, companyId: number) {
-    alert(companyId);
     this.router.navigate[`salesbill/${billNo}/${companyId}`];
   }
   saleTheProducts(saleBillDetails: SalesBillDetail[]) {
