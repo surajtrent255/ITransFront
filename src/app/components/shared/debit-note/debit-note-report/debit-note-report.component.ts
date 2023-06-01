@@ -1,35 +1,35 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CreditNote } from 'src/app/models/Credit-Note/creditNote';
-import { CreditNoteDetails } from 'src/app/models/Credit-Note/creditNoteDetails';
-import { CreditNoteService } from 'src/app/service/shared/Credit-Note/credit-note.service';
+import { DebitNote } from 'src/app/models/Debit-Note/debitNote';
+import { DebitNoteDetails } from 'src/app/models/Debit-Note/debitNoteDetails';
+import { DebitNoteService } from 'src/app/service/shared/Debit-Note/debit-note.service';
 import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
-  selector: 'app-credit-note-list',
-  templateUrl: './credit-note-list.component.html',
-  styleUrls: ['./credit-note-list.component.css'],
+  selector: 'app-debit-note-report',
+  templateUrl: './debit-note-report.component.html',
+  styleUrls: ['./debit-note-report.component.css'],
 })
-export class CreditNoteListComponent {
-  creditNote!: CreditNote[];
-  creditNoteDtails!: CreditNoteDetails[];
+export class DebitNoteReportComponent {
+  debitNote!: DebitNote[];
+  debitNoteDetails!: DebitNoteDetails[];
 
   IsAuditor!: boolean;
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
 
   constructor(
+    private debitNoteService: DebitNoteService,
     private loginService: LoginService,
-    private creditNoteService: CreditNoteService,
     private commonService: CommonService,
     private router: Router,
     private toastrService: ToastrService
   ) {}
 
   ngOnInit() {
-    this.getCreditNote();
+    this.getDebitNote();
 
     let roles = localStorage.getItem('CompanyRoles');
     if (roles?.includes('AUDITOR')) {
@@ -39,14 +39,14 @@ export class CreditNoteListComponent {
     }
   }
 
-  getCreditNote() {
-    this.creditNoteService
-      .getCreditNote(
+  getDebitNote() {
+    this.debitNoteService
+      .getDebitNotes(
         this.loginService.getCompnayId(),
         this.loginService.getBranchId()
       )
       .subscribe((res) => {
-        this.creditNote = res.data;
+        this.debitNote = res.data;
       });
   }
 
@@ -54,18 +54,18 @@ export class CreditNoteListComponent {
     if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
-      this.getLimitedCreditNote();
+      this.fetchLimitedDebitNotes();
     } else if (type === 'next') {
       this.currentPageNumber += 1;
-      this.getLimitedCreditNote();
+      this.fetchLimitedDebitNotes();
     }
   }
 
-  getLimitedCreditNote() {
+  fetchLimitedDebitNotes() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.creditNoteService
-      .getLimitedCreditNote(
+    this.debitNoteService
+      .getLimitedDebitNotes(
         offset,
         this.pageTotalItems,
         this.loginService.getCompnayId(),
@@ -73,17 +73,24 @@ export class CreditNoteListComponent {
       )
       .subscribe((res) => {
         if (res.data.length === 0) {
-          this.toastrService.error('notes not found ');
+          this.toastrService.error('bills not found ');
           this.currentPageNumber -= 1;
         } else {
-          this.creditNote = res.data;
+          this.debitNote = res.data;
         }
       });
   }
 
-  details(billNumber: string) {
-    this.creditNoteService.getCreditNoteDetails(billNumber).subscribe((res) => {
-      this.creditNoteDtails = res.data;
+  details(billNumber: number) {
+    this.debitNoteService.getDebitNoteDetails(billNumber).subscribe((res) => {
+      this.debitNoteDetails = res.data;
     });
+  }
+
+  printData(debitNoteData: DebitNote) {
+    this.commonService.setData({
+      debitNoteData,
+    });
+    this.router.navigateByUrl('/dashboard/print-debit-note');
   }
 }

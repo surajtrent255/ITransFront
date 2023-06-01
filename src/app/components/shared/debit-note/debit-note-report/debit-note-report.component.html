@@ -4,7 +4,7 @@
     <div>
       <div>
         <h2 class="text-center" id="totalGroupCombinations">
-          Debit Note Details
+          Debit Note Report
         </h2>
       </div>
       <hr style="margin: 6px" />
@@ -26,12 +26,7 @@
         />
         <a href="#" class="genLink">Clear searchs</a>
       </div>
-      <div class="fright" class="createProductDiv">
-        <a *ngIf="IsAuditor" routerLink="/dashboard/debitnote">
-          <img src="../../../assets/resources/images/createProduct.png" />
-          <span> Create Debit Note</span>
-        </a>
-      </div>
+
       <div class="cboth"></div>
     </div>
     <div class="tableWrapper">
@@ -48,8 +43,8 @@
         <div class="fright configNavTableWrapper">
           <div class="fleft tableNavDiv" id="ProductsTablePagination">
             <!-- <a href="" class="first first-page pageNumber">
-                <img src="../../../assets/resources/images/first-page.png" />
-              </a> -->
+                  <img src="../../../assets/resources/images/first-page.png" />
+                </a> -->
             <a
               (click)="changePage('prev')"
               style="cursor: pointer"
@@ -70,8 +65,8 @@
               <img src="../../../assets/resources/images/next-page.png" />
             </a>
             <!-- <a href="" class="last last-page pageNumber">
-                <img src="../../../assets/resources/images/last-page.png" />
-              </a> -->
+                  <img src="../../../assets/resources/images/last-page.png" />
+                </a> -->
           </div>
         </div>
         <div class="cboth"></div>
@@ -108,13 +103,8 @@
               <td>{{ data.totalTax }}</td>
 
               <td class="last-child">
-                <a
-                  *ngIf="IsAuditor"
-                  (click)="details(data.billNumber)"
-                  id="creditNoteDetails"
-                  class="createNewTableRecord"
-                >
-                  <img src="../../../assets/resources/images/reports-bg.png" />
+                <a (click)="printData(data)">
+                  <i class="fa fa-print"></i>
                 </a>
               </td>
             </tr>

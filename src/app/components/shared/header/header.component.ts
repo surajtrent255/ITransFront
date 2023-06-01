@@ -164,7 +164,7 @@ export class HeaderComponent {
     this.roleService
       .getUserRoleDetailsBasedOnCompanyIdAndUserId(
         this.localStorageCompanyId,
-        this.loggedInUser.user.id
+        this.loginService.getUserId()
       )
       .subscribe((res) => {
         res.data.map((role) => {
@@ -254,6 +254,11 @@ export class HeaderComponent {
   OnSwitchCompany() {
     localStorage.removeItem('CompanyRoles');
   }
+
+  logout() {
+    this.loginService.logout();
+  }
+
   getAllUser() {
     this.userConfigurationService
       .getAllUser(this.localStorageCompanyId)
@@ -532,10 +537,6 @@ export class HeaderComponent {
       });
   }
 
-  logout() {
-    this.loginService.logout();
-  }
-
   // userConfiguration Tabs logic
   UserConfigurationTabs() {
     if (this.usersTabsStatus !== null) {
@@ -558,6 +559,42 @@ export class HeaderComponent {
             this.enableDiableFeaureTriggered = true;
           },
         });
+    }
+  }
+
+  // Testing Only
+  isDragging = false;
+  popupPosition = { x: 0, y: 0 };
+  headerPosition = { x: 0, y: 0 };
+
+  onHeaderMouseDown(event: MouseEvent) {
+    event.stopPropagation(); // Prevent event bubbling to child elements
+    this.isDragging = true;
+    this.headerPosition = { x: event.clientX, y: event.clientY };
+  }
+
+  @HostListener('document:mouseup')
+  onMouseUp() {
+    this.isDragging = false;
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (this.isDragging) {
+      const offsetX = event.clientX - this.headerPosition.x;
+      const offsetY = event.clientY - this.headerPosition.y;
+
+      // Update the popup position
+      this.popupPosition = {
+        x: this.popupPosition.x + offsetX,
+        y: this.popupPosition.y + offsetY,
+      };
+
+      // Update the header position
+      this.headerPosition = {
+        x: event.clientX,
+        y: event.clientY,
+      };
     }
   }
 }

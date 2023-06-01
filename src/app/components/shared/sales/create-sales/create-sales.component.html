@@ -1,7 +1,10 @@
 <div class="contentRecordsTableContainer MainContainer" style="height: auto">
-  <div class="recordTableWrapper">
-    <div class="recordCategory">
-      <h2 class="text-center" id="totalGroupCombinations">Create Sales</h2>
+  <div class="">
+    <div>
+      <div>
+        <h2 class="text-center" id="totalGroupCombinations">Create Sales</h2>
+      </div>
+      <hr style="margin: 12px" />
     </div>
     <!-- <div class="fright" class="createProductDiv text-end">
       <a href="" id="createNewProduct" class="createNewTableRecord">
@@ -10,9 +13,6 @@
       </a>
     </div> -->
 
-    <div class="popupSubHeadingDiv createsalesBill">
-      <h1 class="heading">Choose products for sales</h1>
-    </div>
     <div class="popupContentWrapper" style="background: none">
       <div class="row card">
         <div class="col-md-12">
@@ -607,15 +607,18 @@
               </div>
             </div>
           </div>
-          <div style="margin-top: 20px">
+          <div style="display: flex; margin: 5px">
             <!-- <button class="submit_btn border-rad" id="popperAlertLink">
   Sale the product
   </button> -->
-            <button class="submit_btn" (click)="saleTheProducts(true)">
+            <button
+              class="submit_btn border-rad"
+              (click)="saleTheProducts(true)"
+            >
               Save as a Draft
             </button>
             <button
-              class="submit_btn"
+              class="submit_btn border-rad"
               (click)="saleTheProducts(false)"
               #saleTheProductBtn
             >

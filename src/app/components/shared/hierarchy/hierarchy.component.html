@@ -1,18 +1,5 @@
-<div class="hierarchyWrapper">
-  <div class="recordCategoryListWrapper">
-    <div class="tabListWrapper">
-      <ul class="tabList">
-        <li class="active hierarchyTab" id="hierarchy">
-          <a href="" class="fleft">Menu</a>
-          <a href="" class="removeTabLink fright"
-            ><img src="../../../../assets/resources/images/removetablink.png"
-          /></a>
-        </li>
-      </ul>
-    </div>
-    <div class="tabsBottomDiv"></div>
-  </div>
-  <div class="contentRecordsTableContainer">
+<div class="hierarchyWrapper" style="padding-top: 2px">
+  <div class="hierarcyContentRecordsTableContainer">
     <div class="hierarchySettingsDiv">
       <ul class="hierarchySettingList">
         <li>
@@ -81,7 +68,11 @@
     <div class="hierarchyContainer" id="organizationContainer">
       <div
         class="hierarachy-Div recordTableWrapper"
-        style="border-radius: 5px; background-color: #9fb8d8"
+        style="
+          border-radius: 5px;
+          background-color: #f2f4fc;
+          border: 1.5px solid #161512;
+        "
       >
         <header class="section-header py-3">
           <div class="container">
@@ -97,13 +88,14 @@
           </div>
         </header>
         <!-- section-header.// -->
-
+        <!-- use this -->
+        <!-- d7dae9 -->
         <section class="section-content py-3">
           <div class="row">
             <aside class="col-lg-3">
               <nav
                 class="sidebar card py-2 mb-4"
-                style="width: 233px; background-color: #c2ccd5; border: none"
+                style="width: 233px; background-color: #f2f4fc; border: none"
               >
                 <ul class="nav flex-column" id="nav_accordion">
                   <li class="nav-item">
@@ -178,6 +170,15 @@
                       </li>
 
                       <li *ngIf="IsStaff">
+                        <a
+                          class="nav-link"
+                          routerLink="/dashboard/creditNoteList"
+                        >
+                          Credit Note
+                        </a>
+                      </li>
+
+                      <li *ngIf="IsStaff">
                         <a class="nav-link"> Customers </a>
                       </li>
                     </ul>
@@ -220,6 +221,14 @@
                       <li>
                         <a class="nav-link" routerLink="/dashboard/receipt"
                           >Receipts
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          class="nav-link"
+                          routerLink="/dashboard/debitNoteList"
+                          >Debit Note
                         </a>
                       </li>
                     </ul>
@@ -283,17 +292,17 @@
                       <li>
                         <a
                           class="nav-link"
-                          routerLink="/dashboard/debitNoteList"
-                          >Debit Note
+                          routerLink="/dashboard/debit-note-report"
+                          >Debit Note Report
                         </a>
                       </li>
 
                       <li *ngIf="IsStaff">
                         <a
                           class="nav-link"
-                          routerLink="/dashboard/creditNoteList"
+                          routerLink="/dashboard/credit-note-report"
                         >
-                          Credit Note
+                          Credit Note Report
                         </a>
                       </li>
                       <li>

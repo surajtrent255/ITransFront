@@ -44,7 +44,7 @@ export class PaymentComponent {
     private paymentService: PaymentService,
     private loginService: LoginService,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loggedInCompanyId = this.loginService.getCompnayId();
@@ -62,12 +62,13 @@ export class PaymentComponent {
       this.IsAuditor = true;
     }
   }
+
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedPayment();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedPayment();
     }
@@ -76,16 +77,22 @@ export class PaymentComponent {
   fetchLimitedPayment() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.paymentService.getLimitedPaymentDetails(offset, this.pageTotalItems, this.loggedInCompanyId, this.loggedInBranchId).subscribe((res) => {
-      if (res.data.length === 0 || res.data === undefined) {
-        this.toastrService.error("payment details not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.payment = res.data;
-      }
-    })
+    this.paymentService
+      .getLimitedPaymentDetails(
+        offset,
+        this.pageTotalItems,
+        this.loggedInCompanyId,
+        this.loggedInBranchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0 || res.data === undefined) {
+          this.toastrService.error('payment details not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.payment = res.data;
+        }
+      });
   }
-
 
   getPaymentdetails() {
     this.paymentService

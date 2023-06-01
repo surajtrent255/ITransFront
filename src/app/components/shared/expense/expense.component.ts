@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Expense } from 'src/app/models/Expense/Expense';
 import { ExpenseService } from 'src/app/service/shared/Assets And Expenses/expense.service';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
@@ -34,8 +35,11 @@ export class ExpenseComponent {
   constructor(
     private expenseService: ExpenseService,
     private loginService: LoginService,
-    private tostrService: ToastrService
-  ) { }
+    private tostrService: ToastrService,
+    private commonService: CommonService,
+    private elementRef: ElementRef,
+    private commonSerice: CommonService
+  ) {}
 
   ngOnInit() {
     this.LoggedInBranchId = this.loginService.getBranchId();
@@ -47,14 +51,19 @@ export class ExpenseComponent {
     } else {
       this.IsAuditor = true;
     }
+
+    const popupElement = this.elementRef.nativeElement.querySelector(
+      '#createExpensePopup'
+    );
+    this.commonService.dragablePopUp(popupElement);
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedExpensesDetail();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedExpensesDetail();
     }
@@ -63,17 +72,22 @@ export class ExpenseComponent {
   fetchLimitedExpensesDetail() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.expenseService.getLimitedExpenseDetail(offset, this.pageTotalItems, this.LoggedInCompanyId, this.LoggedInBranchId).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.tostrService.error("expense not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.expense = res.data;
-
-      }
-    })
+    this.expenseService
+      .getLimitedExpenseDetail(
+        offset,
+        this.pageTotalItems,
+        this.LoggedInCompanyId,
+        this.LoggedInBranchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.tostrService.error('expense not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.expense = res.data;
+        }
+      });
   }
-
 
   getExpenseDetails() {
     this.expenseService

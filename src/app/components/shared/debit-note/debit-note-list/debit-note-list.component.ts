@@ -86,11 +86,4 @@ export class DebitNoteListComponent {
       this.debitNoteDetails = res.data;
     });
   }
-
-  printData(debitNoteData: DebitNote) {
-    this.commonService.setData({
-      debitNoteData,
-    });
-    this.router.navigateByUrl('/dashboard/print-debit-note');
-  }
 }

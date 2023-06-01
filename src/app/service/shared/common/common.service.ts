@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import * as html2pdf from 'html2pdf.js';
 import { utils, writeFile } from 'xlsx';
@@ -68,4 +68,42 @@ export class CommonService {
       });
     }
   }
+
+  // for dragable popup
+  private popup!: HTMLElement;
+  private offsetX!: number;
+  private offsetY!: number;
+  private initialX!: number;
+  private initialY!: number;
+
+  dragablePopUp(popupElement: HTMLElement) {
+    this.popup = popupElement;
+    const popupHeader = this.popup.querySelector('.popupHeading');
+    if (popupHeader) {
+      popupHeader.addEventListener('mousedown' as any, this.startDrag);
+    }
+  }
+
+  startDrag = (e: MouseEvent) => {
+    e.preventDefault();
+    this.offsetX = e.clientX;
+    this.offsetY = e.clientY;
+    this.initialX = this.popup.offsetLeft;
+    this.initialY = this.popup.offsetTop;
+    document.addEventListener('mousemove', this.dragPopup);
+    document.addEventListener('mouseup', this.stopDrag);
+  };
+
+  dragPopup = (e: MouseEvent) => {
+    e.preventDefault();
+    const dx = e.clientX - this.offsetX;
+    const dy = e.clientY - this.offsetY;
+    this.popup.style.left = this.initialX + dx + 'px';
+    this.popup.style.top = this.initialY + dy + 'px';
+  };
+
+  stopDrag = () => {
+    document.removeEventListener('mousemove', this.dragPopup);
+    document.removeEventListener('mouseup', this.stopDrag);
+  };
 }

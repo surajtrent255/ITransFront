@@ -198,7 +198,7 @@ a span {
 /****----- PAge Generic Styles ------ */
 
 body {
-  background: #9fb8d8;
+  background: #f0f3f7;
   font-size: 14px;
   font-family: "PT Sans", sans-serif;
   line-height: 18px;
@@ -209,7 +209,7 @@ body {
   width: 1180px;
   margin: 0 auto;
   padding-bottom: 90px;
-  background-color: #9fb8d8;
+  background-color: #f0f3f7;
 }
 .pageWrapperCompany {
   width: 1180px;
@@ -221,15 +221,16 @@ body {
   width: 1000px;
   margin: 60px auto 20px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
-  background: #9fc9d2 url("../../resources/images/loginWrapper-bg.png")
-    no-repeat;
+  background-color: #eff4f5;
+  background-image: url("../../resources/images/loginWrapper-bg.png");
+  background-repeat: no-repeat;
   min-height: 440px;
 }
 .CompanyBodyWrapper {
   width: 1000px;
   margin: 60px auto 20px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
-  background: #9fc9d2 url("../../resources/images/loginWrapper-bg.png")
+  background: #eff4f5 url("../../resources/images/loginWrapper-bg.png")
     no-repeat;
   min-height: 100%;
 }
@@ -245,7 +246,7 @@ body {
 }
 .loginBox {
   padding: 28px;
-  background: #bfebf3;
+  background: #eff4f5;
   border: 1px solid #edeceb;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
   /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
@@ -291,9 +292,8 @@ a.genLink {
 }
 .headerNav {
   padding: 4px 12px;
-  /*overflow: auto;*/
-  background: #50637c url("../../resources/images/main-header.jpg") repeat-x;
-
+  background-image: #dce2f9 url("../../resources/images/main-header.jpg");
+  background-color: #dce2f9;
   margin-top: 14px;
 }
 .mainNavWrapper {
@@ -442,7 +442,7 @@ a.genLink {
 }
 .tabsBottomDiv {
   height: 6px;
-  background: #b4d1f3;
+  background: #f0f3f7;
   /* border-left: 1px solid #3c4858;
   border-right: 1px solid #3c4858; */
 }
@@ -450,11 +450,22 @@ a.genLink {
 .contentRecordsTableContainer {
   clear: both;
   padding: 7px;
-  background: #aec2d6;
-  border: 1px solid #3c4858;
+  background: #f0f3f7;
+  border: 1px solid #2f3844;
   border-radius: 3px;
   border-radius: 8px;
   /* min-height: 700px; */
+  min-height: 650px;
+  height: auto;
+}
+
+.hierarcyContentRecordsTableContainer {
+  clear: both;
+  padding: 7px;
+  background: #f2f4fc;
+  border: 1px solid #333e4c;
+  border-radius: 3px;
+  border-radius: 8px;
   min-height: 650px;
   height: auto;
 }
@@ -558,7 +569,7 @@ a.genLink {
 .filtersDisplayList li {
   float: left;
   display: inline;
-  background: url(../images/removefilter-bg.jpg) repeat-x;
+  background: url("../images/removefilter-bg.jpg") repeat-x;
   height: 15px;
   /*min-width:100px;*/
   border-radius: 7px;
@@ -601,7 +612,7 @@ a.genLink {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.4);
 }
 .recordsTable th {
   text-align: left;
@@ -698,7 +709,6 @@ a.genLink {
   /* height: 500px; */
   height: auto;
   padding: 5px;
-  overflow: auto;
 }
 .hierarachy-Div ul {
   font-size: 12px;
@@ -798,7 +808,7 @@ a.genLink {
 .popupHeading {
   background: url("../images/popheading-bg.jpg") repeat-x;
   padding: 4px 10px;
-  background-color: #3c4858;
+  background-color: #dce2f9;
   font-size: 13px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -809,9 +819,9 @@ a.genLink {
   border-bottom: 1px solid #828282;
 }
 .popupSubHeadingDiv {
-  background: #c6e6ec no-repeat 95% center;
+  background: #f2f4fc no-repeat 95% center;
   padding: 12px;
-  border-bottom: 1px solid #828282;
+  border-bottom: 1px solid #464242;
   border-radius: 8px;
 }
 .popupSubHeadingDiv.createFilter {
@@ -853,7 +863,7 @@ a.genLink {
   margin-bottom: 4px;
 }
 .popupContentWrapper {
-  background: #93b2cf;
+  background: #f0f3f7;
   padding: 12px;
   color: #333333;
   border-radius: 8px;
@@ -869,8 +879,8 @@ img.ui-datepicker-trigger {
 }
 .popupFormField {
   padding: 12px;
-  background: #afcdd2;
-  border: 1px solid #828282;
+  background: #f0f3f7;
+  border: 1px solid #484747;
 }
 .popUpFormSectionWrapper {
   margin-bottom: 2px;
@@ -978,7 +988,6 @@ input.rangeInput {
   margin-bottom: 15px;
   /* border-bottom: 1px solid #bdbdbd; */
   border-radius: 5px;
-  box-shadow: 0.5px 5px 8px rgba(0, 0, 0, 0.6);
 }
 .chooseColoumnsWrapepr table.chooseColoumnsTable {
   border-collapse: collapse;
