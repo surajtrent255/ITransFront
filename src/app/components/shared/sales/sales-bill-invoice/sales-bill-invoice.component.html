@@ -63,6 +63,16 @@
             ><br />
           </div>
         </div>
+        <div class="row mb-3">
+          <div class="text-center">
+            <img
+              class="img-fluid"
+              style="height: 100px; width: 100px"
+              src="https://s3.amazonaws.com/cdn.designcrowd.com/blog/100-Famous-Brand%20Logos-From-The-Most-Valuable-Companies-of-2020/apple-logo.png"
+              alt=""
+            />
+          </div>
+        </div>
         <div class="popupContentWrapper">
           <div class="row">
             <div class="col-md-6">
@@ -76,7 +86,7 @@
                     : salesInvoice.salesBillDTO.billNo
                 }}</span
               ><br />
-              <span>
+              <!-- <span>
                 <span style="font-weight: bold !important"> Seller PAN:</span>
                 {{ salesInvoice.sellerCompany.panNo }}</span
               ><br />
@@ -89,7 +99,7 @@
                   >Seller Address: </span
                 >{{ salesInvoice.sellerCompany.district }}
                 {{ salesInvoice.sellerCompany.munVdc }}</span
-              ><br />
+              ><br /> -->
               <span>
                 <span style="font-weight: bold !important">Buyer's Name:</span>
                 {{
@@ -258,8 +268,14 @@
             <div class="row">
               <div class="col-md-12">
                 (In Words:
-                {{ totalAmountInWords }})
+                {{ totalAmountInWordsBeforeDecimal }} Rupee and
+                {{ totalAmountInWordsAfterDecimal }} paisa )
               </div>
+            </div>
+            <div class="row text-center mt-1">
+              <span *ngIf="salesInvoice.salesBillDTO.billPrinted"
+                >This is second invoice
+              </span>
             </div>
             <div class="row">
               <div class="col-md-12 text-end">
@@ -275,18 +291,37 @@
               </div>
             </div>
           </div>
+          <div class="row mt-5" *ngIf="salesInvoice.salesBillDTO.receipt">
+            <!-- <h5 class="text-center">Receipt</h5> -->
+            <span class="text-center" style="font-weight: bold !important"
+              >Receipt</span
+            >
+            <table>
+              <thead>
+                <th>Receipt No.</th>
+                <th>Receipt Date(BS)</th>
+                <th>Amount(NRs.)</th>
+              </thead>
+              <tbody>
+                <td>
+                  <p>{{ salesInvoice.salesReceipt.receiptNo }}</p>
+                </td>
+                <td>
+                  <p>{{ salesInvoice.salesReceipt.receiptDate }}</p>
+                </td>
+                <td>
+                  <p>{{ salesInvoice.salesReceipt.receiptAmount }}</p>
+                </td>
+              </tbody>
+            </table>
+          </div>
           <button
             *ngIf="printButtonVisiability"
-            class="submit_btn border-rad"
+            class="submit_btn border-rad mt-2"
             (click)="printTheBill(salesInvoice.salesBillDTO.id)"
           >
             Print
           </button>
-          <div class="row text-center">
-            <span *ngIf="salesInvoice.salesBillDTO.billPrinted"
-              >This is second invoice
-            </span>
-          </div>
         </div>
       </div>
     </div>

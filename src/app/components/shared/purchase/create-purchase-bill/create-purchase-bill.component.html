@@ -340,6 +340,8 @@
                     >
                       <h5 class="card-title mb-0 text-black">
                         <th>Required Additional Attributes</th>
+                        <app-dynamic-form></app-dynamic-form>
+                        <hr />
                       </h5>
                     </div>
                     <div class="card-body">
@@ -578,7 +580,7 @@
   >
     <app-select-customer
       *ngIf="selectSenderActive"
-      [selectMenusForCompanies]="selectMenusForCompanies"
+      [customerMetaData]="customerMetaData"
       (compIdEvent)="setSellerInfo($event)"
       (destroySelectCompEmitter)="destroySelectSenderComponent($event)"
       (fetchCustomerEventEmitter)="fetchSellerInfoOnlyForNameDisplay($event)"

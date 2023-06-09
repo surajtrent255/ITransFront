@@ -7,6 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { CustomerMetaData } from 'src/app/models/CustomerMetaData';
 import { Company } from 'src/app/models/company';
 
 @Component({
@@ -15,7 +16,7 @@ import { Company } from 'src/app/models/company';
   styleUrls: ['./select-customer.component.css'],
 })
 export class SelectCustomerComponent {
-  @Input() selectMenusForCompanies!: Company[];
+  @Input() customerMetaData!: CustomerMetaData;
   @Output() compIdEvent = new EventEmitter<number>();
 
   @Input() title!: string;
@@ -76,6 +77,7 @@ export class SelectCustomerComponent {
       }
     }
   }
+
   destroySelectCustomer() {
     this.destroySelectCompEmitter.emit(true);
   }

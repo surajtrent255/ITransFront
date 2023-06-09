@@ -12,7 +12,7 @@ export class SelectProductComponent {
   title: string = "product";
   @Input() selectMenusForProduct !: Product[];
   @Output() destroySelectProdEmitter = new EventEmitter<boolean>(false);
-  @Output() prodSelectEmitter = new EventEmitter<number>();
+  @Output() prodSelectEmitter = new EventEmitter<Product>();
   @Output() fetchProductEventEmitter = new EventEmitter<boolean>(false);
   @ViewChild('selectedProductBtn', { static: false })
   selectedProductBtn!: ElementRef;
@@ -48,23 +48,22 @@ export class SelectProductComponent {
     this.createProductEnable = false;
   }
 
-  productAdded($event: number) {
+  productAdded($event: Product) {
     this.createProductEnable = false;
     this.toastrService.success("Product Has been added ");
     this.setProduct($event)
   }
 
-  setProduct(prodId: number) {
+  setProduct(prod: Product) {
 
-    this.prodSelectEmitter.emit(prodId);
+    this.prodSelectEmitter.emit(prod);
     const closeCustomerPopUpEl = document.getElementById("closeSelectProductPop") as HTMLAnchorElement;
     closeCustomerPopUpEl.click();
   }
 
-
   onButtonKeyUp(event: KeyboardEvent, prod: Product) {
     if (event.key === 'Enter') {
-      this.setProduct(prod.id)
+      this.setProduct(prod)
     }
   }
 

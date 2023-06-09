@@ -30,7 +30,9 @@ export class SalesBillInvoiceComponent {
 
   company: any;
   netAmount: number = 0;
-  totalAmountInWords !: string;
+  totalAmountInWordsBeforeDecimal !: string;
+  totalAmountInWordsAfterDecimal !: string;
+
   user !: User;
 
   constructor(private salesBillService: SalesBillServiceService,
@@ -58,8 +60,13 @@ export class SalesBillInvoiceComponent {
     this.salesBillService.fetchSalesBillDetailForInvoice(billId).subscribe({
       next: (data: RJResponse<SalesBillInvoice>) => {
         this.salesInvoice = data.data;
-        this.salesInvoice.salesBillDTO.totalAmount = this.salesInvoice.salesBillDTO.totalAmount;
-        this.totalAmountInWords = this.nepaliNumbberToWord.toWords(Math.round(this.salesInvoice.salesBillDTO.totalAmount))
+
+        // let tAmount = this.salesInvoice.salesBillDTO.totalAmount;
+        let tAmount = 100.0;
+
+        this.totalAmountInWordsBeforeDecimal = this.nepaliNumbberToWord.toWords(Math.floor(tAmount));
+        this.totalAmountInWordsAfterDecimal = this.nepaliNumbberToWord.toWords((tAmount % 1).toFixed(2).substring(2))
+
         setTimeout(() => {
           this.salesInvoice.salesBillDetailsWithProd.forEach(prod => {
             this.netAmount += (prod.qty * prod.rate);

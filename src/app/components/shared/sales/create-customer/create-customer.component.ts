@@ -27,7 +27,7 @@ export class CreateCustomerComponent {
   user_id!: number;
 
   @Input() title!: string;
-
+  @Input() customerPanOrPhone: Number = 0;
   @ViewChild('closeCustomer') closeCustomer!: ElementRef;
 
   @Output() customerAddedSuccessMsg = new EventEmitter<number>();
@@ -52,6 +52,10 @@ export class CreateCustomerComponent {
       this.province = res.data;
     });
   }
+
+  ngAfterViewInit() {
+    // alert(this.customerPanOrPhone)
+  }
   CompanyRegistrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.email]),
@@ -61,7 +65,8 @@ export class CreateCustomerComponent {
     district: new FormControl('', [Validators.required]),
     munVdc: new FormControl('', [Validators.required]),
     wardNo: new FormControl('', [Validators.required]),
-    phone: new FormControl(''),
+    phone: new FormControl('', [Validators.required]),
+    landLineNo: new FormControl('')
   });
 
   get name() {
@@ -133,6 +138,29 @@ export class CreateCustomerComponent {
 
   stateChange(data: string) {
     this.provinceId = parseInt(data, 10);
+    if (this.provinceId === 8) {
+      this.districts = [];
+      this.municipality = [];
+      // Remove Validators.required dynamically
+      this.CompanyRegistrationForm.get('district')?.clearValidators();
+      this.CompanyRegistrationForm.get('district')?.updateValueAndValidity();
+
+      this.CompanyRegistrationForm.get('munVdc')?.clearValidators();
+      this.CompanyRegistrationForm.get('munVdc')?.updateValueAndValidity();
+
+      this.CompanyRegistrationForm.get('wardNo')?.clearValidators();
+      this.CompanyRegistrationForm.get('wardNo')?.updateValueAndValidity();
+      return;
+    } else {
+      this.CompanyRegistrationForm.get('district')?.setValidators([Validators.required]);
+      this.CompanyRegistrationForm.get('district')?.updateValueAndValidity();
+
+      this.CompanyRegistrationForm.get('munVdc')?.setValidators([Validators.required]);
+      this.CompanyRegistrationForm.get('munVdc')?.updateValueAndValidity();
+
+      this.CompanyRegistrationForm.get('wardNo')?.setValidators([Validators.required]);
+      this.CompanyRegistrationForm.get('wardNo')?.updateValueAndValidity();
+    }
     this.districtAndProvinceService
       .getDistrictByProvinceId(this.provinceId)
       .subscribe((res) => {

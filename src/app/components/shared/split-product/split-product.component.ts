@@ -127,12 +127,12 @@ export class SplitProductComponent {
       this.availableProducts = data.data;
     });
   }
-  setProductSelectedByName(prodId: number) {
+  setProductSelectedByName(prod: Product) {
     //  const productNameEL = document.getElementById("productName") as HTMLSelectElement;
     //  productNameEL.value = prod.name;
     //  this.SplitProductObj.productName = prod.name;
     //  this.SplitProductObj.id = prod.id;
-    this.selectProductId(prodId);
+    this.selectProductId(prod.id);
     //  alert(JSON.stringify(this.SplitProductObj))
   }
   destroySelectProductComponent($event: boolean) {

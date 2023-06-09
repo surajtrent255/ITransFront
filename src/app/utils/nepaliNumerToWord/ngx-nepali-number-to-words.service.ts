@@ -22,7 +22,7 @@ export class NgxNepaliNumberToWordsService {
    */
   public toWords(num: number | string, format: string = 'text'): string {
     const convertor = new Converter(num, format);
-    alert(convertor)
     return convertor.returnWords();
   }
 }
+

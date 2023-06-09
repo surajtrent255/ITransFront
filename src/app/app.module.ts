@@ -93,6 +93,7 @@ import { PurchaseReportComponent } from './components/shared/purchase/purchase-r
 import { SalesReportComponent } from './components/shared/sales/sales-report/sales-report.component';
 import { SalesReportDetailComponent } from './components/shared/sales/sales-report/sales-report-detail/sales-report-detail.component';
 import { PurchaseReportDetailComponent } from './components/shared/purchase/purchase-report/purchase-report-detail/purchase-report-detail.component';
+import { DynamicFormComponent } from './components/shared/purchase/create-purchase-bill/dynamic-form/dynamic-form.component';
 
 @NgModule({
   declarations: [
@@ -168,6 +169,7 @@ import { PurchaseReportDetailComponent } from './components/shared/purchase/purc
     SalesReportComponent,
     SalesReportDetailComponent,
     PurchaseReportDetailComponent,
+    DynamicFormComponent,
   ],
   imports: [
     BrowserModule,

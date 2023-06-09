@@ -1,0 +1,46 @@
+<form [formGroup]="dynamicForm" (ngSubmit)="submitForm()">
+  <button type="button" (click)="addField()">Add Field</button>
+  <br /><br />
+  <table>
+    <thead>
+      <tr>
+        <th>Field Name</th>
+        <th>Amount</th>
+        <th>Tax Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody formArrayName="fields">
+      <tr
+        *ngFor="let fieldGroup of fieldControls; let i = index"
+        [formGroupName]="i"
+      >
+        <td>
+          <input
+            type="text"
+            formControlName="fieldName"
+            id="fieldName{{ i }}"
+          />
+        </td>
+        <td>
+          <input
+            type="number"
+            formControlName="amount"
+            id="amount{{ i }}"
+            (change)="calculateTax(i)"
+          />
+        </td>
+        <td>
+          <span id="taxAmount{{ i }}">{{
+            fieldGroup.get("taxAmount")?.value
+          }}</span>
+        </td>
+        <td>
+          <button type="button" (click)="removeField(i)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <button type="submit">Submit</button>
+</form>

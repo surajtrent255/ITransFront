@@ -33,4 +33,5 @@ export class SalesBill {
   printCount !: number;
   saleType !: number;
   hasAbbr !: boolean;
+  receipt !: boolean;
 }

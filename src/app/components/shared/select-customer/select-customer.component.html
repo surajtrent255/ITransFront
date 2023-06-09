@@ -1,6 +1,6 @@
 <div
   class="popupHeading"
-  *ngIf="selectMenusForCompanies.length > 0 && showableALertPopup"
+  *ngIf="customerMetaData.customers.length > 0 && showableALertPopup"
 >
   <a
     class="Customer1CloseButton fright"
@@ -12,13 +12,13 @@
 </div>
 <div
   class="popupSubHeadingDiv selectcompanyomer"
-  *ngIf="selectMenusForCompanies.length > 0 && showableALertPopup"
+  *ngIf="customerMetaData.customers.length > 0 && showableALertPopup"
 >
   <h1 class="heading">Your can select your {{ title }} here</h1>
 </div>
 <tr
   class="text-center"
-  *ngIf="selectMenusForCompanies.length === 0 && showableALertPopup"
+  *ngIf="customerMetaData.customers.length === 0 && showableALertPopup"
 >
   <td colspan="9">
     <!--  -->
@@ -93,7 +93,7 @@
     ></button>
   </td>
 </tr>
-<div class="popupContentWrapper" *ngIf="selectMenusForCompanies.length > 0">
+<div class="popupContentWrapper" *ngIf="customerMetaData.customers.length > 0">
   <div class="row">
     <div class="col-md-12">
       <div class="recordsTableDiv">
@@ -167,7 +167,10 @@
           </thead>
           <tbody id="prodTable">
             <tr
-              *ngFor="let company of selectMenusForCompanies; let index = index"
+              *ngFor="
+                let company of customerMetaData.customers;
+                let index = index
+              "
               id="company_{{ company.companyId }}"
             >
               <td>
@@ -215,6 +218,7 @@
   <app-create-customer
     *ngIf="createCustomerEnable"
     (customerAddedSuccessMsg)="customerAdded($event)"
+    [customerPanOrPhone]="customerMetaData.customerPanOrPhone"
     [title]="'customer'"
   ></app-create-customer>
 </div>

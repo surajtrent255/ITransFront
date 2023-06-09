@@ -28,6 +28,8 @@ export class ProductComponent {
   availableProducts: Product[] = [];
   availableCategories: CategoryProduct[] = [];
   typerate: VatRateTypes[] = [];
+  enableCreateProduct: boolean = false;
+
   // pagination: PaginationCustom = new PaginationCustom;
 
   showableCreateProdDiv: boolean = false;
@@ -115,6 +117,7 @@ export class ProductComponent {
         this.currentPageNumber -= 1;
       } else {
         this.availableProducts = res.data;
+
       }
     })
   }
@@ -149,8 +152,8 @@ export class ProductComponent {
     });
   }
 
-  createNewProduct($event: number) {
-    if ($event > 0) {
+  createNewProduct($event: Product) {
+    if ($event.id > 0) {
       this.fetchAllProducts(this.compId, this.branchId);
     }
   }
@@ -167,5 +170,12 @@ export class ProductComponent {
         this.fetchAllProducts(this.compId, this.branchId);
       },
     });
+  }
+
+
+  displayCreateProductComp() {
+    this.enableCreateProduct = true;
+    const createNewProductBtn = document.getElementById("createNewProduct") as HTMLButtonElement;
+    createNewProductBtn.click();
   }
 }

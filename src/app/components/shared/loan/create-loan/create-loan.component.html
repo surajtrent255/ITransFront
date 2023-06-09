@@ -354,7 +354,7 @@
 >
   <app-select-customer
     *ngIf="selectCompanyActive"
-    [selectMenusForCompanies]="lenders"
+    [customerMetaData]="customerMetaData"
     (compIdEvent)="setLenderId($event)"
     (destroySelectCompEmitter)="destroySelectLenderComponent($event)"
     (fetchCustomerEventEmitter)="fetchLenderInfo()"

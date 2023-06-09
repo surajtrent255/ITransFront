@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Bank } from 'src/app/models/Bank';
+import { CustomerMetaData } from 'src/app/models/CustomerMetaData';
 import { Loan } from 'src/app/models/Loan';
 import { LoanNames } from 'src/app/models/LoanNames';
 import { LoanTypes } from 'src/app/models/LoanTypes';
@@ -32,6 +33,7 @@ export class EditLoanComponent {
 
   lenderPanOrPhone !: number;
   selectCompanyActive: boolean = true;
+  customerMetaData !: CustomerMetaData;
 
   constructor(
     private loginService: LoginService,
@@ -95,7 +97,12 @@ export class EditLoanComponent {
     this.companyService.getCustomerInfoByPanOrPhone(this.lenderSearchMethod, this.lenderPanOrPhone).subscribe(({
       next: (data) => {
         this.lenders = data.data;
-        alert(this.lenders.length)
+        this.customerMetaData.customerPanOrPhone = this.lenderPanOrPhone;
+        this.customerMetaData.customers = this.lenders;
+        let customerMetaData = new CustomerMetaData;
+        customerMetaData.customers = data.data;
+        customerMetaData.customerPanOrPhone = this.lenderPanOrPhone;
+        this.customerMetaData = customerMetaData;
       },
       complete: () => {
         const lenderBtn = document.getElementById("selectLender") as HTMLButtonElement;

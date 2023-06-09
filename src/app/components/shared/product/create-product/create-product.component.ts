@@ -18,7 +18,7 @@ import { PaginationCustom } from 'src/app/interfaces/PaginatinCustom';
   styleUrls: ['./create-product.component.css'],
 })
 export class CreateProductComponent {
-  @Output() productInfoEvent = new EventEmitter<number>();
+  @Output() productInfoEvent = new EventEmitter<Product>();
   @Output() destroyCreateProd = new EventEmitter<boolean>(false);
   product: Product = new Product();
 
@@ -34,7 +34,7 @@ export class CreateProductComponent {
     private toastrService: ToastrService,
     private companyService: CompanyServiceService,
     private selectCategoryService: SelectCategoryServiceService
-  ) {}
+  ) { }
 
   compId!: number;
   branchId!: number;
