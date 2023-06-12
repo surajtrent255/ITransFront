@@ -353,8 +353,8 @@
 >
   <app-select-customer
     *ngIf="selectCompanyActive"
-    [selectMenusForCompanies]="lenders"
     (compIdEvent)="setLenderId($event)"
   >
   </app-select-customer>
 </div>
+[selectMenusForCompanies]="lenders"

@@ -4,6 +4,9 @@ export class Product {
   description!: string;
   sellingPrice: number = 0;
   costPrice: number = 0;
+  productType!: boolean;
+  ratePercentage: number = 0;
+  averagePriceStatus!: boolean;
   userId!: number;
   companyId!: number;
   branchId!: number;
@@ -11,15 +14,16 @@ export class Product {
   categoryId!: number;
   barcode!: string;
   discount: number = 0;
-  stock !: number;
+  stock!: number;
   tax: number = 3;
-  unit: string = "other";
-  createDate !: Date;
-  updateDate !: Date;
+  unit: string = 'other';
+  createDate!: Date;
+  updateDate!: Date;
   vatRate!: number;
   qtyPerUnit: number = 1;
-  taxApproach !: number;
+  taxApproach!: number;
   taxTypeId: number = 3;
+  qty!: number;
 
 
 }

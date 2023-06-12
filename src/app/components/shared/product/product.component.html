@@ -34,11 +34,15 @@
           <div class="fright" class="createProductDiv">
             <a
               *ngIf="IsAuditor"
-              href=""
-              id="createNewProduct"
-              class="createNewTableRecord"
+              style="cursor: pointer"
+              (click)="displayCreateProductComp()"
             >
               <img src="../../../assets/resources/images/createProduct.png" />
+              <button
+                id="createNewProduct"
+                class="createNewTableRecord"
+                style="display: none"
+              ></button>
               <span> Create Product</span>
             </a>
           </div>
@@ -355,6 +359,7 @@
           style="display: none"
         >
           <app-create-product
+            *ngIf="enableCreateProduct"
             (productInfoEvent)="createNewProduct($event)"
           ></app-create-product>
         </div>

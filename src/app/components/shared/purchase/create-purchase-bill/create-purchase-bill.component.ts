@@ -4,6 +4,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CustomerMetaData } from 'src/app/models/CustomerMetaData';
 import { Product } from 'src/app/models/Product';
 import { PurchaseBill } from 'src/app/models/PurchaseBill';
 import { PurchaseBillDetail } from 'src/app/models/PurchaseBillDetail';
@@ -72,6 +73,8 @@ export class CreatePurchaseBillComponent {
   insuranceTaxType: number = 3;
   loadingTaxType: number = 3;
   otherTaxType: number = 3;
+
+  customerMetaData !: CustomerMetaData;
 
   prodWildCard!: string;
   productQty: number = 1
@@ -213,8 +216,8 @@ export class CreatePurchaseBillComponent {
       });
   }
 
-  setProductSelectedByName(prodId: number) {
-    this.productBarCodeId = prodId;
+  setProductSelectedByName(prod: Product) {
+    this.productBarCodeId = prod.id;
     this.prodIdInput.nativeElement.focus();
     this.selectProductActive = false;
   }
@@ -242,6 +245,11 @@ export class CreatePurchaseBillComponent {
         next: (data) => {
           this.selectMenusForCompanies = data.data;
           this.selectMenusForCompaniesSize = data.data.length;
+
+          let customerMetaData = new CustomerMetaData;
+          customerMetaData.customers = data.data;
+          customerMetaData.customerPanOrPhone = this.sellerPan;
+          this.customerMetaData = customerMetaData;
         },
         complete: () => {
           const custBtn = document.getElementById(

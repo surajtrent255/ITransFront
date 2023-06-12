@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { InventoryProducts } from 'src/app/models/InventoryProducts';
+import { Product } from 'src/app/models/Product';
 import { Stock } from 'src/app/models/Stock';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { ProductService } from 'src/app/service/product.service';
@@ -40,7 +41,7 @@ export class StockComponent {
 
 
 
-  createNewProduct(event: number) {
+  createNewProduct(event: Product) {
     this.getAllProducts();
   }
 

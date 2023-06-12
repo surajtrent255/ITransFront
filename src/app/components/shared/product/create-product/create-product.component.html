@@ -192,7 +192,78 @@
               </tr>
               <tr>
                 <td class="col1 pt-2">
-                  Selling Price:<span class="mandatorySign">*</span>
+                  <label>
+                    NON INVENTORY ITEMS <span class="mandatorySign">*</span>
+                  </label>
+                </td>
+                <td class="col2">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="product.productType"
+                    name="productType"
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td class="col1 pt-2">
+                  <label>
+                    Average Price<span class="mandatorySign">*</span>
+                  </label>
+                </td>
+                <td class="col2">
+                  <input
+                    id="isAveragePrice"
+                    type="checkbox"
+                    #AveragePrice="ngModel"
+                    [(ngModel)]="product.averagePriceStatus"
+                    name="isAveragePrice"
+                  />
+                </td>
+              </tr>
+
+              <tr *ngIf="product.averagePriceStatus">
+                <td class="col1 pt-2">
+                  <label>
+                    Rate Percentage:<span class="mandatorySign">*</span>
+                  </label>
+                </td>
+                <td class="col2">
+                  <input
+                    type="number"
+                    [class.is-invalid]="
+                      ratePercentage.invalid && ratePercentage.touched
+                    "
+                    class="form-control"
+                    id="ratePercentage"
+                    #ratePercentage="ngModel"
+                    name="ratePercentage"
+                    [(ngModel)]="product.ratePercentage"
+                    min="0"
+                    max="100"
+                    required
+                    title="input in percentage"
+                  />
+                </td>
+                <td class="col3">
+                  <small
+                    class="text-danger"
+                    [class.d-none]="
+                      ratePercentage.valid ||
+                      ratePercentage.untouched ||
+                      ratePercentage.errors
+                    "
+                  >
+                    invalid Rate Percentage range from 0 to 100
+                  </small>
+                </td>
+              </tr>
+
+              <tr *ngIf="!product.averagePriceStatus">
+                <td class="col1 pt-2">
+                  <label>
+                    Selling Price:<span class="mandatorySign">*</span>
+                  </label>
                 </td>
                 <td class="col2">
                   <input
@@ -216,10 +287,12 @@
                     [class.d-none]="
                       sellingPrice.valid || sellingPrice.untouched
                     "
-                    >invalid selling price</small
                   >
+                    invalid selling price
+                  </small>
                 </td>
               </tr>
+
               <tr>
                 <td class="col1 pt-2">
                   Quatityperunit:<span class="mandatorySign">*</span>

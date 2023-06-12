@@ -12,10 +12,27 @@
     >
       <div class="recordTableWrapper" style="height: auto">
         <div class="recordCategory">
-          <h2 class="text-center" id="" style="font-weight: bold !important">
+          <h2
+            *ngIf="!salesInvoice.salesBillDTO.billPrinted"
+            class="text-center"
+            id=""
+            style="font-weight: bold !important"
+          >
             {{
               salesInvoice.salesBillDTO.hasAbbr
                 ? "ABBREVATED TAX INVOICE"
+                : "TAX INVOICE"
+            }}
+          </h2>
+          <h2
+            *ngIf="salesInvoice.salesBillDTO.billPrinted"
+            class="text-center"
+            id=""
+            style="font-weight: bold !important"
+          >
+            {{
+              salesInvoice.salesBillDTO.hasAbbr
+                ? "ABBREVATED INVOICE"
                 : "INVOICE"
             }}
           </h2>
@@ -32,34 +49,44 @@
         </div> -->
         <div class="row">
           <div class="text-center">
-            <span>Name: </span>
             <span>{{ company.name }}</span
             ><br />
-            <span>Address: </span>
             <span
               >{{ company.state }}, {{ company.district }},
               {{ company.munVdc }}</span
             ><br />
-            <span>Phone</span>
+            <span>Phone: </span>
             <span>{{ company.phone }}</span
             ><br />
-            <span>Pan No</span>
+            <span>VAT/PAN : </span>
             <span>{{ company.panNo }}</span
             ><br />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="text-center">
+            <img
+              class="img-fluid"
+              style="height: 100px; width: 100px"
+              src="https://s3.amazonaws.com/cdn.designcrowd.com/blog/100-Famous-Brand%20Logos-From-The-Most-Valuable-Companies-of-2020/apple-logo.png"
+              alt=""
+            />
           </div>
         </div>
         <div class="popupContentWrapper">
           <div class="row">
             <div class="col-md-6">
               <span>
-                <span style="font-weight: bold !important">Bill Number:</span>
+                <span style="font-weight: bold !important"
+                  >Invoice Number:</span
+                >
                 {{
                   salesInvoice.salesBillDTO.hasAbbr
                     ? salesInvoice.salesBillDTO.billNo
                     : salesInvoice.salesBillDTO.billNo
                 }}</span
               ><br />
-              <span>
+              <!-- <span>
                 <span style="font-weight: bold !important"> Seller PAN:</span>
                 {{ salesInvoice.sellerCompany.panNo }}</span
               ><br />
@@ -72,36 +99,32 @@
                   >Seller Address: </span
                 >{{ salesInvoice.sellerCompany.district }}
                 {{ salesInvoice.sellerCompany.munVdc }}</span
-              ><br />
+              ><br /> -->
               <span>
-                <span style="font-weight: bold !important"
-                  >Purchaser's Name:</span
-                >
+                <span style="font-weight: bold !important">Buyer's Name:</span>
                 {{
                   salesInvoice.salesBillDTO.customerName
                     ? salesInvoice.salesBillDTO.customerName
-                    : "NA"
+                    : "N/A"
                 }}</span
               ><br />
               <span>
                 <span style="font-weight: bold !important"
-                  >Purchaser Address:</span
+                  >Buyer's Address:</span
                 >
                 {{
                   salesInvoice.customerAddress
                     ? salesInvoice.customerAddress
-                    : "NA"
+                    : "N/A"
                 }} </span
               ><br />
               <span>
-                <span style="font-weight: bold !important"
-                  >Purchaser’s PAN:
-                </span>
+                <span style="font-weight: bold !important">Buyer's PAN: </span>
                 <p style="display: inline; margin: 0">
                   {{
                     salesInvoice.salesBillDTO.customerPan > 0
                       ? salesInvoice.salesBillDTO.customerPan
-                      : "NA"
+                      : "N/A"
                   }}
                 </p></span
               >
@@ -112,17 +135,10 @@
               <br />
             </div>
             <div class="col-md-4 offset-md-2">
+              <br />
               <span>
                 <span style="font-weight: bold !important"
-                  >Transaction Date:</span
-                >
-                {{
-                  salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd"
-                }}</span
-              ><br />
-              <span>
-                <span style="font-weight: bold !important"
-                  >Invoice issue Date:</span
+                  >Invoice Issue Date:</span
                 >
                 {{
                   salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd"
@@ -130,9 +146,13 @@
               ><br />
               <span>
                 <span style="font-weight: bold !important">
-                  MethodOfPayment:</span
+                  Mode Of Payment :</span
                 >
-                {{ salesInvoice.salesBillDTO.paymentMethod }}</span
+                {{
+                  salesInvoice.salesBillDTO.saleType === 1
+                    ? "Cash In Hand"
+                    : "Credit"
+                }}</span
               ><br />
             </div>
             <div class="row">
@@ -142,6 +162,8 @@
                     <th style="font-weight: bold !important">S.No</th>
                     <th style="font-weight: bold !important">Product Name</th>
                     <th style="font-weight: bold !important">Quantity</th>
+                    <th style="font-weight: bold !important">Unit</th>
+
                     <th style="font-weight: bold !important">
                       Per Unit Amount(Rs)
                     </th>
@@ -159,6 +181,7 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ invoice.productName }}</td>
                       <td>{{ invoice.qty }}</td>
+                      <td>{{ invoice.unit }}</td>
                       <td>{{ invoice.rate | number : "1.2-2" }}</td>
                       <td>
                         {{ invoice.qty * invoice.rate | number : "1.2-2" }}
@@ -166,6 +189,7 @@
                     </tr>
                     <tr></tr>
                     <tr>
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -181,6 +205,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
+                      <td></td>
                       <td><span class="text text-bg">Discount%: </span></td>
                       <td>
                         {{
@@ -189,6 +214,7 @@
                       </td>
                     </tr>
                     <tr *ngIf="salesInvoice.salesBillDTO.hasAbbr === false">
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -204,6 +230,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
+                      <td></td>
                       <td><span class="text text-bg">VAT 13%</span></td>
                       <td>
                         {{
@@ -212,6 +239,7 @@
                       </td>
                     </tr>
                     <tr>
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -227,7 +255,7 @@
                 </table>
               </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-md-12">
                 (In Words:
                 {{
@@ -236,6 +264,18 @@
                     | numberToWords
                 }})
               </div>
+            </div> -->
+            <div class="row">
+              <div class="col-md-12">
+                (In Words:
+                {{ totalAmountInWordsBeforeDecimal }} Rupee and
+                {{ totalAmountInWordsAfterDecimal }} paisa )
+              </div>
+            </div>
+            <div class="row text-center mt-1">
+              <span *ngIf="salesInvoice.salesBillDTO.billPrinted"
+                >This is second invoice
+              </span>
             </div>
             <div class="row">
               <div class="col-md-12 text-end">
@@ -245,21 +285,43 @@
                 <div class="row">
                   <b>Authorized Signature </b>
                 </div>
+                <div class="row">
+                  <p>{{ user.user.firstname }} {{ user.user.lastname }}</p>
+                </div>
               </div>
             </div>
           </div>
+          <div class="row mt-5" *ngIf="salesInvoice.salesBillDTO.receipt">
+            <!-- <h5 class="text-center">Receipt</h5> -->
+            <span class="text-center" style="font-weight: bold !important"
+              >Receipt</span
+            >
+            <table>
+              <thead>
+                <th>Receipt No.</th>
+                <th>Receipt Date(BS)</th>
+                <th>Amount(NRs.)</th>
+              </thead>
+              <tbody>
+                <td>
+                  <p>{{ salesInvoice.salesReceipt.receiptNo }}</p>
+                </td>
+                <td>
+                  <p>{{ salesInvoice.salesReceipt.receiptDate }}</p>
+                </td>
+                <td>
+                  <p>{{ salesInvoice.salesReceipt.receiptAmount }}</p>
+                </td>
+              </tbody>
+            </table>
+          </div>
           <button
             *ngIf="printButtonVisiability"
-            class="submit_btn border-rad"
+            class="submit_btn border-rad mt-2"
             (click)="printTheBill(salesInvoice.salesBillDTO.id)"
           >
             Print
           </button>
-          <div class="row text-center">
-            <span *ngIf="salesInvoice.salesBillDTO.billPrinted"
-              >This is second invoice
-            </span>
-          </div>
         </div>
       </div>
     </div>
