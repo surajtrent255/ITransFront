@@ -741,9 +741,16 @@ $(function () {
     return false;
   });
 
-  $(".JoshiCloseButton ").live("click", function () {
+  $(".JoshiCloseButton ").live('click', function () {
     $(".pageOverlay").fadeOut("fast");
     $(".PopupCloser").fadeOut("fast");
+    $(".movable").removeClass("movable");
+    return false;
+  });
+
+  $(".CreateNewCompanyCloseButton ").live('click', function () {
+    $(".pageOverlay").fadeOut("fast");
+    $(".CreateNewCompanypopupWrapper").fadeOut("fast");
     $(".movable").removeClass("movable");
     return false;
   });

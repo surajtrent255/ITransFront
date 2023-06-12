@@ -321,7 +321,12 @@
       </div>
     </div>
 
-    <div class="popupWrapper" id="editSalesBillPopup" style="display: none">
+    <div
+      class="popupWrapper"
+      cdkDrag
+      id="editSalesBillPopup"
+      style="display: none"
+    >
       <app-sales-bill-edit
         *ngIf="activeSalesBillEdit"
         (activeSalesBillEditEvent)="deactivateSalesBillEdit($event)"

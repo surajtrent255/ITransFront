@@ -125,7 +125,8 @@ export class HeaderComponent {
     private districtAndProvinceService: DistrictAndProvinceService,
     private roleService: RoleService,
     private counterService: CounterService,
-    private featureControlService: FeatureControlService
+    private featureControlService: FeatureControlService,
+    private commonService: CommonService
   ) {}
 
   @ViewChild('profile') profile!: ElementRef;
@@ -145,8 +146,7 @@ export class HeaderComponent {
   }
 
   ngOnInit() {
-    const data = localStorage.getItem('companyDetails');
-    const parsedData = JSON.parse(data || '{}');
+    const parsedData = this.loginService.getCompany();
     const { companyId } = parsedData;
     this.localStorageCompanyId = companyId;
     const { name } = parsedData;
@@ -253,6 +253,11 @@ export class HeaderComponent {
   // For role Based Rendering
   OnSwitchCompany() {
     localStorage.removeItem('CompanyRoles');
+    localStorage.removeItem('User_Couter_Details');
+    localStorage.removeItem('User_Features');
+    localStorage.removeItem('companyDetails');
+    localStorage.removeItem('BranchDetails');
+    localStorage.removeItem('Company');
   }
 
   logout() {
@@ -559,42 +564,6 @@ export class HeaderComponent {
             this.enableDiableFeaureTriggered = true;
           },
         });
-    }
-  }
-
-  // Testing Only
-  isDragging = false;
-  popupPosition = { x: 0, y: 0 };
-  headerPosition = { x: 0, y: 0 };
-
-  onHeaderMouseDown(event: MouseEvent) {
-    event.stopPropagation(); // Prevent event bubbling to child elements
-    this.isDragging = true;
-    this.headerPosition = { x: event.clientX, y: event.clientY };
-  }
-
-  @HostListener('document:mouseup')
-  onMouseUp() {
-    this.isDragging = false;
-  }
-
-  @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
-    if (this.isDragging) {
-      const offsetX = event.clientX - this.headerPosition.x;
-      const offsetY = event.clientY - this.headerPosition.y;
-
-      // Update the popup position
-      this.popupPosition = {
-        x: this.popupPosition.x + offsetX,
-        y: this.popupPosition.y + offsetY,
-      };
-
-      // Update the header position
-      this.headerPosition = {
-        x: event.clientX,
-        y: event.clientY,
-      };
     }
   }
 }

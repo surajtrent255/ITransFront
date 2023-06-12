@@ -8,6 +8,7 @@ import { SalesBillServiceService } from 'src/app/service/sales-bill-service.serv
 import { CreditNoteService } from 'src/app/service/shared/Credit-Note/credit-note.service';
 import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
+import { adToBs } from '@sbmdkl/nepali-date-converter';
 
 @Component({
   selector: 'app-credit-note-invoice',
@@ -74,6 +75,9 @@ export class CreditNoteInvoiceComponent {
   }
 
   submit() {
+    let date = new Date();
+    let englishDate = date.toJSON().slice(0, 10);
+
     this.SelectedProduct.map((data) => {
       this.creditNoteService
         .addCreditNoteDetails({
@@ -106,6 +110,7 @@ export class CreditNoteInvoiceComponent {
         id: this.serialNumber,
         companyId: this.loginService.getCompnayId(),
         branchId: this.loginService.getBranchId(),
+        nepaliDate: String(adToBs(englishDate)),
       })
       .subscribe((res) => {
         this.router.navigateByUrl('/dashboard/creditNoteList');

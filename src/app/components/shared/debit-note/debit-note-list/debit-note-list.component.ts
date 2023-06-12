@@ -20,6 +20,8 @@ export class DebitNoteListComponent {
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
 
+  nepaliDate!: string;
+
   constructor(
     private debitNoteService: DebitNoteService,
     private loginService: LoginService,
@@ -31,7 +33,7 @@ export class DebitNoteListComponent {
   ngOnInit() {
     this.getDebitNote();
 
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {

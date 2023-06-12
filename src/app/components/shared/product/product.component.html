@@ -350,6 +350,7 @@
 
         <div
           class="popupWrapper"
+          cdkDrag
           id="createNewProductPopup"
           style="display: none"
         >
@@ -358,7 +359,12 @@
           ></app-create-product>
         </div>
 
-        <div class="popupWrapper" id="editProductPopup" style="display: none">
+        <div
+          class="popupWrapper"
+          cdkDrag
+          id="editProductPopup"
+          style="display: none"
+        >
           <app-editproduct
             [productId]="productInfoForUpdateId"
             (updatedSuccessful)="fetchAllProductsAfterEdit()"

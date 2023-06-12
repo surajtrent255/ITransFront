@@ -26,8 +26,7 @@ export class HierarchyComponent implements OnInit {
   IsAduitor!: boolean;
 
   ngOnInit(): void {
-    const data = localStorage.getItem('companyDetails');
-    const parsedData = JSON.parse(data || '{}');
+    const parsedData = this.loginService.getCompany();
     const { name, companyId } = parsedData;
     this.companyName = name;
 
@@ -71,13 +70,4 @@ export class HierarchyComponent implements OnInit {
       });
     });
   }
-
-  // getRoleBasedRendering() {
-  //   const roleData = localStorage.getItem('CompanyRoles');
-  //   if (roleData?.includes('STAFF')) {
-  //     this.IsStaff = false;
-  //   } else {
-  //     this.IsStaff = true;
-  //   }
-  // }
 }

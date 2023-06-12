@@ -10,6 +10,7 @@ import { User } from 'src/app/models/user';
 import { IUserRegistration } from 'src/app/interfaces/iuser-registration';
 import { Company } from 'src/app/models/company';
 import { UserFeature } from 'src/app/models/UserFeatures';
+import { CommonService } from './common/common.service';
 
 const USER_KEY = 'User';
 const USER_TOKEN = 'UserToken';
@@ -23,12 +24,13 @@ export class LoginService {
     this.getUserFromLocalStorage()
   );
 
-  private companySubject = new BehaviorSubject<Company>(
-    this.getCompanyFromLocalStorage()
-  );
   public userObservable: Observable<User>;
 
-  constructor(private http: HttpClient, private toastrService: ToastrService) {
+  constructor(
+    private http: HttpClient,
+    private toastrService: ToastrService,
+    private commonService: CommonService
+  ) {
     this.userObservable = this.userSubject.asObservable();
   }
 
@@ -40,19 +42,20 @@ export class LoginService {
     return this.userSubject.value.user.id;
   }
 
-  public get CurrentCompnay(): Company {
-    return this.companySubject.value;
-  }
   // rought
   getCompnayId(): number {
-    var compnay: any = JSON.parse(localStorage.getItem('companyDetails')!);
-    console.log(compnay);
-    console.log('creating product !!! ');
+    const debryptedCompanyDetails = this.commonService.decryptUsingAES256(
+      String(localStorage.getItem('companyDetails')!)
+    );
+    var compnay: any = debryptedCompanyDetails;
     return compnay.companyId;
   }
 
   getBranchId(): number {
-    var branchDetail: any = JSON.parse(localStorage.getItem('BranchDetails')!);
+    const debryptedBranchDetails = this.commonService.decryptUsingAES256(
+      String(localStorage.getItem('BranchDetails')!)
+    );
+    var branchDetail: any = debryptedBranchDetails;
     var branchId = branchDetail[0].branchId;
     return branchId;
   }
@@ -70,7 +73,6 @@ export class LoginService {
           );
         },
         error: (errorResponse) => {
-          console.log(errorResponse);
           this.toastrService.error(errorResponse.error, 'Login Failed');
         },
       })
@@ -96,7 +98,8 @@ export class LoginService {
   }
 
   private setUserToLocalStorage(user: User) {
-    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    const encryptedUser = this.commonService.encryptUsingAES256(user);
+    localStorage.setItem(USER_KEY, encryptedUser);
   }
 
   private setUserTokenToLocalStorage(token: string) {
@@ -104,16 +107,12 @@ export class LoginService {
   }
 
   private getUserFromLocalStorage(): User {
-    const userJson = localStorage.getItem(USER_KEY);
-    if (userJson) return JSON.parse(userJson) as User;
+    const decryptedUser = this.commonService.decryptUsingAES256(
+      localStorage.getItem(USER_KEY)!
+    );
+    const userJson = decryptedUser;
+    if (userJson) return userJson as User;
     return new User();
-  }
-
-  getCompanyFromLocalStorage() {
-    localStorage.setItem(COMPANY_KEY, JSON.stringify(1));
-    const companyJson = localStorage.getItem(COMPANY_KEY);
-    if (companyJson) return JSON.parse(companyJson) as Company;
-    return new Company();
   }
 
   logout() {
@@ -124,21 +123,40 @@ export class LoginService {
     localStorage.removeItem('Company');
     localStorage.removeItem(USER_TOKEN);
     localStorage.removeItem('CompanyRoles');
+    localStorage.removeItem('User_Couter_Details');
+    localStorage.removeItem('User_Features');
   }
 
   getCounterId() {
-    const userCounter = JSON.parse(localStorage.getItem("User_Couter_Details")!);
+    const debryptedCounterDetails = this.commonService.decryptUsingAES256(
+      String(localStorage.getItem('User_Couter_Details')!)
+    );
+    const userCounter = debryptedCounterDetails;
     return userCounter[0].counterId;
   }
 
   getFeatureObjs(): UserFeature[] {
-    const featureObjs: UserFeature[] = JSON.parse(localStorage.getItem("User_Features")!);
+    const debryptedFeature = this.commonService.decryptUsingAES256(
+      String(localStorage.getItem('User_Features')!)
+    );
+    const featureObjs: UserFeature[] = debryptedFeature;
     return featureObjs;
   }
 
-  getCompany(): number {
-    var company: any = JSON.parse(localStorage.getItem('companyDetails')!);
-    return company;
+  getCompanyRoles() {
+    const debryptedCompanyRoles = this.commonService.decryptUsingAES256(
+      String(localStorage.getItem('CompanyRoles')!)
+    );
+    console.log(debryptedCompanyRoles);
+    const companyRolesObj = debryptedCompanyRoles;
+    return companyRolesObj;
   }
 
+  getCompany() {
+    const debryptedCompanyDetails = this.commonService.decryptUsingAES256(
+      String(localStorage.getItem('companyDetails')!)
+    );
+    var company: any = debryptedCompanyDetails;
+    return company;
+  }
 }

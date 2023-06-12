@@ -141,6 +141,7 @@
     <div
       class="popupWrapper PopupCloser"
       id="editExpensePopup"
+      cdkDrag
       style="display: none"
     >
       <app-edit-expense
@@ -154,9 +155,10 @@
 <div
   class="popupWrapper PopupCloser"
   id="createExpensePopup"
+  cdkDrag
   style="display: none"
 >
-  <div class="popupHeading">
+  <div class="popupHeading" id="createExpen">
     <h2 class="fleft">Expense Flow</h2>
     <a href="" class="closeButton fright"
       ><img
@@ -215,10 +217,26 @@
             </tr>
 
             <tr>
-              <td class="col1">Date</td>
-              <td class="col3">
-                <input type="date" class="inputText" formControlName="date" />
-              </td>
+              <td style="padding-top: 30px" class="col1">Date</td>
+              <div style="width: 303px; display: grid; padding-left: 5px">
+                <span>BS</span>
+                <input
+                  type="text"
+                  id="nepali-datepicker"
+                  placeholder="Select  Date"
+                  style="height: 25px"
+                  class="inputText"
+                />
+
+                <span>AD</span>
+                <input
+                  style="height: 25px"
+                  disabled
+                  type="text"
+                  id="AdDate"
+                  class="inputText"
+                />
+              </div>
               <td class="col3"></td>
             </tr>
           </table>

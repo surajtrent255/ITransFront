@@ -1,0 +1,266 @@
+<div class="popupHeading">
+  <h2 class="fleft">Edit Company</h2>
+  <a
+    href=""
+    id="closeCreateNewCompanyPopUp"
+    class="CreateNewCompanyCloseButton fright"
+    ><img src="../../../assets/resources/images/removetablink.png" alt="close"
+  /></a>
+  <div class="cboth"></div>
+</div>
+<div class="popupSubHeadingDiv createProduct">
+  <h1 class="heading">Edit Company Information</h1>
+</div>
+<div class="popupContentWrapper">
+  <form id="createProduct">
+    <div class="chooseColoumnsWrapper">
+      <div class="fieldDiv popUpFormSectionWrapper">
+        <table class="formSection" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="col1">
+              Name of Company:<span class="mandatorySign">*</span>
+            </td>
+
+            <td class="col3">
+              <input
+                disabled
+                type="text"
+                name="name"
+                [(ngModel)]="companydetails.name"
+                class="customInputText mandatory"
+              />
+              <span class="validationMsg"><br />Please enter Name.</span>
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">
+              Company Owner:<span class="mandatorySign">*</span>
+            </td>
+
+            <td class="col3">
+              <input
+                type="text"
+                name="ownerName"
+                [(ngModel)]="companydetails.ownerName"
+                class="customInputText mandatory"
+              />
+              <span class="validationMsg"><br />Please enter Name.</span>
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Mobile No:<span class="mandatorySign">*</span></td>
+            <td class="col3">
+              <input
+                type="number"
+                class="customInputText mandatory"
+                placeholder="Enter 10 Digits"
+                name="phone"
+                [(ngModel)]="companydetails.phone"
+              />
+              <span class="validationMsg"><br />Please enter valid Phone.</span>
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Email:<span class="mandatorySign">*</span></td>
+
+            <td class="col3">
+              <input
+                type="text"
+                class="customInputText mandatory"
+                name="email"
+                [(ngModel)]="companydetails.email"
+              />
+              <span class="validationMsg"><br />Please enter valid email.</span>
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Description:<span class=""></span></td>
+
+            <td class="col3">
+              <input
+                type="text"
+                class="customInputText"
+                name="description"
+                [(ngModel)]="companydetails.description"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Pan-Number:<span class=""> </span></td>
+
+            <td class="col3">
+              <input
+                type="number"
+                disabled
+                class="customInputText"
+                name="panNo"
+                [(ngModel)]="companydetails.panNo"
+              />
+
+              <span>PAN</span
+              ><input
+                value="PAN"
+                name="registrationType"
+                [(ngModel)]="companydetails.registrationType"
+                id="pan"
+                type="radio"
+              />
+              <span style="padding-left: 7px">VAT</span
+              ><input
+                checked
+                value="VAT"
+                id="vat"
+                name="registrationType"
+                [(ngModel)]="companydetails.registrationType"
+                type="radio"
+              />
+            </td>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">State:<span class="mandatorySign"></span></td>
+            <div style="padding-left: 4.5px">
+              <select
+                class="form-select form-select-sm"
+                aria-label=".form-select-sm example"
+                name="state"
+                [(ngModel)]="companydetails.state"
+                style="width: 94%"
+                #selected
+                (change)="stateChange(selected.value)"
+              >
+                <option selected disabled>Select the state</option>
+                <option
+                  *ngFor="let province of province"
+                  value="{{ province.provinceId }}"
+                >
+                  {{ province.provinceName }}
+                </option>
+              </select>
+            </div>
+
+            <td class="col3"></td>
+          </tr>
+          <div class="cboth"></div>
+
+          <tr>
+            <td class="col1">District:<span class="mandatorySign"></span></td>
+            <div style="padding-left: 4.5px">
+              <select
+                class="form-select form-select-sm"
+                aria-label=".form-select-sm example"
+                style="width: 94%"
+                name="district"
+                [(ngModel)]="companydetails.district"
+                (change)="districtChange()"
+              >
+                <option
+                  *ngFor="let district of districts"
+                  value="{{ district.districtId }}"
+                >
+                  {{ district.districtName }}
+                </option>
+              </select>
+            </div>
+
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">
+              Muncipality/VDC:<span class="mandatorySign"></span>
+            </td>
+            <div style="padding-left: 4.5px">
+              <select
+                class="form-select form-select-sm"
+                aria-label=".form-select-sm example"
+                style="width: 94%"
+                name="munVdc"
+                [(ngModel)]="companydetails.munVdc"
+              >
+                <option
+                  *ngFor="let municipality of municipality"
+                  value="{{ municipality.municipalityName }}"
+                >
+                  {{ municipality.municipalityName }}
+                </option>
+              </select>
+            </div>
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Ward no:<span class="mandatorySign">*</span></td>
+            <td class="col3">
+              <input
+                type="number"
+                class="customInputText mandatory"
+                name="wardNo"
+                [(ngModel)]="companydetails.wardNo"
+              />
+              <span class="validationMsg"><br />Please enter Ward no.</span>
+            </td>
+
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Landnine no:</td>
+            <td class="col3">
+              <input
+                type="number"
+                class="customInputText mandatory"
+                name="landlineNumber"
+                [(ngModel)]="companydetails.landlineNumber"
+              />
+              <span class="validationMsg"
+                ><br />Please enter valid landline Number</span
+              >
+            </td>
+
+            <td class="col3"></td>
+          </tr>
+
+          <tr>
+            <td class="col1">Logo:</td>
+            <td class="col3">
+              <input
+                type="file"
+                class="customInputText mandatory"
+                id="custPartName"
+              />
+              <span class="validationMsg"><br />Please enter valid Phone.</span>
+            </td>
+            <td class="col3"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="submitDiv tCenter">
+      <input
+        type="submit"
+        value="OK"
+        class="submit_btn border-rad"
+        (click)="registerCompany()"
+        id=""
+      />
+
+      <input
+        type="button"
+        value="Cancel"
+        class="submit_btn CreateNewCompanyCloseButton border-rad"
+      />
+    </div>
+  </form>
+</div>

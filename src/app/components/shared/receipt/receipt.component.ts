@@ -38,7 +38,7 @@ export class ReceiptComponent {
     private loginService: LoginService,
     private paymentService: PaymentService,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
@@ -47,7 +47,7 @@ export class ReceiptComponent {
     this.paymentService.getPaymentModeDetails().subscribe((res) => {
       console.log(res.data);
       this.paymentMode = res.data;
-      let roles = localStorage.getItem('CompanyRoles');
+      let roles = this.loginService.getCompanyRoles();
       if (roles?.includes('AUDITOR')) {
         this.IsAuditor = false;
       } else {
@@ -62,7 +62,6 @@ export class ReceiptComponent {
     });
   }
 
-
   formatDate(timestamp: number): string {
     const date = new Date(timestamp);
     const year = date.getFullYear();
@@ -76,11 +75,11 @@ export class ReceiptComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedReceipts();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedReceipts();
     }
@@ -89,15 +88,21 @@ export class ReceiptComponent {
   fetchLimitedReceipts() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.receiptService.getLimitedReceipts(offset, this.pageTotalItems, this.companyId, this.branchId).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("receipts not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.receipts = res.data;
-
-      }
-    })
+    this.receiptService
+      .getLimitedReceipts(
+        offset,
+        this.pageTotalItems,
+        this.companyId,
+        this.branchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('receipts not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.receipts = res.data;
+        }
+      });
   }
 
   onSubmit() {

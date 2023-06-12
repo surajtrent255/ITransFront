@@ -94,6 +94,10 @@ import { PurchaseReportComponent } from './components/shared/purchase/purchase-r
 import { SalesReportComponent } from './components/shared/sales/sales-report/sales-report.component';
 import { SalesReportDetailComponent } from './components/shared/sales/sales-report/sales-report-detail/sales-report-detail.component';
 import { PurchaseReportDetailComponent } from './components/shared/purchase/purchase-report/purchase-report-detail/purchase-report-detail.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CompanyLabelComponent } from './components/shared/header/company-label/company-label.component';
+import { EditProfileCompanyInfoComponent } from './components/shared/header/edit-profile-company-info/edit-profile-company-info.component';
 
 @NgModule({
   declarations: [
@@ -170,6 +174,8 @@ import { PurchaseReportDetailComponent } from './components/shared/purchase/purc
     SalesReportComponent,
     SalesReportDetailComponent,
     PurchaseReportDetailComponent,
+    CompanyLabelComponent,
+    EditProfileCompanyInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -193,6 +199,8 @@ import { PurchaseReportDetailComponent } from './components/shared/purchase/purc
     }),
 
     MatSelectModule,
+    DragDropModule,
+    OverlayModule,
     MatOptionModule,
     MatInputModule,
     FormsModule,

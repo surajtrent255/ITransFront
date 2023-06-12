@@ -31,7 +31,7 @@ export class DebitNoteReportComponent {
   ngOnInit() {
     this.getDebitNote();
 
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {

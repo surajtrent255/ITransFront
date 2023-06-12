@@ -44,7 +44,7 @@ export class CreateCustomerComponent {
     private loginService: LoginService,
     private companyService: CompanyServiceService,
     private districtAndProvinceService: DistrictAndProvinceService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.districtAndProvinceService.getAllProvince().subscribe((res) => {
@@ -121,6 +121,14 @@ export class CreateCustomerComponent {
           wardNo: Number(this.CompanyRegistrationForm.value.wardNo!),
           phone: Number(this.CompanyRegistrationForm.value.phone!),
           customer: true!,
+          imageName: '',
+          imageUrl: '',
+          imageId: 0,
+          createdDate: '',
+          createdDateNepali: '',
+          landlineNumber: 0,
+          ownerName: '',
+          registrationType: '',
         },
         this.user_id
       )

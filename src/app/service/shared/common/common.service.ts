@@ -2,12 +2,13 @@ import { ElementRef, Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import * as html2pdf from 'html2pdf.js';
 import { utils, writeFile } from 'xlsx';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommonService {
-  constructor() { }
+  constructor() {}
 
   private dataSubject = new BehaviorSubject<any>(null);
   public data$ = this.dataSubject.asObservable();
@@ -106,4 +107,57 @@ export class CommonService {
     document.removeEventListener('mousemove', this.dragPopup);
     document.removeEventListener('mouseup', this.stopDrag);
   };
+
+  // // Encrypt function
+  // encryptObject(obj: any): string {
+  //   const jsonString = JSON.stringify(obj);
+  //   const encryptedData = CryptoJS.AES.encrypt(
+  //     jsonString,
+  //     'mySecretKey'
+  //   ).toString();
+  //   return encryptedData;
+  // }
+
+  // // Decrypt function
+  // decryptObject(encryptedData: string): any {
+  //   const decryptedData = CryptoJS.AES.decrypt(
+  //     encryptedData,
+  //     'mySecretKey'
+  //   ).toString(CryptoJS.enc.Utf8);
+  //   const obj = JSON.parse(decryptedData);
+  //   return obj;
+  // }
+
+  private key = CryptoJS.enc.Utf8.parse(1203199320052021);
+  private iv = CryptoJS.enc.Utf8.parse(1203199320052021);
+
+  encryptUsingAES256(data): any {
+    const jsonString = JSON.stringify(data);
+
+    var encrypted = CryptoJS.AES.encrypt(jsonString, this.key, {
+      keySize: 128 / 8,
+      iv: this.iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+    });
+
+    return encrypted.toString();
+  }
+
+  decryptUsingAES256(decString) {
+    try {
+      var decrypted = CryptoJS.AES.decrypt(decString, this.key, {
+        keySize: 128 / 8,
+        iv: this.iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7,
+      }).toString(CryptoJS.enc.Utf8);
+
+      const obj = JSON.parse(decrypted);
+      return obj;
+    } catch (error) {
+      console.error('Error during decryption:', error);
+      return null;
+    }
+  }
 }

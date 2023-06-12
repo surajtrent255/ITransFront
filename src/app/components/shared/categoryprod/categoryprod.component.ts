@@ -23,13 +23,13 @@ export class CategoryprodComponent {
     private categoryProductService: CategoryProductService,
     private loginService: LoginService,
     private renderer: Renderer2
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.fetchAllCategories();
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {

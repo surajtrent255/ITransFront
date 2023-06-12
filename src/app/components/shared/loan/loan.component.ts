@@ -33,13 +33,13 @@ export class LoanComponent {
     private loanService: LoanService,
     private loginService: LoginService,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.branchId = this.loginService.getBranchId();
     this.compId = this.loginService.getCompnayId();
     this.getAllLoans();
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {
@@ -54,11 +54,11 @@ export class LoanComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedLoans();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedLoans();
     }
@@ -67,14 +67,16 @@ export class LoanComponent {
   fetchLimitedLoans() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.loanService.getLimitedLoans(offset, this.pageTotalItems, this.compId, this.branchId).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("loan infos not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.loans = res.data;
-      }
-    })
+    this.loanService
+      .getLimitedLoans(offset, this.pageTotalItems, this.compId, this.branchId)
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('loan infos not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.loans = res.data;
+        }
+      });
   }
 
   disableLoanComponent($event: boolean) {

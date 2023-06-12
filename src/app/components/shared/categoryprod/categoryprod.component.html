@@ -247,7 +247,12 @@
       </div>
     </div>
 
-    <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+    <div
+      cdkDrag
+      class="popupWrapper"
+      id="createNewCategoryPopup"
+      style="display: none"
+    >
       <app-createcategory
         *ngIf="createCategoryShow"
         (categorySuccessInfoEvent)="createNewCategory($event)"
@@ -259,6 +264,7 @@
       class="popupWrapper"
       id="editCategoryPopup"
       style="display: none"
+      cdkDrag
     ></div>
   </div>
 </div>

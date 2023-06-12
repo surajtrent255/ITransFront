@@ -23,6 +23,7 @@ import { FeatureControl } from 'src/app/models/Feature Control/feature-control';
 import { FeatureControlService } from 'src/app/service/shared/Feature-Control/feature-control.service';
 import { CounterService } from 'src/app/service/shared/counter/counter.service';
 import { Logo } from 'src/app/models/company-logo/CompanyImage';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 
 @Component({
   selector: 'app-select-and-create-company',
@@ -49,8 +50,9 @@ export class SelectAndCreateCompanyComponent {
     private branchService: BranchService,
     private roleService: RoleService,
     private featureControlService: FeatureControlService,
-    private counterService: CounterService
-  ) { }
+    private counterService: CounterService,
+    private commonService: CommonService
+  ) {}
 
   ngOnInit() {
     this.loginService.userObservable.subscribe((LogggedInUser) => {
@@ -67,21 +69,29 @@ export class SelectAndCreateCompanyComponent {
 
   getCompanyDetails() {
     this.companyService.getCompnayDetails(this.user_id).subscribe((res) => {
+      console.log(res.data);
       this.company = res.data;
     });
   }
 
   proceed(company: Company) {
-    localStorage.setItem('companyDetails', JSON.stringify(company));
+    const encryptedCompanyDetails =
+      this.commonService.encryptUsingAES256(company);
+    localStorage.setItem('companyDetails', encryptedCompanyDetails);
     this.branchService
       .getBranchDetailsByCompanyAndUserId(company.companyId, this.user_id)
       .subscribe((res) => {
         if (res.data) {
-          localStorage.setItem('BranchDetails', JSON.stringify(res.data));
+          const encryptedBranchDetails = this.commonService.encryptUsingAES256(
+            res.data
+          );
+          localStorage.setItem('BranchDetails', encryptedBranchDetails);
         }
         if (!res.data || Object.keys(res.data).length === 0) {
           let branchStatus = [{ branchId: 0 }];
-          localStorage.setItem('BranchDetails', JSON.stringify(branchStatus));
+          const encryptedBranchDetails =
+            this.commonService.encryptUsingAES256(branchStatus);
+          localStorage.setItem('BranchDetails', encryptedBranchDetails);
         }
 
         this.roleService
@@ -90,10 +100,9 @@ export class SelectAndCreateCompanyComponent {
             this.user_id
           )
           .subscribe((res) => {
-            console.log('YVDBHDIUHIDHNKIHNIKSBHJSBJb');
-            console.log(res.data);
             const roles = res.data.map((user) => user.role);
-            localStorage.setItem('CompanyRoles', JSON.stringify(roles));
+            const encryptedRoles = this.commonService.encryptUsingAES256(roles);
+            localStorage.setItem('CompanyRoles', encryptedRoles);
           });
 
         this.router.navigateByUrl('/dashboard/demo');
@@ -108,7 +117,9 @@ export class SelectAndCreateCompanyComponent {
         let data = res.data.map((data) => {
           return { featureId: data.featureId, featureName: data.feature };
         });
-        localStorage.setItem('User_Features', JSON.stringify(data));
+        const encryptedFeatureControl =
+          this.commonService.encryptUsingAES256(data);
+        localStorage.setItem('User_Features', encryptedFeatureControl);
       });
 
     this.counterService
@@ -122,11 +133,15 @@ export class SelectAndCreateCompanyComponent {
             return counter;
           });
 
-          localStorage.setItem('User_Couter_Details', JSON.stringify(data));
+          const encryptedCounterDetais =
+            this.commonService.encryptUsingAES256(data);
+          localStorage.setItem('User_Couter_Details', encryptedCounterDetais);
         }
         if (!res.data || Object.keys(res.data).length === 0) {
           let data = [{ counterId: 0 }];
-          localStorage.setItem('User_Couter_Details', JSON.stringify(data));
+          const encryptedCounterDetais =
+            this.commonService.encryptUsingAES256(data);
+          localStorage.setItem('User_Couter_Details', encryptedCounterDetais);
         }
       });
   }

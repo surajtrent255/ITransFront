@@ -1,0 +1,116 @@
+<div class="popupHeading" style="background-color: #3c4858">
+  <h2 class="fleft">Administrator</h2>
+  <a href="" class="JoshiCloseButton fright"
+    ><img
+      src="../../../../assets/resources/images/removetablink.png"
+      alt="close"
+  /></a>
+  <div class="cboth"></div>
+</div>
+<div class="popupSubHeadingDiv administratorSubHeading">
+  <h1 class="heading">Administrator</h1>
+  <div>Adminstrator preferences</div>
+</div>
+<div class="popupContentWrapper">
+  <form id="" action="" method="">
+    <div>
+      <button
+        class="submit_btn border-rad createNewTableRecord"
+        id="addNewLabel"
+        style="color: white"
+      >
+        Add Label
+      </button>
+    </div>
+    <div class="chooseColoumnsWrapper" style="padding: 5px">
+      <table
+        cellspacing="0"
+        cellpadding="0"
+        class="recordsTable pricingPrefTable"
+      >
+        <thead>
+          <tr>
+            <th>Label Id</th>
+            <th>Label Name</th>
+            <th>Text</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let labelInfo of companyLabelInfo">
+            <td>{{ labelInfo.labelId }}</td>
+            <td>{{ labelInfo.name }}</td>
+            <td>{{ labelInfo.text }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+
+<div
+  class="popupWrapper popupwrapperSmall CustomerPopupWrapper1"
+  cdkDrag
+  id="addNewLabelPopup"
+  style="display: none"
+>
+  <div class="popupHeading" style="background-color: #3c4858">
+    <h2 class="fleft">Add Company Label</h2>
+    <a href="" class="Customer1CloseButton fright"
+      ><img
+        src="../../../../assets/resources/images/removetablink.png"
+        alt="close"
+    /></a>
+    <div class="cboth"></div>
+  </div>
+  <div class="popupContentWrapper">
+    <button (click)="enableInput($event)" class="submit_btn border-rad">
+      create Label
+    </button>
+    <div *ngIf="enableInputField" style="margin: 5px">
+      <div style="margin: 3px">
+        <span style="padding-right: 5px">Name</span>
+        <input id="label" class="inputText" type="text" />
+      </div>
+      <div style="display: flex; margin: 3px">
+        <button (click)="addLabel()" class="submit_btn border-rad">add</button>
+        <button (click)="cancel()" class="submit_btn border-rad">Cancel</button>
+      </div>
+    </div>
+
+    <table
+      cellspacing="0"
+      cellpadding="0"
+      class="recordsTable pricingPrefTable"
+    >
+      <thead>
+        <tr>
+          <th>Label Id</th>
+          <th>Label Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let label of label">
+          <td>{{ label.companyLabelId }}</td>
+          <td>{{ label.name }}</td>
+          <td>
+            <input
+              type="radio"
+              (change)="SelectedLabel($event, label.companyLabelId, label.name)"
+            />
+            <span>|</span>
+
+            <a (click)="deleteLabel(label.companyLabelId)" class="">
+              <img src="../../../assets/resources/images/deleteRow.png" />
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="display: flex; margin: 5px">
+      <button (click)="Submit()" class="submit_btn border-rad">OK</button>
+    </div>
+  </div>
+</div>

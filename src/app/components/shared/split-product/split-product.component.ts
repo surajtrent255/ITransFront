@@ -11,6 +11,7 @@ import { Unit } from 'src/app/models/Unit';
 import { Product } from 'src/app/models/Product';
 import { VatRateTypes } from 'src/app/models/VatRateTypes';
 import { Stock, UpdateStock } from 'src/app/models/Stock';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 
 @Component({
   selector: 'app-split-product',
@@ -56,7 +57,7 @@ export class SplitProductComponent {
     private productService: ProductService,
     private toastrService: ToastrService,
     private StockService: StockService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
@@ -88,11 +89,11 @@ export class SplitProductComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedSplitProducts();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedSplitProducts();
     }
@@ -101,17 +102,20 @@ export class SplitProductComponent {
   fetchLimitedSplitProducts() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.SplitProductService.getLimitedSplitProduct(offset, this.pageTotalItems, this.companyId, this.branchId).subscribe((res) => {
+    this.SplitProductService.getLimitedSplitProduct(
+      offset,
+      this.pageTotalItems,
+      this.companyId,
+      this.branchId
+    ).subscribe((res) => {
       if (res.data.length === 0) {
-        this.toastrService.error("bills not found ")
+        this.toastrService.error('bills not found ');
         this.currentPageNumber -= 1;
       } else {
         this.splitProducts = res.data;
-
       }
-    })
+    });
   }
-
 
   getAllSplitProduct() {
     this.SplitProductService.getAllSplitProduct(

@@ -8,8 +8,10 @@ export class Payment {
   postDateCheck!: boolean;
   branchId!: number;
   date!: string;
+  nepaliDate!: string;
   postDateCheckStatus!: boolean;
   paymentStatus!: boolean;
   postCheckDate!: string;
+  postCheckDateNepali!: string;
   checkNo!: number;
 }

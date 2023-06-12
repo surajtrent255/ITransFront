@@ -138,6 +138,7 @@
     <div
       class="popupWrapper PopupCloser"
       id="editPaymentPopup"
+      cdkDrag
       style="display: none"
     >
       <app-edit-payment-details
@@ -151,6 +152,7 @@
 <div
   class="popupWrapper PopupCloser"
   id="createPaymentPopup"
+  cdkDrag
   style="display: none"
 >
   <div class="popupHeading">
@@ -260,15 +262,29 @@
             </tr>
 
             <tr *ngIf="postDateCheckEnable && cheque">
-              <td class="col1">Post Check Date<span class=""></span></td>
+              <td style="padding-top: 30px" class="col1">
+                Post Check Date<span class=""></span>
+              </td>
               <td class="col3">
-                <!-- <np-datepicker formControlName="NepaliDate" language="en">
-                </np-datepicker> -->
-                <input
-                  type="date"
-                  formControlName="postCheckDate"
-                  class="inputText"
-                />
+                <div style="width: 280px">
+                  <span>BS</span>
+                  <input
+                    type="text"
+                    id="nepali-datepicker"
+                    placeholder="Select  Date"
+                    style="height: 25px"
+                    class="inputText"
+                  />
+
+                  <span>AD</span>
+                  <input
+                    style="height: 25px"
+                    disabled
+                    type="text"
+                    id="AdDate"
+                    class="inputText"
+                  />
+                </div>
               </td>
               <td class="col3"></td>
             </tr>

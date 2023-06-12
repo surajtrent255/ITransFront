@@ -1,4 +1,9 @@
-import { Component, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  Renderer2,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SalesBill } from 'src/app/models/SalesBill';
@@ -26,10 +31,9 @@ export class SalesBillingComponent {
   customerId!: number;
   activeSalesBillEdit: boolean = false;
   confirmAlertDisplay: boolean = false;
-  cancelBillId !: number;
+  cancelBillId!: number;
   billPrintComponent: boolean = false;
-  billId !: number;
-
+  billId!: number;
 
   companyId!: number;
   branchId!: number;
@@ -37,10 +41,10 @@ export class SalesBillingComponent {
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
 
-  searchBy: string = "bill_no";
+  searchBy: string = 'bill_no';
   searchWildCard: string = '';
 
-  sortBy: string = "id"
+  sortBy: string = 'id';
 
   constructor(
     private salesBillService: SalesBillServiceService,
@@ -48,15 +52,17 @@ export class SalesBillingComponent {
     private router: Router,
     private renderer: Renderer2,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.loggedUser = JSON.parse(localStorage.getItem('User')!);
+    this.loginService.userObservable.subscribe((user) => {
+      this.loggedUser = user;
+    });
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     // this.getSalesBillForCompanyBranch();
     this.fetchLimitedSalesBill();
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {
@@ -84,7 +90,9 @@ export class SalesBillingComponent {
   cancelTheBill(id: number) {
     this.confirmAlertDisplay = true;
     this.cancelBillId = id;
-    const confirmAlertBtn = document.getElementById("confirmAlert") as HTMLButtonElement;
+    const confirmAlertBtn = document.getElementById(
+      'confirmAlert'
+    ) as HTMLButtonElement;
     confirmAlertBtn.click();
   }
 
@@ -242,7 +250,11 @@ export class SalesBillingComponent {
     // this.router.navigateByUrl(`dashboard/salesbill/invoice/${id}`);
     // window.open(`dashboard/salesbill/invoice/${id}`, "_blank", "height=1000, width=1000, left=250, top=100");
 
-    window.open(`salesBillPrint/${id}`, "_blank", "height=900, width=900, left=250, top=100");
+    window.open(
+      `salesBillPrint/${id}`,
+      '_blank',
+      'height=900, width=900, left=250, top=100'
+    );
     this.router.navigateByUrl(`dashboard/salesbill`);
 
     // window.focus();
@@ -257,11 +269,11 @@ export class SalesBillingComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedSalesBill();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedSalesBill();
     }
@@ -270,20 +282,28 @@ export class SalesBillingComponent {
   fetchLimitedSalesBill() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.salesBillService.getLimitedSalesBill(offset, this.pageTotalItems, this.searchBy, this.searchWildCard, this.sortBy, this.companyId, this.branchId).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("bills not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.salesBills = res.data;
-
-      }
-    })
+    this.salesBillService
+      .getLimitedSalesBill(
+        offset,
+        this.pageTotalItems,
+        this.searchBy,
+        this.searchWildCard,
+        this.sortBy,
+        this.companyId,
+        this.branchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('bills not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.salesBills = res.data;
+        }
+      });
   }
 
   // goToBillPrint(id: number) {
   //   this.billPrintComponent = true;
   //   this.billId = id;
   // }
-
 }

@@ -5,6 +5,7 @@ export class CreditNote {
   customerAddress!: string;
   billNumber!: string;
   date!: Date;
+  nepaliDate!: string;
   totalAmount!: number;
   totalTax!: number;
   companyId!: number;

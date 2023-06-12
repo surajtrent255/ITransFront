@@ -1,5 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  Renderer2,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { adToBs } from '@sbmdkl/nepali-date-converter';
 import { ToastrService } from 'ngx-toastr';
 import { District } from 'src/app/models/District';
 import { Municipality } from 'src/app/models/Municipality';
@@ -26,23 +38,48 @@ export class CreateCompanyComponent {
   provinceId!: number;
   districtId!: number;
 
+  diableDistrictAndWard!: boolean;
+
+  registrationType: string = 'VAT';
+
   CompanyRegistrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     panNo: new FormControl(''),
     email: new FormControl('', [Validators.email]),
     state: new FormControl('', [Validators.required]),
-    district: new FormControl('', [Validators.required]),
-    munVdc: new FormControl('', [Validators.required]),
-    wardNo: new FormControl('', [Validators.required]),
-    phone: new FormControl(''),
+    district: new FormControl(
+      { value: '', disabled: true },
+      Validators.required
+    ),
+    munVdc: new FormControl({ value: '', disabled: true }, Validators.required),
+    wardNo: new FormControl({ value: '', disabled: true }, Validators.required),
+    phone: new FormControl(
+      '',
+      Validators.compose([Validators.required, this.phoneValidator])
+    ),
+    ownerName: new FormControl('', [Validators.required]),
+    landline: new FormControl(''),
   });
+
+  phoneValidator(control: AbstractControl) {
+    const phoneNumber = control.value;
+    const startsWith9 = phoneNumber && phoneNumber.toString().startsWith('9');
+    const validLength = phoneNumber && phoneNumber.toString().length === 10;
+
+    if (phoneNumber && (!startsWith9 || !validLength)) {
+      return { invalidPhone: true };
+    }
+
+    return null;
+  }
 
   constructor(
     private companyService: CompanyServiceService,
     private loginService: LoginService,
     private districtAndProvinceService: DistrictAndProvinceService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -57,34 +94,80 @@ export class CreateCompanyComponent {
   }
 
   registerCompany() {
-    this.loginService.userObservable.subscribe((loginUser) => {
-      this.user_id = loginUser.user.id;
-    });
-    console.log(this.CompanyRegistrationForm.value);
-    this.companyService
-      .addCompany(
-        {
-          companyId: 0,
-          name: this.CompanyRegistrationForm.value.name!,
-          email: this.CompanyRegistrationForm.value.email!,
-          description: this.CompanyRegistrationForm.value.description!,
-          panNo: Number(this.CompanyRegistrationForm.value.panNo),
-          state: Number(this.CompanyRegistrationForm.value.state),
-          district: this.CompanyRegistrationForm.value.district!,
-          munVdc: this.CompanyRegistrationForm.value.munVdc!,
-          wardNo: Number(this.CompanyRegistrationForm.value.wardNo),
-          phone: Number(this.CompanyRegistrationForm.value.phone),
-          customer: false,
-        },
-        this.user_id
-      )
-      .subscribe((res) => {
-        this.successfullyAdded.emit(true);
-        this.toastrService.success('Company Added Successfully');
+    let englishDate = new Date().toJSON().slice(0, 10);
+    if (this.CompanyRegistrationForm.invalid === true) {
+    }
+    if (this.CompanyRegistrationForm.invalid === false) {
+      this.loginService.userObservable.subscribe((loginUser) => {
+        this.user_id = loginUser.user.id;
       });
+      console.log(this.CompanyRegistrationForm.value);
+      this.companyService
+        .addCompany(
+          {
+            companyId: 0,
+            name: this.CompanyRegistrationForm.value.name!,
+            email: this.CompanyRegistrationForm.value.email!,
+            description: this.CompanyRegistrationForm.value.description!,
+            panNo: Number(this.CompanyRegistrationForm.value.panNo),
+            state: Number(this.CompanyRegistrationForm.value.state),
+            district: this.CompanyRegistrationForm.value.district!,
+            munVdc: this.CompanyRegistrationForm.value.munVdc!,
+            wardNo: Number(this.CompanyRegistrationForm.value.wardNo),
+            phone: Number(this.CompanyRegistrationForm.value.phone),
+            customer: false,
+            imageName: '',
+            imageUrl: '',
+            imageId: 0,
+            ownerName: this.CompanyRegistrationForm.value.ownerName!,
+            landlineNumber: Number(
+              this.CompanyRegistrationForm.value.landline!
+            ),
+            createdDate: new Date().toJSON().slice(0, 10),
+            createdDateNepali: String(adToBs(englishDate)),
+            registrationType: this.registrationType,
+          },
+          this.user_id
+        )
+        .subscribe({
+          next: (res) => {
+            const closeButton = document.querySelector(
+              '.CreateNewCompanyCloseButton'
+            ) as HTMLElement;
+            this.renderer.selectRootElement(closeButton).click();
+            this.toastrService.success('Company Added Successfully');
+            this.successfullyAdded.emit(true);
+
+            this.companyService
+              .addCompanyLogo(this.selectedFile, res.data)
+              .subscribe({
+                next: (res) => {
+                  console.log(res.data);
+                  this.successfullyAdded.emit(true);
+                },
+                error: (err) => {
+                  console.log(err.HttpErrorResponse);
+                },
+              });
+          },
+          complete: () => {},
+        });
+    }
+  }
+  registrationChange(e: any) {
+    this.registrationType = e.target.value;
   }
 
   stateChange(data: string) {
+    if (data === '8') {
+      this.CompanyRegistrationForm.get('district')?.disable();
+      this.CompanyRegistrationForm.get('munVdc')?.disable();
+      this.CompanyRegistrationForm.get('wardNo')?.disable();
+    } else {
+      this.CompanyRegistrationForm.get('district')?.enable();
+      this.CompanyRegistrationForm.get('munVdc')?.enable();
+      this.CompanyRegistrationForm.get('wardNo')?.enable();
+    }
     this.provinceId = parseInt(data, 10);
     this.districtAndProvinceService
       .getDistrictByProvinceId(this.provinceId)

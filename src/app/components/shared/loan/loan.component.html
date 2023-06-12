@@ -313,7 +313,12 @@
       </div>
     </div>
 
-    <div class="popupWrapper" id="createNewLoanPopup" style="display: none">
+    <div
+      class="popupWrapper"
+      cdkDrag
+      id="createNewLoanPopup"
+      style="display: none"
+    >
       <div class="mb-2"></div>
       <app-create-loan
         *ngIf="createLoanEnable"
@@ -321,7 +326,7 @@
       ></app-create-loan>
     </div>
 
-    <div class="popupWrapper" id="editLoanPopup" style="display: none">
+    <div class="popupWrapper" cdkDrag id="editLoanPopup" style="display: none">
       <app-edit-loan
         *ngIf="updateLoanEnable"
         [loanId]="loanForUpdateId"

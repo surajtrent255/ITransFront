@@ -25,8 +25,7 @@ export class AssignFeatureComponent {
   ) {}
 
   ngOnInit() {
-    const data = localStorage.getItem('companyDetails');
-    const parsedData = JSON.parse(data || '{}');
+    const parsedData = this.loginService.getCompany();
     const { name, companyId } = parsedData;
     this.companyName = name;
 

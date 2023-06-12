@@ -204,7 +204,12 @@
   </div>
 </div>
 
-<div class="popupWrapper" id="createNewProductPopup" style="display: none">
+<div
+  class="popupWrapper"
+  id="createNewProductPopup"
+  cdkDrag
+  style="display: none"
+>
   <div class="mb-2"></div>
   <app-create-product
     (productInfoEvent)="createNewProduct($event)"

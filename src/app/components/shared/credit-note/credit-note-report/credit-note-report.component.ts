@@ -1,0 +1,96 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { CreditNote } from 'src/app/models/Credit-Note/creditNote';
+import { CreditNoteDetails } from 'src/app/models/Credit-Note/creditNoteDetails';
+import { CreditNoteService } from 'src/app/service/shared/Credit-Note/credit-note.service';
+import { CommonService } from 'src/app/service/shared/common/common.service';
+import { LoginService } from 'src/app/service/shared/login.service';
+
+@Component({
+  selector: 'app-credit-note-report',
+  templateUrl: './credit-note-report.component.html',
+  styleUrls: ['./credit-note-report.component.css'],
+})
+export class CreditNoteReportComponent {
+  creditNote!: CreditNote[];
+  creditNoteDtails!: CreditNoteDetails[];
+
+  IsAuditor!: boolean;
+  currentPageNumber: number = 1;
+  pageTotalItems: number = 5;
+
+  constructor(
+    private loginService: LoginService,
+    private creditNoteService: CreditNoteService,
+    private commonService: CommonService,
+    private router: Router,
+    private toastrService: ToastrService
+  ) {}
+
+  ngOnInit() {
+    this.getCreditNote();
+
+    let roles = this.loginService.getCompanyRoles();
+    if (roles?.includes('AUDITOR')) {
+      this.IsAuditor = false;
+    } else {
+      this.IsAuditor = true;
+    }
+  }
+
+  printData(printData: CreditNote) {
+    this.commonService.setData({
+      printData,
+    });
+    this.router.navigateByUrl('/dashboard/print-credit-note');
+  }
+
+  getCreditNote() {
+    this.creditNoteService
+      .getCreditNote(
+        this.loginService.getCompnayId(),
+        this.loginService.getBranchId()
+      )
+      .subscribe((res) => {
+        this.creditNote = res.data;
+      });
+  }
+
+  changePage(type: string) {
+    if (type === 'prev') {
+      if (this.currentPageNumber === 1) return;
+      this.currentPageNumber -= 1;
+      this.getLimitedCreditNote();
+    } else if (type === 'next') {
+      this.currentPageNumber += 1;
+      this.getLimitedCreditNote();
+    }
+  }
+
+  getLimitedCreditNote() {
+    let pageId = this.currentPageNumber - 1;
+    let offset = pageId * this.pageTotalItems + 1;
+    this.creditNoteService
+      .getLimitedCreditNote(
+        offset,
+        this.pageTotalItems,
+        this.loginService.getCompnayId(),
+        this.loginService.getBranchId()
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('notes not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.creditNote = res.data;
+        }
+      });
+  }
+
+  details(billNumber: string) {
+    this.creditNoteService.getCreditNoteDetails(billNumber).subscribe((res) => {
+      this.creditNoteDtails = res.data;
+    });
+  }
+}

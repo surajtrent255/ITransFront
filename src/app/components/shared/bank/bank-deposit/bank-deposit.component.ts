@@ -6,63 +6,61 @@ import { BankdepositeService } from 'src/app/service/shared/bankdeposite/bankdep
 import { LoginService } from 'src/app/service/shared/login.service';
 import { BankService } from 'src/app/service/shared/bank/bank.service';
 import { Bank } from 'src/app/models/Bank';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 
 @Component({
   selector: 'app-bank-deposit',
   templateUrl: './bank-deposit.component.html',
-  styleUrls: ['./bank-deposit.component.css']
+  styleUrls: ['./bank-deposit.component.css'],
 })
 export class BankDepositComponent {
-
   depositId!: number;
   bankId!: number;
   branchId!: number;
   companyId!: number;
   depositAmount!: number;
   depositeType!: string;
-  chequeNumber!: string;;
+  chequeNumber!: string;
   Deposite: Deposit[] = [];
   banks: Bank[] = [];
   showForm!: boolean;
   localStorageCompanyId!: string;
 
-  objdeposite: Deposit = new Deposit;
+  objdeposite: Deposit = new Deposit();
 
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
 
-  constructor(private bankdepositeService: BankdepositeService,
+  constructor(
+    private bankdepositeService: BankdepositeService,
     private bankService: BankService,
     private loginService: LoginService,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService
+  ) {}
   ngOnInit() {
-
     // const data = localStorage.getItem('companyDetails');
     // const parsedData = JSON.parse(data || '{}');
     // const { companyId } = parsedData;
     // this.localStorageCompanyId = companyId;
 
-
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.getAllBankDeposite();
-
-
-
-
-
   }
   fetchRelatedBanks() {
-    this.bankService.getAllBanks(this.companyId, this.branchId).subscribe((data) => {
-      this.banks = data.data
-    })
+    this.bankService
+      .getAllBanks(this.companyId, this.branchId)
+      .subscribe((data) => {
+        this.banks = data.data;
+      });
   }
   getAllBankDeposite() {
-    this.bankdepositeService.getAlldeposite(this.companyId, this.branchId).subscribe(res => {
-      console.log(res.data)
-      this.Deposite = res.data;
-    });
-
+    this.bankdepositeService
+      .getAlldeposite(this.companyId, this.branchId)
+      .subscribe((res) => {
+        console.log(res.data);
+        this.Deposite = res.data;
+      });
   }
   openForm() {
     this.resetForm();
@@ -82,35 +80,38 @@ export class BankDepositComponent {
     }
   }
 
-
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedBankDeposits();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedBankDeposits();
     }
   }
 
-
   fetchLimitedBankDeposits() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.bankdepositeService.getLimitedDeposits(offset, this.pageTotalItems, this.companyId, this.branchId).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("deposits not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.Deposite = res.data;
-
-      }
-    })
+    this.bankdepositeService
+      .getLimitedDeposits(
+        offset,
+        this.pageTotalItems,
+        this.companyId,
+        this.branchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('deposits not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.Deposite = res.data;
+        }
+      });
   }
 
   creatdepostie(form: any) {
-
     this.showForm = false;
     this.objdeposite.companyId = this.companyId;
     this.objdeposite.branchId = this.branchId;
@@ -118,16 +119,13 @@ export class BankDepositComponent {
     console.log(this.objdeposite);
     this.bankdepositeService.addDeposite(this.objdeposite).subscribe({
       next: (data) => {
-        this.toastrService.success("deposite added sucessfull" + data.bankId);
+        this.toastrService.success('deposite added sucessfull' + data.bankId);
         this.getAllBankDeposite();
-
-      }, error: (err) => {
-        this.toastrService.error("something wrong");
-      }
-    })
-
-
-
+      },
+      error: (err) => {
+        this.toastrService.error('something wrong');
+      },
+    });
 
     // submitForm() {
     //   // if (this.bankId.trim() === '' || this.depositAmount.trim() === '' || this.depositeType.trim() === '' || this.chequeNumber.trim() === '') {
@@ -155,13 +153,8 @@ export class BankDepositComponent {
     //     }
     //   })
 
-
-
-
-
     const bankForm = document.getElementById('createNewCategoryPopup');
     if (bankForm) {
-
       bankForm.style.display = 'none';
       this.resetForm();
     }
@@ -176,11 +169,10 @@ export class BankDepositComponent {
   }
 
   deleteDeposite(branchId: number, depositId: number) {
-
     this.bankdepositeService.deleteDeposite(branchId, depositId).subscribe({
       next: (res) => {
         console.log(res);
-        this.toastrService.success("deposite has been deleted" + depositId)
+        this.toastrService.success('deposite has been deleted' + depositId);
         this.getAllBankDeposite();
       },
       error: (error) => {
@@ -194,6 +186,4 @@ export class BankDepositComponent {
   resetForm() {
     this.objdeposite = new Deposit();
   }
-
-
 }

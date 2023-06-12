@@ -6,6 +6,7 @@ import { BankList } from 'src/app/models/BankList';
 import { Branch } from 'src/app/models/Branch';
 import { User } from 'src/app/models/user';
 import { BankService } from 'src/app/service/shared/bank/bank.service';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
 @Component({
@@ -40,7 +41,7 @@ export class CreateBankComponent {
     private bankService: BankService,
     private toastrService: ToastrService,
     private loginService: LoginService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.localStorageCompanyId = this.loginService.getCompnayId();
@@ -69,31 +70,36 @@ export class CreateBankComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedBanks();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedBanks();
     }
   }
 
-
   fetchLimitedBanks() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.bankService.getLimitedBank(offset, this.pageTotalItems, this.companyId, this.branchId).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("banks not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.Bank = res.data;
-
-      }
-    })
+    this.bankService
+      .getLimitedBank(
+        offset,
+        this.pageTotalItems,
+        this.companyId,
+        this.branchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('banks not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.Bank = res.data;
+        }
+      });
   }
-  getAllBankNames() { }
+  getAllBankNames() {}
 
   getAllAccountTypes() {
     this.bankService.getAccountTypes().subscribe((data) => {
@@ -113,25 +119,22 @@ export class CreateBankComponent {
     // this.accountType = '';
     this.showForm = true;
 
-
     // Show form
 
     const bankForm = document.getElementById('bankForm');
     if (bankForm) {
-
       bankForm.style.display = 'block';
       this.showForm = false;
     }
   }
 
   SelecetBankChange(bankName: string) {
-
     if (bankName === 'other') {
-      console.log("other")
-      this.showInput = true
+      console.log('other');
+      this.showInput = true;
     } else {
-      console.log(bankName)
-      this.showInput = false
+      console.log(bankName);
+      this.showInput = false;
     }
   }
 
@@ -145,13 +148,11 @@ export class CreateBankComponent {
           'bank is successfully added with id ' + data.data
         );
         this.getAllBank();
-
-
-      }, error: (err) => {
-        this.toastrService.error("something went wrong")
-      }
-    }
-    )
+      },
+      error: (err) => {
+        this.toastrService.error('something went wrong');
+      },
+    });
 
     // Hide form
     const bankForm = document.getElementById('createNewCategoryPopup');
@@ -165,16 +166,14 @@ export class CreateBankComponent {
 
     if (bankForm) {
       bankForm.style.display = 'none';
-
     }
   }
 
   deleteBank(bankId: number) {
-
     this.bankService.deletebank(bankId).subscribe({
       next: (res) => {
         console.log(res);
-        this.toastrService.success("bank has been deleted")
+        this.toastrService.success('bank has been deleted');
       },
       error: (error) => {
         console.log(error);
@@ -187,5 +186,4 @@ export class CreateBankComponent {
   resetForm() {
     this.bankObj = new Bank();
   }
-
 }

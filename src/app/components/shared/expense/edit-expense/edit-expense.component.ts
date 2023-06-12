@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Expense } from 'src/app/models/Expense/Expense';
 import { ExpenseService } from 'src/app/service/shared/Assets And Expenses/expense.service';
 import { CommonService } from 'src/app/service/shared/common/common.service';
@@ -17,7 +23,8 @@ export class EditExpenseComponent {
 
   constructor(
     private expenseService: ExpenseService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnChanges() {

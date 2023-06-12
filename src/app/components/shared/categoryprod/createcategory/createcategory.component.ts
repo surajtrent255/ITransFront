@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  ElementRef,
+  Renderer2,
+} from '@angular/core';
 import { CategoryProduct } from 'src/app/models/CategoryProduct';
 import { RJResponse } from 'src/app/models/rjresponse';
 import { CategoryProductService } from 'src/app/service/category-product.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 import { SelectCategoryServiceService } from '../select-category-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonService } from 'src/app/service/shared/common/common.service';
 
 @Component({
   selector: 'app-createcategory',
@@ -17,19 +24,19 @@ export class CreatecategoryComponent {
   categoryProd: CategoryProduct = new CategoryProduct();
   categoriesData: CategoryProduct[] = [];
 
-  selectedCategory: CategoryProduct = new CategoryProduct;
+  selectedCategory: CategoryProduct = new CategoryProduct();
   catSelected: boolean = false;
   companyId!: number;
-  branchId !: number;
+  branchId!: number;
   title = 'TreeProj';
-
 
   constructor(
     private categoryProductService: CategoryProductService,
     private loginService: LoginService,
     private selectCategoryService: SelectCategoryServiceService,
-    private tostrService: ToastrService
-  ) { }
+    private tostrService: ToastrService,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
@@ -38,7 +45,9 @@ export class CreatecategoryComponent {
   }
 
   ngAfterViewInit() {
-    this.selectCategoryService.selectedCategoryForCatCreationSubject.subscribe(cat => this.selectedCategory = cat);
+    this.selectCategoryService.selectedCategoryForCatCreationSubject.subscribe(
+      (cat) => (this.selectedCategory = cat)
+    );
   }
 
   fetchAllCategories() {
@@ -61,11 +70,10 @@ export class CreatecategoryComponent {
   }
 
   createCategoryProd(createCategoryProdForm: any) {
-
     this.categoryProd.companyId = this.companyId;
     this.categoryProd.branchId = this.branchId;
     this.categoryProd.parentId = this.selectedCategory.id;
-    this.selectedCategory = new CategoryProduct;
+    this.selectedCategory = new CategoryProduct();
     this.categoryProd.userId = this.loginService.currentUser.user.id;
     this.selectCategoryService.resetSelectedCategoryForCatCreation();
 
@@ -80,16 +88,15 @@ export class CreatecategoryComponent {
         createCategoryProdForm.reset();
         this.fetchAllCategories();
         this.categorySuccessInfoEvent.emit(true);
-        this.tostrService.success("successfull addded ")
-        const createNewCatEl = document.getElementById("createNewCat") as HTMLAnchorElement;
+        this.tostrService.success('successfull addded ');
+        const createNewCatEl = document.getElementById(
+          'createNewCat'
+        ) as HTMLAnchorElement;
         createNewCatEl.click();
         this.catSelected = false;
       },
     });
   }
-
-
-
 
   selectTheCategory($event: number) {
     // this.catSelected = true;
@@ -99,8 +106,7 @@ export class CreatecategoryComponent {
 
   destroyComp() {
     this.catSelected = false;
-    this.disbaleShowCreateCategory.emit(true)
+    this.disbaleShowCreateCategory.emit(true);
     this.selectCategoryService.resetSelectedCategoryForCatCreation();
-
   }
 }

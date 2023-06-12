@@ -15,6 +15,21 @@
 
       <div>
         <h1>Welcome To IAccounting</h1>
+        <div>
+          <label for="englishDate">Enter English Date (YYYY-MM-DD):</label>
+          <input
+            type="text"
+            id="englishDate"
+            [(ngModel)]="englishDate"
+            placeholder="YYYY-MM-DD"
+          />
+          <button (click)="convertDate()">Convert</button>
+        </div>
+
+        <div *ngIf="nepaliDate">
+          <p>Equivalent Nepali Date:</p>
+          <p>{{ nepaliDate }}</p>
+        </div>
       </div>
     </div>
   </div>

@@ -33,7 +33,11 @@
                   />
                   <div class="card-body text-center">
                     <img
-                      src="../../../../assets/images/logo.png"
+                      src="{{
+                        company.imageUrl
+                          ? company.imageUrl
+                          : '../../../../assets/images/logo.png'
+                      }}"
                       style="width: 100px; margin-top: -65px"
                       alt="company"
                       class="img-fluid img-thumbnail rounded-circle border-0 mb-3"
@@ -49,6 +53,7 @@
                   <div class="card-footer">
                     <button
                       class="submit_btn border-rad btn-sm has-icon btn-block"
+                      id="ActivateDatePicker"
                       (click)="proceed(company)"
                       type="button"
                     >

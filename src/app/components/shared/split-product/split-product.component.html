@@ -307,7 +307,12 @@
       </div>
     </div>
 
-    <div class="popupWrapper" id="createNewCategoryPopup" style="display: none">
+    <div
+      class="popupWrapper"
+      cdkDrag
+      id="createNewCategoryPopup"
+      style="display: none"
+    >
       <!-- <div class="popupContentWrapper"> -->
       <div class="popupHeading">
         <h2 class="fleft">splitProduct</h2>
@@ -663,7 +668,7 @@
 </div>
 <!-- </div> -->
 
-<div class="popupWrapper" id="createSplitPopup" style="display: none">
+<div class="popupWrapper" cdkDrag id="createSplitPopup" style="display: none">
   <app-create-split-product
     *ngIf="enableCreateSplitComp"
     [id]="idForSplitComp"
@@ -671,7 +676,7 @@
   ></app-create-split-product>
 </div>
 
-<div class="popupWrapper" id="createMergePopup">
+<div class="popupWrapper" cdkDrag id="createMergePopup">
   <app-merge-product
     *ngIf="enableCreateMergeComp"
     [id]="idForMergeComp"
@@ -682,6 +687,7 @@
 <div
   class="popupWrapper"
   id="selectProductPopup"
+  cdkDrag
   style="display: none; width: auto"
 >
   <app-select-product

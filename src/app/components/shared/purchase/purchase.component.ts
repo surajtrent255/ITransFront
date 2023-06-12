@@ -32,13 +32,13 @@ export class PurchaseComponent {
     private router: Router,
     private loginService: LoginService,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.getAllPurchaseBills(this.compId);
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {
@@ -61,11 +61,11 @@ export class PurchaseComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedPurchaseBill();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedPurchaseBill();
     }
@@ -74,17 +74,22 @@ export class PurchaseComponent {
   fetchLimitedPurchaseBill() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.purchaseBillService.getLimitedPurchaseBill(offset, this.pageTotalItems, this.compId, this.branchId).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("bills not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.purchaseBills = res.data;
-
-      }
-    })
+    this.purchaseBillService
+      .getLimitedPurchaseBill(
+        offset,
+        this.pageTotalItems,
+        this.compId,
+        this.branchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('bills not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.purchaseBills = res.data;
+        }
+      });
   }
-
 
   createNewPurchaseBill() {
     this.router.navigateByUrl('dashboard/purchase/create');

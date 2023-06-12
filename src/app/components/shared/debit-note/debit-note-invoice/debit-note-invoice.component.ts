@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { adToBs } from '@sbmdkl/nepali-date-converter';
 import { PurchaseBillDetailWithProdInfo } from 'src/app/models/PurchaseBillDetailWithProdInfo';
 import { PurchaseBillInvoice } from 'src/app/models/PurchaseBillInvoice';
 import { SalesBillInvoice } from 'src/app/models/SalesBillInvoice';
@@ -70,6 +71,8 @@ export class DebitNoteInvoiceComponent {
   }
 
   submit() {
+    let date = new Date();
+    let englishdate = date.toJSON().slice(0, 10);
     this.SelectedProduct.map((data) => {
       this.debitNoteService
         .addDebitNoteDetails({
@@ -99,6 +102,7 @@ export class DebitNoteInvoiceComponent {
         totalTax: this.TotalTax,
         companyId: this.LoginService.getCompnayId(),
         branchId: this.LoginService.getBranchId(),
+        nepaliDate: String(adToBs(englishdate)),
       })
       .subscribe((res) => {
         this.router.navigateByUrl('/dashboard/debitNoteList');

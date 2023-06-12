@@ -5,8 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Payment } from 'src/app/models/Payment/payment';
 import { PaymentMode } from 'src/app/models/Payment/paymentMode';
 import { PaymentService } from 'src/app/service/shared/Payment/payment.service';
-import { CommonService } from 'src/app/service/shared/common/common.service';
 import { LoginService } from 'src/app/service/shared/login.service';
+import { adToBs } from '@sbmdkl/nepali-date-converter';
 
 @Component({
   selector: 'app-payment',
@@ -55,12 +55,15 @@ export class PaymentComponent {
     this.paymentService.getPaymentModeDetails().subscribe((res) => {
       this.paymentMode = res.data;
     });
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {
       this.IsAuditor = true;
     }
+
+    const date = adToBs('2023-06-07');
+    console.log(date);
   }
 
   changePage(type: string) {
@@ -107,7 +110,15 @@ export class PaymentComponent {
     let date = new Date();
     let newdate = date.toJSON().slice(0, 10);
 
-    console.log(this.cheque, this.PaymentForm.value.checkNo);
+    // console.log(this.cheque, this.PaymentForm.value.checkNo);
+
+    var mainInput = document.getElementById(
+      'nepali-datepicker'
+    ) as HTMLInputElement;
+    var nepaliDate = mainInput.value;
+
+    var Input = document.getElementById('AdDate') as HTMLInputElement;
+    var englishDate = Input.value;
 
     if (this.cheque && Number(this.PaymentForm.value.checkNo) === 0) {
       this.toastrService.error('Please enter Checkno');
@@ -123,10 +134,12 @@ export class PaymentComponent {
           tdsDeducted: Number(this.PaymentForm.value.Tds!),
           postDateCheck: this.postDateCheckEnable,
           date: newdate,
-          postCheckDate: this.PaymentForm.value.postCheckDate! || '',
+          postCheckDate: englishDate,
           checkNo: Number(this.PaymentForm.value.checkNo!) || 0,
           paymentStatus: true,
           postDateCheckStatus: true,
+          postCheckDateNepali: nepaliDate,
+          nepaliDate: String(adToBs(newdate)),
         })
         .subscribe({
           complete: () => {
@@ -155,6 +168,10 @@ export class PaymentComponent {
 
   editPayment(sn: number) {
     this.paymentIdForEdit = sn;
+  }
+
+  change(e: any) {
+    console.log(e);
   }
 
   deletePayment(Sn: number) {

@@ -32,7 +32,7 @@ export class CompanyServiceService {
   // }
 
   addCompany(companyDTO: Company, userId: number): Observable<any> {
-    const body = { companyDTO, userId };
+    const body = { companyDTO: companyDTO, userId: userId };
     console.log('hit the service');
     console.log(body);
     return this.httpClient.post(ADD_COMPANY_URL, body).pipe(
@@ -78,11 +78,11 @@ export class CompanyServiceService {
     formData.append('file', file);
     formData.append('companyId', String(companyId));
     return this.httpClient
-      .post(`${COMPANY_BASE_URL}/image/upload`, formData)
+      .post(`${COMPANY_BASE_URL}/logo/upload`, formData)
       .pipe(
         tap({
           next: (respone) => {
-            this.toastrService.success('Successfully Addded');
+            this.toastrService.success('Logo Successfully Addded');
           },
           error: (err) => {
             console.log(err);
@@ -90,5 +90,9 @@ export class CompanyServiceService {
           },
         })
       );
+  }
+
+  editCompany(comapanyDTO: Company): Observable<any> {
+    return this.httpClient.put(`${COMPANY_BASE_URL}/edit`, comapanyDTO);
   }
 }

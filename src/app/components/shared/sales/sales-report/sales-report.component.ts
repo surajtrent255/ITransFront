@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-sales-report',
   templateUrl: './sales-report.component.html',
-  styleUrls: ['./sales-report.component.css']
+  styleUrls: ['./sales-report.component.css'],
 })
 export class SalesReportComponent {
   activeSaleBillInvoice: boolean = false;
@@ -27,10 +27,9 @@ export class SalesReportComponent {
   customerId!: number;
   activeSalesBillEdit: boolean = false;
   confirmAlertDisplay: boolean = false;
-  cancelBillId !: number;
+  cancelBillId!: number;
   billPrintComponent: boolean = false;
-  billId !: number;
-
+  billId!: number;
 
   companyId!: number;
   branchId!: number;
@@ -38,10 +37,10 @@ export class SalesReportComponent {
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
 
-  searchBy: string = "bill_no";
+  searchBy: string = 'bill_no';
   searchWildCard: string = '';
 
-  sortBy: string = "id"
+  sortBy: string = 'id';
 
   constructor(
     private salesBillService: SalesBillServiceService,
@@ -49,15 +48,18 @@ export class SalesReportComponent {
     private router: Router,
     private renderer: Renderer2,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.loggedUser = JSON.parse(localStorage.getItem('User')!);
+    this.loginService.userObservable.subscribe((user) => {
+      this.loggedUser = user;
+    });
+
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     // this.getSalesBillForCompanyBranch();
     this.fetchLimitedSalesBill();
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {
@@ -81,8 +83,6 @@ export class SalesReportComponent {
     //   }
     // })
   }
-
-
 
   activateSalesBillEdit(number: number) {
     this.activeSalesBillEdit = true;
@@ -204,9 +204,7 @@ export class SalesReportComponent {
     };
   }
 
-  goForReport(id: number) {
-
-  }
+  goForReport(id: number) {}
 
   openNewBrowser() {
     const newWindow = this.renderer.createElement('a');
@@ -217,11 +215,11 @@ export class SalesReportComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedSalesBill();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedSalesBill();
     }
@@ -230,14 +228,23 @@ export class SalesReportComponent {
   fetchLimitedSalesBill() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.salesBillService.getLimitedSalesBill(offset, this.pageTotalItems, this.searchBy, this.searchWildCard, this.sortBy, this.companyId, this.branchId).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("bills not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.salesBills = res.data;
-
-      }
-    })
+    this.salesBillService
+      .getLimitedSalesBill(
+        offset,
+        this.pageTotalItems,
+        this.searchBy,
+        this.searchWildCard,
+        this.sortBy,
+        this.companyId,
+        this.branchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('bills not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.salesBills = res.data;
+        }
+      });
   }
 }

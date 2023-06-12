@@ -103,7 +103,7 @@
               <td>{{ data.receiverAddress }}</td>
               <td>{{ data.panNumber }}</td>
               <td>{{ data.billNumber }}</td>
-              <td>{{ data.date | date }}</td>
+              <td>{{ data.nepaliDate }}</td>
               <td>{{ data.totalAmount }}</td>
               <td>{{ data.totalTax }}</td>
 
@@ -129,6 +129,7 @@
   class="popupWrapper PopupCloser"
   id="creditNoteDetailsPopup"
   style="display: none"
+  cdkDrag
 >
   <div class="popupHeading">
     <h2 class="fleft">Credit Note Detail</h2>

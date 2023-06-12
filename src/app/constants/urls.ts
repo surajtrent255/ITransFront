@@ -100,3 +100,6 @@ export const CREDIT_NOTE = BASE_URL + '/api/v1/creditNote';
 
 // post date check api
 export const CHECK_INFO = BASE_URL + '/api/v1/cheque';
+
+// company Label
+export const COMPANY_LABEL_DATA = BASE_URL + '/api/v1/company/label';

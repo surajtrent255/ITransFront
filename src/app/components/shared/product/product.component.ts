@@ -9,15 +9,12 @@ import { CategoryProductService } from 'src/app/service/category-product.service
 import { ProductService } from 'src/app/service/product.service';
 import { LoginService } from 'src/app/service/shared/login.service';
 
-
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
 })
-
 export class ProductComponent {
-
   // title = "pagination";
   // POSTS: any;
   // page: number = 1;
@@ -37,7 +34,7 @@ export class ProductComponent {
     private router: Router,
     private toastrService: ToastrService,
     private renderer: Renderer2
-  ) { }
+  ) {}
 
   newProduct!: Product;
   IsAuditor!: boolean;
@@ -49,17 +46,17 @@ export class ProductComponent {
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
 
-  searchBy: string = "name";
+  searchBy: string = 'name';
   searchWildCard: string = '';
 
-  sortBy: string = "id"
+  sortBy: string = 'id';
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     // this.fetchAllProducts(this.compId, this.branchId);
     this.fetchLimitedProducts();
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     this.getAllVatRateTypes();
 
     if (roles?.includes('AUDITOR')) {
@@ -72,7 +69,6 @@ export class ProductComponent {
     // this.tableSize = 1;
     // this.page = 1;
     // this.postList();
-
   }
 
   // postList(): void {
@@ -93,14 +89,12 @@ export class ProductComponent {
   // }
   // angular pagination finish
 
-
-
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedProducts();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedProducts();
     }
@@ -109,14 +103,24 @@ export class ProductComponent {
   fetchLimitedProducts() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.productService.getLimitedProducts(offset, this.pageTotalItems, this.searchBy, this.searchWildCard, this.sortBy, this.compId, this.branchId).subscribe((res) => {
-      if (res.data.length === 0 || res.data === undefined) {
-        this.toastrService.error("products not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.availableProducts = res.data;
-      }
-    })
+    this.productService
+      .getLimitedProducts(
+        offset,
+        this.pageTotalItems,
+        this.searchBy,
+        this.searchWildCard,
+        this.sortBy,
+        this.compId,
+        this.branchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0 || res.data === undefined) {
+          this.toastrService.error('products not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.availableProducts = res.data;
+        }
+      });
   }
 
   fetchAllProducts(compId: number, branchId: number) {

@@ -23,7 +23,7 @@
             <span>Branch</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="IsAdmin">
           <a href="" id="administratorLink">
             <img
               src="../../../../assets/resources/images/administrator-bg.png"
@@ -76,13 +76,17 @@
             <div class="profile-card-body">
               <ul>
                 <li>
-                  <a style="background: none">
-                    <i
+                  <a
+                    class="createNewTableRecord"
+                    id="EditProfile"
+                    value=""
+                    style="background: none; cursor: pointer"
+                    ><i
                       class="fa-regular fa-pen-to-square fa-xl"
                       style="color: #23592c"
                     ></i>
-                    <span style="padding-left: 10px">Edit Profile</span>
-                  </a>
+                    <span style="padding-left: 10px">Edit Profile</span></a
+                  >
                 </li>
 
                 <li>
@@ -130,6 +134,15 @@
     </div>
 
     <div class="cboth"></div>
+  </div>
+
+  <div
+    class="CreateNewCompanypopupWrapper PopupCloser"
+    cdkDrag
+    id="EditProfilePopup"
+    style="display: none"
+  >
+    <app-edit-profile-company-info></app-edit-profile-company-info>
   </div>
 
   <!--- User Configuration Popup -->
@@ -670,55 +683,11 @@
   </div>
 
   <div
-    class="popupWrapper popupwrapperSmall"
+    class="popupWrapper popupwrapperSmall PopupCloser"
     id="administratorPopup"
     style="display: none"
   >
-    <div class="popupHeading" style="background-color: #3c4858">
-      <h2 class="fleft">Administrator</h2>
-      <a href="" class="JoshiCloseButton fright"
-        ><img
-          src="../../../../assets/resources/images/removetablink.png"
-          alt="close"
-      /></a>
-      <div class="cboth"></div>
-    </div>
-    <div class="popupSubHeadingDiv administratorSubHeading">
-      <h1 class="heading">Administrator</h1>
-      <div>Adminstrator preferences</div>
-    </div>
-    <div class="popupContentWrapper">
-      <form id="" action="" method="">
-        <div class="chooseColoumnsWrapper" style="padding: 5px">
-          <div class="fieldDiv popUpFormSectionWrapper">
-            <div class="setDiv" style="margin-bottom: 20px">
-              <div class="sectionHeading">Update References</div>
-              <input
-                id="updateRefBtn"
-                type="image"
-                src="../../../../assets/resources/images/updateRefBtn.png"
-                value="Update References"
-              />
-            </div>
-            <div class="setDiv" style="margin-bottom: 10px">
-              <div class="sectionHeading">SQL tracing</div>
-              <label for="sqlTracingCheck">
-                <input type="checkbox" id="sqlTracingCheck" />
-                <span class=""> Turn on SQL tracing </span>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="submitDiv tCenter" style="padding-top: 0px">
-          <!-- <input type="button" value="Create" class="submit_btn border-rad" id="addCustomer"/> -->
-          <input
-            type="button"
-            value="Close"
-            class="submit_btn cancel_btn border-rad"
-          />
-        </div>
-      </form>
-    </div>
+    <app-company-label></app-company-label>
   </div>
 </div>
 
@@ -936,15 +905,9 @@
 <div
   class="popupWrapper PopupCloser"
   id="createNewBranchPopup"
-  [style.left.px]="popupPosition.x"
-  [style.top.px]="popupPosition.y"
   style="display: none"
 >
-  <div
-    class="popupHeading"
-    (mousedown)="onHeaderMouseDown($event)"
-    style="background-color: #3c4858"
-  >
+  <div class="popupHeading" style="background-color: #3c4858">
     <h2 class="fleft">Branch</h2>
     <a href="" class="JoshiCloseButton fright"
       ><img

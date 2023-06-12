@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { FixedAssets } from 'src/app/models/Fixed Assets/FixedAssets';
@@ -34,9 +34,7 @@ export class FixedAsstetsComponent {
   constructor(
     private fixedAssetService: FixedAssetsService,
     private LoginService: LoginService,
-    private toastrService: ToastrService,
-    private commonService: CommonService,
-    private elementRef: ElementRef
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -45,16 +43,12 @@ export class FixedAsstetsComponent {
 
     this.getFixedAssetsDetails();
 
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.LoginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {
       this.IsAuditor = true;
     }
-
-    const popupElement =
-      this.elementRef.nativeElement.querySelector('#createAssetsPopup');
-    this.commonService.dragablePopUp(popupElement);
   }
 
   formatDate(timestamp: number): string {

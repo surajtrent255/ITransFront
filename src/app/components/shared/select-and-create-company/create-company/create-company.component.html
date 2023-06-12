@@ -23,13 +23,17 @@
 </div>
 
 <div
-  class="popupWrapper PopupCloser"
+  class="CreateNewCompanypopupWrapper PopupCloser"
+  cdkDrag
   id="createNewProductPopup"
   style="display: none"
 >
   <div class="popupHeading">
     <h2 class="fleft">Register Company</h2>
-    <a href="" class="closeButton fright"
+    <a
+      href=""
+      id="closeCreateNewCompanyPopUp"
+      class="CreateNewCompanyCloseButton fright"
       ><img
         src="../../../assets/resources/images/removetablink.png"
         alt="close"
@@ -46,7 +50,9 @@
         <div class="fieldDiv popUpFormSectionWrapper">
           <table class="formSection" cellpadding="0" cellspacing="0">
             <tr>
-              <td class="col1">Name:<span class="mandatorySign">*</span></td>
+              <td class="col1">
+                Name of Company:<span class="mandatorySign">*</span>
+              </td>
 
               <td class="col3">
                 <input
@@ -56,8 +62,66 @@
                   formControlName="name"
                   id="custPartName"
                 />
-                <span class="validationMsg"
-                  ><br />Please enter valid Name.</span
+                <span
+                  *ngIf="
+                    CompanyRegistrationForm.get('name')?.invalid &&
+                    (CompanyRegistrationForm.get('name')?.dirty ||
+                      CompanyRegistrationForm.get('name')?.touched)
+                  "
+                  class="validationMsg"
+                  ><br />Please enter Name.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">
+                Company Owner:<span class="mandatorySign">*</span>
+              </td>
+
+              <td class="col3">
+                <input
+                  type="text"
+                  class="inputText mandatory"
+                  title="Enter Text"
+                  formControlName="ownerName"
+                  id="custPartName"
+                />
+                <span
+                  *ngIf="
+                    CompanyRegistrationForm.get('ownerName')?.invalid &&
+                    (CompanyRegistrationForm.get('ownerName')?.dirty ||
+                      CompanyRegistrationForm.get('ownerName')?.touched)
+                  "
+                  class="validationMsg"
+                  ><br />Please enter Name.</span
+                >
+              </td>
+              <td class="col3"></td>
+            </tr>
+
+            <tr>
+              <td class="col1">
+                Mobile No:<span class="mandatorySign">*</span>
+              </td>
+              <td class="col3">
+                <input
+                  type="number"
+                  class="inputText mandatory"
+                  formControlName="phone"
+                  placeholder="Enter 10 Digits"
+                  title="Enter Text"
+                  id="custPartName"
+                />
+                <span
+                  *ngIf="
+                    CompanyRegistrationForm.get('phone')?.invalid &&
+                    (CompanyRegistrationForm.get('phone')?.dirty ||
+                      CompanyRegistrationForm.get('phone')?.touched)
+                  "
+                  class="validationMsg"
+                  ><br />Please enter valid Phone.</span
                 >
               </td>
               <td class="col3"></td>
@@ -74,8 +138,14 @@
                   formControlName="email"
                   id="custPartName"
                 />
-                <span class="validationMsg"
-                  ><br />Please enter valid Name.</span
+                <span
+                  *ngIf="
+                    CompanyRegistrationForm.get('email')?.invalid &&
+                    (CompanyRegistrationForm.get('email')?.dirty ||
+                      CompanyRegistrationForm.get('email')?.touched)
+                  "
+                  class="validationMsg"
+                  ><br />Please enter valid email.</span
                 >
               </td>
               <td class="col3"></td>
@@ -97,7 +167,7 @@
             </tr>
 
             <tr>
-              <td class="col1">Pan-Number:<span class=""></span></td>
+              <td class="col1">Pan-Number:<span class=""> </span></td>
 
               <td class="col3">
                 <input
@@ -106,6 +176,24 @@
                   formControlName="panNo"
                   title="Enter Text"
                   id="custPartName"
+                />
+
+                <span>Pan</span
+                ><input
+                  (change)="registrationChange($event)"
+                  type="radio"
+                  id="pan"
+                  value="PAN"
+                  name="Pan"
+                />
+                <span style="padding-left: 7px">VAT</span
+                ><input
+                  (change)="registrationChange($event)"
+                  checked
+                  value="VAT"
+                  id="vat"
+                  name="Pan"
+                  type="radio"
                 />
               </td>
               <td class="col3"></td>
@@ -118,7 +206,7 @@
                   formControlName="state"
                   class="form-select form-select-sm"
                   aria-label=".form-select-sm example"
-                  style="width: 300px"
+                  style="width: 94%"
                   #selected
                   (change)="stateChange(selected.value)"
                 >
@@ -143,7 +231,7 @@
                   formControlName="district"
                   class="form-select form-select-sm"
                   aria-label=".form-select-sm example"
-                  style="width: 300px"
+                  style="width: 94%"
                   #selected
                   (change)="districtChange()"
                 >
@@ -168,7 +256,7 @@
                   formControlName="munVdc"
                   class="form-select form-select-sm"
                   aria-label=".form-select-sm example"
-                  style="width: 300px"
+                  style="width: 94%"
                   #selected
                 >
                   <option
@@ -192,8 +280,14 @@
                   title="Enter Text"
                   id="custPartName"
                 />
-                <span class="validationMsg"
-                  ><br />Please enter valid Ward no.</span
+                <span
+                  *ngIf="
+                    CompanyRegistrationForm.get('wardNo')?.invalid &&
+                    (CompanyRegistrationForm.get('wardNo')?.dirty ||
+                      CompanyRegistrationForm.get('wardNo')?.touched)
+                  "
+                  class="validationMsg"
+                  ><br />Please enter Ward no.</span
                 >
               </td>
 
@@ -201,20 +295,20 @@
             </tr>
 
             <tr>
-              <td class="col1">Phone:<span class="mandatorySign">*</span></td>
+              <td class="col1">Landnine no:</td>
               <td class="col3">
                 <input
                   type="number"
                   class="inputText mandatory"
-                  formControlName="phone"
-                  placeholder="Enter 10 Digits"
+                  formControlName="landline"
                   title="Enter Text"
                   id="custPartName"
                 />
                 <span class="validationMsg"
-                  ><br />Please enter valid Phone.</span
+                  ><br />Please enter valid landline Number</span
                 >
               </td>
+
               <td class="col3"></td>
             </tr>
 
@@ -240,16 +334,15 @@
         <input
           type="submit"
           value="Register"
-          class="submit_btn registerButton border-rad"
+          class="submit_btn border-rad"
           (click)="registerCompany()"
-          [disabled]="CompanyRegistrationForm.invalid"
           id=""
         />
 
         <input
           type="button"
           value="Cancel"
-          class="submit_btn closeButton border-rad"
+          class="submit_btn CreateNewCompanyCloseButton border-rad"
         />
       </div>
     </form>

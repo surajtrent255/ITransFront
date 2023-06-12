@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Expense } from 'src/app/models/Expense/Expense';
@@ -29,33 +29,24 @@ export class ExpenseComponent {
     topic: new FormControl('', [Validators.required]),
     billNo: new FormControl('', [Validators.required]),
     payTo: new FormControl('', [Validators.required]),
-    date: new FormControl('', [Validators.required]),
   });
 
   constructor(
     private expenseService: ExpenseService,
     private loginService: LoginService,
-    private tostrService: ToastrService,
-    private commonService: CommonService,
-    private elementRef: ElementRef,
-    private commonSerice: CommonService
+    private tostrService: ToastrService
   ) {}
 
   ngOnInit() {
     this.LoggedInBranchId = this.loginService.getBranchId();
     this.LoggedInCompanyId = this.loginService.getCompnayId();
     this.getExpenseDetails();
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {
       this.IsAuditor = true;
     }
-
-    const popupElement = this.elementRef.nativeElement.querySelector(
-      '#createExpensePopup'
-    );
-    this.commonService.dragablePopUp(popupElement);
   }
 
   changePage(type: string) {
@@ -98,6 +89,9 @@ export class ExpenseComponent {
   }
 
   SubmitExpenseForm() {
+    var Input = document.getElementById('AdDate') as HTMLInputElement;
+    var englishDate = Input.value;
+
     this.expenseService
       .addExpenseDetails({
         sn: 0,
@@ -105,7 +99,7 @@ export class ExpenseComponent {
         branchId: this.LoggedInBranchId,
         amount: Number(this.ExpenseForm.value.amount!),
         billNo: Number(this.ExpenseForm.value.billNo!),
-        date: this.ExpenseForm.value.date!,
+        date: englishDate,
         payTo: this.ExpenseForm.value.payTo!,
         status: true,
         topic: this.ExpenseForm.value.topic!,

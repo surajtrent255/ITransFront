@@ -235,9 +235,7 @@
                 </td>
               </tr> -->
               <tr>
-                <td class="col1 pt-2">
-                  Bar Code:
-                </td>
+                <td class="col1 pt-2">Bar Code:</td>
                 <td class="col2">
                   <input
                     type="text"
@@ -248,7 +246,6 @@
                     name="barcode"
                     barcode="barcode"
                     [(ngModel)]="product.barcode"
-                   
                   />
                 </td>
                 <td class="col3">
@@ -359,6 +356,7 @@
 </div>
 <div
   class="popupWrapper createCustomerPopUpWrapper"
+  cdkDrag
   id="createNewCustomerPopup"
   style="display: none"
 >
@@ -374,6 +372,7 @@
 <div
   class="popupWrapper CustomerEditPopupWrapper"
   id="testselectcompPopup"
+  cdkDrag
   style="display: none; width: auto"
 >
   <div class="mb-2"></div>

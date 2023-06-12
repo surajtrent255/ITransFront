@@ -9,7 +9,7 @@ import { LoginService } from 'src/app/service/shared/login.service';
 @Component({
   selector: 'app-purchase-report',
   templateUrl: './purchase-report.component.html',
-  styleUrls: ['./purchase-report.component.css']
+  styleUrls: ['./purchase-report.component.css'],
 })
 export class PurchaseReportComponent {
   purchaseBills: PurchaseBill[] = [];
@@ -26,13 +26,13 @@ export class PurchaseReportComponent {
     private router: Router,
     private loginService: LoginService,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.getAllPurchaseBills(this.compId);
-    let roles = localStorage.getItem('CompanyRoles');
+    let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
     } else {
@@ -55,11 +55,11 @@ export class PurchaseReportComponent {
   }
 
   changePage(type: string) {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (this.currentPageNumber === 1) return;
       this.currentPageNumber -= 1;
       this.fetchLimitedPurchaseBill();
-    } else if (type === "next") {
+    } else if (type === 'next') {
       this.currentPageNumber += 1;
       this.fetchLimitedPurchaseBill();
     }
@@ -68,18 +68,22 @@ export class PurchaseReportComponent {
   fetchLimitedPurchaseBill() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
-    this.purchaseBillService.getLimitedPurchaseBill(offset, this.pageTotalItems, this.compId, this.branchId).subscribe((res) => {
-      if (res.data.length === 0) {
-        this.toastrService.error("bills not found ")
-        this.currentPageNumber -= 1;
-      } else {
-        this.purchaseBills = res.data;
-
-      }
-    })
+    this.purchaseBillService
+      .getLimitedPurchaseBill(
+        offset,
+        this.pageTotalItems,
+        this.compId,
+        this.branchId
+      )
+      .subscribe((res) => {
+        if (res.data.length === 0) {
+          this.toastrService.error('bills not found ');
+          this.currentPageNumber -= 1;
+        } else {
+          this.purchaseBills = res.data;
+        }
+      });
   }
-
-
 
   goToPurchBillDetail(billNo: number) {
     this.router.navigateByUrl(`dashboard/purchasebills/${billNo}`);
