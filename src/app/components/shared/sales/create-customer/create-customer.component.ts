@@ -39,12 +39,13 @@ export class CreateCustomerComponent {
   // for select  value Accquire
   provinceId!: number;
   districtId!: number;
+  registrationType: string = 'VAT';
 
   constructor(
     private loginService: LoginService,
     private companyService: CompanyServiceService,
     private districtAndProvinceService: DistrictAndProvinceService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.districtAndProvinceService.getAllProvince().subscribe((res) => {
@@ -58,6 +59,7 @@ export class CreateCustomerComponent {
   }
   CompanyRegistrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
+    ownerName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.email]),
     description: new FormControl(''),
     panNo: new FormControl(''),
@@ -69,40 +71,9 @@ export class CreateCustomerComponent {
     landLineNo: new FormControl('')
   });
 
-  get name() {
-    return this.CompanyRegistrationForm.get('name');
-  }
 
-  get description() {
-    return this.CompanyRegistrationForm.get('description');
-  }
-
-  get panNo() {
-    return this.CompanyRegistrationForm.get('panNo');
-  }
-
-  get state() {
-    return this.CompanyRegistrationForm.get('state');
-  }
-
-  get zone() {
-    return this.CompanyRegistrationForm.get('zone');
-  }
-
-  get district() {
-    return this.CompanyRegistrationForm.get('district');
-  }
-
-  get munVdc() {
-    return this.CompanyRegistrationForm.get('munVdc');
-  }
-
-  get wardNo() {
-    return this.CompanyRegistrationForm.get('wardNo');
-  }
-
-  get phone() {
-    return this.CompanyRegistrationForm.get('phone');
+  registrationChange(e: any) {
+    this.registrationType = e.target.value;
   }
   registerCompany(form: any) {
     this.loginService.userObservable.subscribe((loginUser) => {
@@ -131,9 +102,9 @@ export class CreateCustomerComponent {
           imageId: 0,
           createdDate: '',
           createdDateNepali: '',
-          landlineNumber: 0,
-          ownerName: '',
-          registrationType: '',
+          landlineNumber: Number(this.CompanyRegistrationForm.value.landLineNo!),
+          ownerName: this.CompanyRegistrationForm.value.ownerName!,
+          registrationType: this.registrationType,
         },
         this.user_id
       )

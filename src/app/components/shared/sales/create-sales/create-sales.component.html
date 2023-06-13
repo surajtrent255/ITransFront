@@ -68,8 +68,8 @@
                   id="custPanOrPhoneInput"
                   [(ngModel)]="custPhoneOrPan"
                   class="input-field"
-                  placeholder="PAN or Phone "
                   style="margin: 0 4px"
+                  placeholder="PAN or Phone "
                   [readOnly]="unknownCustomer"
                   (keydown.enter)="fetchCustomerInfo()"
                 />
@@ -181,14 +181,36 @@
               >
             </div>
             <div class="col-md-3 mt-3">
-              <span class="inputItems">Date:</span>
-              <input
+              <!-- <span class="inputItems">Date:</span> -->
+              <!-- <input
                 class="inputItems input-field"
                 id="date"
                 [(ngModel)]="date"
                 type="date"
                 readonly
-              />
+              /> -->
+              <div style="display: grid">
+                <div style="width: 280px">
+                  <span>BS: </span>
+                  <input
+                    type="text"
+                    id="nepali-datepicker"
+                    placeholder="Select  Date"
+                    style="height: 25px"
+                    class="inputText"
+                  />
+                </div>
+                <div style="width: 280px">
+                  <span>AD: </span>
+                  <input
+                    disabled
+                    type="text"
+                    id="AdDate"
+                    style="height: 25px"
+                    class="inputText"
+                  />
+                </div>
+              </div>
             </div>
             <div class="col-md-3 mt-4">
               <div style="display: inline-block; margin-top: 29px">
@@ -580,7 +602,7 @@
                       </tr>
                       <tr>
                         <td style="width: max-content !important">
-                          <h3>Modifiable discount</h3>
+                          <h3>Re discount</h3>
                         </td>
                         <td class="aligin-right">
                           <span>
@@ -595,18 +617,22 @@
                               type="radio"
                               name="beforeAfterTax"
                               style="display: inline"
-                              (click)="setBeforeAfterTax(1)"
+                              (click)="setBeforeAfterTax(1); discountAgain()"
                               [checked]="beforeAfterTax === 1"
                             />
-                            <p style="display: inline">before Tax</p>
+                            <p style="display: inline; font-size: 12px">
+                              before Tax
+                            </p>
                             <input
                               type="radio"
                               name="beforeAfterTax"
                               style="display: inline; margin-left: 2px"
-                              (click)="setBeforeAfterTax(2)"
+                              (click)="setBeforeAfterTax(2); discountAgain()"
                               [checked]="beforeAfterTax === 2"
                             />
-                            <p style="display: inline">After Tax</p>
+                            <p style="display: inline; font-size: 12px">
+                              After Tax
+                            </p>
                           </span>
                         </td>
                       </tr>
@@ -641,6 +667,19 @@
                         <td class="align-right">
                           <span id="subtotal">
                             {{ bsTotal | number : "1.2-2" }}</span
+                          >
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td style="width: max-content !important">
+                          <h3>Total After Re Discount:</h3>
+                        </td>
+                        <td class="align-right">
+                          <span id="subtotal">
+                            {{
+                              bsTotalAfterExtraDiscount | number : "1.2-2"
+                            }}</span
                           >
                         </td>
                       </tr>
@@ -746,7 +785,6 @@
 <div
   class="popupWrapper createCustomerPopUpWrapper"
   id="createNewCustomer1Popup"
-  cdkDrag
   style="display: none"
 >
   <app-create-customer
@@ -762,7 +800,6 @@
 <!-- code end -->
 <div
   class="popupWrapper"
-  cdkDrag
   id="selectCustomerPopup"
   style="display: none; width: auto"
 >
@@ -779,7 +816,6 @@
 
 <div
   class="popupWrapper"
-  cdkDrag
   id="selectProductPopup"
   style="display: none; width: auto"
 >

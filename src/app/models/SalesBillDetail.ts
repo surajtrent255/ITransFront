@@ -2,7 +2,7 @@ export class SalesBillDetail {
   id !: number;
   productId !: number;
   qty: number = 0;
-  date: Date = new Date;
+  date!: string;
   discountPerUnit: number = 0.0;
   rate: number = 0.0;
   billId !: number;

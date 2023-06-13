@@ -36,6 +36,23 @@
                         : ''
                     "
                   />
+                  <span>Pan</span
+                  ><input
+                    (change)="registrationChange($event)"
+                    type="radio"
+                    id="pan"
+                    value="PAN"
+                    name="Pan"
+                  />
+                  <span style="padding-left: 7px">VAT</span
+                  ><input
+                    (change)="registrationChange($event)"
+                    checked
+                    value="VAT"
+                    id="vat"
+                    name="Pan"
+                    type="radio"
+                  />
                 </td>
                 <td class="col3"></td>
               </tr>
@@ -68,11 +85,11 @@
                     type="text"
                     class="inputText mandatory"
                     title="Enter Text"
-                    formControlName="name"
-                    id="custPartName"
+                    formControlName="ownerName"
+                    id="ownerName"
                   />
                   <span class="validationMsg"
-                    ><br />Please enter valid Name.</span
+                    ><br />Please enter valid owner name.</span
                   >
                 </td>
                 <td class="col3"></td>
@@ -136,12 +153,12 @@
                 <td class="col1">
                   Province:<span class="mandatorySign">*</span>
                 </td>
-                <div style="padding-left: 4.5px">
+                <div style="padding-left: 5px">
                   <select
                     formControlName="state"
                     class="form-select form-select-sm"
                     aria-label=".form-select-sm example"
-                    style="width: 300px"
+                    style="width: 290px"
                     #selected
                     (change)="stateChange(selected.value)"
                   >
@@ -165,13 +182,13 @@
                     >*</span
                   >
                 </td>
-                <div style="padding-left: 4.5px">
+                <div style="padding-left: 5px">
                   <select
                     id="district"
                     formControlName="district"
                     class="form-select form-select-sm"
                     aria-label=".form-select-sm example"
-                    style="width: 300px"
+                    style="width: 290px"
                     #selected
                     (change)="districtChange()"
                   >
@@ -192,13 +209,13 @@
                   Muncipality/VDC:
                   <span *ngIf="provinceId !== 8" class="mandatorySign">*</span>
                 </td>
-                <div style="padding-left: 4.5px">
+                <div style="padding-left: 5px">
                   <select
                     id="municipality"
                     formControlName="munVdc"
                     class="form-select form-select-sm"
                     aria-label=".form-select-sm example"
-                    style="width: 300px"
+                    style="width: 290px"
                     #selected
                   >
                     <option

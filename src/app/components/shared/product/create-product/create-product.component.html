@@ -143,11 +143,13 @@
                   />
                 </td>
                 <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="name.valid || name.untouched"
-                    >invalid name</small
-                  >
+                  <div class="ml-1">
+                    <small
+                      class="text-danger"
+                      [class.d-none]="name.valid || name.untouched"
+                      >invalid name</small
+                    >
+                  </div>
                 </td>
               </tr>
               <tr>
@@ -170,11 +172,15 @@
                   ></textarea>
                 </td>
                 <td class="col3">
-                  <small
-                    class="text-danger"
-                    [class.d-none]="description.valid || description.untouched"
-                    >invalid description</small
-                  >
+                  <div class="ml-1">
+                    <small
+                      class="text-danger"
+                      [class.d-none]="
+                        description.valid || description.untouched
+                      "
+                      >invalid description</small
+                    >
+                  </div>
                 </td>
               </tr>
 

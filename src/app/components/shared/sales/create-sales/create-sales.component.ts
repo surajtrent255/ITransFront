@@ -33,6 +33,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatSelectModule } from '@angular/material/select';
 import { UserFeature } from 'src/app/models/UserFeatures';
 import { CustomerMetaData } from 'src/app/models/CustomerMetaData';
+import { adToBs } from '@sbmdkl/nepali-date-converter';
 
 @Component({
   selector: 'app-create-sales',
@@ -100,7 +101,7 @@ export class CreateSalesComponent {
   taxApproachSelectEl: number = 2;
   customerSearchMethod: number = 1;
   custPhoneOrPan!: number;
-  postgreDate!: Date;
+  postgreDate!: string;
   createCustomerEnable: boolean = false;
   selectCompanyActive: boolean = false;
   unknownCustomer: boolean = false;
@@ -119,9 +120,10 @@ export class CreateSalesComponent {
   bsNetAmount: number = 0;
   bsDiscountAmount: number = 0;
   bsExtraDiscount: number = 0;
+  bsExtraDiscountLumpsump: number = 0;
   bsVatTaxableAmount: number = 0;
   bsTotal: number = 0;
-
+  bsTotalAfterExtraDiscount = 0;
   featureObjs: UserFeature[] = [];
   searchByBarCode: boolean = false;
   discountType: number = 1; //1=> percent 2=>rupees
@@ -145,6 +147,11 @@ export class CreateSalesComponent {
   }
 
   ngOnInit() {
+    const dateEl = document.getElementById("nepali-datepicker") as HTMLInputElement;
+    dateEl.value = String(adToBs(new Date().toJSON().slice(0, 10)));
+
+    const dateAdEl = document.getElementById("AdDate") as HTMLInputElement;
+    dateAdEl.value = new Date().toJSON().slice(0, 10);
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.counterId = this.loginService.getCounterId();
@@ -936,6 +943,7 @@ export class CreateSalesComponent {
       // for after tax
 
     });
+    this.discountAgain();
   }
 
   updateBillSummaryAfterTax() {
@@ -943,24 +951,23 @@ export class CreateSalesComponent {
   }
 
   discountAgain() {
+    let discount = 0;
     if (this.beforeAfterTax === 1) {
       if (this.discountType === 1) { //
-        let discount = (this.bsDiscountAmount / 100) * this.bsSubTotal;
-        this.bsTotal = this.bsTotal - discount;
+        discount = (this.bsExtraDiscount / 100) * this.bsSubTotal;
 
       } else {
-        let discount = (this.bsDiscountAmount);
-        this.bsTotal = this.bsTotal - discount;
+        discount = (this.bsExtraDiscount);
       }
     } else if (this.beforeAfterTax === 2) {
       if (this.discountType === 1) {
-        let discount = (this.bsDiscountAmount / 100) * this.bsTotal;
-        this.bsTotal = this.bsTotal - discount;
+        discount = (this.bsExtraDiscount / 100) * this.bsTotal;
       } else {
-        let discount = (this.bsDiscountAmount);
-        this.bsTotal = this.bsTotal - discount;
+        discount = (this.bsExtraDiscount);
       }
     }
+    this.bsExtraDiscountLumpsump = discount;
+    this.bsTotalAfterExtraDiscount = this.bsTotal - discount;
     // let finalTotal: number =
   }
 
@@ -1032,7 +1039,7 @@ export class CreateSalesComponent {
       saleBillDetail.taxRate = Number(vatRateTypesElement.value);
 
       saleBillDetail.branchId = this.branchId; //backendma set gar
-      saleBillDetail.date = new Date(this.date); //backend ma set gar
+      saleBillDetail.date = this.date; //backend ma set gar
 
       // setting sellingprice dynamically form dom because user can edit it. so we have to make it dynamic.
       // const sellingPriceEl = document.getElementById(
@@ -1083,7 +1090,7 @@ export class CreateSalesComponent {
     salesBill.taxableAmount = this.bsVatTaxableAmount;
     salesBill.taxAmount = (13 / 100) * this.bsVatTaxableAmount;
     salesBill.totalAmount = this.bsTotal;
-    salesBill.discount = this.bsDiscountAmount;
+    salesBill.discount = this.bsDiscountAmount + this.bsExtraDiscountLumpsump;
     // finished
     // for setting hasAbbr
     salesBill.hasAbbr = this.hasAbbr;
@@ -1100,8 +1107,17 @@ export class CreateSalesComponent {
       salesBill.receipt = false;
     }
     salesBill.receipt = this.receipt;
-    salesBill.billDate = new Date(this.date);
+    // setting date
+    var mainInput = document.getElementById(
+      'nepali-datepicker'
+    ) as HTMLInputElement;
+    var nepaliDate = mainInput.value;
 
+    var Input = document.getElementById('AdDate') as HTMLInputElement;
+    var englishDate = Input.value;
+
+    salesBill.billDate = (englishDate);
+    salesBill.billDateNepali = nepaliDate;
     salesBill.userId = this.loginService.currentUser.user.id;
     salesBill.companyId = this.loginService.getCompnayId();
     salesBill.branchId = this.branchId; //mjremain

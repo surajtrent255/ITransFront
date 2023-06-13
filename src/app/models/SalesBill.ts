@@ -10,7 +10,8 @@ export class SalesBill {
   realTime: boolean = true;//imp
   customerName !: string;//imp
   customerPan !: number;//imp
-  billDate !: Date;//imp
+  billDate !: string;//imp
+  billDateNepali !: string;
   amount !: number;//imp
   discount !: number;//imp
   discountApproach !: number;
