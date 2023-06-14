@@ -1,7 +1,11 @@
 <ul>
   <li *ngFor="let node of nodes">
     <i class="fa-sharp fa-solid fa-plus" (click)="selectCategory(node)"></i>
-    <span (click)="selectCategory(node)" style="font-weight: 800">
+    <span
+      (click)="selectCategory(node)"
+      style="font-weight: 800"
+      style="cursor: pointer"
+    >
       {{ node.name }}
     </span>
     <i class="fa-solid fa-caret-down" (click)="toggleNode(node)"></i>

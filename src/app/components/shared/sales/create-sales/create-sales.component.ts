@@ -147,11 +147,6 @@ export class CreateSalesComponent {
   }
 
   ngOnInit() {
-    const dateEl = document.getElementById("nepali-datepicker") as HTMLInputElement;
-    dateEl.value = String(adToBs(new Date().toJSON().slice(0, 10)));
-
-    const dateAdEl = document.getElementById("AdDate") as HTMLInputElement;
-    dateAdEl.value = new Date().toJSON().slice(0, 10);
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.counterId = this.loginService.getCounterId();
@@ -184,6 +179,13 @@ export class CreateSalesComponent {
   }
 
   ngAfterViewInit() {
+    setTimeout(() => {
+      const dateEl = document.getElementById("nepali-datepicker") as HTMLInputElement;
+      dateEl.value = String(adToBs(new Date().toJSON().slice(0, 10)));
+
+      const dateAdEl = document.getElementById("AdDate") as HTMLInputElement;
+      dateAdEl.value = new Date().toJSON().slice(0, 10);
+    }, 100)
     this.productBarCodeInput.nativeElement.focus();
   }
 
@@ -193,10 +195,11 @@ export class CreateSalesComponent {
 
   displayAddCustomerPopup() {
     this.createCustomerEnable = true;
-    // const createNewCustomerEl = document.getElementById(
-    //   'createNewCustomer'
-    // ) as HTMLButtonElement;
-    // createNewCustomerEl.click();
+    const createNewCustomerEl = document.getElementById(
+      'createNewCustomer1'
+    ) as HTMLButtonElement;
+    createNewCustomerEl.click();
+
   }
 
   customerAdded($event) {
@@ -345,33 +348,35 @@ export class CreateSalesComponent {
       this.tostrService.error(`pan or phone`, 'invalid number');
       return;
     }
+
+    this.selectCompanyActive = true;
+
     setTimeout(() => {
-      this.selectCompanyActive = true;
-    }, 200);
-    this.companyService
-      .getCustomerInfoByPanOrPhone(
-        this.customerSearchMethod,
-        this.custPhoneOrPan
-      )
-      .subscribe({
-        next: (data) => {
-          this.selectMenusForCompanies = data.data;
-          this.selectMenusForCompaniesSize = data.data.length;
-          let customerMetaData = new CustomerMetaData;
-          customerMetaData.customers = data.data;
-          customerMetaData.customerPanOrPhone = this.custPhoneOrPan;
-          this.customerMetaData = customerMetaData;
-        },
-        complete: () => {
-          const custBtn = document.getElementById(
-            'selectCustomer'
-          ) as HTMLButtonElement;
-          custBtn.click();
-          setTimeout(() => {
-            this.createCustomerBtn.nativeElement.focus();
-          });
-        },
-      });
+      this.companyService
+        .getCustomerInfoByPanOrPhone(
+          this.customerSearchMethod,
+          this.custPhoneOrPan
+        )
+        .subscribe({
+          next: (data) => {
+            this.selectMenusForCompanies = data.data;
+            this.selectMenusForCompaniesSize = data.data.length;
+            let customerMetaData = new CustomerMetaData;
+            customerMetaData.customers = data.data;
+            customerMetaData.customerPanOrPhone = this.custPhoneOrPan;
+            this.customerMetaData = customerMetaData;
+          },
+          complete: () => {
+            const custBtn = document.getElementById(
+              'selectCustomer'
+            ) as HTMLButtonElement;
+            custBtn.click();
+            // setTimeout(() => {
+            //   this.createCustomerBtn?.nativeElement.focus();
+            // });
+          },
+        });
+    }, 500)
   }
 
   customSearchFn(term: string, item: any) {
@@ -1242,5 +1247,9 @@ export class CreateSalesComponent {
 
   customerAddedSuccessfully($event: number) {
     this.tostrService.success('Customer successfully added with id ' + $event);
+  }
+
+  destroyCreateCustomerComp($event: boolean) {
+    this.createCustomerEnable = false;
   }
 }

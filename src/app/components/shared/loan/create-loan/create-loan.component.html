@@ -1,6 +1,10 @@
 <div class="popupHeading">
   <h2 class="fleft">Create Loan</h2>
-  <a class="closeButton fright" id="closeCreateLoan" (click)="destroyComp()"
+  <a
+    class="closeButton fright"
+    id="closeCreateLoan"
+    (click)="destroyComp()"
+    style="cursor: pointer"
     ><img src="../../../assets/resources/images/removetablink.png" alt="close"
   /></a>
   <div class="cboth"></div>
@@ -61,6 +65,7 @@
                     type="number"
                     [(ngModel)]="lenderPanOrPhone"
                     class="form-control"
+                    placeholder="pan(9 digits) or phone(10 digits)"
                     (keydown.enter)="fetchLenderInfo()"
                     name="seller"
                     ngNoForm
@@ -82,9 +87,9 @@
               <tr>
                 <td class="col1 pt-2"></td>
                 <td class="col2">
-                  <div class="ml-2 mb-2 mt-2">
+                  <!-- <div class="ml-2 mb-2 mt-2">
                     <span> search by pan or phone</span>
-                    <!-- <span>
+                    <span>
                       <input
                         type="radio"
                         name="lenderSearch"
@@ -104,8 +109,8 @@
                         (change)="lenderSearch(2)"
                       />
                       PHONE</span
-                    > -->
-                  </div>
+                    >
+                  </div> -->
                 </td>
               </tr>
               <tr>
@@ -271,9 +276,7 @@
               </tr>
 
               <tr>
-                <td class="col1 pt-2">
-                  Service Charge :<span class="mandatorySign">*</span>
-                </td>
+                <td class="col1 pt-2">Service Charge :</td>
                 <td class="col2">
                   <input
                     type="number"
@@ -299,9 +302,7 @@
               </tr>
 
               <tr>
-                <td class="col1 pt-2">
-                  Other Expenses :<span class="mandatorySign">*</span>
-                </td>
+                <td class="col1 pt-2">Other Expenses :</td>
                 <td class="col2">
                   <input
                     type="number"

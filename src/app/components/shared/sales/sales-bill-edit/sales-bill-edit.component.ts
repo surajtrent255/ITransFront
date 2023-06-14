@@ -22,7 +22,6 @@ export class SalesBillEditComponent {
 
   ngOnInit() {
     let billId = this.activatedRoute.snapshot.params['billId']
-    alert(billId)
     this.salesBillService.fetchSalesBillDetailForInvoice(billId).subscribe(data => {
 
       this.salesBillInvoice = data.data;

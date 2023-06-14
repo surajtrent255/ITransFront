@@ -91,10 +91,6 @@ export class CreateLoanComponent {
     this.companyService.getCustomerInfoByPanOrPhone(this.lenderSearchMethod, this.lenderPanOrPhone).subscribe(({
       next: (data) => {
         this.lenders = data.data;
-        this.customerMetaData.customers = this.lenders;
-        this.customerMetaData.customerPanOrPhone = this.lenderPanOrPhone;
-        // this.selectMenusForCompanies = data.data;
-        // this.selectMenusForCompaniesSize = data.data.length;
         let customerMetaData = new CustomerMetaData;
         customerMetaData.customers = data.data;
         customerMetaData.customerPanOrPhone = this.lenderPanOrPhone;

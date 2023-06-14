@@ -166,21 +166,23 @@
               "
             >
               <span class="mt-1">
-                <button
-                  id="createNewCustomer1"
-                  (click)="displayAddCustomerPopup()"
-                  class="createNewTableRecord mr-2"
-                  style="width: 20%"
-                >
+                <button (click)="displayAddCustomerPopup()" style="width: 20%">
                   <i
                     style="color: rebeccapurple"
                     class="fa-solid fa-user-plus"
                   ></i>
                 </button>
-                Add Customer</span
+                Add Customer {{ createCustomerEnable }}</span
               >
+              <button
+                id="createNewCustomer1"
+                style="display: none"
+                class="createNewTableRecord mr-2"
+              >
+                Add Customer
+              </button>
             </div>
-            <div class="col-md-3 mt-3">
+            <div class="col-md-3 mt-4">
               <!-- <span class="inputItems">Date:</span> -->
               <!-- <input
                 class="inputItems input-field"
@@ -791,6 +793,7 @@
     *ngIf="createCustomerEnable"
     (customerAddedSuccessMsg)="getCompanyList()"
     (customerAddedSuccessMsg)="customerAddedSuccessfully($event)"
+    (destroyCreateCustComp)="destroyCreateCustomerComp($event)"
     [title]="'Customer'"
   ></app-create-customer>
 </div>
@@ -799,7 +802,7 @@
 
 <!-- code end -->
 <div
-  class="popupWrapper"
+  class="popupWrapper createCustomerPopUpWrapper"
   id="selectCustomerPopup"
   style="display: none; width: auto"
 >

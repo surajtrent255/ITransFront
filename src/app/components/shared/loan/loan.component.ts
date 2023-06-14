@@ -28,17 +28,25 @@ export class LoanComponent {
   loanForUpdateId!: number;
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
+  deleteLoanId !: number;
+
+  searchBy: string = '';
+  searchWildCard: string = '';
+  sortBy: string = 'id';
+
+  confirmAlertDisplay: boolean = false;
 
   constructor(
     private loanService: LoanService,
     private loginService: LoginService,
     private toastrService: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.branchId = this.loginService.getBranchId();
     this.compId = this.loginService.getCompnayId();
-    this.getAllLoans();
+    // this.getAllLoans();
+    this.fetchLimitedLoans();
     let roles = this.loginService.getCompanyRoles();
     if (roles?.includes('AUDITOR')) {
       this.IsAuditor = false;
@@ -67,12 +75,16 @@ export class LoanComponent {
   fetchLimitedLoans() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
+    offset = Math.max(1, offset);
     this.loanService
-      .getLimitedLoans(offset, this.pageTotalItems, this.compId, this.branchId)
+      .getLimitedLoans(offset, this.pageTotalItems, this.searchBy,
+        this.searchWildCard,
+        this.sortBy, this.compId, this.branchId)
       .subscribe((res) => {
         if (res.data.length === 0) {
+          this.loans = [];
           this.toastrService.error('loan infos not found ');
-          this.currentPageNumber -= 1;
+          // this.currentPageNumber -= 1;
         } else {
           this.loans = res.data;
         }
@@ -94,12 +106,12 @@ export class LoanComponent {
   }
 
   deleteLoan(id: number) {
-    this.loanService
-      .deleteLoan(id, this.compId, this.branchId)
-      .subscribe((data) => {
-        this.toastrService.success('loan has been deleted !');
-        this.getAllLoans();
-      });
+    this.confirmAlertDisplay = true;
+    this.deleteLoanId = id;
+    const confirmAlertBtn = document.getElementById(
+      'confirmAlert'
+    ) as HTMLButtonElement;
+    confirmAlertBtn.click();
   }
 
   loanForUpdate(id: number) {
@@ -109,5 +121,22 @@ export class LoanComponent {
 
   enableLoanComponent() {
     this.createLoanEnable = true;
+  }
+
+  continuingDeletingLoan(id: number) {
+    this.loanService
+      .deleteLoan(id, this.compId, this.branchId)
+      .subscribe((data) => {
+        this.toastrService.success('loan has been deleted !');
+        this.getAllLoans();
+      });
+  }
+
+  destroyConfirmAlertSectionEmitter($event: boolean) {
+    this.confirmAlertDisplay = false;
+
+    if ($event === true) {
+      this.continuingDeletingLoan(this.deleteLoanId);
+    }
   }
 }

@@ -31,6 +31,7 @@ export class CreateCustomerComponent {
   @ViewChild('closeCustomer') closeCustomer!: ElementRef;
 
   @Output() customerAddedSuccessMsg = new EventEmitter<number>();
+  @Output() destroyCreateCustComp = new EventEmitter<boolean>();
 
   districts!: District[];
   province!: Province[];
@@ -66,7 +67,7 @@ export class CreateCustomerComponent {
     state: new FormControl('', [Validators.required]),
     district: new FormControl('', [Validators.required]),
     munVdc: new FormControl('', [Validators.required]),
-    wardNo: new FormControl('', [Validators.required]),
+    wardNo: new FormControl({ value: '', disabled: false }, [Validators.required]),
     phone: new FormControl('', [Validators.required]),
     landLineNo: new FormControl('')
   });
@@ -75,6 +76,7 @@ export class CreateCustomerComponent {
   registrationChange(e: any) {
     this.registrationType = e.target.value;
   }
+
   registerCompany(form: any) {
     this.loginService.userObservable.subscribe((loginUser) => {
       this.user = loginUser;
@@ -123,22 +125,28 @@ export class CreateCustomerComponent {
       // Remove Validators.required dynamically
       this.CompanyRegistrationForm.get('district')?.clearValidators();
       this.CompanyRegistrationForm.get('district')?.updateValueAndValidity();
+      this.CompanyRegistrationForm.get('district')?.disable();
 
       this.CompanyRegistrationForm.get('munVdc')?.clearValidators();
       this.CompanyRegistrationForm.get('munVdc')?.updateValueAndValidity();
+      this.CompanyRegistrationForm.get('munVdc')?.disable();
 
       this.CompanyRegistrationForm.get('wardNo')?.clearValidators();
       this.CompanyRegistrationForm.get('wardNo')?.updateValueAndValidity();
+      this.CompanyRegistrationForm.get('wardNo')?.disable();
       return;
     } else {
       this.CompanyRegistrationForm.get('district')?.setValidators([Validators.required]);
       this.CompanyRegistrationForm.get('district')?.updateValueAndValidity();
+      this.CompanyRegistrationForm.get('district')?.enable();
 
       this.CompanyRegistrationForm.get('munVdc')?.setValidators([Validators.required]);
       this.CompanyRegistrationForm.get('munVdc')?.updateValueAndValidity();
+      this.CompanyRegistrationForm.get('munVdc')?.enable();
 
       this.CompanyRegistrationForm.get('wardNo')?.setValidators([Validators.required]);
       this.CompanyRegistrationForm.get('wardNo')?.updateValueAndValidity();
+      this.CompanyRegistrationForm.get('district')?.enable();
     }
     this.districtAndProvinceService
       .getDistrictByProvinceId(this.provinceId)
@@ -156,4 +164,11 @@ export class CreateCustomerComponent {
         this.municipality = res.data;
       });
   }
+
+  destroyComp() {
+    const destCreateCustomerEl = document.getElementById("closeCreateCustomer") as HTMLAnchorElement;
+    destCreateCustomerEl.click();
+    this.destroyCreateCustComp.emit(true);
+  }
+
 }

@@ -140,9 +140,7 @@
                 <span style="font-weight: bold !important"
                   >Invoice Issue Date:</span
                 >
-                {{
-                  salesInvoice.salesBillDTO.billDate | date : "yyyy-MM-dd"
-                }}</span
+                {{ salesInvoice.salesBillDTO.billDate }}</span
               ><br />
               <span>
                 <span style="font-weight: bold !important">
@@ -193,7 +191,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td>Net Amount:</td>
+                      <td><span class="text text-bg">Net Amount:</span></td>
                       <td>
                         {{ netAmount | number : "1.2-2" }}
                         <!-- {{

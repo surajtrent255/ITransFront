@@ -12,7 +12,7 @@
 </div>
 <div
   class="popupSubHeadingDiv selectcompanyomer"
-  *ngIf="customerMetaData.customers.length > 0 && showableALertPopup"
+  *ngIf="customerMetaData.customers.length! > 0 && showableALertPopup"
 >
   <h1 class="heading">Your can select your {{ title }} here</h1>
 </div>
@@ -51,6 +51,7 @@
         <div class="col-md-4">
           <button class="submit_btn border-rad">
             <input
+              #donotCreateCustomerBtn
               class="btn"
               type="radio"
               name="createCustDecs"
@@ -220,6 +221,7 @@
     *ngIf="createCustomerEnable"
     (customerAddedSuccessMsg)="customerAdded($event)"
     [customerPanOrPhone]="customerMetaData.customerPanOrPhone"
+    (destroyCreateCustComp)="destroyCreateCustomerComp($event)"
     [title]="'customer'"
   ></app-create-customer>
 </div>

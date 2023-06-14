@@ -2,8 +2,12 @@
   <a
     style="cursor: pointer"
     class="createCustomerCloseBtn fright"
+    id="closeCreateCustomer"
     #closeCustomer
-    ><img src="../../../assets/resources/images/removetablink.png" alt="close"
+    ><img
+      src="../../../assets/resources/images/removetablink.png"
+      (click)="destroyComp()"
+      alt="close"
   /></a>
 </div>
 <div class="popupSubHeadingDiv addNewProduct">
@@ -23,7 +27,7 @@
           <div class="fieldDiv popUpFormSectionWrapper">
             <table class="formSection" cellpadding="0" cellspacing="0">
               <tr>
-                <td class="col1">PAN/VAT :<span class=""></span></td>
+                <td class="col1">PAN/VAT, :<span class=""></span></td>
                 <td class="col3">
                   <input
                     type="number"
@@ -36,6 +40,7 @@
                         : ''
                     "
                   />
+
                   <span>Pan</span
                   ><input
                     (change)="registrationChange($event)"
@@ -69,7 +74,13 @@
                     formControlName="name"
                     id="custPartName"
                   />
-                  <span class="validationMsg"
+                  <span
+                    *ngIf="
+                      CompanyRegistrationForm.get('name')?.invalid &&
+                      (CompanyRegistrationForm.get('name')?.dirty ||
+                        CompanyRegistrationForm.get('name')?.touched)
+                    "
+                    class="validationMsg"
                     ><br />Please enter valid Name.</span
                   >
                 </td>
@@ -88,7 +99,13 @@
                     formControlName="ownerName"
                     id="ownerName"
                   />
-                  <span class="validationMsg"
+                  <span
+                    *ngIf="
+                      CompanyRegistrationForm.get('ownerName')?.invalid &&
+                      (CompanyRegistrationForm.get('ownerName')?.dirty ||
+                        CompanyRegistrationForm.get('ownerName')?.touched)
+                    "
+                    class="validationMsg"
                     ><br />Please enter valid owner name.</span
                   >
                 </td>
@@ -111,7 +128,13 @@
                         : ''
                     "
                   />
-                  <span class="validationMsg"
+                  <span
+                    *ngIf="
+                      CompanyRegistrationForm.get('phone')?.invalid &&
+                      (CompanyRegistrationForm.get('phone')?.dirty ||
+                        CompanyRegistrationForm.get('phone')?.touched)
+                    "
+                    class="validationMsg"
                     ><br />Please enter valid Phone.</span
                   >
                 </td>
@@ -127,7 +150,13 @@
                     formControlName="email"
                     id="custPartEmail"
                   />
-                  <span class="validationMsg"
+                  <span
+                    *ngIf="
+                      CompanyRegistrationForm.get('email')?.invalid &&
+                      (CompanyRegistrationForm.get('email')?.dirty ||
+                        CompanyRegistrationForm.get('email')?.touched)
+                    "
+                    class="validationMsg"
                     ><br />Please enter valid Name.</span
                   >
                 </td>
@@ -243,7 +272,13 @@
                     title="Enter Text"
                     id="custPartName"
                   />
-                  <span class="validationMsg"
+                  <span
+                    *ngIf="
+                      CompanyRegistrationForm.get('wardNo')?.invalid &&
+                      (CompanyRegistrationForm.get('wardNo')?.dirty ||
+                        CompanyRegistrationForm.get('wardNo')?.touched)
+                    "
+                    class="validationMsg"
                     ><br />Please enter valid Ward no.</span
                   >
                 </td>
@@ -262,7 +297,13 @@
                     title="Enter Text"
                     id="custLandLine"
                   />
-                  <span class="validationMsg"
+                  <span
+                    *ngIf="
+                      CompanyRegistrationForm.get('landLineNo')?.invalid &&
+                      (CompanyRegistrationForm.get('landLineNo')?.dirty ||
+                        CompanyRegistrationForm.get('landLineNo')?.touched)
+                    "
+                    class="validationMsg"
                     ><br />Please enter valid land line no.</span
                   >
                 </td>

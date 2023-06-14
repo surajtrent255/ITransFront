@@ -344,6 +344,13 @@
                         src="../../../assets/resources/images/deleteRow.png"
                       />
                     </a>
+                    <button
+                      style="display: none"
+                      class="createNewTableRecord"
+                      id="confirmAlert"
+                    >
+                      cancel
+                    </button>
                   </td>
                 </tr>
                 <!-- </c:forEach>	 -->
@@ -414,3 +421,13 @@
     (pageChange)="onTableDataChanges($event)"
   ></pagination-controls>
 </table> -->
+<div class="popupWrapper" cdkDrag id="confirmAlertPopup" style="display: none">
+  <app-confirm-alert
+    *ngIf="confirmAlertDisplay"
+    [msg]="'Are you sure to delete this product ? '"
+    (destroyConfirmAlertSectionEmitter)="
+      destroyConfirmAlertSectionEmitter($event)
+    "
+  >
+  </app-confirm-alert>
+</div>

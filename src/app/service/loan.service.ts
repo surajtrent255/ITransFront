@@ -35,8 +35,10 @@ export class LoanService {
     return this.http.get<RJResponse<Loan[]>>(url);
   }
 
-  getLimitedLoans(offset: number, pageTotalItems: number, compId: number, branchId: number): Observable<RJResponse<Loan[]>> {
-    let url = `${BASE_URL}/loan/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&compId=${compId}&branchId=${branchId}`;
+  getLimitedLoans(offset: number, pageTotalItems: number, searchBy: string,
+    searchWildCard: string,
+    sortBy: string, compId: number, branchId: number): Observable<RJResponse<Loan[]>> {
+    let url = `${BASE_URL}/loan/limited?offset=${offset}&pageTotalItems=${pageTotalItems}&searchBy=${searchBy}&searchWildCard=${searchWildCard}&sortBy=${sortBy}&compId=${compId}&branchId=${branchId}`;
     return this.http.get<RJResponse<Loan[]>>(url);
   }
 

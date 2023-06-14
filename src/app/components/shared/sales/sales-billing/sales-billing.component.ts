@@ -52,7 +52,7 @@ export class SalesBillingComponent {
     private router: Router,
     private renderer: Renderer2,
     private toastrService: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginService.userObservable.subscribe((user) => {
@@ -281,6 +281,7 @@ export class SalesBillingComponent {
   fetchLimitedSalesBill() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
+    offset = Math.max(1, offset)
     this.salesBillService
       .getLimitedSalesBill(
         offset,
@@ -293,8 +294,9 @@ export class SalesBillingComponent {
       )
       .subscribe((res) => {
         if (res.data.length === 0) {
+          this.salesBills = [];
           this.toastrService.error('bills not found ');
-          this.currentPageNumber -= 1;
+          // this.currentPageNumber -= 1;
         } else {
           this.salesBills = res.data;
         }

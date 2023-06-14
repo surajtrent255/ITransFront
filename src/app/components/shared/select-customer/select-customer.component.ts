@@ -25,6 +25,8 @@ export class SelectCustomerComponent {
   selectCompanyCustOrSth!: ElementRef;
   @ViewChild('createCustomerBtn', { static: false })
   createCustomerBtn!: ElementRef;
+
+  @ViewChild(`donotCreateCustomerBtn`, { static: false }) dontCreateCustomerBtn !: ElementRef;
   showableALertPopup: boolean = true;
 
   @Output() destroySelectCompEmitter = new EventEmitter<boolean>(false);
@@ -38,10 +40,11 @@ export class SelectCustomerComponent {
 
   ngOnChanges() {
     setTimeout(() => {
-      this.selectCompanyCustOrSth.nativeElement.focus();
+      this.selectCompanyCustOrSth?.nativeElement.focus();
     });
     setTimeout(() => {
-      this.createCustomerBtn.nativeElement.focus();
+      this.createCustomerBtn?.nativeElement.focus();
+      // this.dontCreateCustomerBtn?.nativeElement.focus();
     });
   }
 
@@ -80,6 +83,7 @@ export class SelectCustomerComponent {
 
   destroySelectCustomer() {
     this.destroySelectCompEmitter.emit(true);
+
   }
 
   displayAddCustomerPopup() {
@@ -94,6 +98,14 @@ export class SelectCustomerComponent {
     this.createCustomerEnable = false;
     this.toastrService.success('Customer Has been added ');
     this.fetchCustomerEventEmitter.emit($event);
+    this.destroySelectCompEmitter.emit(true);
+  }
+
+  destroyCreateCustomerComp($event: boolean) {
+    if ($event === true) {
+      this.createCustomerEnable = false;
+      this.showableALertPopup = true;
+    }
     this.destroySelectCompEmitter.emit(true);
   }
 }

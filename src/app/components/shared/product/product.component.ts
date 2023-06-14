@@ -26,6 +26,7 @@ export class ProductComponent {
   availableCategories: CategoryProduct[] = [];
   typerate: VatRateTypes[] = [];
   enableCreateProduct: boolean = false;
+  confirmAlertDisplay: boolean = false;
 
   // pagination: PaginationCustom = new PaginationCustom;
 
@@ -36,11 +37,11 @@ export class ProductComponent {
     private router: Router,
     private toastrService: ToastrService,
     private renderer: Renderer2
-  ) {}
+  ) { }
 
   newProduct!: Product;
   IsAuditor!: boolean;
-
+  deleteProductId !: number;
   productInfoForUpdateId!: number;
   compId!: number;
   branchId!: number;
@@ -105,6 +106,8 @@ export class ProductComponent {
   fetchLimitedProducts() {
     let pageId = this.currentPageNumber - 1;
     let offset = pageId * this.pageTotalItems + 1;
+    offset = Math.max(1, offset);
+
     this.productService
       .getLimitedProducts(
         offset,
@@ -117,8 +120,9 @@ export class ProductComponent {
       )
       .subscribe((res) => {
         if (res.data.length === 0 || res.data === undefined) {
+          this.availableProducts = [];
           this.toastrService.error('products not found ');
-          this.currentPageNumber -= 1;
+          // this.currentPageNumber -= 1;
         } else {
           this.availableProducts = res.data;
         }
@@ -160,7 +164,19 @@ export class ProductComponent {
       this.fetchAllProducts(this.compId, this.branchId);
     }
   }
+
   deleteProduct(id: number) {
+    this.confirmAlertDisplay = true;
+    this.deleteProductId = id;
+    const confirmAlertBtn = document.getElementById(
+      'confirmAlert'
+    ) as HTMLButtonElement;
+    confirmAlertBtn.click();
+
+  }
+
+  continuingDeleting(id: number) {
+
     this.productService.deleteProductById(id).subscribe({
       next: (res) => {
         console.log(res);
@@ -173,6 +189,14 @@ export class ProductComponent {
         this.fetchAllProducts(this.compId, this.branchId);
       },
     });
+  }
+
+  destroyConfirmAlertSectionEmitter($event: boolean) {
+    this.confirmAlertDisplay = false;
+
+    if ($event === true) {
+      this.continuingDeleting(this.deleteProductId);
+    }
   }
 
   displayCreateProductComp() {

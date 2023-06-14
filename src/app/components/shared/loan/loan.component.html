@@ -11,29 +11,41 @@
       <div class="searchCreateDiv">
         <div class="fleft searchDiv" id="prodSearch">
           <input
-            class="inputText hintText"
+            class="inputText"
             type="text"
-            search="off"
-            value="Enter CustomerPartName/MasterPartName to Search"
+            [(ngModel)]="searchWildCard"
+            (keydown.enter)="fetchLimitedLoans()"
           />
           <input
             type="image"
+            (click)="fetchLimitedLoans()"
             src="../../../assets/resources/images/searchButton.png"
             class="serachButton"
             title="Search Term"
           />
-          <a href="#" class="genLink">Clear searchs</a>
+          <a class="genLink">Clear searchs</a>
+          <span style="display: inline-block">search by: </span>
+          <select
+            name="s"
+            [(ngModel)]="searchBy"
+            id=""
+            style="display: inline-block"
+          >
+            <option value="">All</option>
+            <option value="loan_number">Loan Number</option>
+            <option value="loan_type">Loan Type</option>
+            <option value="lender_id">Lender Id</option>
+          </select>
         </div>
         <div class="fright" class="createProductDiv">
           <a
             *ngIf="IsAuditor"
-            href=""
             (click)="enableLoanComponent()"
             id="createNewLoan"
             class="createNewTableRecord"
           >
             <img src="../../../assets/resources/images/createProduct.png" />
-            <span> Create Loan</span>
+            <span style="cursor: pointer"> Create Loan</span>
           </a>
         </div>
         <div class="cboth"></div>
@@ -286,12 +298,12 @@
                 <td>{{ loan.bankId }}</td>
                 <td>{{ loan.lenderId }}</td>
                 <td>{{ loan.loanType }}</td>
-                <td>{{ loan.loanType }}</td>
                 <td>{{ loan.loanNumber }}</td>
                 <td>{{ loan.loanName }}</td>
                 <td>{{ loan.loanAmount }}</td>
                 <td>{{ loan.receivedAmount }}</td>
                 <td>{{ loan.serviceCharge }}</td>
+                <td>{{ loan.otherExpenses }}</td>
                 <td class="last-child">
                   <a
                     *ngIf="IsAuditor"
@@ -304,6 +316,13 @@
                   <a *ngIf="IsAuditor" (click)="deleteLoan(loan.id)" class="">
                     <img src="../../../assets/resources/images/deleteRow.png" />
                   </a>
+                  <button
+                    style="display: none"
+                    class="createNewTableRecord"
+                    id="confirmAlert"
+                  >
+                    cancel
+                  </button>
                 </td>
               </tr>
               <!-- </c:forEach>	 -->
@@ -312,6 +331,21 @@
         </div>
       </div>
     </div>
+    <div
+      class="popupWrapper"
+      cdkDrag
+      id="confirmAlertPopup"
+      style="display: none"
+    >
+      <app-confirm-alert
+        *ngIf="confirmAlertDisplay"
+        [msg]="'Are you sure to cancel this bill ? '"
+        (destroyConfirmAlertSectionEmitter)="
+          destroyConfirmAlertSectionEmitter($event)
+        "
+      >
+      </app-confirm-alert>
+    </div>
 
     <div
       class="popupWrapper"
@@ -319,7 +353,6 @@
       id="createNewLoanPopup"
       style="display: none"
     >
-      <div class="mb-2"></div>
       <app-create-loan
         *ngIf="createLoanEnable"
         (destroyCreateLoanComp)="disableLoanComponent($event)"
