@@ -28,6 +28,7 @@ export class SplitProductService {
 
 
   addSplitProduct(splitProducts: SplitProduct): Observable<any> {
+    console.log(JSON.stringify(splitProducts));
     return this.http.post(`${BASE_URL}` + `/split`, splitProducts).pipe(
       tap({
         next: (response) => {
