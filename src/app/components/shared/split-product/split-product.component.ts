@@ -47,7 +47,9 @@ export class SplitProductComponent {
   // selectMenusForProduct: Product[] = []
   selectProductActive: boolean = false;
   prodWildCard!: string;
+  searchWildCard !: string;
 
+  searchBy!: string;
   currentPageNumber: number = 1;
   pageTotalItems: number = 5;
 
@@ -57,13 +59,14 @@ export class SplitProductComponent {
     private productService: ProductService,
     private toastrService: ToastrService,
     private StockService: StockService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.companyId = this.loginService.getCompnayId();
     this.branchId = this.loginService.getBranchId();
     this.compId = this.loginService.getCompnayId();
-    this.getAllSplitProduct();
+    // this.getAllSplitProduct();
+    this.fetchLimitedSplitProducts();
     this.getAllVatRateTypes();
 
     console.log(this.companyId, this.branchId);

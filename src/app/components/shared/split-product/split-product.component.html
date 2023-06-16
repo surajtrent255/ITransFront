@@ -1,32 +1,39 @@
 <!-- View TABLE OF SPLIT QUANTUITY
   -->
 <div class="contentRecordsTableContainer MainContainer">
-  <div class="">
+  <div class="" style="height: auto">
     <div>
       <div>
         <h2 class="text-center" id="totalGroupCombinations">Split Product</h2>
       </div>
       <hr style="margin: 12px" />
     </div>
-    <div class="searchCreateTableDiv">
+    <div class="searchCreateTableDiv" style="height: 513px">
       <div class="searchCreateDiv">
         <div class="fleft searchDiv" id="prodSearch">
           <input
-            class="inputText hintText"
+            class="inputText"
             type="text"
-            search="openForm"
-            value="bankName"
+            [(ngModel)]="searchWildCard"
+            (keydown.enter)="fetchLimitedSplitProducts()"
           />
           <input
             type="image"
+            (click)="fetchLimitedSplitProducts()"
             src="../../../assets/resources/images/searchButton.png"
             class="serachButton"
             title="Search Term"
           />
-          <a href="#" class="genLink">Clear searchs</a>
+          <a class="genLink">Clear searchs</a>
+          <span>search by: </span>
+          <select name="s" [(ngModel)]="searchBy" id="">
+            <option value="id">ID</option>
+            <option value="name">NAME</option>
+            <option value="barcode">Barcode</option>
+          </select>
         </div>
         <div class="fright" class="createCategoryDiv">
-          <a href="" id="createNewCategory" class="createNewTableRecord">
+          <a id="createNewCategory" class="createNewTableRecord">
             <img src="../../../../assets/resources/images/createProduct.png" />
             <span (click)="openForm()"> split product</span>
           </a>
