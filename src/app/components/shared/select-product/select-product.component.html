@@ -34,7 +34,7 @@
     <div class="popupContentWrapper">
       <div class="row">
         <div class="col-md-4">
-          <button class="submit_btn border-rad">
+          <span>
             <input
               #createProductBtn
               type="radio"
@@ -43,19 +43,23 @@
               checked
               (keyup)="onButtonKeyUpForDispalyAddProductPopup($event)"
             />
-            Yes
-          </button>
+            <button class="submit_btn border-rad" (click)="alertYes()">
+              Yes
+            </button>
+          </span>
         </div>
         <div class="col-md-4">
-          <button class="submit_btn border-rad">
+          <span>
             <input
               type="radio"
               name="createCustDecs"
               value="0"
               (keyup)="onButtonKeyUpForDispalyAddProductPopup($event)"
             />
-            No
-          </button>
+            <button class="submit_btn border-rad" (click)="alertNo()">
+              No
+            </button>
+          </span>
         </div>
       </div>
     </div>

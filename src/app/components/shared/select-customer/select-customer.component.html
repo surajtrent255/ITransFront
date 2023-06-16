@@ -35,8 +35,8 @@
     </div>
     <div class="popupContentWrapper">
       <div class="row">
-        <div class="col-md-4">
-          <button class="submit_btn border-rad">
+        <div class="col-md-4 offset-md-1">
+          <span #yesPopup>
             <input
               #createCustomerBtn
               type="radio"
@@ -45,11 +45,13 @@
               checked
               (keyup)="onButtonKeyUpForDispalyAddCustomerPopup($event)"
             />
-            Yes
-          </button>
+            <button class="ml-1 submit_btn border-rad" (click)="alertYes()">
+              Yes
+            </button>
+          </span>
         </div>
         <div class="col-md-4">
-          <button class="submit_btn border-rad">
+          <span #noPopup>
             <input
               #donotCreateCustomerBtn
               class="btn"
@@ -58,8 +60,10 @@
               value="0"
               (keyup)="onButtonKeyUpForDispalyAddCustomerPopup($event)"
             />
-            No
-          </button>
+            <button class="ml-1 submit_btn border-rad" (click)="alertNo()">
+              No
+            </button>
+          </span>
         </div>
       </div>
     </div>

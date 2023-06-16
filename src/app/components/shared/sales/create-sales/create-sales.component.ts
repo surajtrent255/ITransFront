@@ -376,7 +376,7 @@ export class CreateSalesComponent {
             // });
           },
         });
-    }, 500)
+    }, 600)
   }
 
   customSearchFn(term: string, item: any) {

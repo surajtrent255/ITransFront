@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   Output,
+  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -29,12 +30,15 @@ export class SelectCustomerComponent {
   @ViewChild(`donotCreateCustomerBtn`, { static: false }) dontCreateCustomerBtn !: ElementRef;
   showableALertPopup: boolean = true;
 
+  @ViewChild(`yesPopup`, { static: false }) yesPopUpBtn !: ElementRef;
+  @ViewChild(`noPopup`, { static: false }) noPopUpBtn!: ElementRef
+
   @Output() destroySelectCompEmitter = new EventEmitter<boolean>(false);
   @Output() fetchCustomerEventEmitter = new EventEmitter<number>();
 
   createCustomerEnable: boolean = false;
 
-  constructor(private toastrService: ToastrService) { }
+  constructor(private toastrService: ToastrService, private renderer: Renderer2, private el: ElementRef) { }
 
   ngOnInit() { }
 
@@ -46,6 +50,18 @@ export class SelectCustomerComponent {
       this.createCustomerBtn?.nativeElement.focus();
       // this.dontCreateCustomerBtn?.nativeElement.focus();
     });
+  }
+
+  ngAfterViewInit() {
+    // const yesButton = this.el.nativeElement.querySelector('#yesPopup');
+    // this.renderer.listen(yesButton, 'click', () => {
+    //   alert("yes")
+    // });
+
+    // const noButton = this.el.nativeElement.querySelector('#noPopup');
+    // this.renderer.listen(noButton, 'click', () => {
+    //   alert("No")
+    // });
   }
 
   setCompanyId(id: number) {
@@ -62,15 +78,16 @@ export class SelectCustomerComponent {
     }
   }
 
+
   onButtonKeyUpForDispalyAddCustomerPopup(event: KeyboardEvent) {
     const eventInputTarget = event.target as HTMLInputElement;
     if (eventInputTarget.name === 'createCustDecs') {
       if (eventInputTarget.value === '1') {
         if (event.key === 'Enter') {
-          event.stopPropagation();
-          this.showableALertPopup = false;
-          this.displayAddCustomerPopup();
-
+          setTimeout(() => {
+            this.showableALertPopup = false;
+            this.displayAddCustomerPopup();
+          }, 500)
         }
       } else {
         if (event.key === 'Enter') {
@@ -79,6 +96,15 @@ export class SelectCustomerComponent {
         }
       }
     }
+  }
+
+  alertYes() {
+    this.showableALertPopup = false;
+    this.displayAddCustomerPopup();
+  }
+
+  alertNo() {
+    this.destroySelectCustomer();
   }
 
   destroySelectCustomer() {

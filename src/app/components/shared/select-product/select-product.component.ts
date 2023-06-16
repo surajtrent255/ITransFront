@@ -30,10 +30,10 @@ export class SelectProductComponent {
 
   ngOnChanges() {
     setTimeout(() => {
-      this.selectedProductBtn.nativeElement.focus();
+      this.selectedProductBtn?.nativeElement.focus();
     })
     setTimeout(() => {
-      this.createProductBtn.nativeElement.focus();
+      this.createProductBtn?.nativeElement.focus();
     })
 
   }
@@ -92,6 +92,15 @@ export class SelectProductComponent {
         }
       }
     }
+  }
+
+  alertYes() {
+    this.showableALertPopup = false;
+    this.displayAddProductPopup();
+  }
+
+  alertNo() {
+    this.destroySelectProduct();
   }
 
 }

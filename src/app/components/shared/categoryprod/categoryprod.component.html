@@ -48,7 +48,7 @@
               class="fleft filtersDisplayList CategoriesTableFiltersDisplayList"
             ></ul>
           </div>
-          <div class="fright configNavTableWrapper">
+          <!-- <div class="fright configNavTableWrapper">
             <div
               class="fleft configTableDiv newFilterItem"
               dropdownId="CategoriesTableFilters"
@@ -73,8 +73,6 @@
                   <li class="filterItem">
                     <span>Recent Filters</span>
                     <ul class="filterList" id="CategoryFilterList">
-                      <!-- <c:if test="${not empty CategoryFilters}"> -->
-                      <!-- <c:forEach items="${CategoryFilters}" var="filter"> -->
                       <li>
                         <a
                           href=""
@@ -96,13 +94,10 @@
                           filter.reqData
                         </div>
                       </li>
-                      <!-- </c:forEach> -->
-                      <!-- </c:if> -->
-                      <!-- <c:if test="${not empty CategoryFilterSeeMore}"> -->
+
                       <li class="seeAllFilterLink">
                         <a href="" class="seeMoreLink">See More</a>
                         <ul class="allFiltersList CategoryAllFilterList">
-                          <!-- <c:forEach items="${CategoryFilterSeeMore}" var="filter"> -->
                           <li>
                             <a
                               href=""
@@ -124,10 +119,8 @@
                               filter.reqData
                             </div>
                           </li>
-                          <!-- </c:forEach> -->
                         </ul>
                       </li>
-                      <!-- </c:if> -->
                     </ul>
                   </li>
                   <li class="chooseCol">
@@ -151,18 +144,7 @@
               </a>
               <span class="showingText">Page</span>
               <span class="pagedisplay"><span class="pageNum">1</span> </span>
-              <!-- <c:choose>
-                          <c:when test="${(totalCategoryRecords mod 10)!=0}">
-                              <c:set var="res" value="${(totalCategoryRecords - (totalCategoryRecords mod CategoryTableRecords))/CategoryTableRecords + 1}"/>
-                              <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
-                              <span class="totalPage">${totalPage}</span>
-                          </c:when>
-                          <c:otherwise>
-                              <c:set var="res" value="${totalCategoryRecords/10}"/>
-                              <fmt:parseNumber var="totalPage" integerOnly="true" type="number" value="${res}" />
-                              <span class="totalPage">${totalPage}</span>
-                          </c:otherwise>
-                        </c:choose> -->
+
               <a href="" class="next pageNumber">
                 <img src="../../../assets/resources/images/next-page.png" />
               </a>
@@ -170,10 +152,38 @@
                 <img src="../../../assets/resources/images/last-page.png" />
               </a>
             </div>
-          </div>
+          </div> -->
         </div>
-        <div class="recordsTableDiv">
-          <table
+        <div class="recordsTableDiv offset-md-4">
+          <app-select-category [nodes]="categoriesData"></app-select-category>
+        </div>
+      </div>
+    </div>
+
+    <div
+      cdkDrag
+      class="popupWrapper"
+      id="createNewCategoryPopup"
+      style="display: none"
+    >
+      <app-createcategory
+        *ngIf="createCategoryShow"
+        (categorySuccessInfoEvent)="createNewCategory($event)"
+        (disbaleShowCreateCategory)="disableCreateCategoryComp($event)"
+      ></app-createcategory>
+    </div>
+
+    <div
+      class="popupWrapper"
+      id="editCategoryPopup"
+      style="display: none"
+      cdkDrag
+    ></div>
+  </div>
+</div>
+
+<!-- suraj -->
+<!-- <table
             cellspacing="0"
             cellpadding="0"
             class="recordsTable"
@@ -221,7 +231,6 @@
               <tr>
                 <span class="noProdRecord">No records found</span>
               </tr>
-              <!-- <c:forEach items="${Categories}" var="Category">  -->
               <tr *ngFor="let cat of categoriesData">
                 <td>{{ cat.id }}</td>
                 <td>{{ cat.name }}</td>
@@ -240,31 +249,5 @@
                   </a>
                 </td>
               </tr>
-              <!-- </c:forEach>	 -->
             </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div
-      cdkDrag
-      class="popupWrapper"
-      id="createNewCategoryPopup"
-      style="display: none"
-    >
-      <app-createcategory
-        *ngIf="createCategoryShow"
-        (categorySuccessInfoEvent)="createNewCategory($event)"
-        (disbaleShowCreateCategory)="disableCreateCategoryComp($event)"
-      ></app-createcategory>
-    </div>
-
-    <div
-      class="popupWrapper"
-      id="editCategoryPopup"
-      style="display: none"
-      cdkDrag
-    ></div>
-  </div>
-</div>
+          </table> -->

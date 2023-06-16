@@ -19,11 +19,13 @@ export class CategoryprodComponent {
   IsAuditor!: boolean;
 
   createCategoryShow: boolean = false;
+  catSelected: boolean = false;
+
   constructor(
     private categoryProductService: CategoryProductService,
     private loginService: LoginService,
     private renderer: Renderer2
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.compId = this.loginService.getCompnayId();
